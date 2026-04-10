@@ -43,20 +43,23 @@ gemma4good/
 
 ---
 
-## The 5 Function-Calling Tools
+## The 7 Function-Calling Tools
 
-Gemma 4 is equipped with 5 tools that collectively constitute the verification
+Gemma 4 is equipped with 7 tools that collectively constitute the verification
 infrastructure required by the Viability Condition:
 
 | Tool | Role | Infrastructure |
 |---|---|---|
 | `assess_wellbeing` | Collect human ground-truth signal (raw Ceff) | Maestro `/v1/chat/completions` |
 | `verify_consent` | Gate which signals enter Ceff | Maestro `/v1/session/consent` |
-| `run_prism` | Measure E(t) via geometry metrics | Prism `outlier_geometry()` |
+| `run_prism` | Measure E(t) via geometry metrics dynamically | Prism `outlier_geometry()` |
+| `run_prism_analysis` | Retrieve verified E(t) metrics from cache | `tools/haic_tools.py::_ARENA_CACHE` |
 | `generate_receipt` | Make Ceff auditable (Merkle proof) | Maestro `/v1/session/receipt` |
 | `check_viability_condition` | Compute Ceff(t)/E(t) ratio | `viability/viability_condition.py` |
+| `run_grounding_update` | Execute incremental session-driven continual learning | `tools/incremental_grounding.py` |
 
 ---
+
 
 ## Quick Start (local gateway)
 

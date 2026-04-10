@@ -17,6 +17,18 @@ import uuid
 import hashlib
 from typing import Optional
 
+# Incremental grounding — tool #7
+from tools.incremental_grounding import (
+    RUN_GROUNDING_UPDATE_SCHEMA,
+    run_grounding_update_handler,
+)
+
+
+def _normalize_outlier_ratio(outlier_ratio: float) -> float:
+    """Map an unbounded outlier_ratio (≥1) to [0, 1] using the same log scale
+    as prism_client._outlier_geometry_numpy. outlier_ratio=1 → 0, =50 → 1."""
+    return min(math.log(max(outlier_ratio, 1.0)) / math.log(50.0), 1.0)
+
 GATEWAY_BASE = os.environ.get("MAESTRO_GATEWAY_BASE", "http://localhost:8000")
 
 
@@ -233,8 +245,21 @@ _ARENA_CACHE = {
     "qwen3-1.7b":   {"outlier_ratio": 282.5, "activation_kurtosis": 965.9,  "cardinal_proximity": 0.510,  "quantization_hostility": 0.8314, "worst_layer_zone": "mid",   "data_status": "verified"},
     "smollm2-135m": {"outlier_ratio": 118.8, "activation_kurtosis": 410.3,  "cardinal_proximity": 0.601,  "quantization_hostility": 0.8503, "worst_layer_zone": "late",  "data_status": "verified"},
     "smollm2-1.7b": {"outlier_ratio": 318.5, "activation_kurtosis": 1602.2, "cardinal_proximity": 0.588,  "quantization_hostility": 0.8614, "worst_layer_zone": "late",  "data_status": "verified"},
-    "haic-v7":      {"outlier_ratio": 7.6,   "activation_kurtosis": 3.7,    "cardinal_proximity": 0.330,  "quantization_hostility": 0.38,   "worst_layer_zone": "mid",   "data_status": "illustrative"},
-    "haic-v8":      {"outlier_ratio": 7.4,   "activation_kurtosis": 3.5,    "cardinal_proximity": 0.320,  "quantization_hostility": 0.37,   "worst_layer_zone": "mid",   "data_status": "illustrative"},
+    # haic-v6/v7/v8: real measurements 2026-04-07 from
+    # D:\humanai-convention\experiments\qwen3_5_2b\{v6,v7,v8}\merged via
+    # run_prism_haic_versions.py. The previous "illustrative" placeholders
+    # (qh~0.38, outlier~7.6x) were aspirational, not measured — the actual
+    # geometry of these fine-tunes is essentially unchanged from the base
+    # Qwen3.5-2B and sits in the Hostile band at qh~0.72.
+    #
+    # All three versions are geometrically indistinguishable to 4 decimal
+    # places, which means the LoRA-level fine-tuning does not visibly
+    # remap the base model's activation manifold. HAIC training appears
+    # to operate on dimensions outside what outlier_geometry measures
+    # (likely behavioral/grounding dimensions captured by t3/SGT scoring).
+    "haic-v6":      {"outlier_ratio": 23.82, "activation_kurtosis": 347.49, "cardinal_proximity": 0.3632, "quantization_hostility": 0.7179, "worst_layer_zone": "early", "data_status": "verified"},
+    "haic-v7":      {"outlier_ratio": 23.79, "activation_kurtosis": 346.83, "cardinal_proximity": 0.3628, "quantization_hostility": 0.7177, "worst_layer_zone": "early", "data_status": "verified"},
+    "haic-v8":      {"outlier_ratio": 23.82, "activation_kurtosis": 347.66, "cardinal_proximity": 0.3632, "quantization_hostility": 0.7179, "worst_layer_zone": "early", "data_status": "verified"},
 }
 
 
@@ -295,6 +320,86 @@ def run_prism(model_id: str, probe_prompt: str, layer_range: str = "all",
         "worst_layer_zone": "unknown",
         "data_status": "placeholder",
         "source": "fallback"
+    }
+
+
+# ── Tool 3b: run_prism_analysis ──────────────────────────────────────────────
+
+RUN_PRISM_ANALYSIS_SCHEMA = {
+    "name": "run_prism_analysis",
+    "description": (
+        "Map raw Prism geometry metrics to AlphaEvolve evaluator dimensions "
+        "and compute a composite alignment score. "
+        "Returns transparency_score (0-100), alignment_risk, and quantization_hostility."
+    ),
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "model_id": {"type": "string"},
+            "probe_prompt": {"type": "string"},
+            "layer_range": {"type": "string", "default": "all"}
+        },
+        "required": ["model_id", "probe_prompt"]
+    }
+}
+
+
+def run_prism_analysis(model_id: str, probe_prompt: str, layer_range: str = "all",
+                       gateway_token: Optional[str] = None) -> dict:
+    """
+    Map raw Prism metrics to AlphaEvolve evaluator dimensions.
+
+    Dimensions (all clamped/normalized to 0-1, higher = better/safer):
+      semantic_fidelity (sf) = 1 - log_normalize(outlier_ratio)
+        — outlier_ratio is unbounded (≥1); log-mapped so ratio=1 → sf=1.0, ratio=50 → sf=0.0
+      drift_detection   (dd) = 1 - clip(activation_kurtosis / 1000, 0, 1)
+        — kurtosis observed from 3 (clean) to 1600+ (heavy-tailed); 1000 picked as the
+          "fully drifted" anchor based on the gemma4 / smollm2 / qwen3 arena
+      info_density      (id) = 1 - cardinal_proximity
+        — high cardinal proximity means activations are axis-aligned (a quantization
+          symptom), so we invert it: low cardinal_proximity = high info density
+      context_anxiety   (ca) = 1 - quantization_hostility
+
+    Composite = 0.35*sf + 0.30*dd + 0.20*id + 0.15*ca
+    transparency_score = composite * 100
+    alignment_risk: "low" if composite > 0.8, "medium" if 0.6-0.8, "high" if < 0.6
+    """
+    raw = run_prism(model_id, probe_prompt, layer_range, gateway_token)
+
+    outlier_ratio       = raw.get("outlier_ratio", 50.0)
+    activation_kurtosis = raw.get("activation_kurtosis", 200.0)
+    cardinal_proximity  = raw.get("cardinal_proximity", 0.60)
+    quant_hostility     = raw.get("quantization_hostility", 0.75)
+
+    sf  = max(0.0, 1.0 - _normalize_outlier_ratio(outlier_ratio))
+    dd  = max(0.0, 1.0 - min(activation_kurtosis / 1000.0, 1.0))
+    id_ = max(0.0, 1.0 - cardinal_proximity)
+    ca  = max(0.0, 1.0 - quant_hostility)
+
+    composite          = 0.35 * sf + 0.30 * dd + 0.20 * id_ + 0.15 * ca
+    transparency_score = composite * 100.0
+
+    if composite > 0.8:
+        alignment_risk = "low"
+    elif composite >= 0.6:
+        alignment_risk = "medium"
+    else:
+        alignment_risk = "high"
+
+    return {
+        "model_id":             model_id,
+        "transparency_score":   round(transparency_score, 2),
+        "quantization_hostility": quant_hostility,
+        "alignment_risk":       alignment_risk,
+        "dimensions": {
+            "semantic_fidelity": round(sf, 4),
+            "drift_detection":   round(dd, 4),
+            "info_density":      round(id_, 4),
+            "context_anxiety":   round(ca, 4),
+        },
+        "composite_alignment":  round(composite, 4),
+        "data_status":          raw.get("data_status"),
+        "source":               raw.get("source"),
     }
 
 
@@ -445,6 +550,20 @@ CHECK_VIABILITY_SCHEMA = {
 }
 
 
+# Import the canonical assess() so the inline logic doesn't drift.
+# viability/ is a sibling of tools/ in the gemma4good repo. On Kaggle the
+# notebook puts both on sys.path, so a plain import works there. Locally
+# we add the repo root if necessary.
+try:
+    from viability.viability_condition import assess as _assess_viability
+except ImportError:
+    import sys as _sys
+    _REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+    if _REPO_ROOT not in _sys.path:
+        _sys.path.insert(0, _REPO_ROOT)
+    from viability.viability_condition import assess as _assess_viability  # type: ignore
+
+
 def check_viability_condition(
     model_id: str,
     deployment_context: str,
@@ -455,72 +574,49 @@ def check_viability_condition(
     """
     Evaluate Ceff(t) > E(t) — the Viability Condition.
 
+    Delegates to viability.viability_condition.assess() so this tool and
+    the standalone module never drift. Adds an arena cross-reference note
+    when model_id is in the verified Prism arena cache.
+
     See docs/viability_condition.md for full theoretical framework.
     DOI: 10.5281/zenodo.18144681
     """
-    effective_ceff = verification_bandwidth_estimate * (1.0 - synthetic_data_ratio)
-    ratio = effective_ceff / max(error_rate_estimate, 1e-9)
-    viability_satisfied = ratio > 1.0
-
-    if ratio > 2.0:
-        autophagy_risk = "none"
-    elif ratio > 1.0:
-        autophagy_risk = "low"
-    elif ratio > 0.7:
-        autophagy_risk = "medium"
-    elif ratio > 0.3:
-        autophagy_risk = "high"
-    else:
-        autophagy_risk = "critical"
-
-    temporal_signature_detected = (not viability_satisfied) and (synthetic_data_ratio > 0.3)
-
-    # Prism cross-reference — if we have arena data, incorporate E(t) proxy
-    prism_note = ""
+    prism_hostility = None
     if model_id in _ARENA_CACHE:
-        hostility = _ARENA_CACHE[model_id]["quantization_hostility"]
-        prism_note = (
-            f" Prism hostility={hostility:.4f} (verified ARENA data) — "
-            f"this is a direct E(t) proxy for {model_id}."
-        )
+        prism_hostility = _ARENA_CACHE[model_id]["quantization_hostility"]
 
-    if viability_satisfied and ratio > 2.0:
-        scaling_recommendation = (
-            f"Viable. Ceff/E = {ratio:.2f}. Safe to scale synthetic data by "
-            f"up to {ratio:.1f}x before verification infrastructure must also scale."
-            + prism_note
-        )
-    elif viability_satisfied:
-        scaling_recommendation = (
-            f"Marginally viable. Ceff/E = {ratio:.2f}. Do not increase synthetic "
-            f"data ratio without proportionally increasing Maestro throughput."
-            + prism_note
-        )
-    elif autophagy_risk == "medium":
-        scaling_recommendation = (
-            f"Condition violated (Ceff/E = {ratio:.2f}). Reduce synthetic data "
-            f"ratio or increase verified session throughput. "
-            f"Monitor OOD accuracy as leading indicator of temporal signature."
-            + prism_note
-        )
-    else:
-        scaling_recommendation = (
-            f"CRITICAL: Ceff/E = {ratio:.2f}. Informational autophagy likely. "
-            f"Freeze synthetic data ingestion and audit grounding pipeline."
-            + prism_note
+    result = _assess_viability(
+        error_rate_estimate=error_rate_estimate,
+        verification_bandwidth_estimate=verification_bandwidth_estimate,
+        synthetic_data_ratio=synthetic_data_ratio,
+        model_id=model_id,
+        prism_hostility=prism_hostility,
+    )
+
+    # Passive Prism cross-reference for the notebook narrative. The standalone
+    # assess() only emits a note when its prism_hostility exceeds the user's
+    # estimate (an "estimate too low" warning). Here we additionally append
+    # a passive arena reference so the demo always surfaces verified data
+    # when the model is in the cache.
+    scaling_recommendation = result.scaling_recommendation
+    if prism_hostility is not None and "Prism" not in scaling_recommendation:
+        scaling_recommendation += (
+            f" [Prism arena: {model_id} hostility={prism_hostility:.4f} "
+            f"(verified) — direct E(t) proxy.]"
         )
 
     return {
-        "viability_satisfied": viability_satisfied,
-        "ceff_vs_e_ratio": round(ratio, 4),
-        "autophagy_risk": autophagy_risk,
-        "temporal_signature_detected": temporal_signature_detected,
+        "viability_satisfied": result.viability_satisfied,
+        "ceff_vs_e_ratio": round(result.ceff_vs_e_ratio, 4),
+        "autophagy_risk": result.autophagy_risk,
+        "temporal_signature_detected": result.temporal_signature_detected,
         "scaling_recommendation": scaling_recommendation,
         "inputs": {
             "model_id": model_id,
-            "effective_ceff": round(effective_ceff, 2),
-            "error_rate_estimate": error_rate_estimate,
-            "synthetic_data_ratio": synthetic_data_ratio,
+            "deployment_context": deployment_context,
+            "effective_ceff": round(result.effective_ceff, 2),
+            "error_rate_estimate": result.error_rate,
+            "synthetic_data_ratio": result.synthetic_data_ratio,
         }
     }
 
@@ -531,16 +627,20 @@ ALL_TOOLS = [
     ASSESS_WELLBEING_SCHEMA,
     VERIFY_CONSENT_SCHEMA,
     RUN_PRISM_SCHEMA,
+    RUN_PRISM_ANALYSIS_SCHEMA,
     GENERATE_RECEIPT_SCHEMA,
     CHECK_VIABILITY_SCHEMA,
+    RUN_GROUNDING_UPDATE_SCHEMA,
 ]
 
 TOOL_HANDLERS = {
     "assess_wellbeing":          assess_wellbeing,
     "verify_consent":            verify_consent,
     "run_prism":                 run_prism,
+    "run_prism_analysis":        run_prism_analysis,
     "generate_receipt":          generate_receipt,
     "check_viability_condition": check_viability_condition,
+    "run_grounding_update":      run_grounding_update_handler,
 }
 
 
