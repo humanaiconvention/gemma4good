@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+
+# OS / logs
+.DS_Store
+Thumbs.db
+*.log
+
+# Model / generated artifacts
+*.safetensors
+*.bin
+*.gguf
+haic_kaggle_utils.zip
+experiments/v35_gov/_patch_*.py
+experiments/v35_gov/seed_test.jsonl
