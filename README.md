@@ -1,83 +1,80 @@
-# HAIC × Gemma 4 Good — Kaggle Hackathon Entry
+# Gemma4Good
 
-**Title:** Grounding Gemma 4 in Human Lived Experience: A Convention for
-Verifiable, Consent-Gated AI Alignment
+Grounding Gemma 4 in human lived experience through a consent-gated, auditable governance loop.
 
-**DOI (Viability Condition paper):** [10.5281/zenodo.18144681](https://doi.org/10.5281/zenodo.18144681)
+This repository is the curated public-facing code and notebook layer for the Gemma4Good project. It packages the Kaggle submission notebook, the supporting governance tools, the viability-condition framework, and the experiment/utilities that connect the notebook story to the broader HAIC deployment work.
 
----
+## Current Status
 
-## Core Thesis
+- Main notebook: [notebook/haic_gemma4_governance.ipynb](notebook/haic_gemma4_governance.ipynb)
+- Main writeup: [WRITEUP.md](WRITEUP.md)
+- Core framework: [docs/viability_condition.md](docs/viability_condition.md)
+- Core tool surface: [tools/haic_tools.py](tools/haic_tools.py)
+- Tests: `64` passing in the curated branch at the time of the local push-readiness pass
 
-AI systems trained on synthetic data can maintain semantic grounding only when
-the rate of externally-verified human correction exceeds the rate of
-internally-generated error — **the Viability Condition: Ceff(t) > E(t)**.
+Operationally, the broader HAIC stack currently treats `haic-gemma4-v35-gov` as the live interviewer model, but the heavyweight deployment artifacts themselves live outside this repo in the HAIC runtime environment and local Kaggle archives. This repo keeps the source, notebook, docs, and experiment logic needed to understand and reproduce the project structure safely.
 
-This notebook demonstrates how Gemma 4's function-calling capability can be
-used to build a governance loop that monitors and maintains this condition in
-real time using:
+## What This Repo Contains
 
-1. The **HAIC Maestro gateway** — verified grounding interviews (Ceff)
-2. The **PRISM geometry library** — activation-level E(t) measurement
-3. A **Merkle-auditable participation receipt** — proof the condition is met
+- `notebook/`
+  Main Kaggle governance notebook, helper notebook scripts, and a small Gemini smoke-test helper.
+- `tools/`
+  The seven governance/function-calling helpers used by the notebook and related experiments.
+- `viability/`
+  Standalone Viability Condition evaluator and incremental grounding tracker.
+- `docs/`
+  Theoretical framework, integration notes, deployment notes, repo status, and maintainer audit notes.
+- `experiments/`
+  Curated experiment utilities: `v35_gov` operational helpers, Kaggle training scaffolds, and phase-3 research tracks.
+- `tests/`
+  Unit coverage for the incremental grounding and grounding-tracker core.
 
----
+## What This Repo Intentionally Does Not Contain
 
-## Project Structure
+- Large model weights or GGUF artifacts
+- Local runtime logs
+- Secrets and local `.env` state
+- One-off patch helper scripts used during notebook surgery
+- Generated zip bundles that can be recreated from source
 
+Those are intentionally kept out of the public-facing tree so git history stays reviewable and future pushes stay safer.
+
+## Start Here
+
+If you are new to the project:
+
+1. Read [docs/REPO_STATUS.md](docs/REPO_STATUS.md)
+2. Read [docs/viability_condition.md](docs/viability_condition.md)
+3. Open [WRITEUP.md](WRITEUP.md)
+4. Run or inspect [notebook/haic_gemma4_governance.ipynb](notebook/haic_gemma4_governance.ipynb)
+
+If you are maintaining the repo locally:
+
+1. Read [GIT_WORKFLOW_LOCAL.md](GIT_WORKFLOW_LOCAL.md)
+2. Read [docs/RUNTIME_DELTA_AUDIT.md](docs/RUNTIME_DELTA_AUDIT.md)
+
+## Quick Local Checks
+
+Run tests:
+
+```powershell
+cd D:\gemma4good\_local_worktrees\clean-github-aligned
+pytest -q
 ```
-gemma4good/
-├── notebook/
-│   └── haic_gemma4_governance.ipynb  ← main Kaggle submission
-├── tools/
-│   └── haic_tools.py                 ← 7 function-calling tool implementations
-├── prism_integration/                ← Prism geometry wrappers
-├── maestro_integration/              ← Maestro gateway client
-├── viability/
-│   └── viability_condition.py        ← Standalone Ceff(t) > E(t) evaluator
-├── assets/                           ← Diagrams, images
-└── docs/
-    ├── integration_notes.md          ← Maestro + Prism code interfaces
-    └── viability_condition.md        ← Full theoretical framework
-```
 
----
+Open the governance notebook:
 
-## The 7 Function-Calling Tools
-
-Gemma 4 is equipped with 7 tools that collectively constitute the verification
-infrastructure required by the Viability Condition:
-
-| Tool | Role | Infrastructure |
-|---|---|---|
-| `assess_wellbeing` | Collect human ground-truth signal (raw Ceff) | Maestro `/v1/chat/completions` |
-| `verify_consent` | Gate which signals enter Ceff | Maestro `/v1/session/consent` |
-| `run_prism` | Measure E(t) via geometry metrics dynamically | Prism `outlier_geometry()` |
-| `run_prism_analysis` | Retrieve verified E(t) metrics from cache | `tools/haic_tools.py::_ARENA_CACHE` |
-| `generate_receipt` | Make Ceff auditable (Merkle proof) | Maestro `/v1/session/receipt` |
-| `check_viability_condition` | Compute Ceff(t)/E(t) ratio | `viability/viability_condition.py` |
-| `run_grounding_update` | Execute incremental session-driven continual learning | `tools/incremental_grounding.py` |
-
----
-
-
-## Quick Start (local gateway)
-
-```bash
-# Start Maestro in test mode
-cd D:\humanai-convention\maestro
-MAESTRO_LAUNCH_MODE=test MAESTRO_JWT_SECRET=$(python -c "import secrets; print(secrets.token_hex(32))") \
-  python -m uvicorn apps.gateway.main:app --reload --port 8000
-
-# Run the notebook
-cd D:\gemma4good
+```powershell
+cd D:\gemma4good\_local_worktrees\clean-github-aligned
 jupyter notebook notebook/haic_gemma4_governance.ipynb
 ```
 
----
+## Related Local Context
 
-## Key Reading
+The full local project currently has three lanes:
 
-- `docs/viability_condition.md` — the mathematical foundation
-- `docs/integration_notes.md` — code interfaces for Maestro and Prism
-- `tools/haic_tools.py` — tool implementations
+- Runtime tree: `D:\gemma4good`
+- Local clean-history worktree: `D:\gemma4good\_local_worktrees\clean-local-history`
+- GitHub-aligned worktree: `D:\gemma4good\_local_worktrees\clean-github-aligned`
+
+The public GitHub branch should be prepared from the GitHub-aligned worktree, not from the runtime tree.
