@@ -30,7 +30,7 @@ from pathlib import Path
 # ─── Paths ─────────────────────────────────────────────────────────────────
 HERE        = Path(__file__).resolve().parent
 SEED_FILE   = HERE / 'seed_scenarios.json'
-BASE_PROMPT = Path('D:/kaggle/datasets/v4/base_interviewer.txt')
+BASE_PROMPT = Path(os.environ.get('HAIC_BASE_PROMPT_FILE', HERE / 'production_interviewer_prompt.txt'))
 
 # ─── LLM backend selection ─────────────────────────────────────────────────
 def _ensure_utf8():

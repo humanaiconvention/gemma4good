@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 import time
 from pathlib import Path
@@ -127,7 +128,11 @@ def main() -> int:
     parser.add_argument("--model", required=True, type=Path)
     parser.add_argument("--out", required=True, type=Path)
     parser.add_argument("--port", type=int, default=8091)
-    parser.add_argument("--llama-server", type=Path, default=Path(r"D:\llama.cpp\build\bin\llama-server.exe"))
+    parser.add_argument(
+        "--llama-server",
+        type=Path,
+        default=Path(os.environ.get("LLAMA_SERVER_PATH", "llama-server")),
+    )
     parser.add_argument("--system-prompt-file", type=Path)
     args = parser.parse_args()
 

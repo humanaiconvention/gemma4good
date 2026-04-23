@@ -2,7 +2,8 @@ import json
 from pathlib import Path
 
 
-NOTEBOOK_PATH = Path(r"D:\gemma4good\notebook\haic_gemma4_governance.ipynb")
+ROOT = Path(__file__).resolve().parent
+NOTEBOOK_PATH = ROOT / "notebook" / "haic_gemma4_governance.ipynb"
 
 
 UPDATED_HARDWARE_CELL = """---
@@ -57,14 +58,14 @@ V35_PROMOTED = {
         "eval_method": "2-turn any-turn scoring (PIVOT in T1 or T2 counts)",
     },
     "deployment": {
-        "gguf_path": "D:/humanai-convention/experiments/gguf/haic-gemma4-v35-gov-Q5_K_M.gguf",
+        "gguf_path": "external runtime artifact: haic-gemma4-v35-gov-Q5_K_M.gguf",
         "gguf_size_gb": 3.62,
         "quant": "Q5_K_M",
         "tps_rtx2080_prompted": 30.1,
         "port": 8081,
         "replaces": "haic-gemma4-v34-Q5_K_M.gguf",
         "deployment_date": "2026-04-21",
-        "benchmark_json": "D:/kaggle/gemma4good/v35_gov_archive_2026-04-21/canonical_candidate_4/v35_beast_benchmark_with_prompt.json",
+        "benchmark_json": "external archive artifact: v35_beast_benchmark_with_prompt.json",
     },
 }
 

@@ -4,18 +4,21 @@ prism_client.py — Wrapper for calling the Prism geometry library.
 Provides a clean interface to prism.geometry.core.outlier_geometry()
 and maps the 4 metrics to E(t) estimates for the Viability Condition.
 
-Requires: D:\prism installed or D:\prism\src on sys.path
+Prefers a normal installed `prism` package. If Prism is not installed, set
+`PRISM_SRC` to a local checkout path containing the Prism source tree.
 """
 
-import sys
 import os
+import sys
 from pathlib import Path
 from typing import Optional
 
-# Add prism src to path if running locally
-_PRISM_SRC = Path(r"D:\prism\src")
-if _PRISM_SRC.exists() and str(_PRISM_SRC) not in sys.path:
-    sys.path.insert(0, str(_PRISM_SRC))
+# Add Prism src to path only when explicitly provided by the environment.
+_PRISM_SRC = os.environ.get("PRISM_SRC")
+if _PRISM_SRC:
+    prism_src = Path(_PRISM_SRC).expanduser().resolve()
+    if prism_src.exists() and str(prism_src) not in sys.path:
+        sys.path.insert(0, str(prism_src))
 
 
 def compute_outlier_geometry(hidden_states) -> dict:

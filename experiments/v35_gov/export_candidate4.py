@@ -9,14 +9,25 @@ import sys
 from pathlib import Path
 
 
-ARCHIVE_ROOT = Path(r"D:\kaggle\gemma4good\v35_gov_archive_2026-04-21")
+REPO_ROOT = Path(__file__).resolve().parents[2]
+ARCHIVE_ROOT = Path(
+    os.environ.get(
+        "GEMMA4GOOD_ARCHIVE_ROOT",
+        REPO_ROOT / "artifacts" / "v35_gov_archive_2026-04-21",
+    )
+)
 DEFAULT_CANONICAL_DIR = ARCHIVE_ROOT / "canonical_candidate_4"
 DEFAULT_CANDIDATE_DIR = ARCHIVE_ROOT / "candidate_4_indexerror_loss_0_4645"
 DEFAULT_SCAFFOLD_DIR = ARCHIVE_ROOT / "adapter_scaffold"
 DEFAULT_RESULTS_JSON = ARCHIVE_ROOT / "final_results" / "haic_v35_gov_full_results.json"
-DEFAULT_BASE_ROOT = Path(r"D:\models\huggingface\hub\models--google--gemma-4-E2B-it")
-DEFAULT_LLAMA_CPP = Path(r"D:\llama.cpp")
-DEFAULT_GGUF_DIR = Path(r"D:\humanai-convention\experiments\gguf")
+DEFAULT_BASE_ROOT = Path(
+    os.environ.get(
+        "GEMMA4GOOD_BASE_ROOT",
+        REPO_ROOT / "artifacts" / "models--google--gemma-4-E2B-it",
+    )
+)
+DEFAULT_LLAMA_CPP = Path(os.environ.get("LLAMA_CPP_ROOT", REPO_ROOT / "artifacts" / "llama.cpp"))
+DEFAULT_GGUF_DIR = Path(os.environ.get("GEMMA4GOOD_GGUF_DIR", REPO_ROOT / "artifacts" / "gguf"))
 
 
 def read_main_snapshot(base_root: Path) -> Path:

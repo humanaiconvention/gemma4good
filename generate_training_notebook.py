@@ -1,5 +1,6 @@
 import json
 import os
+from pathlib import Path
 
 notebook = {
     "cells": [
@@ -195,7 +196,8 @@ notebook = {
     "nbformat_minor": 4
 }
 
-out_path = r"d:\gemma4good\notebook\haic_gemma4_training.ipynb"
+ROOT = Path(__file__).resolve().parent
+out_path = ROOT / "notebook" / "haic_gemma4_training.ipynb"
 with open(out_path, "w", encoding="utf-8") as f:
     json.dump(notebook, f, indent=1)
 

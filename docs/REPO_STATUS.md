@@ -42,7 +42,6 @@ At the time of this pass, the GitHub-aligned branch contains:
 - notebook assets and helper scripts
 - writeup and deployment docs
 - curated experiment utilities
-- maintainer workflow docs
 
 The branch is organized as a sequence of small local commits rather than a single giant import.
 
@@ -56,10 +55,8 @@ That means:
 - do not try to "fix" the history with force-push or rewrite operations
 - continue porting from runtime into the GitHub-aligned branch in reviewed slices when needed
 
-## Recommended Publishing Lane
+## Collaboration Note
 
-For any future push or PR preparation, use:
-
-`D:\gemma4good\_local_worktrees\clean-github-aligned`
-
-That is the lane intended to line up with the public GitHub repository.
+This branch was assembled by porting reviewed slices from a separate local runtime
+tree into a clean GitHub-aligned history. That separation is intentional and is
+part of why this repository stays reviewable.

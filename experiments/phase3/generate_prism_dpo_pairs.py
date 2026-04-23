@@ -1,5 +1,6 @@
 import json
 import random
+from pathlib import Path
 
 def generate_synthetic_dpo_dataset(input_file, output_file):
     """
@@ -48,7 +49,8 @@ def generate_synthetic_dpo_dataset(input_file, output_file):
     print(f"Generated {len(dpo_dataset)} DPO pairs to {output_file}")
 
 if __name__ == "__main__":
+    root = Path(__file__).resolve().parents[2]
     generate_synthetic_dpo_dataset(
-        input_file=r"d:\gemma4good\grounding_gemma4_v2.jsonl",
-        output_file=r"D:\gemma4good\experiments\phase3\prism_dpo_pairs.jsonl"
+        input_file=root / "grounding_gemma4_v2.jsonl",
+        output_file=Path(__file__).resolve().with_name("prism_dpo_pairs.jsonl")
     )
