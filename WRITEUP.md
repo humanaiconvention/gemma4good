@@ -4,6 +4,12 @@
 **Author:** Benjamin Haslam (Bazzer), with research collaborator Guilherme Ferrari Brescia
 **DOI:** [10.5281/zenodo.18144681](https://doi.org/10.5281/zenodo.18144681)
 
+Public release: `0.1`
+
+Internal adapter labels are retained below only as historical provenance for the
+research progression; the collaborator-facing release of this repository is
+Gemma4Good `0.1`.
+
 ---
 
 ## TL;DR
@@ -132,11 +138,11 @@ The Viability Condition describes a loop: verified human sessions (C) drive mode
 
 | Stage | Input | Output | Location |
 |---|---|---|---|
-| 1. Interview sessions | Participant + HAIC Maestro gateway, 5-layer consent | 580 PIVOT-tagged ChatML sessions, 9 turns each | `D:/kaggle/datasets/v4/grounding_gemma4_v4_final.jsonl` |
+| 1. Interview sessions | Participant + HAIC Maestro gateway, 5-layer consent | 580 PIVOT-tagged ChatML sessions, 9 turns each | Archived training dataset |
 | 2. LoRA training | Gemma-4-E2B base + v4 dataset | r=16 rank adapter, 205 layers, final loss 0.5986 | Kaggle: `benhaslam/haic-gemma4-v34-unsloth` |
 | 3. F16 → Q5_K_M quantization | F16 GGUF (9.3 GB) | Q5_K_M GGUF (3.63 GB) | Kaggle: `benhaslam/haic-gemma4-v34-quantize` |
-| 4. Deployment | Q5_K_M + llama.cpp build 8757 | llama-server on port 8081, 66.7 TPS | `D:/humanai-convention/experiments/gguf/haic-gemma4-v34-Q5_K_M.gguf` |
-| 5. Measured outputs | Adversarial-inject + PIVOT scenarios | SGT 10/10, 0 security fails, 3/3 pivot types correct | `D:/kaggle/results/v34_fresh/haic_v34_full_results.json` |
+| 4. Deployment | Q5_K_M + llama.cpp build 8757 | llama-server on port 8081, 66.7 TPS | Quantized runtime artifact |
+| 5. Measured outputs | Adversarial-inject + PIVOT scenarios | SGT 10/10, 0 security fails, 3/3 pivot types correct | Evaluation result bundle |
 
 **What the framework says about this result.** v34 enters the arena cache at `qh = 0.8692` (training-time PRISM, kurtosis-based). That's Hostile band — E(t) is high. But its C(t) capacity is a real 66.7 tokens/sec of *HAIC-format* output on an 8 GB GPU, with every response gated by the same protocol that validates participant consent during data collection. The framework predicts that sustained operation of this model maintains viability as long as
 
@@ -155,7 +161,7 @@ A single-user local deployment (scale_factor ≈ 1, qh = 0.8692) needs only that
 
 This is what the governance loop consumes as training signal downstream: the model's pivot selections become part of the Merkle-receipted trajectory that drives weight updates in the incremental grounding path. Every update is traceable back to the specific session that triggered it.
 
-**Rollback path.** The previous production model (`haic-v6-2b-Q5_K_M.gguf`, Qwen3.5-2B, 33.7 TPS) is preserved at `experiments/gguf/` — no delete, just demoted. Environment variable `HAIC_LLAMA_MODEL_FILE=experiments/gguf/haic-v6-2b-Q5_K_M.gguf` plus a one-line flag change (`--jinja` → `--chat-template chatml`) reverts the deployment.
+**Prior runtime fallback.** An earlier Qwen-based runtime remained available during development as a fallback path, but that machine-specific deployment detail is outside the scope of this public source release.
 
 ---
 

@@ -4,15 +4,17 @@ Grounding Gemma 4 in human lived experience through a consent-gated, auditable g
 
 This repository is the curated public-facing code and notebook layer for the Gemma4Good project. It packages the Kaggle submission notebook, the supporting governance tools, the viability-condition framework, and the experiment/utilities that connect the notebook story to the broader HAIC deployment work.
 
+Public release: `0.1`
+
 ## Current Status
 
 - Main notebook: [notebook/haic_gemma4_governance.ipynb](notebook/haic_gemma4_governance.ipynb)
 - Main writeup: [WRITEUP.md](WRITEUP.md)
 - Core framework: [docs/viability_condition.md](docs/viability_condition.md)
 - Core tool surface: [tools/haic_tools.py](tools/haic_tools.py)
-- Tests: `64` passing in the curated branch at the time of the local push-readiness pass
+- Tests: `64` passing in the curated branch at the time of the release-0.1 prep pass
 
-Operationally, the broader HAIC stack currently treats `haic-gemma4-v35-gov` as the live interviewer model, but the heavyweight deployment artifacts themselves live outside this repo in the HAIC runtime environment and local Kaggle archives. This repo keeps the source, notebook, docs, and experiment logic needed to understand and reproduce the project structure safely.
+This public repository focuses on the source, notebook, docs, and experiment logic needed to understand and reproduce the project safely. Heavyweight runtime artifacts and private local deployment state are intentionally kept out of the repo.
 
 ## Start Here
 
@@ -34,7 +36,7 @@ If you are new to the project:
 - `docs/`
   Theoretical framework, integration notes, deployment notes, and repo status notes.
 - `experiments/`
-  Curated experiment utilities: `v35_gov` operational helpers, Kaggle training scaffolds, and phase-3 research tracks.
+  Curated experiment utilities, Kaggle training scaffolds, and phase-3 research tracks.
 - `tests/`
   Unit coverage for the incremental grounding and grounding-tracker core.
 

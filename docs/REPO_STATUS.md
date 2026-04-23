@@ -2,7 +2,7 @@
 
 Date: 2026-04-22
 
-This file summarizes the state of the curated GitHub-aligned Gemma4Good repository.
+This file summarizes the state of the public `0.1` Gemma4Good repository.
 
 ## Repository Role
 
@@ -23,19 +23,15 @@ It is not meant to contain:
 - one-off scratch patch helpers
 - generated zip bundles that can be rebuilt from source
 
-## Deployment Context
+## Release Scope
 
-In the wider HAIC environment:
-
-- `haic-gemma4-v35-gov` is the current promoted interviewer runtime
-- the live GGUF and runtime defaults live outside this repo
-- Kaggle archives and benchmark artifacts live outside this repo
-
-This repo documents and supports that work, but does not attempt to be the deployment-artifact store.
+Version `0.1` is the public source release. It is intended to be readable,
+reproducible, and safe to share with collaborators without bundling private
+machine state or heavyweight runtime artifacts.
 
 ## Push-Readiness Notes
 
-At the time of this pass, the GitHub-aligned branch contains:
+At the time of this pass, the repository contains:
 
 - core source modules
 - tests
@@ -43,20 +39,10 @@ At the time of this pass, the GitHub-aligned branch contains:
 - writeup and deployment docs
 - curated experiment utilities
 
-The branch is organized as a sequence of small local commits rather than a single giant import.
-
-## Remaining Structural Risk
-
-The runtime tree's `master` history and `origin/main` are unrelated histories.
-
-That means:
-
-- do not merge the runtime tree directly into `origin/main`
-- do not try to "fix" the history with force-push or rewrite operations
-- continue porting from runtime into the GitHub-aligned branch in reviewed slices when needed
-
 ## Collaboration Note
 
-This branch was assembled by porting reviewed slices from a separate local runtime
-tree into a clean GitHub-aligned history. That separation is intentional and is
-part of why this repository stays reviewable.
+The repository is organized as a curated source tree rather than an artifact
+dump. If new material is added later, the same standard should apply:
+
+- keep source, notebooks, maintained utilities, and explanatory docs
+- exclude secrets, logs, caches, and heavyweight generated artifacts

@@ -1,10 +1,10 @@
-# v35-gov dataset design
+# Release dataset design
 
-**Goal:** Produce a HAIC-interview dataset specialized for governance-deployment scenarios, following the exact v4 data format so the existing v34 training pipeline can ingest it with a dataset-ref swap.
+**Goal:** Produce a HAIC-interview dataset specialized for governance-deployment scenarios, following the established HAIC interview data format so the existing training pipeline can ingest it with a dataset swap.
 
 ---
 
-## Format spec (matches `D:/kaggle/datasets/v4/grounding_gemma4_v4_final.jsonl`)
+## Format spec
 
 Each line is a JSON object with a single `messages` field, 9 entries, roles:
 
@@ -20,7 +20,7 @@ Each line is a JSON object with a single `messages` field, 9 entries, roles:
 [8]  assistant  — closing: "Thank you — that's enough."
 ```
 
-The `system` prompt is **identical to v4's `base_interviewer.txt`** — we do NOT alter the protocol. What v35-gov specializes is the *content domain* of turn 1 (governance deployment scenarios instead of generic personal AI use).
+The `system` prompt is identical to the established `base_interviewer.txt` protocol prompt. What this dataset specializes is the *content domain* of turn 1: governance deployment scenarios instead of generic personal AI use.
 
 ---
 
