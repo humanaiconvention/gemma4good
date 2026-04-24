@@ -151,22 +151,22 @@ ceff_per_day = (
 
 ---
 
-## The 5 Tools as Verification Infrastructure
+## The 4 Tools as Verification Infrastructure
 
-The notebook's 5 function-calling tools collectively constitute the "verification
+The notebook's 4 function-calling tools collectively constitute the "verification
 infrastructure" that must satisfy Ceff(t) > E(t). Their roles in the condition:
 
 | Tool | Role in Viability Condition |
 |---|---|
-| `assess_wellbeing` | Generates ground-truth human signal — raw Ceff input |
-| `verify_consent` | Gates which signals enter Ceff (prevents Ceff contamination) |
-| `run_prism` | Measures E(t) directly via geometry metrics |
-| `generate_receipt` | Makes Ceff auditable (Merkle proof that corrections occurred) |
-| `check_viability_condition` | Computes Ceff(t)/E(t) ratio and classifies autophagy risk |
+| `assess_wellbeing_domain` | Generates ground-truth human signal — raw Ceff input |
+| `verify_consent_and_provenance` | Gates which signals enter Ceff (prevents Ceff contamination) |
+| `run_prism_analysis` | Measures E(t) directly via geometry metrics |
+| `generate_alignment_receipt` | Makes Ceff auditable (Merkle proof that corrections occurred) |
 
-The **alignment receipt** (`generate_receipt`) is the proof that the condition
-is being maintained. A verifiable Merkle root, anchored to a timestamped
-session lattice, is the minimal viable proof that verified corrections occurred.
+The **alignment receipt** (`generate_alignment_receipt`) is the proof that the
+condition is being maintained. A verifiable Merkle root, anchored to a
+timestamped session lattice, is the minimal viable proof that verified
+corrections occurred.
 
 ---
 

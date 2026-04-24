@@ -1,7 +1,7 @@
 """
 tests/test_haic_tools.py — Governance tool unit tests.
 
-Covers the five tools in tools/haic_tools.py that previously had zero test
+Covers the six functions in tools/haic_tools.py that previously had zero test
 coverage (all existing tests targeted only incremental_grounding.py):
 
     assess_wellbeing       — wellbeing signal collection, mock fallback

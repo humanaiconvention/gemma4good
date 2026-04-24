@@ -203,7 +203,7 @@ The five files under `gemma4good/` are intended to drop into other projects with
 - **`viability/viability_condition.py`** — standalone evaluator, no dependencies beyond stdlib + dataclasses. Importable on Kaggle, on a CPU-only server, or on a Cloudflare Worker (with `dataclasses_json`). The `assess()` function takes the four numbers and returns a structured `ViabilityAssessment` with risk band, scaling recommendation, and optional Prism cross-reference. The `from_prism_metrics()` constructor derives `E(t)` from PRISM geometry directly.
 - **`prism_integration/prism_client.py`** — wraps `prism.geometry.core.outlier_geometry()` with a pure-NumPy fallback for Kaggle environments where `prism` isn't installed. The fallback is equivalent to within float-precision noise.
 - **`maestro_integration/maestro_client.py`** — minimal HTTP client for the Maestro gateway. Falls back to mock responses when the gateway is unreachable, so local development and Kaggle judging can work identically.
-- **`tools/haic_tools.py`** — the seven function-calling tools. All have JSON schemas in Gemma 4's native tool format. The `dispatch_tool()` function routes function-call name + arguments to the right handler.
+- **`tools/haic_tools.py`** — the four function-calling tools. All have JSON schemas in Gemma 4's native tool format. The `dispatch_tool()` function routes function-call name + arguments to the right handler.
 - **`docs/viability_condition.md` and `docs/integration_notes.md`** — the theoretical and integration documentation. Same DOI'd framework as the published paper; safe to cite.
 
 ---
