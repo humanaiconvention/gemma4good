@@ -12,7 +12,7 @@ Public release: `0.1`
 - Main writeup: [WRITEUP.md](WRITEUP.md)
 - Core framework: [docs/viability_condition.md](docs/viability_condition.md)
 - Core tool surface: [tools/haic_tools.py](tools/haic_tools.py)
-- Tests: `64` passing in the curated branch at the time of the release-0.1 prep pass
+- Tests: `143` passing (79 new governance-tool tests added post-release-0.1; full pip install and PIL compat fixes applied to Kaggle notebook)
 
 This public repository focuses on the source, notebook, docs, and experiment logic needed to understand and reproduce the project safely. Heavyweight runtime artifacts and private local deployment state are intentionally kept out of the repo.
 
