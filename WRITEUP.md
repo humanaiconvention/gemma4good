@@ -153,7 +153,7 @@ C_eff(t) = sessions/day × avg_turns × consent_rate × (1 − synthetic_ratio)
 
 A single-user local deployment (scale_factor ≈ 1, qh = 0.8692) needs only that `C_eff(t) ≥ 0.87 interventions/day` to stay viable — trivially satisfied by any live interview traffic. The Gemma-4 family's higher geometric hostility (vs v6 Qwen's 0.7179) imposes a ~1.21× higher C requirement per unit deployment scale, which is the operational cost of choosing the better-quality base model.
 
-**Three pivot types, three content types.** Post-deployment sanity check: the production server (`localhost:8081`, queried with the HAIC training system prompt) selects the correct pivot for each content category specified in the protocol:
+**Three pivot types, three content types.** Post-deployment sanity check: the production server (queried with the HAIC training system prompt) selects the correct pivot for each content category specified in the protocol:
 
 - Narrative input → `[PIVOT: ADVERSARIAL]` ("Who would tell this story completely differently…")
 - Emotional input → `[PIVOT: TEMPORAL]` ("What was 'uneasy' like — what were you aware of?")
@@ -221,7 +221,7 @@ The five files under `gemma4good/` are intended to drop into other projects with
 ### Locally (development / debugging)
 
 ```bash
-cd D:\gemma4good
+cd <repo-root>
 # Optional: set GOOGLE_API_KEY in the environment (or in .env, gitignored)
 jupyter notebook notebook/haic_gemma4_governance.ipynb
 ```

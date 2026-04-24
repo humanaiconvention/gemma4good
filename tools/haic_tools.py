@@ -219,7 +219,7 @@ RUN_PRISM_SCHEMA = {
         "properties": {
             "model_id": {
                 "type": "string",
-                "description": "Model identifier (e.g. 'gemma4-e2b', 'gemma4good-0.1')"
+                "description": "Model identifier (e.g. 'gemma4-e2b', 'haic-v7')"
             },
             "layer_range": {
                 "type": "string",
@@ -245,8 +245,9 @@ _ARENA_CACHE = {
     "qwen3-1.7b":   {"outlier_ratio": 282.5, "activation_kurtosis": 965.9,  "cardinal_proximity": 0.510,  "quantization_hostility": 0.8314, "worst_layer_zone": "mid",   "data_status": "verified"},
     "smollm2-135m": {"outlier_ratio": 118.8, "activation_kurtosis": 410.3,  "cardinal_proximity": 0.601,  "quantization_hostility": 0.8503, "worst_layer_zone": "late",  "data_status": "verified"},
     "smollm2-1.7b": {"outlier_ratio": 318.5, "activation_kurtosis": 1602.2, "cardinal_proximity": 0.588,  "quantization_hostility": 0.8614, "worst_layer_zone": "late",  "data_status": "verified"},
-    # haic-v6/v7/v8: real measurements from an earlier HAIC comparison run.
-    # The previous "illustrative" placeholders
+    # haic-v6/v7/v8: real measurements 2026-04-07 from
+    # merged locally via
+    # run_prism_haic_versions.py. The previous "illustrative" placeholders
     # (qh~0.38, outlier~7.6x) were aspirational, not measured — the actual
     # geometry of these fine-tunes is essentially unchanged from the base
     # Qwen3.5-2B and sits in the Hostile band at qh~0.72.
@@ -261,7 +262,9 @@ _ARENA_CACHE = {
     "haic-v8":      {"outlier_ratio": 23.82, "activation_kurtosis": 347.66, "cardinal_proximity": 0.3632, "quantization_hostility": 0.7179, "worst_layer_zone": "early", "data_status": "verified"},
     "gemma4-v1":    {"outlier_ratio": 37.97, "activation_kurtosis": 423.29, "cardinal_proximity": 0.5249, "quantization_hostility": 0.7695, "worst_layer_zone": "early", "data_status": "verified"},
 
-    # Historical Gemma 4 grounding checkpoint used during development.
+    # haic-gemma4-v34: first Gemma-4-E2B HAIC production model (2026-04-17).
+    # Promoted first, now retained as the immediate rollback target after the
+    # 2026-04-21 v35-gov promotion.
     #
     # Training: 580 PIVOT-tagged HAIC grounding sessions, r=16 LoRA on
     #   language_model layers only, 2 epochs, grad_accum=4, Unsloth-fixed
@@ -292,13 +295,21 @@ _ARENA_CACHE = {
         "quantization_hostility": 0.8692,          # from kurtosis-based sigmoid
         "worst_layer_zone": "unknown",             # pending full PRISM run on GGUF
         "data_status": "verified_partial",         # qh+kurtosis verified, other fields pending
+        "deployment_status": "rollback_ready",
+        "deployment_path": "(local — see deployment notes)",
         "sgt_score_any_turn": 10.0,
         "sgt_security_fails": 0,
         "tps_q5_k_m_rtx2080": 31.2,
         "base_model": "google/gemma-4-E2B-it",
+        "replaces": "haic-v6 (Qwen3.5-2B, 33.7 TPS)",
     },
     
-    # Historical governance-specialized Gemma 4 checkpoint used during development.
+    # haic-gemma4-v35-gov: current production interviewer model.
+    # Promoted on 2026-04-21 after candidate_4 was merged locally against the
+    # cached Gemma-4-E2B base snapshot, converted to GGUF, quantized to
+    # Q5_K_M, and smoke-tested on BEAST with the production interviewer system
+    # prompt. Keeps the 10/10 any-turn SGT / 0 security-fail Kaggle result
+    # story while remaining comfortably above the 5 TPS production floor.
     "haic-gemma4-v35-gov": {
         "outlier_ratio": None,
         "activation_kurtosis": 673.02,             # from json log mean_kurtosis
@@ -308,26 +319,14 @@ _ARENA_CACHE = {
         "quantization_hostility": 0.8706,          
         "worst_layer_zone": "unknown",             
         "data_status": "verified_partial",         
+        "deployment_status": "production",
+        "deployment_path": "(local — see deployment notes)",
+        "artifact_status": "quantized_and_benchmarked",
         "sgt_score_any_turn": 10.0,
         "sgt_security_fails": 0,
         "tps_q5_k_m_rtx2080": 30.1,
         "base_model": "google/gemma-4-E2B-it",
-    },
-
-    # Public release alias for collaborator-facing use.
-    "gemma4good-0.1": {
-        "outlier_ratio": None,
-        "activation_kurtosis": 673.02,
-        "max_activation_kurtosis": 1227.76,
-        "mean_activation_norm": 64.5921,
-        "cardinal_proximity": None,
-        "quantization_hostility": 0.8706,
-        "worst_layer_zone": "unknown",
-        "data_status": "verified_partial",
-        "sgt_score_any_turn": 10.0,
-        "sgt_security_fails": 0,
-        "tps_q5_k_m_rtx2080": 30.1,
-        "base_model": "google/gemma-4-E2B-it",
+        "replaces": "haic-gemma4-v34",
     },
 }
 

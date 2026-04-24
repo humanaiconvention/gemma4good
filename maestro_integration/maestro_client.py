@@ -7,7 +7,7 @@ the HAIC gateway without duplicating the full request logic.
 Usage:
     from maestro_integration.maestro_client import MaestroClient
 
-    client = MaestroClient("http://localhost:8000")
+    client = MaestroClient()
     token = client.dev_token()  # test mode only
     receipt = client.submit_receipt(session_id, messages, consent)
 """
@@ -15,6 +15,7 @@ Usage:
 import json
 import time
 import hashlib
+import os
 from typing import Optional
 
 try:
@@ -31,7 +32,9 @@ class MaestroClient:
     Supports both live gateway calls and local fallbacks for offline use.
     """
 
-    def __init__(self, base_url: str = "http://localhost:8000"):
+    def __init__(self, base_url: str | None = None):
+        if base_url is None:
+            base_url = os.environ.get("MAESTRO_GATEWAY_BASE", "http://localhost:8000")
         self.base_url = base_url.rstrip("/")
         self._token: Optional[str] = None
 
