@@ -14,7 +14,7 @@ Gemma4Good `0.1`.
 
 ## TL;DR
 
-This submission turns Gemma 4's native function-calling into a **cryptographically auditable governance loop** that enforces a formal mathematical condition for AI grounding: `M = C(t) − E(t) ≥ 0`. Every model decision passes through the governance tools — wellbeing assessment, consent verification, interpretability analysis, alignment receipt, and incremental grounding — and produces a Merkle-anchored receipt that any third party can verify. We demonstrate this end-to-end on three concrete deployment scenarios (rural health clinic, low-connectivity classroom, deforestation monitoring), and we ground the framework in a published mathematical foundation rather than hand-waving.
+This submission turns Gemma 4's native function-calling into a **cryptographically auditable governance loop** that enforces a formal mathematical condition for AI grounding: `M = C(t) − E(t) ≥ 0`. Every model decision passes through four governance tools — wellbeing assessment, consent verification, PRISM interpretability analysis, and alignment receipt generation — and produces a Merkle-anchored receipt that any third party can verify. We demonstrate this end-to-end on three concrete deployment scenarios (rural health clinic, low-connectivity classroom, deforestation monitoring), and we ground the framework in a published mathematical foundation rather than hand-waving.
 
 The notebook supports two execution paths: **local Gemma 4 26B-A4B-it on Kaggle 2xT4** (the default) and **hosted Gemini API** as a fallback for environments without GPU resources. The governance pipeline, tool schemas, and cryptographic receipt are identical across both paths.
 
@@ -38,12 +38,12 @@ The current alignment landscape treats this as something to *promise* ("trust us
 
 ### The four-tool pipeline
 
-Gemma 4 receives a scenario prompt and a system message containing schemas for seven governance tools. It reasons about the scenario, decides which tools to call, and emits structured function calls. We parse them, execute them, and feed the results back. After the agent completes the pipeline, we generate a cryptographically anchored alignment receipt.
+Gemma 4 receives a scenario prompt and a system message containing schemas for four governance tools. It reasons about the scenario, decides which tools to call, and emits structured function calls. We parse them, execute them, and feed the results back. After the agent completes the pipeline, we generate a cryptographically anchored alignment receipt.
 
 | Tool | What it does | Mapping to the Viability Condition |
 |---|---|---|
 | `assess_wellbeing_domain` | Scores wellbeing impact across 6 GFS domains (health, happiness, meaning, character, social relationships, financial stability) | Provides the human-grounded signal that *should* drive C(t) |
-| `verify_consent_chain` | Checks 5-layer consent model (transcript / felt_state / gfs_activations / training_signal / retention) | Gates which signals are actually allowed to enter C(t) |
+| `verify_consent_and_provenance` | Checks 5-layer consent model (transcript / felt_state / gfs_activations / training_signal / retention) | Gates which signals are actually allowed to enter C(t) |
 | `run_prism_analysis` | Returns activation-geometry metrics (outlier_ratio, kurtosis, cardinal_proximity, quantization_hostility) | Measures E(t) directly at the model's hidden states |
 | `generate_alignment_receipt` | Hashes the trace into a Merkle tree, returns `merkle_root + zk_digest + decision` | Produces verifiable proof the condition was checked |
 
