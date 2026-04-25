@@ -1,11 +1,14 @@
 """
-prism_client.py — Wrapper for calling the Prism geometry library.
+prism_client.py — Thin client mapping PRISM geometry metrics to Viability Condition E(t) proxies.
 
-Provides a clean interface to prism.geometry.core.outlier_geometry()
-and maps the 4 metrics to E(t) estimates for the Viability Condition.
+Wraps prism.geometry.core.outlier_geometry() and exposes 4 E(t) proxy metrics:
+  - outlier_ratio          — magnitude of representation drift (dominant activation outliers)
+  - activation_kurtosis    — volatility / heavy-tailed instability signal
+  - cardinal_proximity     — systematic quantization error from axis-aligned activations
+  - quantization_hostility — composite E(t) score; >0.7 indicates high-drift deployment risk
 
 Prefers an installed `prism` package. If Prism is not installed, set
-`PRISM_SRC` to a local checkout path containing the Prism source tree.
+`PRISM_SRC` env var to a local checkout path containing the Prism source tree.
 """
 
 import sys
