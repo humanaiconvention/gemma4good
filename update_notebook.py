@@ -1,3 +1,12 @@
+"""
+update_notebook.py — Patch the governance notebook with the latest deployment notes.
+
+Replaces Cell 27 (Hardware Reality / AltUp architecture) in
+notebook/haic_gemma4_governance.ipynb with the current content from
+UPDATED_HARDWARE_CELL, keeping the rest of the notebook untouched.
+Run after any change to the deployment narrative.
+"""
+
 import json
 from pathlib import Path
 
