@@ -284,15 +284,17 @@ See `docs/incremental_grounding.md` for the full technical design.
 
 If you reference this work, please cite the underlying mathematical framework:
 
-> Haslam, B. (2026). *The Viability Condition: A formal criterion for AI grounding via verified human correction.* Zenodo. [https://doi.org/10.5281/zenodo.18144681](https://doi.org/10.5281/zenodo.18144681)
+> Haslam, B. (2025). *Semantic Grounding and the Preservation of Information in Recursive Systems.* Zenodo. [https://doi.org/10.5281/zenodo.18144681](https://doi.org/10.5281/zenodo.18144681)
 
 ```bibtex
-@misc{haslam2026viability,
-  title  = {The Viability Condition: A formal criterion for AI grounding via verified human correction},
-  author = {Haslam, Benjamin},
-  year   = {2026},
-  doi    = {10.5281/zenodo.18144681},
-  url    = {https://doi.org/10.5281/zenodo.18144681}
+@misc{haslam2025grounding,
+  title     = {Semantic Grounding and the Preservation of Information in Recursive Systems},
+  author    = {Haslam, Benjamin},
+  year      = {2025},
+  month     = dec,
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.18144681},
+  url       = {https://doi.org/10.5281/zenodo.18144681}
 }
 ```
 

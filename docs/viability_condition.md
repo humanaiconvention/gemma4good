@@ -303,7 +303,7 @@ you have "safe AI" as an ongoing operational condition.
 ## References
 
 - Ben. "Semantic Grounding and the Preservation of Information in Recursive
-  Systems." Zenodo, 2026. DOI: 10.5281/zenodo.18144681.
+  Systems." Zenodo, December 2025. DOI: 10.5281/zenodo.18144681.
   https://zenodo.org/records/18144681
 - TurboQuant (Google, ICLR 2026) — activation outlier geometry as quantization
   predictor (motivates Prism's E(t) proxies)
