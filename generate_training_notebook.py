@@ -1,3 +1,11 @@
+"""
+generate_training_notebook.py — Build the Kaggle QLoRA training notebook for Gemma 4.
+
+Writes a self-contained Jupyter notebook that fine-tunes google/gemma-4-E2B-it
+with a LoRA adapter on HAIC governance sessions (v35-gov dataset, 577 examples).
+Target runtime: Kaggle GPU T4×2 (30 GB VRAM). Output: haic_gemma4_training.ipynb.
+"""
+
 import json
 import os
 from pathlib import Path
