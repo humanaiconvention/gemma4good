@@ -207,4 +207,4 @@ Tool #7 in the governance pipeline:
 }
 ```
 
-Registered in `tools/haic_tools.py` alongside the existing 6 governance tools. The governance agent can invoke it as the final step after a successful interview + receipt generation.
+Registered in `tools/haic_tools.py` alongside the 4 core governance tools. The governance agent can invoke it as the final step after a successful interview + receipt generation.

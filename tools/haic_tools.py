@@ -1,11 +1,15 @@
 """
-haic_tools.py — Four function-calling tool implementations for the HAIC × Gemma 4 notebook.
+haic_tools.py — Governance tool implementations for the HAIC × Gemma 4 notebook.
 
-Tools registered with Gemma 4's native function-calling API:
-  1. assess_wellbeing_domain     — GFS domain scoring and vulnerability classification
+Four core tools registered with Gemma 4's native function-calling API:
+  1. assess_wellbeing_domain       — GFS domain scoring and vulnerability classification
   2. verify_consent_and_provenance — 5-layer HAIC consent check and data lineage verification
-  3. run_prism_analysis           — E(t) proxy metrics via PRISM activation geometry
-  4. generate_alignment_receipt   — Merkle-rooted SHA3-256 cryptographic governance receipt
+  3. run_prism_analysis            — E(t) proxy metrics via PRISM activation geometry
+  4. generate_alignment_receipt    — Merkle-rooted SHA3-256 cryptographic governance receipt
+
+Extended tools (available via dispatch_tool, not part of the 4-tool Gemma 4 schema):
+  5. check_viability_condition     — Evaluates Ceff(t) > E(t) for a model/deployment
+  6. run_grounding_update          — Incremental LoRA grounding from a consented session
 
 Runtime connections:
   - Maestro gateway  (set MAESTRO_GATEWAY_BASE env var, or uses localhost:8000 default)

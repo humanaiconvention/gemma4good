@@ -162,7 +162,7 @@ This is an honest, empirically grounded finding.
 The Kaggle notebook defines 4 function-calling tools that Gemma 4 can invoke.
 Each tool maps to real HAIC infrastructure:
 
-### Tool 1: `assess_wellbeing`
+### Tool 1: `assess_wellbeing_domain`
 
 **Purpose:** Collect human wellbeing signal (the core HAIC grounding primitive)
 
@@ -181,7 +181,7 @@ assess_wellbeing(
 ) → {wellbeing_score: float, narrative: str, consent_given: bool}
 ```
 
-### Tool 2: `verify_consent`
+### Tool 2: `verify_consent_and_provenance`
 
 **Purpose:** Enforce HAIC's one-way consent gate before any data use
 
@@ -200,7 +200,7 @@ verify_consent(
 ) → {consent_valid: bool, consent_hash: str, layers_granted: list[str]}
 ```
 
-### Tool 3: `run_prism`
+### Tool 3: `run_prism_analysis`
 
 **Purpose:** Run interpretability geometry analysis on a model checkpoint
 
@@ -224,7 +224,7 @@ run_prism(
 }
 ```
 
-### Tool 4: `generate_receipt`
+### Tool 4: `generate_alignment_receipt`
 
 **Purpose:** Issue a Merkle-auditable participation receipt
 
@@ -288,7 +288,7 @@ receipt = resp.json()
 
 ---
 
-## 5. Tool 6: `check_viability_condition`
+## 5. Extended tool: `check_viability_condition`
 
 See `docs/viability_condition.md` for the full theoretical framework.
 
@@ -319,7 +319,7 @@ check_viability_condition(
 
 ---
 
-## 6. Tool 7: `run_grounding_update`
+## 6. Extended tool: `run_grounding_update`
 
 See `docs/incremental_grounding.md` for the full technical design.
 
