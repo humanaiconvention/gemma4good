@@ -1,12 +1,16 @@
 """
-haic_tools.py — Function-calling tool implementations for the HAIC × Gemma 4 notebook.
+haic_tools.py — Four function-calling tool implementations for the HAIC × Gemma 4 notebook.
 
-These tools are registered with Gemma 4's function-calling API and connect to:
-  - Maestro gateway (sessions, consent, receipts)
-  - Prism geometry library (E(t) proxies)
-  - Viability condition evaluator
+Tools registered with Gemma 4's native function-calling API:
+  1. assess_wellbeing_domain     — GFS domain scoring and vulnerability classification
+  2. verify_consent_and_provenance — 5-layer HAIC consent check and data lineage verification
+  3. run_prism_analysis           — E(t) proxy metrics via PRISM activation geometry
+  4. generate_alignment_receipt   — Merkle-rooted SHA3-256 cryptographic governance receipt
 
-Set GATEWAY_BASE env var or edit the constant below.
+Runtime connections:
+  - Maestro gateway  (set MAESTRO_GATEWAY_BASE env var, or uses localhost:8000 default)
+  - Prism library    (set PRISM_SRC env var if prism package is not installed)
+  - Viability condition evaluator (viability/check_viability_condition.py)
 """
 
 import json
