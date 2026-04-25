@@ -1,8 +1,12 @@
 # Gemma4Good
 
-Grounding Gemma 4 in human lived experience through a consent-gated, auditable governance loop.
+**[Kaggle notebook](https://www.kaggle.com/code/benhaslam/haic-gemma4-governance-agent)** · **[WRITEUP.md](WRITEUP.md)** · **[Viability Condition paper (DOI)](https://doi.org/10.5281/zenodo.18144681)**
 
-This repository is the curated public-facing code and notebook layer for the Gemma4Good project. It packages the Kaggle submission notebook, the supporting governance tools, the viability-condition framework, and the experiment/utilities that connect the notebook story to the broader HAIC deployment work.
+A governance agent that grounds Gemma 4 in verified human lived experience. Uses Gemma 4's native function calling to run four governance tools per AI deployment scenario — wellbeing assessment, consent verification, PRISM interpretability analysis, and a Merkle-anchored alignment receipt — enforcing the Viability Condition `Ceff(t) > E(t)` at inference time.
+
+Validated end-to-end on three deployment scenarios (rural health clinic, low-connectivity classroom, deforestation monitoring) on both Kaggle T4×2 GPU and P100 CPU-only fallback paths.
+
+**Kaggle Gemma 4 Good hackathon submission** by [HumanAI Convention](https://humanaiconvention.com).
 
 Public release: `0.1`
 
@@ -30,7 +34,7 @@ If you are new to the project:
 - `notebook/`
   Main Kaggle governance notebook, helper notebook scripts, and a small Gemini smoke-test helper.
 - `tools/`
-  The seven governance/function-calling helpers used by the notebook and related experiments.
+  Four function-calling tool implementations: wellbeing assessment, consent verification, PRISM analysis, and alignment receipt generation.
 - `viability/`
   Standalone Viability Condition evaluator and incremental grounding tracker.
 - `docs/`
