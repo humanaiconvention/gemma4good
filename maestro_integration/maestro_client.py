@@ -1,8 +1,13 @@
 """
-maestro_client.py — Thin client for the Maestro gateway.
+maestro_client.py — Thin client for the Maestro consent gateway (Ceff measurement).
 
-Provides a clean interface for notebook cells that need to interact with
-the HAIC gateway without duplicating the full request logic.
+Provides a clean interface for notebook cells to interact with the HAIC gateway:
+  - Verify 5-layer consent (transcript, felt_state, gfs_activations, training_signal, retention)
+  - Submit session receipts that count toward the Viability Condition Ceff(t) estimate
+  - Retrieve Merkle-rooted alignment receipts for audit
+
+Set MAESTRO_GATEWAY_BASE env var to point at a running Maestro instance
+(defaults to http://localhost:8000 for local dev).
 
 Usage:
     from maestro_integration.maestro_client import MaestroClient
