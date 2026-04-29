@@ -55,7 +55,9 @@ Maestro's mock or local adapter would be used to stage sessions.
 
 ### Session lattice & receipt
 
-The receipt is a Merkle DAG over session nodes (SHA-256 content addressing).
+The receipt is a Merkle DAG over session nodes. The Maestro gateway uses
+SHA-256 content addressing; the notebook tools use SHA3-256 for EVM
+compatibility (see WRITEUP §4).
 
 ```python
 # Receipt request body

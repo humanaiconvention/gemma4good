@@ -169,8 +169,8 @@ def format_session_as_sft(
 # ── Merkle utilities ──────────────────────────────────────────────────────────
 
 def _sha256(data: str) -> str:
-    """SHA-256 hex digest of a string."""
-    return hashlib.sha256(data.encode("utf-8")).hexdigest()
+    """SHA3-256 hex digest of a string (name kept for API compat)."""
+    return hashlib.sha3_256(data.encode("utf-8")).hexdigest()
 
 
 def _merkle_root(leaves: list) -> str:
@@ -206,7 +206,7 @@ def hash_adapter_state(adapter_path_or_dict) -> Optional[str]:
     if isinstance(adapter_path_or_dict, str):
         # Hash the adapter files on disk
         import os
-        h = hashlib.sha256()
+        h = hashlib.sha3_256()
         adapter_dir = adapter_path_or_dict
         if os.path.isdir(adapter_dir):
             for fname in sorted(os.listdir(adapter_dir)):
@@ -223,7 +223,7 @@ def hash_adapter_state(adapter_path_or_dict) -> Optional[str]:
 
     if isinstance(adapter_path_or_dict, dict):
         # Hash sorted parameter tensors
-        h = hashlib.sha256()
+        h = hashlib.sha3_256()
         for name in sorted(adapter_path_or_dict.keys()):
             h.update(name.encode("utf-8"))
             tensor = adapter_path_or_dict[name]

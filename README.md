@@ -30,7 +30,7 @@ gemma4good/
 ├── notebook/
 │   └── haic_gemma4_governance.ipynb  ← main Kaggle submission
 ├── tools/
-│   └── haic_tools.py                 ← 5 function-calling tool implementations
+│   └── haic_tools.py                 ← 7 function-calling tool implementations
 ├── prism_integration/                ← Prism geometry wrappers
 ├── maestro_integration/              ← Maestro gateway client
 ├── viability/
@@ -40,6 +40,28 @@ gemma4good/
     ├── integration_notes.md          ← Maestro + Prism code interfaces
     └── viability_condition.md        ← Full theoretical framework
 ```
+
+## Local Layout
+
+This local project root now has three lanes:
+
+- `<repo-root>`
+  Runtime/local-first lane on unrelated-history branch `master`
+- `<repo-root>\_local_worktrees\public-main`
+  Public-facing lane that tracks GitHub `main`
+- `<repo-root>\_local_worktrees\_archive\local-history-safety`
+  Archived safety lane, not for active development
+
+Local-only artifacts now live under:
+
+- `<repo-root>\_local_state\archives`
+- `<repo-root>\_local_state\backups`
+- `<repo-root>\_local_state\regressions`
+- `<repo-root>\_local_state\logs`
+- `<repo-root>\_local_notes`
+
+If a change should be shared or committed publicly, make it from
+`<repo-root>\_local_worktrees\public-main`, not from runtime `master`.
 
 ---
 
@@ -65,12 +87,12 @@ infrastructure required by the Viability Condition:
 
 ```bash
 # Start Maestro in test mode
-cd D:\humanai-convention\maestro
+cd <humanai-convention-root>\maestro
 MAESTRO_LAUNCH_MODE=test MAESTRO_JWT_SECRET=$(python -c "import secrets; print(secrets.token_hex(32))") \
   python -m uvicorn apps.gateway.main:app --reload --port 8000
 
 # Run the notebook
-cd D:\gemma4good
+cd <repo-root>
 jupyter notebook notebook/haic_gemma4_governance.ipynb
 ```
 

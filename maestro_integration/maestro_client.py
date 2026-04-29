@@ -7,7 +7,7 @@ the HAIC gateway without duplicating the full request logic.
 Usage:
     from maestro_integration.maestro_client import MaestroClient
 
-    client = MaestroClient("http://localhost:8000")
+    client = MaestroClient()
     token = client.dev_token()  # test mode only
     receipt = client.submit_receipt(session_id, messages, consent)
 """
@@ -15,6 +15,7 @@ Usage:
 import json
 import time
 import hashlib
+import os
 from typing import Optional
 
 try:
@@ -31,7 +32,9 @@ class MaestroClient:
     Supports both live gateway calls and local fallbacks for offline use.
     """
 
-    def __init__(self, base_url: str = "http://localhost:8000"):
+    def __init__(self, base_url: str | None = None):
+        if base_url is None:
+            base_url = os.environ.get("MAESTRO_GATEWAY_BASE", "http://localhost:8000")
         self.base_url = base_url.rstrip("/")
         self._token: Optional[str] = None
 
@@ -140,20 +143,20 @@ class MaestroClient:
     def _local_receipt(session_id: str, messages: list, consent: dict) -> dict:
         """Build a local Merkle receipt without the gateway."""
         nodes = [
-            hashlib.sha256(json.dumps(m, sort_keys=True).encode()).hexdigest()
+            hashlib.sha3_256(json.dumps(m, sort_keys=True).encode()).hexdigest()
             for m in messages
         ]
         nodes.append(
-            hashlib.sha256(json.dumps(consent, sort_keys=True).encode()).hexdigest()
+            hashlib.sha3_256(json.dumps(consent, sort_keys=True).encode()).hexdigest()
         )
         while len(nodes) > 1:
             if len(nodes) % 2 == 1:
                 nodes.append(nodes[-1])
             nodes = [
-                hashlib.sha256((nodes[i] + nodes[i+1]).encode()).hexdigest()
+                hashlib.sha3_256((nodes[i] + nodes[i+1]).encode()).hexdigest()
                 for i in range(0, len(nodes), 2)
             ]
-        merkle_root = nodes[0] if nodes else hashlib.sha256(b"empty").hexdigest()
+        merkle_root = nodes[0] if nodes else hashlib.sha3_256(b"empty").hexdigest()
         return {
             "merkle_root": merkle_root,
             "session_id": session_id,
