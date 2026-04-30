@@ -1,8 +1,11 @@
 app = "haic-maestro-gateway"
 primary_region = "iad"
 
+# Run `flyctl launch --copy-config --no-deploy` from the REPO ROOT.
+# The Dockerfile copies both `utils/` and `maestro_gateway/`, so the build
+# context must be the repo root — not the maestro_gateway/ subdirectory.
 [build]
-  dockerfile = "Dockerfile"
+  dockerfile = "maestro_gateway/Dockerfile"
 
 [env]
   MAESTRO_LAUNCH_MODE = "test"
