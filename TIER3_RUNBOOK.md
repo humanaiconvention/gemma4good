@@ -11,7 +11,10 @@ independently; you can deploy them in any order.
 ```bash
 cd maestro_gateway
 docker compose up --build
-# In another shell:
+# In another shell, from the repo root (smoke_test imports maestro_integration,
+# which is not installed inside the container — run on the host):
+cd ..   # back to D:/gemma4good
+pip install -e ".[runtime]"   # one-time: ensures `requests` is available
 MAESTRO_GATEWAY_BASE=http://localhost:8000 \
   python -m maestro_gateway.smoke_test
 ```
@@ -69,23 +72,52 @@ both produce identical roots, so on-chain anchors verify either way.
 
 ### 2a. Deploy the contract
 
+**Before you begin — get testnet ETH (free):**
+```
+Alchemy Sepolia Faucet:  https://sepoliafaucet.com/             (0.5 ETH/day)
+Infura Faucet:           https://www.infura.io/faucet/sepolia
+Chainlink Faucet:        https://faucets.chain.link/sepolia
+QuickNode Faucet:        https://faucet.quicknode.com/ethereum/sepolia
+```
+Note: some faucets require your mainnet wallet to hold ≥ 0.001 ETH (spam filter).
+The deploy costs ~115 000 gas (≈ 0.002 SepoliaETH at 20 gwei).
+
+**Get a free RPC URL:** Alchemy (`https://dashboard.alchemy.com/`) or Infura (`https://app.infura.io/`). Both offer a free tier for Sepolia.
+
+**Get a free Etherscan API key** (for `--verify`): https://etherscan.io/register → API Keys.
+
 ```bash
-# One-time setup
+# One-time setup (skip if you already have Foundry + onchain/lib/forge-std)
 cd onchain
 curl -L https://foundry.paradigm.xyz | bash && foundryup
-forge install foundry-rs/forge-std --no-commit
+# `forge-std` is already vendored at onchain/lib/forge-std; only run the next line on a fresh clone:
+# forge install foundry-rs/forge-std --no-commit
 
-# Run the test suite (unit + fuzz)
+# Run the test suite (unit + fuzz) first
 forge test -vv
 
-# Deploy
-export DEPLOYER_PRIVATE_KEY=0x...                                  # Sepolia-funded
-export SEPOLIA_RPC_URL=https://sepolia.infura.io/v3/<key>
-export ETHERSCAN_API_KEY=<key>                                     # optional
+# Fill in D:\gemma4good\.env (see .env.example for all variables),
+# then source it before running forge:
+# Linux/macOS: source ../.env
+# Windows PowerShell: Get-Content ..\.env | ForEach-Object { if ($_ -match '^([^#][^=]+)=(.*)$') { [System.Environment]::SetEnvironmentVariable($Matches[1], $Matches[2]) } }
+
+# Or export manually:
+export DEPLOYER_PRIVATE_KEY=0x...                                  # Sepolia-funded throwaway wallet
+export SEPOLIA_RPC_URL=https://eth-sepolia.g.alchemy.com/v2/<key>
+export ETHERSCAN_API_KEY=<key>                                     # optional, enables --verify
+
+# Deploy (from onchain/ directory)
 forge script script/Deploy.s.sol --rpc-url sepolia --broadcast --verify
 ```
 
-The deployed address is printed at the end. Save it.
+The deployed address is printed at the end (`HAICAnchor deployed at: 0x...`). Save it to `HAIC_ANCHOR_ADDRESS` in your `.env`.
+
+**Local alternative (no wallet, no faucet):**
+```bash
+# Starts Anvil, deploys, runs full anchor+verify roundtrip — takes ~5 seconds
+cd D:\gemma4good && python onchain/live_roundtrip.py
+# Result saved to: onchain/live_roundtrip_result.json
+```
 
 ### 2b. Anchor a live receipt
 
@@ -140,21 +172,20 @@ note:
 
 ```
 $ python -m pytest tests/
-252 passed in 2.86s
+253 passed in ~3s
 ```
 
-Counts by suite:
+Counts by suite (verified via `pytest --collect-only`):
 
 | Suite                              | Tests |
 |------------------------------------|-------|
-| test_grounding_tracker.py          |   23  |
-| test_haic_tools.py                 |   45  |
-| test_incremental_grounding.py      |   12  |
-| test_maestro_client.py             |   30  |
-| test_merkle.py                     |   31  |
-| test_prism_client.py               |   28  |
-| test_viability_condition.py        |   30  |
-| test_anchor_client.py    (NEW)     |   11  |
-| test_maestro_gateway.py  (NEW)     |   12  |
-
-(Counts above are approximate per-file; verified total = 252.)
+| test_anchor_client.py              |   12  |
+| test_grounding_tracker.py          |   26  |
+| test_haic_tools.py                 |   79  |
+| test_incremental_grounding.py      |   46  |
+| test_maestro_client.py             |    8  |
+| test_maestro_gateway.py            |   12  |
+| test_merkle.py                     |   23  |
+| test_prism_client.py               |    9  |
+| test_viability_condition.py        |   38  |
+| **Total**                          |  253  |
