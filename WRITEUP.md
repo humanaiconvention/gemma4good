@@ -211,13 +211,13 @@ Beyond the original three-scenario governance notebook, this submission includes
 **Live kernel:** [benhaslam/haic-governance-framework-tier-3-live-validation](https://www.kaggle.com/code/benhaslam/haic-governance-framework-tier-3-live-validation)
 
 What it produces:
-- **PRISM geometry comparison** — base `gemma-4-e2b-it` vs. governance LoRA (`v35-gov`), 4 metrics (outlier_ratio, activation_kurtosis, cardinal_proximity, quantization_hostility) measured from real hidden states
-- **SGT evaluation** — 5 protocol compliance scenarios against the fine-tuned model, scored on pivot fidelity, compression, and behavioral discipline
+- **PRISM geometry comparison** — base `gemma-4-e2b-it` vs. production v35-gov adapter, 4 metrics measured from real hidden states
+- **SGT evaluation** — 5 protocol compliance scenarios against the v35-gov model (≥ 9.0/10, 0 security fails)
 - **Maestro receipt** — a Merkle-auditable session receipt with SHA3-256 root and node count, produced by `MaestroClient`
-- **Viability Condition assessment** — `Ceff(t)` vs. `E(t)` derived from the PRISM measurements, with autophagy risk classification
-- **Promotion gate decision** — pass/fail based on all four components
+- **Viability Condition assessment** — `Ceff(t) / E(t)` with dimensionally-consistent units (inference turns/day on both sides); Ceff/E ≈ 0.88 [VIOLATED, medium risk] reflects Gemma 4's 91.4% architectural hostility
+- **Promotion gate decision** — PASS: SGT ≥ 6.0, loss 0.46 < 5.0, 0 security fails, viability medium risk
 
-The Tier 3 JSON output (`haic_governance_tier3_results.json`) can be dropped directly into the Streamlit dashboard (`dashboard/app.py`) to visualise results — it auto-detects the file type.
+The Viability Condition uses `normalize_to_inference_volume=True`: E(t) = hostility × turns/day × scale (274 error-turns/day at 50 sessions × 6 turns); Ceff(t) = turns/day × consent_rate × (1−synthetic_ratio) (242 verified-turns/day). VIOLATED medium risk means the correction bandwidth is close but not yet sufficient to outrun Gemma 4's architecture-driven error rate — the framework correctly flags this rather than masking it.
 
 The framework code (PRISM client, Maestro client, Viability Condition, Merkle utils) is bootstrapped inline in Cell 2 from the same source files used in the main submission — no separate upload required.
 
@@ -230,7 +230,7 @@ The framework code (PRISM client, Maestro client, Viability Condition, Merkle ut
 The Tier 3 kernel is already published:
 1. Go to: https://www.kaggle.com/code/benhaslam/haic-governance-framework-tier-3-live-validation
 2. Fork the notebook and click **Run All** with a **GPU T4** accelerator.
-3. Expected wall-clock: ~4 min model load + ~3 min training + ~2 min eval = ~9 min total.
+3. Expected wall-clock: ~4 min model load + ~1 min adapter attach + ~2 min eval = ~7 min total.
 4. The final cell writes `haic_governance_tier3_results.json` to `/kaggle/working/`.
 
 To rebuild and push a new version locally:
