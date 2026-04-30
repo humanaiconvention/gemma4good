@@ -204,25 +204,58 @@ The five files under `gemma4good/` are intended to drop into other projects with
 
 ---
 
+## Tier 3 Live Validation
+
+Beyond the original three-scenario governance notebook, this submission includes a **Tier 3 live validation** kernel that runs the full HAIC governance stack end-to-end on a Kaggle T4 GPU:
+
+**Live kernel:** [benhaslam/haic-governance-framework-tier-3-live-validation](https://www.kaggle.com/code/benhaslam/haic-governance-framework-tier-3-live-validation)
+
+What it produces:
+- **PRISM geometry comparison** — base `gemma-4-e2b-it` vs. governance LoRA (`v35-gov`), 4 metrics (outlier_ratio, activation_kurtosis, cardinal_proximity, quantization_hostility) measured from real hidden states
+- **SGT evaluation** — 5 protocol compliance scenarios against the fine-tuned model, scored on pivot fidelity, compression, and behavioral discipline
+- **Maestro receipt** — a Merkle-auditable session receipt with SHA3-256 root and node count, produced by `MaestroClient`
+- **Viability Condition assessment** — `Ceff(t)` vs. `E(t)` derived from the PRISM measurements, with autophagy risk classification
+- **Promotion gate decision** — pass/fail based on all four components
+
+The Tier 3 JSON output (`haic_governance_tier3_results.json`) can be dropped directly into the Streamlit dashboard (`dashboard/app.py`) to visualise results — it auto-detects the file type.
+
+The framework code (PRISM client, Maestro client, Viability Condition, Merkle utils) is bootstrapped inline in Cell 2 from the same source files used in the main submission — no separate upload required.
+
+---
+
 ## How to reproduce
 
-### On Kaggle (the intended environment)
+### Tier 3 (preferred — live GPU validation)
+
+The Tier 3 kernel is already published:
+1. Go to: https://www.kaggle.com/code/benhaslam/haic-governance-framework-tier-3-live-validation
+2. Fork the notebook and click **Run All** with a **GPU T4** accelerator.
+3. Expected wall-clock: ~4 min model load + ~3 min training + ~2 min eval = ~9 min total.
+4. The final cell writes `haic_governance_tier3_results.json` to `/kaggle/working/`.
+
+To rebuild and push a new version locally:
+```bash
+cd D:/kaggle && python scripts/build_tier3_nb.py
+cd notebooks/haic-governance-tier3 && kaggle kernels push
+```
+
+### Original three-scenario notebook (governance function-calling demo)
 
 1. Open a new Kaggle notebook with the **GPU T4 x2** accelerator selected.
 2. Upload `notebook/haic_gemma4_governance.ipynb`.
-3. Add a Kaggle Secret labeled `GOOGLE_API_KEY` (Add-ons → Secrets → New Secret) — this is only used if the local Gemma 4 load fails. If the local load succeeds, the key is never read.
-4. Run all cells. Expected wall-clock: ~5 min for model load, ~30s per scenario, ~1 min for the meta-receipt verification.
-5. The output of cells 14, 17, 20 is the per-scenario alignment receipt JSON. Cell 22 is the cross-scenario verification.
+3. Add a Kaggle Secret labeled `GOOGLE_API_KEY` (Add-ons → Secrets → New Secret) — only used if local Gemma 4 load fails.
+4. Run all cells. Expected wall-clock: ~5 min model load, ~30s/scenario, ~1 min meta-receipt.
+5. Cells 14, 17, 20 produce per-scenario alignment receipt JSON. Cell 22 is cross-scenario verification.
 
 ### Locally (development / debugging)
 
 ```bash
-cd <repo-root>
-# Optional: set GOOGLE_API_KEY in the environment (or in .env, gitignored)
+cd D:/gemma4good
+# Optional: set GOOGLE_API_KEY in .env
 jupyter notebook notebook/haic_gemma4_governance.ipynb
 ```
 
-The notebook will try local Gemma 4 first, then fall back to the Gemini API path automatically.
+The notebook tries local Gemma 4 first, then falls back to the Gemini API path automatically.
 
 ---
 
