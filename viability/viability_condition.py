@@ -141,13 +141,22 @@ def from_prism_metrics(
     synthetic_data_ratio: float = 0.0,
     deployment_scale_factor: float = 1.0,
     model_id: Optional[str] = None,
+    normalize_to_inference_volume: bool = False,
 ) -> ViabilityAssessment:
     """
     Convenience constructor that derives E(t) from Prism geometry metrics
     and Ceff(t) from Maestro session throughput.
 
-    E(t) = quantization_hostility * deployment_scale_factor
-    Ceff(t) = sessions_per_day * avg_turns * consent_grant_rate
+    Default (normalize_to_inference_volume=False):
+        E(t) = quantization_hostility * deployment_scale_factor   [dimensionless]
+        Ceff(t) = sessions_per_day * avg_turns * consent_grant_rate  [turns/day]
+
+    Normalized (normalize_to_inference_volume=True):
+        E(t) = quantization_hostility * turns_per_day * deployment_scale_factor  [turns/day]
+        Ceff(t) = turns_per_day * consent_grant_rate  [turns/day]
+        Both sides share the same unit (inference turns/day), making the ratio
+        dimensionally meaningful. hostility is interpreted as the probability that
+        a given inference turn introduces an uncorrected error.
 
     Args:
         outlier_ratio, activation_kurtosis, cardinal_proximity,
@@ -159,9 +168,17 @@ def from_prism_metrics(
         deployment_scale_factor: multiplier for E(t) based on deployment scale
             (e.g. 1.0 = single-server; 10.0 = high-traffic production)
         model_id: optional model identifier
+        normalize_to_inference_volume: if True, scale both E(t) and Ceff(t) by
+            inference volume (turns/day) so the ratio is dimensionally consistent.
+            Default False preserves legacy behaviour.
     """
-    e_t = quantization_hostility * deployment_scale_factor
-    ceff_t = sessions_per_day * avg_turns_per_session * consent_grant_rate
+    inference_volume = sessions_per_day * avg_turns_per_session
+    if normalize_to_inference_volume:
+        e_t = quantization_hostility * inference_volume * deployment_scale_factor
+        ceff_t = inference_volume * consent_grant_rate
+    else:
+        e_t = quantization_hostility * deployment_scale_factor
+        ceff_t = sessions_per_day * avg_turns_per_session * consent_grant_rate
 
     return assess(
         error_rate_estimate=e_t,
