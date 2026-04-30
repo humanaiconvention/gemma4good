@@ -28,6 +28,8 @@ import time
 from dataclasses import dataclass, field, asdict
 from typing import Optional
 
+from utils.merkle import sha3_256_hex as _sha256, merkle_root as _merkle_root
+
 
 # ── Configuration ─────────────────────────────────────────────────────────────
 
@@ -167,26 +169,9 @@ def format_session_as_sft(
 
 
 # ── Merkle utilities ──────────────────────────────────────────────────────────
-
-def _sha256(data: str) -> str:
-    """SHA3-256 hex digest of a string (name kept for API compat)."""
-    return hashlib.sha3_256(data.encode("utf-8")).hexdigest()
-
-
-def _merkle_root(leaves: list) -> str:
-    """Compute Merkle root from a list of hex-string leaves."""
-    if not leaves:
-        return _sha256("empty")
-
-    nodes = list(leaves)
-    while len(nodes) > 1:
-        if len(nodes) % 2 == 1:
-            nodes.append(nodes[-1])
-        nodes = [
-            _sha256(nodes[i] + nodes[i + 1])
-            for i in range(0, len(nodes), 2)
-        ]
-    return nodes[0]
+# _sha256 and _merkle_root are imported from utils.merkle above.
+# The local _sha256 alias preserves call-site compatibility throughout this
+# module without exposing callers to the rename.
 
 
 def hash_adapter_state(adapter_path_or_dict) -> Optional[str]:

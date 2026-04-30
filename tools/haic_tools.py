@@ -15,6 +15,8 @@ import os
 import time
 import uuid
 import hashlib
+
+from utils.merkle import sha3_256_hex, merkle_root as _merkle_root, hash_items_to_leaves
 from typing import Optional
 
 # Incremental grounding — tool #7
@@ -181,9 +183,9 @@ def verify_consent(session_id: str, consent_layers: dict,
         )
         resp.raise_for_status()
         data = resp.json()
-        consent_hash = hashlib.sha3_256(
-            json.dumps(consent_layers, sort_keys=True).encode()
-        ).hexdigest()
+        consent_hash = sha3_256_hex(
+            json.dumps(consent_layers, sort_keys=True)
+        )
         layers_granted = [k for k, v in consent_layers.items() if v == "granted"]
         return {
             "consent_valid": True,
@@ -192,9 +194,9 @@ def verify_consent(session_id: str, consent_layers: dict,
             "session_id": session_id
         }
     except Exception as e:
-        consent_hash = hashlib.sha3_256(
-            json.dumps(consent_layers, sort_keys=True).encode()
-        ).hexdigest()
+        consent_hash = sha3_256_hex(
+            json.dumps(consent_layers, sort_keys=True)
+        )
         layers_granted = [k for k, v in consent_layers.items() if v == "granted"]
         return {
             "consent_valid": len(layers_granted) > 0,
@@ -544,26 +546,13 @@ def generate_receipt(session_id: str, messages: list, consent: dict,
             "source": "maestro"
         }
     except Exception as e:
-        # Local Merkle root computation (simplified)
-        nodes = [
-            hashlib.sha3_256(json.dumps(m, sort_keys=True).encode()).hexdigest()
-            for m in messages
-        ]
-        nodes.append(
-            hashlib.sha3_256(json.dumps(consent, sort_keys=True).encode()).hexdigest()
-        )
-        # Pair-wise reduction
-        while len(nodes) > 1:
-            if len(nodes) % 2 == 1:
-                nodes.append(nodes[-1])
-            nodes = [
-                hashlib.sha3_256((nodes[i] + nodes[i+1]).encode()).hexdigest()
-                for i in range(0, len(nodes), 2)
-            ]
-        merkle_root = nodes[0] if nodes else hashlib.sha3_256(b"empty").hexdigest()
+        # Local Merkle root computation via shared utils
+        leaves = hash_items_to_leaves(messages)
+        leaves.append(sha3_256_hex(json.dumps(consent, sort_keys=True)))
+        root = _merkle_root(leaves)
 
         return {
-            "merkle_root": merkle_root,
+            "merkle_root": root,
             "qr_data_url": None,
             "node_count": len(messages),
             "created_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),

@@ -18,6 +18,8 @@ import hashlib
 import os
 from typing import Optional
 
+from utils.merkle import sha3_256_hex, merkle_root as _compute_merkle_root, hash_items_to_leaves
+
 try:
     import requests as _requests
     _HAS_REQUESTS = True
@@ -142,23 +144,11 @@ class MaestroClient:
     @staticmethod
     def _local_receipt(session_id: str, messages: list, consent: dict) -> dict:
         """Build a local Merkle receipt without the gateway."""
-        nodes = [
-            hashlib.sha3_256(json.dumps(m, sort_keys=True).encode()).hexdigest()
-            for m in messages
-        ]
-        nodes.append(
-            hashlib.sha3_256(json.dumps(consent, sort_keys=True).encode()).hexdigest()
-        )
-        while len(nodes) > 1:
-            if len(nodes) % 2 == 1:
-                nodes.append(nodes[-1])
-            nodes = [
-                hashlib.sha3_256((nodes[i] + nodes[i+1]).encode()).hexdigest()
-                for i in range(0, len(nodes), 2)
-            ]
-        merkle_root = nodes[0] if nodes else hashlib.sha3_256(b"empty").hexdigest()
+        leaves = hash_items_to_leaves(messages)
+        leaves.append(sha3_256_hex(json.dumps(consent, sort_keys=True)))
+        root = _compute_merkle_root(leaves)
         return {
-            "merkle_root": merkle_root,
+            "merkle_root": root,
             "session_id": session_id,
             "node_count": len(messages) + 1,
             "created_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
