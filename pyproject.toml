@@ -17,6 +17,9 @@ dev = [
 runtime = [
     "requests",
 ]
+onchain = [
+    "web3>=7.0.0",
+]
 dashboard = [
     "streamlit",
     "plotly",
@@ -25,4 +28,10 @@ dashboard = [
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["tools*", "viability*", "maestro_integration*", "prism_integration*", "utils*"]
+include = ["tools*", "viability*", "maestro_integration*", "prism_integration*", "utils*", "onchain*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+norecursedirs = ["_local_worktrees", "_local_state", "experiments", "notebook", "dashboard", "onchain"]
+# Use a repo-local basetemp to avoid Windows perms on %TEMP%/pytest-of-<user>.
+addopts = "--basetemp=.pytest_tmp"
