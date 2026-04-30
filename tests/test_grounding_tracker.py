@@ -20,7 +20,8 @@ def _make_session(session_id: str, sft_pairs: int = 3,
                   training_executed: bool = False,
                   consent: str = "granted",
                   loss_before: float = None,
-                  loss_after: float = None) -> GroundingSession:
+                  loss_after: float = None,
+                  mean_surprisal: float = None) -> GroundingSession:
     return GroundingSession(
         session_id=session_id,
         timestamp="2026-04-10T12:00:00Z",
@@ -32,6 +33,7 @@ def _make_session(session_id: str, sft_pairs: int = 3,
         training_receipt_root=f"training_{session_id}" if training_executed else None,
         consent_training_signal=consent,
         steps_executed=5 if training_executed else 0,
+        mean_surprisal=mean_surprisal,
     )
 
 
@@ -146,6 +148,64 @@ class TestViabilityTrend:
         assert trend[0]["loss_after"] is None
 
 
+# ── Weighted Ceff ─────────────────────────────────────────────────────────────
+
+class TestWeightedCeff:
+
+    def test_none_surprisal_defaults_to_one(self):
+        """Without surprisal, weighted Ceff equals raw Ceff."""
+        tracker = GroundingTracker()
+        tracker.add_session(_make_session("s1", sft_pairs=3))
+        assert tracker.cumulative_ceff_weighted() == 3.0
+        assert tracker.cumulative_ceff_weighted() == tracker.cumulative_ceff()
+
+    def test_surprisal_weights_correctly(self):
+        """3 pairs × 2.5 bits = 7.5 weighted Ceff."""
+        tracker = GroundingTracker()
+        tracker.add_session(_make_session("s1", sft_pairs=3, mean_surprisal=2.5))
+        assert tracker.cumulative_ceff_weighted() == pytest.approx(7.5)
+
+    def test_mixed_sessions_weight_independently(self):
+        tracker = GroundingTracker()
+        tracker.add_session(_make_session("s1", sft_pairs=3, mean_surprisal=2.0))  # 6.0
+        tracker.add_session(_make_session("s2", sft_pairs=2, mean_surprisal=4.0))  # 8.0
+        tracker.add_session(_make_session("s3", sft_pairs=5))                       # 5.0 (default)
+        assert tracker.cumulative_ceff_weighted() == pytest.approx(19.0)
+        assert tracker.cumulative_ceff() == 10.0  # raw count unchanged
+
+    def test_denied_sessions_excluded_from_weighted(self):
+        tracker = GroundingTracker()
+        tracker.add_session(_make_session("s1", sft_pairs=3, mean_surprisal=2.0, consent="granted"))
+        tracker.add_session(_make_session("s2", sft_pairs=5, mean_surprisal=10.0, consent="denied"))
+        assert tracker.cumulative_ceff_weighted() == pytest.approx(6.0)  # only s1
+
+    def test_high_surprisal_session_outweighs_low(self):
+        """A surprising correction contributes more than a predictable one."""
+        tracker = GroundingTracker()
+        tracker.add_session(_make_session("boring", sft_pairs=3, mean_surprisal=0.5))
+        tracker.add_session(_make_session("novel", sft_pairs=3, mean_surprisal=5.0))
+        assert tracker.cumulative_ceff() == 6.0  # same raw
+        assert tracker.cumulative_ceff_weighted() == pytest.approx(16.5)  # 1.5 + 15.0
+
+    def test_trend_includes_weighted_fields(self):
+        tracker = GroundingTracker(e_t=1.0)
+        tracker.add_session(_make_session("s1", sft_pairs=3, mean_surprisal=2.0))
+        trend = tracker.viability_trend()
+        assert "cumulative_ceff_weighted" in trend[0]
+        assert "ratio_ceff_e_weighted" in trend[0]
+        assert trend[0]["cumulative_ceff_weighted"] == pytest.approx(6.0)
+        assert trend[0]["ratio_ceff_e_weighted"] == pytest.approx(6.0)
+
+    def test_summary_includes_weighted_fields(self):
+        tracker = GroundingTracker(e_t=1.0)
+        tracker.add_session(_make_session("s1", sft_pairs=3, mean_surprisal=2.0))
+        s = tracker.summary()
+        assert "cumulative_ceff_weighted" in s
+        assert "cumulative_ratio_weighted" in s
+        assert s["cumulative_ceff_weighted"] == pytest.approx(6.0)
+        assert s["cumulative_ratio_weighted"] == pytest.approx(6.0)
+
+
 # ── Summary ───────────────────────────────────────────────────────────────────
 
 class TestSummary:
@@ -202,3 +262,15 @@ class TestJsonRoundTrip:
 
         restored = GroundingTracker.from_json(tracker.to_json())
         assert tracker.summary() == restored.summary()
+
+    def test_round_trip_preserves_surprisal(self):
+        tracker = GroundingTracker(e_t=0.9146)
+        tracker.add_session(_make_session("s1", sft_pairs=3, mean_surprisal=2.5))
+        tracker.add_session(_make_session("s2", sft_pairs=5, mean_surprisal=None))
+
+        restored = GroundingTracker.from_json(tracker.to_json())
+        assert restored.sessions[0].mean_surprisal == 2.5
+        assert restored.sessions[1].mean_surprisal is None
+        assert restored.cumulative_ceff_weighted() == pytest.approx(
+            tracker.cumulative_ceff_weighted()
+        )
