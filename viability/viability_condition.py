@@ -47,11 +47,23 @@ def assess(
     Evaluate the Viability Condition Ceff(t) > E(t).
 
     Args:
-        error_rate_estimate: E(t) in corrections-equivalent/day.
+        error_rate_estimate: E(t) — see unit note below.
             Can be derived from Prism's quantization_hostility:
             E(t) = quantization_hostility * deployment_scale_factor
         verification_bandwidth_estimate: Ceff(t) in verified corrections/day.
             Each Maestro interview session with training_signal=granted counts as 1.
+
+    Unit note:
+        The ratio is meaningful only when both arguments are expressed in
+        commensurate units. The from_prism_metrics() convenience derives
+        E(t) = quantization_hostility * scale_factor, which is dimensionless
+        — interpreting that in 'corrections-equivalent/day' requires picking
+        scale_factor so the product has the same units as Ceff. A single
+        deployment-specific calibration constant (corrections per unit
+        hostility per day, at a given traffic volume) makes the ratio
+        physically meaningful; without it, Ceff/E is a heuristic, not a
+        physical quantity. See docs/viability_condition.md for the full
+        framework.
         synthetic_data_ratio: Fraction [0,1] of training data that is synthetic.
             Reduces effective Ceff by this factor (contaminated corrections are
             lower value than ground-truth corrections).
