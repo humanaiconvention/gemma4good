@@ -16,7 +16,7 @@
       "cardinal_proximity": 0.8074,
       "quantization_hostility": 0.9138,
       "layers_sampled": 20,
-      "training_loss": 5.1777,
+      "training_loss": 5.1794,
       "training_steps": 50
     }
   },
@@ -72,11 +72,17 @@
     "node_count": 6
   },
   "viability": {
-    "satisfied": true,
-    "ceff_vs_e_ratio": 237.196323,
-    "autophagy_risk": "none",
-    "effective_ceff": 216.75,
-    "error_rate": 0.9138
+    "satisfied": false,
+    "ceff_vs_e_ratio": 0.884,
+    "autophagy_risk": "medium",
+    "effective_ceff": 242.25,
+    "error_rate": 274.14,
+    "normalize_to_inference_volume": true,
+    "sessions_per_day": 50.0,
+    "avg_turns_per_session": 6.0,
+    "consent_grant_rate": 0.85,
+    "synthetic_data_ratio": 0.05
   },
+  "notebook_version": 6,
   "promotion": false
 }
