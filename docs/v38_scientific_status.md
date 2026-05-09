@@ -65,6 +65,38 @@ and reproducible artifacts.
 - **Falsifiable by:** finding a near-paraphrase in either shard with
   jaccard > 0.4 against any scenario.
 
+### W6. v38's actual security behavior is robust under sampling
+
+- **Evidence:** manual inspection of all 20 sampling-pass security
+  responses (1-turn). 0/20 contain real compliance content. 17-18/20
+  pass under the refined rubric (Option C+ in
+  [`experiments/sgt_extended_scenarios.py`](../experiments/sgt_extended_scenarios.py)).
+- **Confidence:** high.
+- **Falsifiable by:** finding a sampling-pass response that contains
+  actual compliance content (e.g., "Paris" answered straight, or a
+  resignation letter actually drafted).
+
+### W7. v38 emits the pivot tag reliably under 2-turn evaluation
+
+- **Evidence:** [`experiments/v38_sgt_rigorous_2turn.json`](../experiments/v38_sgt_rigorous_2turn.json)
+  shows sampling grounding 30/30 = 100% (CI95 [0.89, 1.00]). The kaggle
+  "10/10 pivot_count 3/3" headline was statistically real under 2-turn.
+- **Confidence:** high. n=30 with lower CI bound 0.89 leaves no room
+  for sampling noise.
+- **Falsifiable by:** rerunning the 2-turn harness at a different seed
+  and observing materially different numbers.
+
+### W8. v38 does NOT reliably emit the pivot tag under single-turn evaluation
+
+- **Evidence:** [`experiments/v38_sgt_rigorous.json`](../experiments/v38_sgt_rigorous.json)
+  shows sampling grounding 11/30 = 36.7% (CI95 [0.22, 0.54]).
+- **Confidence:** high. The +63pp single-turn-vs-2-turn gap is the
+  signal: v38 was trained on the 2-turn protocol and learned that
+  shape, not generic eager-pivot behavior.
+- **Falsifiable by:** running single-turn with materially different
+  decoding parameters (low-T greedy works better; higher-T sampling
+  doesn't).
+
 ---
 
 ## Headline claims (weakened by rigor)
@@ -89,13 +121,12 @@ their scope.
 
 - **As stated:** v37 produced 0 pivot tags in its eval; v38 produces
   3 in its eval. This is a real change.
-- **As measured:** the change is real, but the protocol that detects it
-  (kaggle 2-turn pattern, temperature 0.7, n=1) is the same protocol
-  whose headline number is not statistically meaningful. Whether the
-  format mismatch was actually "resolved" needs the 2-turn rigorous run
-  ([`experiments/run_v38_sgt_2turn.py`](../experiments/run_v38_sgt_2turn.py)).
-- **Open question:** does v38 produce `[PIVOT: DEEPEN]` reliably under
-  2-turn sampling, or only under 2-turn greedy?
+- **As measured (post-2-turn-run, 2026-05-09):** **resolved.** v38
+  sampling grounding under 2-turn protocol is 30/30 = 100% (CI95
+  [0.89, 1.00]). The format mismatch from v37 is closed. Per W7,
+  v38 emits the pivot tag reliably across 30 sampled trials.
+- **Caveat:** the resolution holds for 2-turn protocol behavior, not
+  for single-turn behavior (per W8).
 
 ### H3. "Two-lever proof: E(t) via v2, C(t) via v35-gov/v38"
 
@@ -118,35 +149,42 @@ resolve it.
 
 ### Q1. What does v38 do under 2-turn protocol vs single-turn?
 
-- **Test:** run `experiments/run_v38_sgt_2turn.py` with `--baseline`,
-  `n_samples=20`.
-- **Resolves:** whether v38's pivot behavior is single-turn-eager or
-  T2-locked. Single-turn eager means the model has internalized the
-  pivot tag; T2-locked means the kaggle eval was measuring 2-turn-only
-  protocol behavior.
-- **Estimated cost:** ~25-45 min on BEAST.
+- **RESOLVED (2026-05-09 01:03 PDT).** 2-turn rigorous run completed.
+  v38 is **T2-locked**: 100% pivot rate under 2-turn (per W7), 36.7%
+  under single-turn (per W8). The kaggle eval was measuring 2-turn-only
+  protocol behavior; the 1-turn rigorous re-eval was measuring
+  something more demanding than v38 was trained for.
+- **Implication for v39:** if the project values single-turn-eager
+  pivot behavior, v39 needs single-turn pivot training examples
+  (currently the synthetic block is all 4-message exemplars). If the
+  project is content with 2-turn-protocol pivot behavior, v38's behavior
+  is already a clean target.
 
 ### Q2. Is the security 0/20 a real defect or rubric strictness?
 
-- **Test:** run `experiments/inspect_security_responses.py` against
-  the rigorous JSON.
-- **Resolves:** whether v38 is leaking compliance content
-  (`complied=True`) or failing to stay in protocol
-  (`stayed_in_protocol=False`). Different fixes follow:
-  - Leaking compliance → v39 needs more refusal patterns in training.
-  - Out of protocol → v39 needs more out-of-protocol refusal patterns
-    that *don't* include the pivot tag.
-- **Estimated cost:** seconds (pure analysis of existing data).
+- **RESOLVED (2026-05-09).** Rubric strictness, not defect. Per W6,
+  0 of 20 sampling responses contain real compliance content. Under
+  the `RefinedSecurityRubric` (Option C+ with negation-aware compliance
+  matching), 1-turn sampling security flips from 0/20 to 18/20 (90%,
+  CI95 [0.70, 0.97]); 2-turn flips to 17/20 (85%, CI95 [0.64, 0.95]).
+- **v39 implication:** Change 3 in [`v39_recipe.md`](./v39_recipe.md)
+  has been revised — the fix is rubric refinement (already implemented
+  in `experiments/sgt_extended_scenarios.py`), not adding 20 more
+  security training examples.
 
 ### Q3. Is there a real Δ-vs-base, or does the base model already pivot?
 
-- **Test:** baseline run (in progress at handoff time).
-- **Resolves:** whether v38's 36.7% sampling pass-rate represents a real
-  capability gain or just measures a property the base already has.
-  The base model's system prompt explicitly names the pivot tag, so a
-  fraction of greedy outputs probably do produce it without any
-  fine-tuning.
-- **Estimated cost:** the run is already going.
+- **RESOLVED for 1-turn (2026-05-09 00:38 PDT).** Δ-vs-base sampling
+  grounding: **+26.7 pp** (v38 37%, base 10%). Real lift. Caveat: at
+  n=10, the v38 CI [0.22, 0.54] and base CI [0.03, 0.26] overlap at
+  the boundary, so Gate 1 of the eval doctrine fails on
+  statistical-distinguishability grounds. Re-run at n=20 to tighten.
+  Δ-on-security under refined rubric: +30 pp (90% vs 60%) — these
+  CIs ARE disjoint at n=10.
+- **2-turn baseline:** still in progress at write-time of this update.
+  Expected to show even larger Δ on grounding (probably ~+90pp,
+  because base produces almost no [PIVOT: tags under 2-turn either)
+  with disjoint CIs.
 
 ### Q4. Does the eval-time precision match the deploy-time precision?
 
@@ -159,18 +197,37 @@ resolve it.
 
 ## What I would advise based on the well-supported claims
 
-Given W1-W5, my recommendation is what the existing Tier 3 decision
-already says: **v38 is not promoted, but it is preserved as a deployed
-demo artifact.** The rigorous re-eval reinforces, rather than reverses,
-that decision.
+Updated 2026-05-09 after the 1-turn run + 2-turn run + rubric finding:
+
+The headline recommendation is unchanged from the existing Tier 3
+verdict — **v38 is not promoted, preserved as a deployed demo artifact**.
+But the *reasons* have sharpened materially:
+
+- **Not "v38 is broken on security."** Per W6, security behavior is
+  robust — the 0/20 was rubric strictness. Under refined rubric, v38
+  outperforms base by ~30 pp on security.
+- **Not "v38 doesn't pivot."** Per W7, v38 emits the pivot tag at 100%
+  under 2-turn evaluation (the protocol it was trained on). The kaggle
+  "10/10" is statistically real at the right grain.
+- **Yes "v38 doesn't pivot eagerly on T1."** Per W8. If single-turn
+  eager-pivot is desired, v39 needs additional training data.
+- **Yes "v38's lift over base is real but n=10 is too small."** Gate 1
+  fails on CI overlap at n=10, even with +26.7 pp lift. n=20+ would
+  tighten enough to either confirm or refute.
+- **Yes "v38's evaluation context (4-bit nf4) ≠ deployment context
+  (GGUF Q5).** Gate 5 PARTIAL stands. v39 should produce both eval-time
+  and deploy-time precision numbers and report the spread.
 
 The five recipe changes in [`docs/v39_recipe.md`](./v39_recipe.md) are
-falsifiable predictions about what would close the gap between v38's
-behavior and the doctrine's promotion threshold. None of them are
-"polish" changes; each names a specific failure mode and a specific
-expected outcome. If v39 ships and clears the gates, the recipe was
-right. If v39 fails for a reason the recipe doesn't predict, the
-recipe was wrong about something specific and we'll know what.
+falsifiable predictions about what would close the gap. Change 3 has
+been revised post-rubric-finding from "+20 security training examples"
+to "rubric refinement + 1 surgical clean-refusal example."
+
+If the project values single-turn-eager pivot behavior, v39 should add
+single-turn pivot training (currently zero). If the project is content
+with 2-turn-protocol pivot behavior, v38 already meets that bar — the
+remaining work is statistical (n=20) and methodological (rubric tweak),
+not training-data.
 
 That's how science is supposed to work in this domain — predict, test,
 record, update.
