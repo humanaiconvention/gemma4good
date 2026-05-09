@@ -244,7 +244,11 @@ def generate_training_receipt(
       - loss_trajectory hash
       - adapter_state_after hash
 
-    Level 2: pairwise SHA-256 reduction → training_receipt_root.
+    Level 2: pairwise SHA3-256 reduction → training_receipt_root.
+    (Uses utils.merkle.merkle_root, which itself uses sha3_256_hex —
+    EVM/keccak256-compatible per the 2f50f83 SHA-256 → SHA3-256 migration.
+    The local _sha256 alias in this module is a callsite-stable name for
+    the SHA3-256 function imported from utils.merkle.)
 
     Any None leaf is hashed as the string "null" — this is explicit, not hidden.
     The receipt declares whether training actually executed.
