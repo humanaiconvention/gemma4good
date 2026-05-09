@@ -1,0 +1,81 @@
+name: eval-pipeline-tests
+
+# Runs the eval-pipeline unit tests on every push and PR.
+# All tests are CPU-only and run in ~0.25s, so this stays cheap.
+#
+# What's covered:
+#   - tests/test_sgt_harness.py             (Garrett's harness, 30 tests)
+#   - tests/test_sgt_extended_scenarios.py  (extended scenarios + RefinedSecurityRubric, 24 tests)
+#   - tests/test_eval_leakage_check.py      (Gate 2 leakage tool, 22 tests)
+#   - tests/test_check_promotion.py         (six-gate decision, 25 tests)
+#   - tests/test_eval_receipt.py            (Merkle receipt, 18 tests)
+#
+# Total: 119 unit tests, all pure-Python, no GPU required.
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'experiments/**'
+      - 'tools/**'
+      - 'tests/**'
+      - 'utils/**'
+      - 'pyproject.toml'
+      - '.github/workflows/eval_pipeline_tests.yml'
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      matrix:
+        python-version: ['3.11', '3.12']
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install minimal test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
+
+      - name: Run eval-pipeline tests
+        run: |
+          python -m pytest \
+            tests/test_sgt_harness.py \
+            tests/test_sgt_extended_scenarios.py \
+            tests/test_eval_leakage_check.py \
+            tests/test_check_promotion.py \
+            tests/test_eval_receipt.py \
+            -v --tb=short
+
+      - name: Verify v38 partial-validation receipts still verify
+        # Sanity check: the synthetic v38 partial receipts in experiments/
+        # should reproduce their exact roots if rebuilt under the current code.
+        # Drift here means the eval pipeline's hash semantics changed and
+        # historical receipts are no longer reproducible — that's a
+        # provenance regression worth catching.
+        run: |
+          python -c "
+          import json
+          from tools.eval_receipt import build_receipt
+          from pathlib import Path
+          sgt = json.loads(Path('experiments/v38_sgt_partial_synthetic.json').read_text())
+          leakage = json.loads(Path('experiments/v38_leakage_receipt.json').read_text())
+          decision = json.loads(Path('experiments/v38_promotion_decision_partial.json').read_text())
+          rebuilt = build_receipt(sgt, leakage, decision, sgt_path=Path('experiments/v38_sgt_partial_synthetic.json'))
+          stored = json.loads(Path('experiments/v38_eval_receipt_partial.json').read_text())
+          assert rebuilt['eval_receipt_root'] == stored['eval_receipt_root'], (
+              f'v38 partial receipt drift: rebuilt={rebuilt[\"eval_receipt_root\"]}, '
+              f'stored={stored[\"eval_receipt_root\"]}'
+          )
+          print(f'OK: partial receipt root verifies: {stored[\"eval_receipt_root\"][:16]}...')
+          "
