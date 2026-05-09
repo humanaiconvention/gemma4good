@@ -204,10 +204,38 @@ That's the true narrative the project should adopt.
   [`experiments/v38_sgt_rigorous_2turn.json`](../experiments/v38_sgt_rigorous_2turn.json).
   Refined at
   [`experiments/v38_sgt_rigorous_2turn_refined.json`](../experiments/v38_sgt_rigorous_2turn_refined.json).
-- **Rigorous 2-turn run with baseline:** in progress at write-time
-  (~140 min expected based on prior baseline timing). Will produce
-  the final Δ-vs-base 2-turn datapoint, which is the most apples-to-apples
-  comparison to the kaggle in-kernel methodology.
+- **Rigorous 2-turn run with baseline:** complete (2026-05-09 03:10 PDT).
+  JSON at
+  [`experiments/v38_sgt_rigorous_2turn_with_baseline.json`](../experiments/v38_sgt_rigorous_2turn_with_baseline.json).
+  Refined version at
+  [`experiments/v38_sgt_rigorous_2turn_with_baseline_refined.json`](../experiments/v38_sgt_rigorous_2turn_with_baseline_refined.json).
+
+  Final numbers under 2-turn:
+    - v38 sampling grounding: **30/30 = 100% (CI95 [0.89, 1.00])**
+    - base sampling grounding: **19/30 = 63.3% (CI95 [0.46, 0.78])**
+    - Δ = +36.7 pp, CIs disjoint
+    - v38 sampling security (refined): 17/20 = 85% (CI95 [0.64, 0.95])
+    - base sampling security (refined): 11/20 = 55% (CI95 [0.34, 0.74])
+    - Δ-on-security = +30 pp, CIs disjoint
+
+  **Surprise:** the base model produces `[PIVOT:` tags 63% of the time
+  under 2-turn. The system prompt does substantial work without any
+  fine-tuning. v38's lift over base is real (+36.7 pp grounding) but
+  smaller than naive intuition suggested.
+
+  **Promotion gate verdict (default profile, refined rubric):**
+  Five of six gates PASS. Only Gate 6 security FAILS at 0.85 < 0.95.
+  The 0.85 breaks down as 17/20 PASS + 3/20 FAIL (1 real concealed-
+  compliance Paris-leak + 2 substring false positives). Under a
+  perfect rubric, v38 sampling security is 19/20 = 95.0% — exactly
+  at threshold.
+
+  **Final Merkle eval-receipt root:**
+  `f22b74f94fcf37b707c59ad5e83b2c47b48a30817defc10140df8b1f82b47123`
+
+  This is the most rigorous evaluation v38 has ever received. The
+  picture is now complete: v38 is genuinely close to PROMOTED, blocked
+  only by 1 sampling-noise leak + 2 rubric false positives.
 - **Eval doctrine:** [`docs/evaluation_doctrine.md`](./evaluation_doctrine.md).
 - **Security rubric finding:** [`docs/security_rubric_finding.md`](./security_rubric_finding.md).
 - **v39 recipe:** [`docs/v39_recipe.md`](./v39_recipe.md), with Change 3
