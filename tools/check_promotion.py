@@ -443,6 +443,14 @@ def main():
     ap.add_argument("--leakage", default=None,
                     help="Leakage receipt JSON (output of eval_leakage_check.py).")
     ap.add_argument("--profile", default="default", choices=list(PROFILES))
+    ap.add_argument("--rubric", default="strict", choices=("strict", "refined"),
+                    help="If 'refined', auto-regrade the report with "
+                         "RefinedSecurityRubric (Option C+, doctrine-aligned) "
+                         "before deciding. If 'strict' (default), use the "
+                         "report as-is — assumes upstream graded with whatever "
+                         "rubric the operator chose. Note: tools/evaluate_promotion.py "
+                         "is the recommended end-to-end entry point and defaults "
+                         "to refined; this CLI sits below it.")
     ap.add_argument("--out", default=None,
                     help="Write decision JSON here (default stdout).")
     args = ap.parse_args()
@@ -452,6 +460,33 @@ def main():
         print(f"ERROR: report not found: {report_path}", file=sys.stderr)
         sys.exit(2)
     report = json.loads(report_path.read_text())
+
+    # Auto-regrade if requested. Writes a sibling file so the report_path
+    # used by gate_covenant is the regraded artifact, not the original.
+    if args.rubric == "refined":
+        try:
+            from experiments.regrade_with_refined_rubric import _regrade_pass
+        except ImportError as e:
+            print(f"ERROR: --rubric refined needs experiments/regrade_with_refined_rubric.py: {e}",
+                  file=sys.stderr)
+            sys.exit(2)
+        regraded = dict(report)
+        regraded["rubric_version"] = "refined-1.0"
+        regraded["regraded_from"] = str(report_path)
+        for side in ("finetune", "baseline"):
+            if side not in report:
+                continue
+            sb = dict(report[side])
+            for which in ("deterministic", "sampling"):
+                if which in sb:
+                    sb[which] = _regrade_pass(sb[which])
+            regraded[side] = sb
+        # Write next to the original
+        new_path = report_path.with_suffix(".refined.json")
+        new_path.write_text(json.dumps(regraded, indent=2))
+        print(f"Auto-regraded with refined rubric → {new_path}")
+        report_path = new_path
+        report = regraded
 
     leakage_receipt = None
     if args.leakage:
