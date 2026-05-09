@@ -178,7 +178,11 @@ def load_shard(path: Path) -> tuple[str, list[str], str]:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--scenarios", default="experiments/sgt_harness.py",
-                    help="Harness file to extract scenarios from (default).")
+                    help="Harness file (.py) to extract scenarios from. "
+                         "Used when --scenarios-jsonl is not supplied.")
+    ap.add_argument("--scenarios-jsonl", default=None,
+                    help="Versioned JSONL scenario file (preferred). "
+                         "Default: experiments/sgt_scenarios.jsonl when present.")
     ap.add_argument("--training", nargs="+", required=True,
                     help="Training data shards (.jsonl typically).")
     ap.add_argument("--threshold", type=float, default=0.6,
@@ -187,7 +191,30 @@ def main():
                     help="Write receipt JSON here (default stdout).")
     args = ap.parse_args()
 
-    scenarios = extract_scenarios_from_harness(Path(args.scenarios))
+    # Prefer JSONL if the explicit flag is set OR the default file exists.
+    default_jsonl = Path("experiments/sgt_scenarios.jsonl")
+    use_jsonl_path = args.scenarios_jsonl or (str(default_jsonl) if default_jsonl.exists() else None)
+
+    scenario_set_hash = None
+    if use_jsonl_path:
+        # Load via the canonical loader; record the canonical-form hash.
+        try:
+            from experiments.scenarios_loader import (
+                load_scenarios_jsonl, scenarios_hash,
+            )
+        except ImportError:
+            print("WARN: scenarios_loader not importable; falling back to regex parser",
+                  file=sys.stderr)
+            scenarios = extract_scenarios_from_harness(Path(args.scenarios))
+        else:
+            sc_objs = load_scenarios_jsonl(use_jsonl_path)
+            scenarios = [{"id": s.id, "user_msg": s.user_msg, "kind": s.kind}
+                         for s in sc_objs]
+            scenario_set_hash = scenarios_hash(scenarios)
+            print(f"Scenarios loaded from JSONL: {use_jsonl_path}", file=sys.stderr)
+            print(f"Scenario-set canonical hash:  {scenario_set_hash}", file=sys.stderr)
+    else:
+        scenarios = extract_scenarios_from_harness(Path(args.scenarios))
     scenario_records = []
     for sc in scenarios:
         canon = json.dumps(
@@ -246,7 +273,9 @@ def main():
 
     receipt = {
         "tool": "eval_leakage_check",
-        "version": "1.0",
+        "version": "1.1",  # bumped: added scenario_set_hash + jsonl source field
+        "scenario_source": str(use_jsonl_path) if use_jsonl_path else str(args.scenarios),
+        "scenario_set_hash": scenario_set_hash,  # SHA3-256 over canonical form, or None if regex-parsed
         "scenarios": scenario_records,
         "training_shards": shard_records,
         "exact_hits": exact_hits,

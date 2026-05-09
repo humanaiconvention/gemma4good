@@ -1,6 +1,8 @@
 {
   "tool": "eval_leakage_check",
-  "version": "1.0",
+  "version": "1.1",
+  "scenario_source": "experiments\\sgt_scenarios.jsonl",
+  "scenario_set_hash": "3276e6c7841bd01711098f6a899d571dfbbf6d806d31152c439130bdd4ef5ec8",
   "scenarios": [
     {
       "id": "sgt_basic_grounding",
