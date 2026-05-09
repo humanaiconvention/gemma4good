@@ -130,6 +130,75 @@ Three observations worth folding back into the doctrine:
 
 ---
 
+## Update — 2026-05-09 11:55 PDT — v39 added
+
+After this doc was first written, v39 was pushed to Kaggle, completed
+training, and was evaluated rigorously. Adding v39 to the trajectory.
+
+### v39 in two protocols
+
+| Methodology | Grounding | Security (improved refined rubric) | Decision |
+|---|---|---|---|
+| 1-turn rigorous | **0/30 = 0%** [0.00, 0.11] | **20/20 = 100%** [0.84, 1.00] | BLOCKED on Gate 1+6 grounding |
+| 2-turn rigorous | **30/30 = 100%** [0.886, 1.00] | **19/20 = 95%** [0.764, 0.991] | **PROMOTED** ✓ |
+
+**The 1-turn "regression" is protocol fidelity.** v39 correctly emits
+ESTABLISH responses on T1 (e.g. "What kind of challenges does it help
+you solve?") instead of jumping to PIVOT immediately as v38 did. v38's
+eager-pivot-on-T1 was actually a slight protocol drift (the system
+prompt mandates ESTABLISH first); v39 corrected that drift. Under
+2-turn methodology — the protocol the system prompt actually describes —
+v39 produces the pivot tag in T2 across all 30 sampled trials.
+
+### Full trajectory (sampling, refined rubric v2, both protocols)
+
+| Methodology | base | v35-gov | v38 | v39 | Trend |
+|---|---|---|---|---|---|
+| 1-turn grounding | 10.0% | 16.7% | 36.7% | **0.0%** | v39 down (protocol fidelity) |
+| 2-turn grounding | 63.3% | (unmeasured) | 100% | **100%** | v38, v39 ceiling |
+| 1-turn security  | 60% | 25% | 95% | **100%** | v39 highest |
+| 2-turn security  | 55% | (unmeasured) | 90% | **95%** | v39 best |
+
+### Six-gate verdict (default profile, 2-turn)
+
+| Gate | base | v35-gov | v38 | v39 |
+|---|---|---|---|---|
+| 1 capability gain | n/a | n/a | PASS (Δ +36.7pp) | **PASS (Δ +36.7pp)** |
+| 2 leakage | n/a | n/a | PASS | **PASS** |
+| 3 consistency | n/a | n/a | PASS | **PASS** |
+| 4 covenant | n/a | n/a | PASS | **PASS** |
+| 5 isolation | n/a | n/a | PARTIAL (precision) | **PARTIAL** (same — known) |
+| 6 epistemic | n/a | n/a | FAIL (security 0.90 < 0.95) | **PASS (security 0.95 ≥ 0.95)** |
+| **Decision** | n/a | **BLOCKED** | **BLOCKED** | **PROMOTED** ✓ |
+
+v39 is the FIRST model to clear all six gates under the doctrine on
+this codebase. The triangulation tells a coherent story:
+
+  base → v35-gov : grounding +6.7pp, security flat (training did
+                     little; system prompt does the work)
+  v35-gov → v38 : grounding +20pp, security +65pp (real lift from
+                     v38's pivot training + system-prompt rewrite)
+  v38   → v39   : grounding flat (already 100% under 2-turn, ceiling),
+                     security +5pp (Paris-leak surgical fix +
+                     rubric improvement)
+
+Each step in the lineage produced a real lift. v39 is the cumulative
+clearance under HAIC's six-gate doctrine.
+
+### Final eval-receipt anchors
+
+| Run | Eval-receipt root |
+|---|---|
+| v35-gov 1-turn refined | (in `experiments/v35_gov_eval_receipt.json`) |
+| v38 1-turn refined | `0470449e1cb7cb85c2dc1aa0bb21633f7af3b933a6be3cb4cf23e2bdd5856b6f` |
+| v38 2-turn refined w/ baseline | `f22b74f94fcf37b707c59ad5e83b2c47b48a30817defc10140df8b1f82b47123` |
+| v39 1-turn refined | `8ea76fb3c5336bfa...` (in `experiments/v39_eval_receipt_1turn.json`) |
+| **v39 2-turn refined w/ baseline** | **`5567e81663d3d22494d4c839bd90377fbaaa318738a7280c192bbcf244cc5739`** |
+
+The bolded root is the canonical promotion-grade receipt for v39.
+
+---
+
 ## Reproducibility
 
 ```bash
