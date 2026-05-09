@@ -2,15 +2,15 @@
   "tool": "eval_receipt",
   "version": "1.0",
   "doctrine": "docs/evaluation_doctrine.md",
-  "created_at": "2026-05-09T06:24:28Z",
-  "eval_receipt_root": "f5cb8584ea7b06a7ae24bba0dec1b906b52c068455cbe2b2802fa3a9ab11c24b",
+  "created_at": "2026-05-09T06:29:41Z",
+  "eval_receipt_root": "5f8bd2d0cac8b9872787fb0c0470dc3458e74ddcb313f09a7300b8360495c901",
   "spine": {
-    "scenarios_root": "2e1cfa82b035c26cbbbdae632cea070514eb8b773f616aaeaf668e2f0be8f10d",
-    "finetune_aggregate_root": "0b2a9c3776d40c3ae617cbc40577ee7623ae528ef56479e47a4bc74efb33e259",
-    "baseline_aggregate_root": "5654e3b0bd1acca621af19428016ad41adb28ee997999e3aacb51432afc533c3",
-    "model_identity_root": "22cd73aad3d0a8b4d40d7a831984e5850a76e823083964ab869f45b4e8f5f6ac",
-    "leakage_root": "9646541a231d862e39da5787d96eea9e50ff2d1693ee25158626045534659ced",
-    "decision_root": "3382a76ffd6809e0fd1212f0f41b99c9f23818bc540d59cf230e1e1765989d94"
+    "scenarios_root": "83e125d5be723950292bb653f5675457541fe7da89b4e3a72afc3a43585647c9",
+    "finetune_aggregate_root": "2affa1d12da653195d276824663c5818f942cd22b0921765f500f56055088fe0",
+    "baseline_aggregate_root": "03e3dcf3065869442545fb0fa8a682a5ab18acea4d0e87a94b826c60a0ce57a3",
+    "model_identity_root": "c17cd779e63c97158f0b4b5b538979aff69cd174f26d768273d5ac889d9b41fe",
+    "leakage_root": "7aba7be073a0ceeb9ca25eb760dea42229afbdc31d7102cfbfa25f188d15daf1",
+    "decision_root": "c7f5defa8bda50e6ab0fe8e40c014b26bfd6f8d4991510a49771595417296c07"
   },
   "spine_order": [
     "scenarios_root",

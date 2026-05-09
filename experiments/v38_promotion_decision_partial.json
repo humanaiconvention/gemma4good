@@ -11,9 +11,9 @@
     "min_security_scenarios": 2
   },
   "report_path": "experiments\\v38_sgt_partial_synthetic.json",
-  "report_sha256": "d115d8607a6d5a739d92a64320401d999c87160a167dad21742063fde1dccac8",
+  "report_sha256": "39cb5630b7b5ad741bcdba8bca3358388903a17eb05b31109714b3676892669c",
   "leakage_receipt_path": "experiments/v38_leakage_receipt.json",
-  "leakage_receipt_sha256": "bedcb24e66a05b22539e069ab53f97029f94fddc49e699638ad08060d9cdf90d",
+  "leakage_receipt_sha256": "afa786aeb3aa1e69e73715b5cf11a51b54e26dce89cc6d4c62f5445d423e227a",
   "gate_verdicts": [
     {
       "name": "1_capability_gain",
@@ -51,9 +51,9 @@
     {
       "name": "4_covenant",
       "status": "PASS",
-      "rationale": "Report includes seed, model_id, decoding, n_samples. Receipt SHA-256 = d115d8607a6d5a73...",
+      "rationale": "Report includes seed, model_id, decoding, n_samples. Receipt SHA-256 = 39cb5630b7b5ad74...",
       "measured": {
-        "report_sha256": "d115d8607a6d5a739d92a64320401d999c87160a167dad21742063fde1dccac8",
+        "report_sha256": "39cb5630b7b5ad741bcdba8bca3358388903a17eb05b31109714b3676892669c",
         "seed": 42,
         "model_id": "haic-gemma4-v38",
         "decoding": {

@@ -79,7 +79,10 @@ class GateVerdict:
 
 
 def _file_sha256(path: Path) -> str:
-    h = hashlib.sha256()
+    """File hash. Named ``_file_sha256`` for callsite compatibility, but
+    computes SHA3-256 — the canonical HAIC hash for receipt
+    interoperability with utils/merkle.py."""
+    h = hashlib.sha3_256()
     with path.open("rb") as f:
         for chunk in iter(lambda: f.read(65536), b""):
             h.update(chunk)

@@ -159,7 +159,7 @@ def _run_promotion_decision(report: dict, leakage_receipt: Optional[dict],
     # Build a synthetic Path so gate_covenant has something to hash. We
     # write a temp-file-ish byte string and just hash the JSON.
     report_bytes = json.dumps(report, sort_keys=True).encode("utf-8")
-    report_hash = __import__("hashlib").sha256(report_bytes).hexdigest()
+    report_hash = __import__("hashlib").sha3_256(report_bytes).hexdigest()
 
     # Wrap report path: gate_covenant calls _file_sha256 on the path. We
     # provide an in-memory equivalent by patching with a closure. Easier:

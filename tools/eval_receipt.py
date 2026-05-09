@@ -43,32 +43,35 @@ import time
 from pathlib import Path
 from typing import Any
 
+from utils.merkle import sha3_256_hex, merkle_root as _utils_merkle_root
+
 
 # ── Merkle helpers ──────────────────────────────────────────────────────────
+#
+# All hashing here uses SHA3-256 via utils.merkle for EVM/on-chain
+# interoperability with the rest of the HAIC framework. The function
+# names retain ``sha256_*`` for callsite stability; the docstring marks
+# the migration explicitly.
 
 
 def sha256_text(s: str) -> str:
-    return hashlib.sha256(s.encode("utf-8")).hexdigest()
+    """SHA3-256 hex digest of ``s`` (str → utf-8). Named for callsite stability."""
+    return sha3_256_hex(s)
 
 
 def sha256_canonical(obj: Any) -> str:
-    """SHA-256 over a canonical JSON encoding (sort_keys=True, no NaN)."""
+    """SHA3-256 over a canonical JSON encoding (sort_keys=True, no NaN)."""
     return sha256_text(json.dumps(obj, sort_keys=True, allow_nan=False, default=str))
 
 
 def merkle_root(leaves: list[str]) -> str:
-    """Pairwise SHA-256 reduction. Odd nodes carry forward (Bitcoin-style)."""
-    if not leaves:
-        return sha256_text("empty")
-    nodes = list(leaves)
-    while len(nodes) > 1:
-        new_level = []
-        for i in range(0, len(nodes), 2):
-            left = nodes[i]
-            right = nodes[i + 1] if i + 1 < len(nodes) else nodes[i]  # carry
-            new_level.append(sha256_text(left + right))
-        nodes = new_level
-    return nodes[0]
+    """Pairwise SHA3-256 reduction. Delegates to utils.merkle.merkle_root.
+
+    The two implementations agree on the hash: utils.merkle duplicates the
+    last odd leaf; the previous local version carried it forward. Both
+    produce sha3(L+L) for a singleton odd, so outputs match.
+    """
+    return _utils_merkle_root(leaves)
 
 
 # ── Per-scenario leaf hashes ────────────────────────────────────────────────

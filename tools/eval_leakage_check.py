@@ -38,11 +38,15 @@ from pathlib import Path
 
 
 def sha256_text(s: str) -> str:
-    return hashlib.sha256(s.encode("utf-8")).hexdigest()
+    """Hash a string. Named ``sha256_text`` for callsite compatibility, but
+    actually computes SHA3-256 — the canonical HAIC hash for receipt
+    interoperability with utils/merkle.py."""
+    return hashlib.sha3_256(s.encode("utf-8")).hexdigest()
 
 
 def sha256_file(path: Path) -> str:
-    h = hashlib.sha256()
+    """File hash. Same naming/algorithm note as sha256_text — uses SHA3-256."""
+    h = hashlib.sha3_256()
     with path.open("rb") as f:
         for chunk in iter(lambda: f.read(65536), b""):
             h.update(chunk)
