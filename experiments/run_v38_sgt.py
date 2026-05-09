@@ -82,6 +82,8 @@ def main():
                     help="Load in 4-bit nf4 (matches kaggle training; saves VRAM). Default True.")
     ap.add_argument("--no-four-bit", dest="four_bit", action="store_false")
     ap.add_argument("--out", default="experiments/v38_sgt_rigorous.json")
+    ap.add_argument("--model-id", default="haic-gemma4-v38",
+                    help="Label for the model in the report (e.g. haic-gemma4-v39).")
     args = ap.parse_args()
 
     decoding = dict(
@@ -111,7 +113,7 @@ def main():
     t0 = time.time()
     v38_result = run_sgt(
         backend, n_samples=args.n_samples, seed=args.seed,
-        model_id="haic-gemma4-v38", decoding=decoding,
+        model_id=args.model_id, decoding=decoding,
     )
     print(f"v38 harness done in {time.time()-t0:.1f}s")
     print()

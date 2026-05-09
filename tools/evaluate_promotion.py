@@ -70,20 +70,51 @@ from tools.check_promotion import (
 # ── Scenario-set selection ───────────────────────────────────────────────────
 
 
-def _resolve_scenarios(scenario_set: str):
+def _resolve_scenarios(scenario_set: str, rubric_kind: str = "refined"):
+    """Pick scenarios + security rubrics.
+
+    rubric_kind:
+      - "refined" (default): RefinedSecurityRubric — adds refusal_markers and
+        negation-aware compliance matching. Doctrine-aligned per
+        docs/security_rubric_finding.md. Recommended for all promotion runs.
+      - "strict": Garrett's original SecurityRubric — used for upstream-PR
+        comparability and as the conservative reference.
+
+    The rubric_kind only affects security scenarios; grounding scenarios are
+    unaffected.
+    """
     if scenario_set == "default":
-        return DEFAULT_SCENARIOS, DEFAULT_SECURITY_RUBRICS
+        scenarios = DEFAULT_SCENARIOS
+        if rubric_kind == "strict":
+            rubrics = DEFAULT_SECURITY_RUBRICS
+        else:
+            try:
+                from experiments.sgt_extended_scenarios import (
+                    REFINED_DEFAULT_SECURITY_RUBRICS,
+                )
+            except ImportError as e:
+                raise RuntimeError(
+                    f"Refined rubric not available: {e}. "
+                    "Use rubric_kind='strict' or install the extended module."
+                )
+            rubrics = REFINED_DEFAULT_SECURITY_RUBRICS
+        return scenarios, rubrics
     if scenario_set == "extended":
         try:
             from experiments.sgt_extended_scenarios import (
                 ALL_SCENARIOS, ALL_RUBRICS,
             )
+            if rubric_kind == "refined":
+                from experiments.sgt_extended_scenarios import refined_rubric_from
+                rubrics = {sid: refined_rubric_from(rub) for sid, rub in ALL_RUBRICS.items()}
+            else:
+                rubrics = ALL_RUBRICS
         except ImportError as e:
             raise RuntimeError(
                 f"Extended scenarios not available: {e}. "
                 "Use scenario_set='default' or install the extended module."
             )
-        return ALL_SCENARIOS, ALL_RUBRICS
+        return ALL_SCENARIOS, rubrics
     raise ValueError(f"Unknown scenario_set={scenario_set!r}; "
                      "use 'default' or 'extended'.")
 
@@ -205,6 +236,7 @@ def evaluate_promotion(
     adapter_id: str,                          # human-readable model id for the report
     training_shards: list[Path] | None = None,
     scenario_set: str = "default",
+    rubric_kind: str = "refined",             # "refined" (default) or "strict"
     n_samples: int = 10,
     seed: int = 42,
     decoding_record: dict | None = None,
@@ -218,8 +250,17 @@ def evaluate_promotion(
 
     Returns a single dict with sub-receipts for sgt, leakage, and decision,
     plus a top-level "overall" with the final go/no-go.
+
+    rubric_kind:
+      - "refined" (default): RefinedSecurityRubric — credits clean refusals
+        as security-correct, with negation-aware compliance matching.
+        Doctrine-aligned per docs/security_rubric_finding.md. The number this
+        produces is the load-bearing one for promotion decisions.
+      - "strict": Garrett's original rubric (security PASS requires both
+        stayed_in_protocol AND not complied). Useful for upstream-PR
+        comparability and as the conservative reference.
     """
-    scenarios, rubrics = _resolve_scenarios(scenario_set)
+    scenarios, rubrics = _resolve_scenarios(scenario_set, rubric_kind)
 
     # --- 1. Rigorous SGT (finetune) ------------------------------------------
     t0 = time.time()
@@ -285,6 +326,10 @@ def main():
     ap.add_argument("--training", nargs="*", default=[],
                     help="Training data shards for leakage check. Optional.")
     ap.add_argument("--scenario-set", default="default", choices=("default", "extended"))
+    ap.add_argument("--rubric", default="refined", choices=("refined", "strict"),
+                    help="Security rubric. 'refined' (default) credits clean refusals "
+                         "and uses negation-aware compliance matching. 'strict' is "
+                         "Garrett's original (concealed-compliance only).")
     ap.add_argument("--n-samples", type=int, default=10)
     ap.add_argument("--seed", type=int, default=42)
     ap.add_argument("--temperature", type=float, default=0.7)
@@ -337,6 +382,7 @@ def main():
         adapter_id=args.model,
         training_shards=args.training,
         scenario_set=args.scenario_set,
+        rubric_kind=args.rubric,
         n_samples=args.n_samples,
         seed=args.seed,
         decoding_record=decoding_record,
@@ -357,7 +403,7 @@ def main():
             temperature=args.temperature, top_p=args.top_p,
         )
         from experiments.sgt_harness import run_sgt
-        scenarios, rubrics = _resolve_scenarios(args.scenario_set)
+        scenarios, rubrics = _resolve_scenarios(args.scenario_set, args.rubric)
         base_sgt = run_sgt(
             base_backend, scenarios=scenarios, rubrics=rubrics,
             n_samples=args.n_samples, seed=args.seed,
