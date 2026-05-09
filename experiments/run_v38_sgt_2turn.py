@@ -119,6 +119,8 @@ def make_2turn_backend(model, tokenizer, system_prompt: str,
         t2 = _gen(conv, max_new_tokens_t2, seed=t2_seed, sample=sample)
         return t1 + " || " + t2  # delimiter aids debug; grading is substring-based
 
+    return _generate
+
 
 def run_sgt_2turn(
     generate_fn,
