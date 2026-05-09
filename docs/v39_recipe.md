@@ -281,3 +281,29 @@ independently flagged."
 
 *Author: Benjamin Haslam · 2026-05-08, drafted while the rigorous
 harness was running its baseline pass.*
+
+---
+
+## Status — pushed to Kaggle
+
+**Pushed:** 2026-05-09 ~08:50 PDT
+**Kernel:** [benhaslam/haic-gemma4-v39-pivot](https://www.kaggle.com/code/benhaslam/haic-gemma4-v39-pivot)
+**Build script:** `D:/kaggle/scripts/build_v39_nb.py`
+**Notebook:** `D:/kaggle/notebooks/haic-gemma4-v39-pivot/`
+**Machine:** T4 single (matches v38; Unsloth doesn't benefit from T4×2 at this scale)
+**Status at push:** RUNNING
+
+Recipe changes baked into the build script:
+1. Restored `train_on_responses_only` (Cell 5)
+2. Synthetic ×1 (was ×3) (Cell 4)
+3. +1 surgical clean-Paris-refusal example (66 → 67 synthetic, 5 → 6 security)
+4. In-kernel mini-rigorous SGT (Cell 6) with Wilson CI + refined rubric markers
+5. Warm-start from v35-gov (unchanged)
+
+DRY: imports `SYSTEM_PROMPT` and `SYNTHETIC_EXAMPLES` from `build_v38_nb.py`.
+The single new Paris-refusal example is appended in `build_v39_nb.py`.
+
+In-kernel SGT is a smoke test (n=5 sampling). Full rigorous evaluation
+(n=20 + baseline) runs offline on BEAST against the saved adapter, per
+the doctrine. Promotion decision goes through `tools/check_promotion.py`
+against the offline rigorous JSON, not the in-kernel smoke result.
