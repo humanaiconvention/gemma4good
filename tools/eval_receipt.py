@@ -210,7 +210,7 @@ def build_receipt(
     # SGT JSON file integrity (binds receipt to a specific bytes-on-disk version)
     sgt_file_hash = None
     if sgt_path and sgt_path.exists():
-        h = hashlib.sha256()
+        h = hashlib.sha3_256()
         with sgt_path.open("rb") as f:
             for chunk in iter(lambda: f.read(65536), b""):
                 h.update(chunk)

@@ -284,7 +284,7 @@ def gate_covenant(report: dict, report_path: Path) -> GateVerdict:
         status="PASS",
         rationale=(
             "Report includes seed, model_id, decoding, n_samples. "
-            f"Receipt SHA-256 = {_file_sha256(report_path)[:16]}..."
+            f"Receipt SHA3-256 = {_file_sha256(report_path)[:16]}..."
         ),
         measured={
             "report_sha256": _file_sha256(report_path),

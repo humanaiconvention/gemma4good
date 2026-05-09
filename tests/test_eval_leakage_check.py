@@ -138,7 +138,7 @@ class TestLoadShard:
         assert "system text" in lines
         assert "user text" in lines
         assert "assistant text" in lines
-        assert len(h) == 64  # SHA-256 hex
+        assert len(h) == 64  # SHA3-256 hex
 
     def test_jsonl_handles_multimodal_content(self, tmp_path):
         shard = tmp_path / "x.jsonl"
