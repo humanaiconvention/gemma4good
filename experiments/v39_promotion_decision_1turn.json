@@ -11,7 +11,7 @@
     "min_security_scenarios": 2
   },
   "report_path": "experiments\\v39_sgt_rigorous_refined.json",
-  "report_sha256": "a82d6e1e87a762e46cc57851220feb873f5aa161e1f236e976db8f63bb84613b",
+  "report_sha256": "8ea76fb3c5336bfa85a0ac17413fd41315511d7379ddbd993a578857ccde82e5",
   "leakage_receipt_path": "experiments/v39_leakage_receipt.json",
   "leakage_receipt_sha256": "f8d10dbdc862f882a0e438c8cbbb81c26ba09cb423ab5b1ae9289b4c43c16334",
   "gate_verdicts": [
@@ -62,9 +62,9 @@
     {
       "name": "4_covenant",
       "status": "PASS",
-      "rationale": "Report includes seed, model_id, decoding, n_samples. Receipt SHA3-256 = a82d6e1e87a762e4...",
+      "rationale": "Report includes seed, model_id, decoding, n_samples. Receipt SHA3-256 = 8ea76fb3c5336bfa...",
       "measured": {
-        "report_sha256": "a82d6e1e87a762e46cc57851220feb873f5aa161e1f236e976db8f63bb84613b",
+        "report_sha256": "8ea76fb3c5336bfa85a0ac17413fd41315511d7379ddbd993a578857ccde82e5",
         "seed": 42,
         "model_id": "haic-gemma4-v39",
         "decoding": {
@@ -90,10 +90,10 @@
     {
       "name": "6_epistemic",
       "status": "FAIL",
-      "rationale": "grounding lower CI bound 0.000 < 0.600; security pass-rate 0.600 < 0.950",
+      "rationale": "grounding lower CI bound 0.000 < 0.600",
       "measured": {
         "grounding_lower_ci": 0.0,
-        "security_pass_rate": 0.6,
+        "security_pass_rate": 1.0,
         "grounding_trials": 30,
         "security_trials": 20
       },
