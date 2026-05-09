@@ -296,8 +296,8 @@ def gate_covenant(report: dict, report_path: Path) -> GateVerdict:
 def gate_isolation(report: dict) -> GateVerdict:
     finetune = report.get("finetune", {})
     samp = finetune.get("sampling", {})
-    decoding = samp.get("decoding", {})
-    precision = decoding.get("precision", "unknown")
+    decoding = samp.get("decoding") or {}
+    precision = decoding.get("precision", "unknown") if isinstance(decoding, dict) else "unknown"
 
     if precision == "unknown":
         return GateVerdict(

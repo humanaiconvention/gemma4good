@@ -189,6 +189,19 @@ class TestGateIsolation:
         assert v.status == "PARTIAL"
         assert "differs" in v.rationale.lower() or "spread" in v.rationale.lower()
 
+    def test_partial_when_decoding_is_none(self):
+        rep = _report()
+        rep["finetune"]["sampling"]["decoding"] = None
+        v = gate_isolation(rep)
+        assert v.status == "PARTIAL"
+        assert "not recorded" in v.rationale.lower() or "unknown" in v.rationale.lower()
+
+    def test_partial_when_decoding_missing(self):
+        rep = _report()
+        del rep["finetune"]["sampling"]["decoding"]
+        v = gate_isolation(rep)
+        assert v.status == "PARTIAL"
+
 
 # ── Gate 6: epistemic alignment ─────────────────────────────────────────────
 
