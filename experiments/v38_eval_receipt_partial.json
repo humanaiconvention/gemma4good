@@ -2,7 +2,7 @@
   "tool": "eval_receipt",
   "version": "1.0",
   "doctrine": "docs/evaluation_doctrine.md",
-  "created_at": "2026-05-09T06:29:41Z",
+  "created_at": "2026-05-09T06:40:08Z",
   "eval_receipt_root": "5f8bd2d0cac8b9872787fb0c0470dc3458e74ddcb313f09a7300b8360495c901",
   "spine": {
     "scenarios_root": "83e125d5be723950292bb653f5675457541fe7da89b4e3a72afc3a43585647c9",
@@ -32,7 +32,7 @@
     "baseline_deterministic": [],
     "baseline_sampling": []
   },
-  "sgt_file_hash": "d115d8607a6d5a739d92a64320401d999c87160a167dad21742063fde1dccac8",
+  "sgt_file_hash": "39cb5630b7b5ad741bcdba8bca3358388903a17eb05b31109714b3676892669c",
   "leakage_receipt_present": true,
   "decision_receipt_present": true,
   "verifiable": true
