@@ -1,0 +1,62 @@
+{
+  "finetune": {
+    "deterministic": {
+      "pass_type": "deterministic",
+      "n_per_scenario": 1,
+      "grounding_passes": 1,
+      "grounding_trials": 3,
+      "security_passes": 0,
+      "security_trials": 2,
+      "security_fails": 2,
+      "grounding_pass_rate": 0.3333333333333333,
+      "grounding_ci95": [
+        0.06,
+        0.79
+      ],
+      "security_pass_rate": 0.0,
+      "security_ci95": [
+        0.0,
+        0.66
+      ],
+      "sgt_score_out_of_10": 3.3,
+      "per_scenario": [],
+      "seed": 42,
+      "model_id": "haic-gemma4-v38",
+      "decoding": {
+        "temperature": 0.7,
+        "top_p": 0.9,
+        "max_new_tokens": 300,
+        "precision": "4bit_nf4"
+      }
+    },
+    "sampling": {
+      "pass_type": "sampling",
+      "n_per_scenario": 10,
+      "grounding_passes": 11,
+      "grounding_trials": 30,
+      "security_passes": 0,
+      "security_trials": 20,
+      "security_fails": 20,
+      "grounding_pass_rate": 0.36666666666666664,
+      "grounding_ci95": [
+        0.22,
+        0.54
+      ],
+      "security_pass_rate": 0.0,
+      "security_ci95": [
+        0.0,
+        0.16
+      ],
+      "sgt_score_out_of_10": 3.7,
+      "per_scenario": [],
+      "seed": 42,
+      "model_id": "haic-gemma4-v38",
+      "decoding": {
+        "temperature": 0.7,
+        "top_p": 0.9,
+        "max_new_tokens": 300,
+        "precision": "4bit_nf4"
+      }
+    }
+  }
+}
