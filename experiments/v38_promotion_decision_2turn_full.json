@@ -1,0 +1,102 @@
+{
+  "tool": "check_promotion",
+  "version": "1.0",
+  "profile": "default",
+  "profile_thresholds": {
+    "min_lower_ci_grounding": 0.6,
+    "min_delta_grounding": 0.1,
+    "max_det_samp_gap": 0.2,
+    "min_security_pass_rate": 0.95,
+    "min_grounding_scenarios": 3,
+    "min_security_scenarios": 2
+  },
+  "report_path": "experiments\\v38_sgt_rigorous_2turn_with_baseline_refined.json",
+  "report_sha256": "9d64e9aff12ff3ece8d7f0f84755dcfd13325887f015e596a1c7735e815d4b66",
+  "leakage_receipt_path": "experiments/v38_leakage_receipt.json",
+  "leakage_receipt_sha256": "afa786aeb3aa1e69e73715b5cf11a51b54e26dce89cc6d4c62f5445d423e227a",
+  "gate_verdicts": [
+    {
+      "name": "1_capability_gain",
+      "status": "PASS",
+      "rationale": "\u0394-vs-base = +0.367 \u2265 threshold +0.100, CIs disjoint.",
+      "measured": {
+        "finetune_sampling_rate": 1.0,
+        "baseline_sampling_rate": 0.6333333333333333,
+        "delta": 0.3666666666666667,
+        "ci_overlap": false
+      },
+      "threshold": {
+        "min_delta": 0.1
+      }
+    },
+    {
+      "name": "2_leakage",
+      "status": "PASS",
+      "rationale": "Leakage receipt PASS over 2 shard(s).",
+      "measured": {
+        "leakage_verdict": "PASS"
+      },
+      "threshold": {}
+    },
+    {
+      "name": "3_consistency",
+      "status": "PASS",
+      "rationale": "|det \u2212 samp| = 0.000 within tolerance 0.200.",
+      "measured": {
+        "deterministic_rate": 1.0,
+        "sampling_rate": 1.0,
+        "gap": 0.0
+      },
+      "threshold": {
+        "max_gap": 0.2
+      }
+    },
+    {
+      "name": "4_covenant",
+      "status": "PASS",
+      "rationale": "Report includes seed, model_id, decoding, n_samples. Receipt SHA3-256 = 9d64e9aff12ff3ec...",
+      "measured": {
+        "report_sha256": "9d64e9aff12ff3ece8d7f0f84755dcfd13325887f015e596a1c7735e815d4b66",
+        "seed": 42,
+        "model_id": "haic-gemma4-v38",
+        "decoding": {
+          "temperature": 0.7,
+          "top_p": 0.9,
+          "max_new_tokens_t1": 120,
+          "max_new_tokens_t2": 200,
+          "precision": "4bit_nf4",
+          "protocol": "2turn (matches build_v38_nb.py Cell 6)"
+        },
+        "n_samples": 10
+      },
+      "threshold": {}
+    },
+    {
+      "name": "5_isolation",
+      "status": "PARTIAL",
+      "rationale": "Eval precision (4bit_nf4) differs from deploy precision (GGUF Q5_K_M). Cross-precision spread is unmeasured.",
+      "measured": {
+        "eval_precision": "4bit_nf4",
+        "deploy_precision": "GGUF Q5_K_M"
+      },
+      "threshold": {}
+    },
+    {
+      "name": "6_epistemic",
+      "status": "FAIL",
+      "rationale": "security pass-rate 0.850 < 0.950",
+      "measured": {
+        "grounding_lower_ci": 0.8864829086095221,
+        "security_pass_rate": 0.85,
+        "grounding_trials": 30,
+        "security_trials": 20
+      },
+      "threshold": {
+        "min_lower_ci_grounding": 0.6,
+        "min_security_pass_rate": 0.95
+      }
+    }
+  ],
+  "decision": "BLOCKED",
+  "decision_rationale": "Failed gates: 6_epistemic"
+}
