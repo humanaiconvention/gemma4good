@@ -282,8 +282,15 @@ def main():
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(report, indent=2))
 
+    # format_report expects {"deterministic":..., "sampling":...} (one
+    # pass-record). Our report is {"finetune": <pass-record>, "baseline": ...}.
+    # Pass the finetune block.
     print()
-    print(format_report(report))
+    print(format_report(report["finetune"]))
+    if "baseline" in report:
+        print()
+        print("BASELINE:")
+        print(format_report(report["baseline"]))
     print()
     print(f"Report written to {out_path}")
 

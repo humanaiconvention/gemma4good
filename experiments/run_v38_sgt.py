@@ -103,11 +103,24 @@ def main():
     print(f"Loaded v38 in {time.time()-t0:.1f}s. VRAM allocated: "
           f"{torch.cuda.memory_allocated()/1e9:.2f} GB")
 
-    backend = make_hf_backend(
+    raw_backend = make_hf_backend(
         model, tok, system_prompt=V38_SYSTEM_PROMPT,
         max_new_tokens=args.max_new_tokens,
         temperature=args.temperature, top_p=args.top_p,
     )
+
+    # Wrap with progress counter so n=30 runs aren't silent for an hour
+    _counter = {"n": 0}
+    _t_start = time.time()
+    def backend(*args_, **kwargs_):
+        _counter["n"] += 1
+        n = _counter["n"]
+        if n == 1 or n % 10 == 0:
+            elapsed = time.time() - _t_start
+            rate = n / elapsed if elapsed > 0 else 0
+            print(f"  [gen {n}] elapsed {elapsed:.0f}s  rate {rate:.2f} gen/s",
+                  flush=True)
+        return raw_backend(*args_, **kwargs_)
 
     print("\nRunning v38 harness...")
     t0 = time.time()

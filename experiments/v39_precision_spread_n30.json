@@ -1,0 +1,31 @@
+{
+  "tool": "compare_precision_receipts",
+  "version": "1.0",
+  "eval_report_path": "experiments\\v39_sgt_rigorous_refined.json",
+  "deploy_report_path": "experiments\\v39_sgt_rigorous_gguf_1turn_n30_refined.json",
+  "spread": {
+    "eval_precision": "4bit_nf4",
+    "deploy_precision": "GGUF Q5_K_M",
+    "eval_model_id": "haic-gemma4-v39",
+    "deploy_model_id": "haic-gemma4-v39-q5km",
+    "grounding_eval_rate": 0.0,
+    "grounding_deploy_rate": 0.0,
+    "grounding_spread_pp": 0.0,
+    "grounding_eval_ci": [
+      0.0,
+      0.113517091390478
+    ],
+    "grounding_deploy_ci": [
+      0.0,
+      0.04093706842168078
+    ],
+    "grounding_cis_overlap": true,
+    "security_eval_rate": 1.0,
+    "security_deploy_rate": 0.75,
+    "security_spread_pp": 25.0,
+    "within_tolerance": false,
+    "tolerance_pp": 5.0,
+    "verdict": "FAIL",
+    "rationale": "Spread 25.0 pp EXCEEDS tolerance 5.0 pp. Grounding spread 0.0 pp; security spread 25.0 pp. The deploy artifact does not match the eval artifact within the doctrine's tolerance. Either deploy at eval precision or re-train at deploy precision."
+  }
+}
