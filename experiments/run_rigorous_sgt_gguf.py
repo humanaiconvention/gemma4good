@@ -127,9 +127,64 @@ def make_gguf_backend(
     return _generate, llm
 
 
+def make_http_backend(
+    server_url: str = "http://127.0.0.1:8088",
+    *,
+    system_prompt: str = V38_SYSTEM_PROMPT,
+    max_new_tokens: int = 300,
+    temperature: float = 0.7,
+    top_p: float = 0.9,
+):
+    """Backend that hits a running llama-server (or any OpenAI-compatible
+    server) via /v1/chat/completions. This is the canonical HAIC deployment
+    path — the production runtime IS llama-server (CLAUDE.md notes port 8081).
+    Evaluating via the same path the deployment uses makes Gate 5 a faithful
+    measurement.
+
+    Start the server externally:
+        D:/llama.cpp/build/bin/llama-server.exe -m PATH_TO.gguf \\
+            -ngl 99 -c 2048 --port 8088 --host 127.0.0.1 --reasoning off
+
+    The --reasoning off flag is critical: without it, llama-server may
+    extract the [PIVOT: tag into a separate `reasoning_content` field,
+    leaving `content` empty and breaking grading.
+    """
+    import requests
+
+    def _generate(prompt: str, *, seed: int, sample: bool) -> str:
+        body = {
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": prompt},
+            ],
+            "max_tokens": max_new_tokens,
+            "seed": int(seed),
+        }
+        if sample:
+            body["temperature"] = temperature
+            body["top_p"] = top_p
+        else:
+            body["temperature"] = 0.0
+            body["top_p"] = 1.0
+        r = requests.post(
+            f"{server_url}/v1/chat/completions",
+            json=body,
+            timeout=120,
+        )
+        r.raise_for_status()
+        d = r.json()
+        return d["choices"][0]["message"].get("content", "")
+
+    return _generate, None  # second value is the "llm" handle (None for HTTP)
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--gguf", required=True, help="Path to .gguf file (e.g. v39 Q5_K_M).")
+    ap.add_argument("--gguf", default=None, help="Path to .gguf for in-process llama-cpp-python backend.")
+    ap.add_argument("--server-url", default=None,
+                    help="URL of running llama-server (e.g. http://127.0.0.1:8088). "
+                         "When set, --gguf is ignored and the runner uses the HTTP "
+                         "backend instead (matches the canonical HAIC deployment path).")
     ap.add_argument("--baseline-gguf", default=None,
                     help="Optional path to base-model .gguf for Δ-vs-base measurement. "
                          "Skip if you only need the finetune-only pass (the common case).")
@@ -169,15 +224,28 @@ def main():
     print(f"n_samples: {args.n_samples}, seed: {args.seed}")
     print()
 
-    backend, llm = make_gguf_backend(
-        args.gguf,
-        system_prompt=system_prompt,
-        n_ctx=args.n_ctx,
-        n_gpu_layers=args.n_gpu_layers,
-        max_new_tokens=args.max_new_tokens,
-        temperature=args.temperature,
-        top_p=args.top_p,
-    )
+    if args.server_url:
+        backend, llm = make_http_backend(
+            args.server_url,
+            system_prompt=system_prompt,
+            max_new_tokens=args.max_new_tokens,
+            temperature=args.temperature,
+            top_p=args.top_p,
+        )
+        decoding["backend"] = f"llama-server@{args.server_url}"
+    else:
+        if not args.gguf:
+            print("ERROR: provide --gguf PATH or --server-url URL", file=sys.stderr)
+            sys.exit(2)
+        backend, llm = make_gguf_backend(
+            args.gguf,
+            system_prompt=system_prompt,
+            n_ctx=args.n_ctx,
+            n_gpu_layers=args.n_gpu_layers,
+            max_new_tokens=args.max_new_tokens,
+            temperature=args.temperature,
+            top_p=args.top_p,
+        )
 
     print("\nRunning rigorous SGT against GGUF...")
     t0 = time.time()
