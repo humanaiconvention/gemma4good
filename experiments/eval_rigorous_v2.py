@@ -39,8 +39,14 @@ import json
 import math
 import random
 import re
+import sys
 import time
 from pathlib import Path
+
+# ── Ensure D:/gemma4good is on sys.path so experiments.* imports work ─────
+_REPO_ROOT = Path(__file__).resolve().parent.parent
+if str(_REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(_REPO_ROOT))
 
 import requests
 
