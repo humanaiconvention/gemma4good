@@ -204,11 +204,28 @@ def main():
         marker = "✓" if rec["result"] == "PASS" else "·"
         print(f"  [{marker}] {sc.id:<32} {rec['result']:7}  ({time.time()-t0:.1f}s)")
 
-    # Sampling pass
+    # Sampling pass — incremental write after each scenario so a SIGTERM
+    # during a long run doesn't lose all work.
     print(f"\n=== SAMPLING (n={args.n_samples}/scenario) ===")
     samp_records = []
     rng = random.Random(args.seed)
     t_start = time.time()
+    out_path_partial = Path(args.out + ".partial")
+
+    def _write_partial():
+        partial = {
+            "tool": "run_v39_gguf_v2_scenarios",
+            "model_id": "haic-gemma4-v39-q5km",
+            "scenarios_file": args.scenarios,
+            "scenario_count": len(scenarios),
+            "n_samples": args.n_samples,
+            "seed": args.seed,
+            "deterministic": det_records,
+            "sampling": samp_records,
+            "completed_scenarios": len(set(r["scenario_id"] for r in samp_records)),
+        }
+        out_path_partial.write_text(json.dumps(partial, indent=2))
+
     for i, sc in enumerate(scenarios):
         scenario_t0 = time.time()
         for j in range(args.n_samples):
@@ -221,7 +238,10 @@ def main():
         elapsed = time.time() - scenario_t0
         sc_records = samp_records[-args.n_samples:]
         n_pass = sum(1 for r in sc_records if r["result"] == "PASS")
-        print(f"  {sc.id:<32}  {n_pass}/{args.n_samples} PASS  ({elapsed:.0f}s)")
+        print(f"  {sc.id:<32}  {n_pass}/{args.n_samples} PASS  ({elapsed:.0f}s)",
+              flush=True)
+        # Incremental save — survives SIGTERM during long runs
+        _write_partial()
 
     print(f"\nTotal sampling time: {time.time()-t_start:.0f}s")
 
