@@ -160,7 +160,7 @@ These were in Gemini's handoff but need GPU or external accounts to actually
 execute. The repo already contains the runners; this is purely a "where to run"
 note:
 
-- **Live PRISM extraction + comparative model study (`v35-gov`)** —
+- **Live PRISM extraction + comparative model study (`v38`)** —
   `experiments/temporal_signature.py` and `experiments/rank_geometry_sweep.py`
   are ready for Kaggle T4 / Colab A100 / Lambda. They write JSON output that
   `dashboard/app.py` already reads.
