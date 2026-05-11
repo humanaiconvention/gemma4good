@@ -6,14 +6,14 @@
 
 ---
 
-## The three-layer stack
+## The four-layer stack
 
-The HAIC governance pipeline now spans three composable layers of runtime
+The HAIC governance pipeline now spans four composable layers of runtime
 control, each with a different time scale and a different unit of accountability:
 
 ```
 ┌──────────────────────────────────────────────────────────────────────┐
-│ LAYER 3: SYSTEM     Viability Condition Ceff(t) > E(t)               │
+│ LAYER 4: SYSTEM     Viability Condition Ceff(t) > E(t)               │
 │         (federation) viability/distributed_viability.py              │
 │                                                                      │
 │  Time scale: per sync round (hours to days)                          │
@@ -23,14 +23,25 @@ control, each with a different time scale and a different unit of accountability
                                  │ accepts/rejects fragments
                                  ▼
 ┌──────────────────────────────────────────────────────────────────────┐
-│ LAYER 2: FRAGMENT   DiLoCo Fragment Verifier                         │
+│ LAYER 3: FRAGMENT   DiLoCo Fragment Verifier                         │
 │         (per learner) tools/diloco_fragment_verifier.py              │
 │                                                                      │
 │  Time scale: per sync round, per learner (minutes to hours)          │
 │  Unit:       one learner's round-receipt + LoRA delta                │
 │  Checks:     Merkle integrity · consent compliance · shape · norms   │
 └────────────────────────────────┬─────────────────────────────────────┘
-                                 │ accepts/rejects updates
+                                 │ accepts/rejects round contributions
+                                 ▼
+┌──────────────────────────────────────────────────────────────────────┐
+│ LAYER 2: SESSION    Six Convention-Session Viability Gates           │
+│         (per session) viability/session_gates.py                     │
+│                                                                      │
+│  Time scale: per Maestro session (minutes)                           │
+│  Unit:       one grounding session's full trace                      │
+│  Gates:      entropy_reduction · extraction_risk · prism_consistency │
+│              participation_covenant · federated_exchange · epistemic │
+└────────────────────────────────┬─────────────────────────────────────┘
+                                 │ admits/rejects training_signal
                                  ▼
 ┌──────────────────────────────────────────────────────────────────────┐
 │ LAYER 1: STEP       TTT Gates (error_bias BLOCKING)                  │
@@ -42,10 +53,11 @@ control, each with a different time scale and a different unit of accountability
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
-Each layer presupposes the one below it: Layer 3 trusts the verified fragments
-that Layer 2 admitted; Layer 2 trusts the per-session receipts that Layer 1
-produced; Layer 1 trusts the operator-feedback contract enforced at the
-consent gate.
+Each layer presupposes the ones below it: Layer 4 trusts the verified fragments
+that Layer 3 admitted; Layer 3 trusts the round receipts that aggregated only
+sessions that passed Layer 2's six gates; Layer 2 trusts the per-step
+adaptations that Layer 1's gates approved; Layer 1 trusts the operator-feedback
+contract enforced at the consent gate.
 
 ## What flows up
 
@@ -135,16 +147,18 @@ adaptation resumes.
 
 ## Implementation status (2026-05-11)
 
-All three layers implemented and unit-tested:
+All four layers implemented and unit-tested:
 
 | Layer | Module | Tests |
 |---|---|---|
 | 1 (step) | `viability/ttt_gates.py`, `tools/edge_ttt_adapter.py` | 25/25 passing |
-| 2 (fragment) | `tools/diloco_fragment_verifier.py` | 13/13 passing |
-| 3 (federation) | `viability/distributed_viability.py` | 10/10 passing |
+| 2 (session) | `viability/session_gates.py` | 21/21 passing |
+| 3 (fragment) | `tools/diloco_fragment_verifier.py` | 13/13 passing |
+| 4 (federation) | `viability/distributed_viability.py` | 10/10 passing |
 | Original (system) | `viability/viability_condition.py` | (pre-existing) |
+| Decision contract | `tools/enforcement_evidence_contract.py` | 16/16 passing |
 
-48 new tests total; all green. No torch/peft dependency in any of the new
+85 new tests total; all green. No torch/peft dependency in any of the new
 modules — the gradient step is an injected callback, so the gate logic
 tests run in milliseconds without a GPU.
 
