@@ -27,9 +27,15 @@ all four pieces were ported and integrated.
 
 ---
 
-## What landed (by commit)
+## What landed (by commit, most recent first)
 
 ```
+7115174  Three scenario-specific federation receipts (clinic, classroom, deforestation)
+b5ee9bb  README: add runtime grounding loop diagram + updated project structure
+ff9e557  Federated round demo CLI: end-to-end receipt generator
+cae6087  SimSat incorporation inventory + operator-brief correction
+4b3b935  Runtime loop stress test: 7 streams, end-to-end validation
+9749af3  Operator brief: autonomous session 2026-05-11 (overnight)
 5c7728b  Session gates: per-session layer of the runtime grounding loop
 8eb889c  Enforcement evidence contract: 8-key VLA-style decision vocabulary
 0c1c84f  Notebook Scenario 5: federated runtime grounding loop demo
@@ -42,7 +48,8 @@ e0cd721  Restore "Garrett rigor" in internal docs (not for external use)
 a680a6b  v45 verdict: H4d NOT CONFIRMED — warm-start = fresh LoRA at 25 concealed
 ```
 
-(v45 verdict commit landed before midnight; the rest are tonight's work.)
+16 commits total. v45 verdict landed at 22:00 (pre-autonomous);
+the remaining 15 are autonomous-session output.
 
 ---
 
@@ -273,6 +280,38 @@ Tests by new module:
 All 496 pass. No flakes. No torch/peft required for any of the new tests.
 
 ---
+
+## Late-session additions (after the original brief was written)
+
+After the operator brief landed (commit 9749af3), the following four
+commits added empirical / operator-facing artifacts on top of the
+implementation:
+
+- **4b3b935** — `experiments/runtime_loop_stress_test.py` drives the four
+  layers through 7 synthetic streams (baseline, systematic bias, hostile
+  fragment, cloud blackout, consent denial, poisoning, federation collapse).
+  7/7 pass. Receipt at `experiments/runtime_loop_stress_report.json`.
+
+- **cae6087** — `docs/simsat_incorporation_decisions_2026-05-11.md`
+  documents what was and wasn't ported from SimSat tonight, with reasoning
+  (MuZero out of scope, LFM2.5-VL different model family, etc.). Also
+  corrects a mistake in this brief: CLAUDE.md was already updated to v42.
+
+- **ff9e557** — `tools/federated_round_demo.py` is an operator-facing CLI
+  that produces a self-anchored federation receipt for one synthetic round.
+  Configurable n_learners, bias_fraction, sessions, quorum, seed.
+
+- **b5ee9bb** — README.md updated with a four-layer architecture diagram
+  in the entry section, plus the complete updated project structure tree
+  pointing at every file added tonight. Judge-facing first impression.
+
+- **7115174** — Three scenario-specific federation receipts:
+  `experiments/fed_receipt_{clinic,classroom,deforestation}.json` plus a
+  `README_federated_receipts.md` documenting the schema and reproducibility
+  commands. All three scenarios commit cleanly under default parameters.
+
+Test count grew from 411 → 496 (+85 new). Stress test exercise count: 0 → 7.
+Demo receipts in repo: 0 → 5 (4 federation receipts + 1 stress-test report).
 
 ## Open items for the operator
 
