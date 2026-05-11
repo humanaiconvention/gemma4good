@@ -1,69 +1,168 @@
-# Gemma4Good
+# HAIC × Gemma 4 Good — Kaggle Hackathon Entry
 
-**[Kaggle notebook](https://www.kaggle.com/code/benhaslam/haic-gemma4-governance-agent)** · **[WRITEUP.md](WRITEUP.md)** · **[Viability Condition paper (DOI)](https://doi.org/10.5281/zenodo.18144681)**
+**Title:** Grounding Gemma 4 in Human Lived Experience: A Convention for
+Verifiable, Consent-Gated AI Alignment
 
-A governance agent that grounds Gemma 4 in verified human lived experience. Uses Gemma 4's native function calling to run four governance tools per AI deployment scenario — wellbeing assessment, consent verification, PRISM interpretability analysis, and a Merkle-anchored alignment receipt — enforcing the Viability Condition `Ceff(t) > E(t)` at inference time.
+**DOI (Viability Condition paper):** [10.5281/zenodo.18144681](https://doi.org/10.5281/zenodo.18144681)
 
-Validated end-to-end on three deployment scenarios (rural health clinic, low-connectivity classroom, deforestation monitoring) on both Kaggle T4×2 GPU and P100 CPU-only fallback paths.
+**Authors:** Benjamin Haslam (Bazzer) and Garrett Sutherland — collaborative entry
+*Garrett Sutherland's contribution: `experiments/sgt_harness.py` — the rigorous SGT evaluation harness with Wilson 95% CIs, the statistical standard used for all model evaluations in this submission.*
 
-**Kaggle Gemma 4 Good hackathon submission** by [HumanAI Convention](https://humanaiconvention.com).
+---
 
-Public release: `0.1`
+## Core Thesis
 
-## Current Status
+AI systems trained on synthetic data can maintain semantic grounding only when
+the rate of externally-verified human correction exceeds the rate of
+internally-generated error — **the Viability Condition: Ceff(t) > E(t)**.
 
-- Main notebook: [notebook/haic_gemma4_governance.ipynb](notebook/haic_gemma4_governance.ipynb)
-- Main writeup: [WRITEUP.md](WRITEUP.md)
-- Core framework: [docs/viability_condition.md](docs/viability_condition.md)
-- Core tool surface: [tools/haic_tools.py](tools/haic_tools.py)
-- Tests: `143` passing (79 new governance-tool tests added post-release-0.1; full pip install and PIL compat fixes applied to Kaggle notebook)
+This notebook demonstrates how Gemma 4's function-calling capability can be
+used to build a governance loop that monitors and maintains this condition in
+real time using:
 
-This public repository focuses on the source, notebook, docs, and experiment logic needed to understand and reproduce the project safely. Heavyweight runtime artifacts and private local deployment state are intentionally kept out of the repo.
+1. The **HAIC Maestro gateway** — verified grounding interviews (Ceff)
+2. The **PRISM geometry library** — activation-level E(t) measurement
+3. A **Merkle-auditable participation receipt** — proof the condition is met
 
-## Start Here
+---
 
-If you are new to the project:
+## Project Structure
 
-1. Read [WRITEUP.md](WRITEUP.md)
-2. Read [docs/viability_condition.md](docs/viability_condition.md)
-3. Open [notebook/haic_gemma4_governance.ipynb](notebook/haic_gemma4_governance.ipynb)
-4. Use [docs/integration_notes.md](docs/integration_notes.md) and [docs/beast_gemma4_loading_limitations.md](docs/beast_gemma4_loading_limitations.md) as supporting context
-
-## What This Repo Contains
-
-- `notebook/`
-  Main Kaggle governance notebook, helper notebook scripts, and a small Gemini smoke-test helper.
-- `tools/`
-  Four function-calling tool implementations: wellbeing assessment, consent verification, PRISM analysis, and alignment receipt generation.
-- `viability/`
-  Standalone Viability Condition evaluator and incremental grounding tracker.
-- `docs/`
-  Theoretical framework, integration notes, deployment notes, and repo status notes.
-- `experiments/`
-  Curated experiment utilities, Kaggle training scaffolds, and phase-3 research tracks.
-- `tests/`
-  Unit coverage for the incremental grounding and grounding-tracker core.
-
-## What This Repo Intentionally Does Not Contain
-
-- Large model weights or GGUF artifacts
-- Local runtime logs
-- Secrets and local `.env` state
-- One-off patch helper scripts used during notebook surgery
-- Generated zip bundles that can be recreated from source
-
-Those are intentionally kept out of the public-facing tree so git history stays reviewable and future pushes stay safer.
-
-## Quick Local Checks
-
-Run tests:
-
-```bash
-pytest -q
+```
+gemma4good/
+├── notebook/
+│   └── haic_gemma4_governance.ipynb  ← main Kaggle submission
+├── tools/
+│   ├── haic_tools.py                 ← 7 function-calling tool implementations
+│   ├── incremental_grounding.py      ← session-driven continual learning
+│   ├── eval_leakage_check.py         ← Gate 2: scenario-vs-shard hash check
+│   ├── check_promotion.py            ← Gate decision: PROMOTED/BLOCKED CLI
+│   ├── evaluate_promotion.py         ← single-entry pipeline wrapper
+│   └── eval_receipt.py               ← Merkle-anchored eval receipt (SHA3-256)
+├── experiments/
+│   ├── sgt_harness.py                ← rigorous SGT (Garrett Sutherland's)
+│   ├── sgt_extended_scenarios.py     ← 10 grounding + 5 security scenarios
+│   ├── run_v38_sgt.py                ← BEAST runner (1-turn)
+│   ├── run_v38_sgt_2turn.py          ← BEAST runner (2-turn, kaggle-pattern)
+│   ├── inspect_security_responses.py ← failure-mode dissection helper
+│   └── kaggle_cell_rigorous_sgt.py   ← drop-in cell for kaggle build scripts
+├── tests/
+│   └── test_*.py                     ← 113 unit tests for the eval pipeline
+├── prism_integration/                ← Prism geometry wrappers
+├── maestro_integration/              ← Maestro gateway client
+├── viability/
+│   └── viability_condition.py        ← Standalone Ceff(t) > E(t) evaluator
+├── utils/
+│   └── merkle.py                     ← shared SHA3-256 + Merkle root utilities
+├── assets/                           ← Diagrams, images
+└── docs/
+    ├── evaluation_doctrine.md        ← six-gate model evaluation doctrine
+    ├── promotion_workflow.md         ← end-to-end promotion pipeline
+    ├── v39_recipe.md                 ← next training run proposal
+    ├── audit_humanai_convention_pipeline.md
+    │                                 ← gap analysis vs upstream pipeline
+    ├── writeup_addendum_2026-05-08.md
+    │                                 ← rigorous re-eval companion to WRITEUP
+    ├── integration_notes.md          ← Maestro + Prism code interfaces
+    └── viability_condition.md        ← Full theoretical framework
 ```
 
-Open the governance notebook:
+## Local Layout
+
+This local project root now has three lanes:
+
+- `<repo-root>`
+  Runtime/local-first lane on unrelated-history branch `master`
+- `<repo-root>\_local_worktrees\public-main`
+  Public-facing lane that tracks GitHub `main`
+- `<repo-root>\_local_worktrees\_archive\local-history-safety`
+  Archived safety lane, not for active development
+
+Local-only artifacts now live under:
+
+- `<repo-root>\_local_state\archives`
+- `<repo-root>\_local_state\backups`
+- `<repo-root>\_local_state\regressions`
+- `<repo-root>\_local_state\logs`
+- `<repo-root>\_local_notes`
+
+If a change should be shared or committed publicly, make it from
+`<repo-root>\_local_worktrees\public-main`, not from runtime `master`.
+
+---
+
+## The 7 Function-Calling Tools
+
+Gemma 4 is equipped with 7 tools that collectively constitute the verification
+infrastructure required by the Viability Condition:
+
+| Tool | Role | Infrastructure |
+|---|---|---|
+| `assess_wellbeing` | Collect human ground-truth signal (raw Ceff) | Maestro `/v1/chat/completions` |
+| `verify_consent` | Gate which signals enter Ceff | Maestro `/v1/session/consent` |
+| `run_prism` | Measure E(t) via geometry metrics dynamically | Prism `outlier_geometry()` |
+| `run_prism_analysis` | Retrieve verified E(t) metrics from cache | `tools/haic_tools.py::_ARENA_CACHE` |
+| `generate_receipt` | Make Ceff auditable (Merkle proof) | Maestro `/v1/session/receipt` |
+| `check_viability_condition` | Compute Ceff(t)/E(t) ratio | `viability/viability_condition.py` |
+| `run_grounding_update` | Execute incremental session-driven continual learning | `tools/incremental_grounding.py` |
+
+---
+
+
+## Quick Start (local gateway)
 
 ```bash
+# Start Maestro in test mode
+cd <humanai-convention-root>\maestro
+MAESTRO_LAUNCH_MODE=test MAESTRO_JWT_SECRET=$(python -c "import secrets; print(secrets.token_hex(32))") \
+  python -m uvicorn apps.gateway.main:app --reload --port 8000
+
+# Run the notebook
+cd <repo-root>
 jupyter notebook notebook/haic_gemma4_governance.ipynb
 ```
+
+---
+
+## Key Reading
+
+- `docs/viability_condition.md` — the mathematical foundation
+- `docs/evaluation_doctrine.md` — the six gates that govern model promotion
+- `docs/promotion_workflow.md` — end-to-end pipeline (rigorous SGT → leakage
+  receipt → six-gate decision → Merkle eval receipt)
+- `docs/v39_recipe.md` — falsifiable proposal for the next training run
+- `docs/integration_notes.md` — code interfaces for Maestro and Prism
+- `tools/haic_tools.py` — tool implementations
+
+## Promotion gate
+
+To evaluate any candidate adapter:
+
+```bash
+# 1. Rigorous SGT (BEAST or kaggle)
+python -u -m experiments.run_v38_sgt --base ... --adapter ... --baseline \
+    --n-samples 20 --seed 42 --out experiments/v<N>_sgt_rigorous.json
+
+# 2. Eval-set leakage receipt
+python -m tools.eval_leakage_check \
+    --training data/v35_gov_final.jsonl ... \
+    --out experiments/v<N>_leakage_receipt.json
+
+# 3. Six-gate decision
+python -m tools.check_promotion \
+    --report experiments/v<N>_sgt_rigorous.json \
+    --leakage experiments/v<N>_leakage_receipt.json \
+    --out experiments/v<N>_promotion_decision.json
+# Exit code: 0 = PROMOTED, 1 = BLOCKED, 2 = INDETERMINATE
+
+# 4. Merkle-anchored eval receipt
+python -m tools.eval_receipt \
+    --sgt experiments/v<N>_sgt_rigorous.json \
+    --leakage experiments/v<N>_leakage_receipt.json \
+    --decision experiments/v<N>_promotion_decision.json \
+    --out experiments/v<N>_eval_receipt.json
+```
+
+The pipeline is non-compensatory: any one of the six gates failing blocks
+promotion. See [`docs/promotion_workflow.md`](docs/promotion_workflow.md)
+for the full procedure and the v38 disposition under it.

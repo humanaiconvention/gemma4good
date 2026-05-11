@@ -1,7 +1,7 @@
 """
 tests/test_haic_tools.py — Governance tool unit tests.
 
-Covers the six functions in tools/haic_tools.py that previously had zero test
+Covers the five tools in tools/haic_tools.py that previously had zero test
 coverage (all existing tests targeted only incremental_grounding.py):
 
     assess_wellbeing       — wellbeing signal collection, mock fallback
@@ -164,7 +164,7 @@ class TestVerifyConsent:
         assert r1["consent_hash"] == r2["consent_hash"]
 
     def test_hash_is_sha256_of_sorted_json(self):
-        expected = hashlib.sha256(
+        expected = hashlib.sha3_256(
             json.dumps(self.MIXED, sort_keys=True).encode()
         ).hexdigest()
         result = self._call("s1", self.MIXED)
@@ -571,17 +571,17 @@ class TestGenerateReceipt:
 
         # Replicate exactly what generate_receipt() does in the fallback
         nodes = [
-            hashlib.sha256(json.dumps(m, sort_keys=True).encode()).hexdigest()
+            hashlib.sha3_256(json.dumps(m, sort_keys=True).encode()).hexdigest()
             for m in messages
         ]
         nodes.append(
-            hashlib.sha256(json.dumps(consent, sort_keys=True).encode()).hexdigest()
+            hashlib.sha3_256(json.dumps(consent, sort_keys=True).encode()).hexdigest()
         )
         while len(nodes) > 1:
             if len(nodes) % 2 == 1:
                 nodes.append(nodes[-1])
             nodes = [
-                hashlib.sha256((nodes[i] + nodes[i + 1]).encode()).hexdigest()
+                hashlib.sha3_256((nodes[i] + nodes[i + 1]).encode()).hexdigest()
                 for i in range(0, len(nodes), 2)
             ]
         expected_root = nodes[0]

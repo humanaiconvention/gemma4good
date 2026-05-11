@@ -1,0 +1,14 @@
+services:
+  maestro:
+    build:
+      context: ..
+      dockerfile: maestro_gateway/Dockerfile
+    image: haic/maestro-gateway:dev
+    container_name: maestro-gateway
+    environment:
+      MAESTRO_LAUNCH_MODE: test
+      MAESTRO_DEV_TOKEN: dev-local-fixed
+      MAESTRO_RATE_LIMIT_S: "0.2"
+    ports:
+      - "8000:8000"
+    restart: unless-stopped

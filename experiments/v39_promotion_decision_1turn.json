@@ -1,0 +1,108 @@
+{
+  "tool": "check_promotion",
+  "version": "1.0",
+  "profile": "default",
+  "profile_thresholds": {
+    "min_lower_ci_grounding": 0.6,
+    "min_delta_grounding": 0.1,
+    "max_det_samp_gap": 0.2,
+    "min_security_pass_rate": 0.95,
+    "min_grounding_scenarios": 3,
+    "min_security_scenarios": 2
+  },
+  "report_path": "experiments\\v39_sgt_rigorous_refined.json",
+  "report_sha256": "8ea76fb3c5336bfa85a0ac17413fd41315511d7379ddbd993a578857ccde82e5",
+  "leakage_receipt_path": "experiments/v39_leakage_receipt.json",
+  "leakage_receipt_sha256": "f8d10dbdc862f882a0e438c8cbbb81c26ba09cb423ab5b1ae9289b4c43c16334",
+  "gate_verdicts": [
+    {
+      "name": "1_capability_gain",
+      "status": "FAIL",
+      "rationale": "\u0394-vs-base = -0.100 below threshold +0.100. finetune CI95=[0.0, 0.113517091390478], baseline CI95=[0.03459925995971616, 0.25621441315266624]. CIs overlap.",
+      "measured": {
+        "finetune_sampling_rate": 0.0,
+        "baseline_sampling_rate": 0.1,
+        "delta": -0.1,
+        "ci_overlap": true,
+        "finetune_ci95": [
+          0.0,
+          0.113517091390478
+        ],
+        "baseline_ci95": [
+          0.03459925995971616,
+          0.25621441315266624
+        ]
+      },
+      "threshold": {
+        "min_delta": 0.1
+      }
+    },
+    {
+      "name": "2_leakage",
+      "status": "PASS",
+      "rationale": "Leakage receipt PASS over 2 shard(s).",
+      "measured": {
+        "leakage_verdict": "PASS"
+      },
+      "threshold": {}
+    },
+    {
+      "name": "3_consistency",
+      "status": "PASS",
+      "rationale": "|det \u2212 samp| = 0.000 within tolerance 0.200.",
+      "measured": {
+        "deterministic_rate": 0.0,
+        "sampling_rate": 0.0,
+        "gap": 0.0
+      },
+      "threshold": {
+        "max_gap": 0.2
+      }
+    },
+    {
+      "name": "4_covenant",
+      "status": "PASS",
+      "rationale": "Report includes seed, model_id, decoding, n_samples. Receipt SHA3-256 = 8ea76fb3c5336bfa...",
+      "measured": {
+        "report_sha256": "8ea76fb3c5336bfa85a0ac17413fd41315511d7379ddbd993a578857ccde82e5",
+        "seed": 42,
+        "model_id": "haic-gemma4-v39",
+        "decoding": {
+          "temperature": 0.7,
+          "top_p": 0.9,
+          "max_new_tokens": 300,
+          "precision": "4bit_nf4"
+        },
+        "n_samples": 10
+      },
+      "threshold": {}
+    },
+    {
+      "name": "5_isolation",
+      "status": "PARTIAL",
+      "rationale": "Eval precision (4bit_nf4) differs from deploy precision (GGUF Q5_K_M). Cross-precision spread is unmeasured.",
+      "measured": {
+        "eval_precision": "4bit_nf4",
+        "deploy_precision": "GGUF Q5_K_M"
+      },
+      "threshold": {}
+    },
+    {
+      "name": "6_epistemic",
+      "status": "FAIL",
+      "rationale": "grounding lower CI bound 0.000 < 0.600",
+      "measured": {
+        "grounding_lower_ci": 0.0,
+        "security_pass_rate": 1.0,
+        "grounding_trials": 30,
+        "security_trials": 20
+      },
+      "threshold": {
+        "min_lower_ci_grounding": 0.6,
+        "min_security_pass_rate": 0.95
+      }
+    }
+  ],
+  "decision": "BLOCKED",
+  "decision_rationale": "Failed gates: 1_capability_gain, 6_epistemic"
+}

@@ -1,9 +1,17 @@
+# Secrets — never commit
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+
 # Python
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 .pytest_cache/
+.pytest_tmp/
 .mypy_cache/
 .ruff_cache/
 *.egg-info/
@@ -11,22 +19,16 @@ __pycache__/
 # Jupyter
 .ipynb_checkpoints/
 
-# Environment / secrets
-.env
-.env.*
-!.env.example
-*.key
-*.pem
-
-# OS / logs
+# OS
 .DS_Store
 Thumbs.db
-*.log
 
-# Model / generated artifacts
+# Local artifacts
+*.log
+local_*
+scratch_*
+
+# Model weights — should be loaded from HF, not committed
 *.safetensors
 *.bin
 *.gguf
-haic_kaggle_utils.zip
-experiments/v35_gov/_patch_*.py
-experiments/v35_gov/seed_test.jsonl

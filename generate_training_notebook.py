@@ -1,14 +1,5 @@
-"""
-generate_training_notebook.py — Build the Kaggle QLoRA training notebook for Gemma 4.
-
-Writes a self-contained Jupyter notebook that fine-tunes google/gemma-4-E2B-it
-with a LoRA adapter on HAIC governance sessions (v35-gov dataset, 577 examples).
-Target runtime: Kaggle GPU T4×2 (30 GB VRAM). Output: haic_gemma4_training.ipynb.
-"""
-
 import json
 import os
-from pathlib import Path
 
 notebook = {
     "cells": [
@@ -16,9 +7,9 @@ notebook = {
             "cell_type": "markdown",
             "metadata": {},
             "source": [
-                "# Gemma4Good 0.1 Grounding Training (QLoRA)\n",
+                "# HAIC Gemma 4 Grounding Training (QLoRA)\n",
                 "\n",
-                "This notebook executes the QLoRA fine-tuning sequence for the Gemma4Good `0.1` release. It trains a grounded Gemma 4 adapter on fully grounded, PIVOT-tagged SGT sessions extracted by the underlying governance loop.\n",
+                "This notebook executes the QLoRA fine-tuning sequence for the HumanAI Convention's Kaggle submission. It trains `haic-gemma4-v1` on 500 fully grounded, PIVOT-tagged SGT sessions directly extracted by the underlying governance loop.\n",
                 "\n",
                 "**Why are we training on Kaggle?**\n",
                 "The target model is `google/gemma-4-E2B-it`. We discovered during our viability testing that Gemma 4 E2B's `AltUp` alternating layer architecture contains a `per_layer_token_embd.weight` tensor with **2.35B parameters** (nearly half the model's capacity). Because of its structure, this tensor cannot be quantized below 4-bit (`Q4_K` / `NF4`). This enforces a mathematically strict VRAM floor of ~2.88 GB, regardless of how aggressively the transformer blocks are quantized (banning IQ3/Q3 variants). \n",
@@ -184,7 +175,7 @@ notebook = {
                 "# Uncomment to execute training\n",
                 "# trainer.train()\n",
                 "\n",
-                "output_model_path = \"/kaggle/working/gemma4good-0_1\"\n",
+                "output_model_path = \"/kaggle/working/haic-gemma4-v1\"\n",
                 "# trainer.save_model(output_model_path)\n",
                 "print(f\"Model adapters saved to {output_model_path}\")"
             ]
@@ -204,8 +195,7 @@ notebook = {
     "nbformat_minor": 4
 }
 
-ROOT = Path(__file__).resolve().parent
-out_path = ROOT / "notebook" / "haic_gemma4_training.ipynb"
+out_path = r"d:\gemma4good\notebook\haic_gemma4_training.ipynb"
 with open(out_path, "w", encoding="utf-8") as f:
     json.dump(notebook, f, indent=1)
 

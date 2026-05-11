@@ -13,7 +13,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 ARCHIVE_ROOT = Path(
     os.environ.get(
         "GEMMA4GOOD_ARCHIVE_ROOT",
-        REPO_ROOT / "artifacts" / "v35_gov_archive_2026-04-21",
+        REPO_ROOT / "_local_state" / "archives" / "v35_gov_archive_2026-04-21",
     )
 )
 DEFAULT_CANONICAL_DIR = ARCHIVE_ROOT / "canonical_candidate_4"
@@ -23,11 +23,13 @@ DEFAULT_RESULTS_JSON = ARCHIVE_ROOT / "final_results" / "haic_v35_gov_full_resul
 DEFAULT_BASE_ROOT = Path(
     os.environ.get(
         "GEMMA4GOOD_BASE_ROOT",
-        REPO_ROOT / "artifacts" / "models--google--gemma-4-E2B-it",
+        REPO_ROOT / "_local_state" / "artifacts" / "models--google--gemma-4-E2B-it",
     )
 )
-DEFAULT_LLAMA_CPP = Path(os.environ.get("LLAMA_CPP_ROOT", REPO_ROOT / "artifacts" / "llama.cpp"))
-DEFAULT_GGUF_DIR = Path(os.environ.get("GEMMA4GOOD_GGUF_DIR", REPO_ROOT / "artifacts" / "gguf"))
+DEFAULT_LLAMA_CPP = Path(os.environ.get("LLAMA_CPP_ROOT", REPO_ROOT / "_local_state" / "artifacts" / "llama.cpp"))
+DEFAULT_GGUF_DIR = Path(
+    os.environ.get("GEMMA4GOOD_GGUF_DIR", REPO_ROOT / "_local_state" / "artifacts" / "gguf")
+)
 
 
 def read_main_snapshot(base_root: Path) -> Path:

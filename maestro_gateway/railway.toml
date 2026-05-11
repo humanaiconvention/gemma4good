@@ -1,0 +1,14 @@
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "maestro_gateway/Dockerfile"
+
+[deploy]
+startCommand = "uvicorn maestro_gateway.app:app --host 0.0.0.0 --port $PORT"
+healthcheckPath = "/health"
+healthcheckTimeout = 30
+restartPolicyType = "ON_FAILURE"
+
+# Set these via `railway variables set ...`:
+#   MAESTRO_LAUNCH_MODE=test          # or "prod" once auth is wired
+#   MAESTRO_DEV_TOKEN=<random-secret>
+#   MAESTRO_RATE_LIMIT_S=0.5

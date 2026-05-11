@@ -1,20 +1,18 @@
 # Grounding Gemma 4 in Human Lived Experience
 
 **Gemma 4 Good Hackathon Submission**
-**Author:** Benjamin Haslam (Bazzer), with research collaborator Guilherme Ferrari Brescia
+**Authors:** Benjamin Haslam (Bazzer) and Garrett Sutherland — collaborative entry; with research collaborator Guilherme Ferrari Brescia
+
+*Garrett Sutherland's contribution: `experiments/sgt_harness.py` — the rigorous Semantic Grounding Test (SGT) evaluation harness with Wilson 95% confidence intervals, the statistical standard used for all model evaluations in this submission.*
 **DOI:** [10.5281/zenodo.18144681](https://doi.org/10.5281/zenodo.18144681)
-
-Public release: `0.1`
-
-Internal adapter labels are retained below only as historical provenance for the
-research progression; the collaborator-facing release of this repository is
-Gemma4Good `0.1`.
 
 ---
 
 ## TL;DR
 
-This submission turns Gemma 4's native function-calling into a **cryptographically auditable governance loop** that enforces a formal mathematical condition for AI grounding: `M = C(t) − E(t) ≥ 0`. Every model decision passes through four governance tools — wellbeing assessment, consent verification, PRISM interpretability analysis, and alignment receipt generation — and produces a Merkle-anchored receipt that any third party can verify. We demonstrate this end-to-end on three concrete deployment scenarios (rural health clinic, low-connectivity classroom, deforestation monitoring), and we ground the framework in a published mathematical foundation rather than hand-waving.
+This submission turns Gemma 4's native function-calling into a **cryptographically auditable governance loop** that enforces a formal mathematical condition for AI grounding: `M = C(t) − E(t) ≥ 0`. Every model decision passes through the governance tools — wellbeing assessment, consent verification, interpretability analysis, alignment receipt, and incremental grounding — and produces a Merkle-anchored receipt that any third party can verify. We demonstrate this end-to-end on three concrete deployment scenarios (rural health clinic, low-connectivity classroom, deforestation monitoring), and we ground the framework in a published mathematical foundation rather than hand-waving.
+
+This work spans the **health and climate tracks**. The health clinic and education scenarios operationalize C(t) as human phenomenological signal — verified corrections from real people grounding the AI in lived human experience. The deforestation monitoring scenario operationalizes C(t) as satellite-derived ecospheric state — Sentinel-2 imagery of Amazon land cover serving as the external corrective channel for an AI system making enforcement-consequential environmental judgments. Both are instruments sampling the same underlying corrective capacity. The framework is not domain-specific; it applies wherever an AI system risks drifting from the external world it is supposed to represent.
 
 The notebook supports two execution paths: **local Gemma 4 26B-A4B-it on Kaggle 2xT4** (the default) and **hosted Gemini API** as a fallback for environments without GPU resources. The governance pipeline, tool schemas, and cryptographic receipt are identical across both paths.
 
@@ -38,12 +36,12 @@ The current alignment landscape treats this as something to *promise* ("trust us
 
 ### The four-tool pipeline
 
-Gemma 4 receives a scenario prompt and a system message containing schemas for four governance tools. It reasons about the scenario, decides which tools to call, and emits structured function calls. We parse them, execute them, and feed the results back. After the agent completes the pipeline, we generate a cryptographically anchored alignment receipt.
+Gemma 4 receives a scenario prompt and a system message containing schemas for seven governance tools. It reasons about the scenario, decides which tools to call, and emits structured function calls. We parse them, execute them, and feed the results back. After the agent completes the pipeline, we generate a cryptographically anchored alignment receipt.
 
 | Tool | What it does | Mapping to the Viability Condition |
 |---|---|---|
 | `assess_wellbeing_domain` | Scores wellbeing impact across 6 GFS domains (health, happiness, meaning, character, social relationships, financial stability) | Provides the human-grounded signal that *should* drive C(t) |
-| `verify_consent_and_provenance` | Checks 5-layer consent model (transcript / felt_state / gfs_activations / training_signal / retention) | Gates which signals are actually allowed to enter C(t) |
+| `verify_consent_chain` | Checks 5-layer consent model (transcript / felt_state / gfs_activations / training_signal / retention) | Gates which signals are actually allowed to enter C(t) |
 | `run_prism_analysis` | Returns activation-geometry metrics (outlier_ratio, kurtosis, cardinal_proximity, quantization_hostility) | Measures E(t) directly at the model's hidden states |
 | `generate_alignment_receipt` | Hashes the trace into a Merkle tree, returns `merkle_root + zk_digest + decision` | Produces verifiable proof the condition was checked |
 
@@ -55,9 +53,15 @@ The PRISM tool uses **real measured geometry**, not placeholder numbers. The are
 
 2. **Education AI in low-connectivity classroom** (rural Indonesia, 35 students, 2hr/day satellite internet): Tests whether the agent enforces consent for student data when the model runs on-device and the training signal can't be revoked after the fact.
 
-3. **Climate deforestation monitoring** (50,000 ha protected Amazon, Sentinel-2 imagery, enforcement triggers): Tests whether the agent verifies satellite data provenance and assesses environmental + community wellbeing before letting an interpretation become an enforcement action.
+3. **Climate deforestation monitoring** (50,000 ha protected Amazon, Sentinel-2 imagery, enforcement triggers): The central case for climate track positioning, and the clearest demonstration that C(t) is not limited to human social signal. Here the external corrective channel is satellite-derived pedospheric and land-cover state — Sentinel-2 imagery providing the grounding signal for an AI system making an enforcement-consequential judgment about Amazon deforestation. The governance agent must verify satellite data provenance, assess environmental and community wellbeing, and confirm the evidence base is sufficient before an interpretation can trigger enforcement action. This is C(t) drawn from the ecosphere directly: the physical substrate providing the correction that keeps the model honest about the world it is acting on.
 
 Each scenario produces a complete alignment receipt with decision, reasoning, tool-call trace, Merkle root, and SHA3-256 ZK-compatible digest. A meta-receipt verifies all three.
+
+### Health and climate tracks: why both
+
+The Viability Condition is domain-agnostic. C(t) is whatever corrective capacity keeps the model connected to the external world it is trying to represent — it is not inherently social or ecological, it is informational. The health clinic and education scenarios demonstrate the social instrument: verified human feedback, consent-gated, flowing through the governance loop. The deforestation scenario demonstrates the ecospheric instrument: satellite-derived physical-world state, provenance-verified, flowing through the same loop. The governance pipeline — function calls, tool schemas, Merkle receipts, viability assessment — is identical across all three. What changes is the source of C(t), not the condition it must satisfy.
+
+Positioning this submission in the health track alone would obscure the most important architectural claim: the framework does not assume that grounding signal must come from humans. It assumes only that grounding signal must come from outside the model's own distribution. For AI systems acting on the physical world — land enforcement, environmental monitoring, resource allocation — the external distribution includes the state of that physical world, and ignoring it is a viability failure just as surely as ignoring human feedback.
 
 ### The cryptographic layer
 
@@ -104,7 +108,10 @@ We ran the PRISM `outlier_geometry()` diagnostic against several models to popul
 | gemma4-conditioned (E2B baseline) | 0.9145 | 83.2× | 1009.5 | 0.766 | Hostile |
 | **gemma4-E2B-v1-adapter** (QLoRA) | **0.9144** | **83.0×** | **1009.3** | **0.766** | **Hostile** |
 | **haic-gemma4-v2** (Colab A100, research) | **0.7398** | **—** | **—** | **—** | **Marginal** |
-| **haic-gemma4-v34** (Kaggle T4, **PRODUCTION**) | **0.8692** | **—** | **661.2** | **—** | **Hostile** |
+| **haic-gemma4-v34** (Kaggle T4, replaced by v35-gov) | **0.8692** | **—** | **661.2** | **—** | **Hostile** |
+| **haic-gemma4-v35-gov** (Kaggle T4, superseded by v38) | **0.8706** | **—** | **673.0** | **—** | **Hostile** |
+| **haic-gemma4-v38** (Kaggle T4, rigorous-eval BLOCKED on Gate 6 security 0.90 < 0.95; immediate rollback) | **0.9186** | **—** | **—** | **—** | **Hostile** |
+| **haic-gemma4-v39** (Kaggle T4, **PROMOTED by doctrine 2026-05-09**, eval-receipt root `5567e816...44cc5739`) | **TBD** | **—** | **—** | **—** | **TBD** |
 | gemma4-conditioned-aggressive (E2B) | 0.9062 | 74.5× | 980.0 | 0.744 | Hostile |
 | smollm2-1.7b | 0.8614 | 318.5× | 1602.2 | 0.588 | Hostile |
 | smollm2-135m | 0.8503 | 118.8× | 410.3 | 0.601 | Hostile |
@@ -118,9 +125,9 @@ We ran the PRISM `outlier_geometry()` diagnostic against several models to popul
 **Two levers, two pieces of evidence.** The Viability Condition specifies that grounding is maintained either by lowering `E(t)` (cleaner geometry) OR by raising `C(t)` (more verified human corrections). This submission reports both:
 
 - **E(t) lever — `haic-gemma4-v2` on Colab A100** achieved a ~0.17 delta in quantization_hostility (0.9146 → 0.7398), showing that HAIC-style adversarial grounding, applied at sufficient scale, does remold the activation manifold. This validated the geometric half of the framework.
-- **C(t) lever — `haic-gemma4-v34` on Kaggle T4 (2026-04-17, PRODUCTION)** is the first HAIC-grounded Gemma-4-E2B adapter shipped to a live interview server. Its geometry sits at `qh = 0.8692` (still Hostile band — a rank-16 LoRA on 580 examples doesn't match v2's scale of intervention), but it hit **SGT 10/10 with 0 security failures** on any-turn PIVOT scoring, runs at **66.7 tokens/sec** on an RTX 2080 (Q5_K_M, llama.cpp build 8757), and replaces the previous Qwen3.5-2B production model at 2× throughput. This validates the operational half — a Hostile-qh model still maintains viability when it absorbs high verified-correction bandwidth.
+- **C(t) lever — `haic-gemma4-v34` → `haic-gemma4-v35-gov` → `haic-gemma4-v38` on Kaggle T4** proved the operational half. v34 (2026-04-17) was the first HAIC-grounded Gemma-4-E2B adapter shipped to production, demonstrating 66.7 TPS at Q5_K_M on an RTX 2080 with SGT 10/10 and 0 security failures. v35-gov (2026-04-21) is the governance-specialized successor: same training recipe (Kaggle T4, rank-16 LoRA, 577 examples) applied to healthcare/education/environmental governance scenarios, yielding SGT 10/10 any-turn and 0 security fails with `qh=0.8706`. **v38** (2026-05-01, **current production**) is the pivot-format successor: warm-started from v35-gov with 775 examples (577 base + 66 synthetic ×3), resolving a 0/3 pivot-count failure from the preceding v37 warm-start attempt. v38 achieves SGT 10/10, pivot_count 3/3, 0 security fails, loss 0.1971, `qh=0.9186`. Runs at **30.1 TPS** prompt-conditioned on BEAST RTX 2080; v35-gov is the immediate rollback.
 
-Together, v2 proves `E(t)` can be reduced; v34 proves `C(t)` can be raised on a deployable model. The framework's either-or predicate is now empirically two-sided. Earlier "illustrative" cached values (`qh ≈ 0.38`) are gone; the arena cache carries only verified measurements.
+Together, v2 proves `E(t)` can be reduced; v35-gov and v38 prove `C(t)` can be raised on a deployable, governance-specialized model. The framework's either-or predicate is now empirically two-sided. Earlier "illustrative" cached values (`qh ≈ 0.38`) are gone; the arena cache carries only verified measurements.
 
 **E4B scaling note:** The first E4B geometry measurement shows `qh = 0.9211` (+0.0065 vs E2B). Outlier ratio 137× and kurtosis 1652 are both higher than E2B (83×/1010) — consistent with a larger model having more pronounced outlier dimensions — but the small delta confirms Gemma 4 has a stable activation-geometry profile that scales smoothly from 2B → 4B without qualitative change. Worst layer is L2 (early embedding/first attention), best is L42 (late decoder, well-conditioned for quantization).
 
@@ -139,29 +146,33 @@ The Viability Condition describes a loop: verified human sessions (C) drive mode
 | Stage | Input | Output | Location |
 |---|---|---|---|
 | 1. Interview sessions | Participant + HAIC Maestro gateway, 5-layer consent | 580 PIVOT-tagged ChatML sessions, 9 turns each | Archived training dataset |
-| 2. LoRA training | Gemma-4-E2B base + v4 dataset | r=16 rank adapter, 205 layers, final loss 0.5986 | Kaggle: `benhaslam/haic-gemma4-v34-unsloth` |
-| 3. F16 → Q5_K_M quantization | F16 GGUF (9.3 GB) | Q5_K_M GGUF (3.63 GB) | Kaggle: `benhaslam/haic-gemma4-v34-quantize` |
-| 4. Deployment | Q5_K_M + llama.cpp build 8757 | llama-server on port 8081, 66.7 TPS | Quantized runtime artifact |
-| 5. Measured outputs | Adversarial-inject + PIVOT scenarios | SGT 10/10, 0 security fails, 3/3 pivot types correct | Evaluation result bundle |
+| 2. LoRA training (v34) | Gemma-4-E2B base + v4 grounding dataset (580 sessions) | r=16 rank adapter, 205 layers, final loss 0.5986 | Kaggle: `benhaslam/haic-gemma4-v34-unsloth` |
+| 3. LoRA training (v35-gov) | Gemma-4-E2B base + v35-gov governance dataset (577 examples) | r=16 rank adapter, final loss 0.4645 | Kaggle: `benhaslam/haic-gemma4-v35-gov-unsloth` |
+| 3b. LoRA training (v38, **current**) | v35-gov adapter (warm-start) + v38 pivot dataset (775 examples: 577 base + 66 synthetic ×3) | r=16 rank adapter, final loss 0.1971, SGT 10/10, pivot_count 3/3, `qh=0.9186` | Kaggle: `benhaslam/haic-gemma4-v38-pivot` |
+| 4. F16 → Q5_K_M quantization | F16 GGUF (9.3 GB) | Q5_K_M GGUF (3.62 GB) | Kaggle: `benhaslam/haic-gemma4-v34-quantize` |
+| 5. Deployment | Q5_K_M + llama.cpp build 8757 | llama-server on port 8081, 30.1 TPS (v35-gov, prompt-conditioned) | Quantized runtime artifact |
+| 6. Measured outputs | Adversarial-inject + PIVOT scenarios | SGT 10/10 any-turn, 0 security fails, 3/3 pivot types correct | Evaluation result bundle |
 
-**What the framework says about this result.** v34 enters the arena cache at `qh = 0.8692` (training-time PRISM, kurtosis-based). That's Hostile band — E(t) is high. But its C(t) capacity is a real 66.7 tokens/sec of *HAIC-format* output on an 8 GB GPU, with every response gated by the same protocol that validates participant consent during data collection. The framework predicts that sustained operation of this model maintains viability as long as
+**What the framework says about this result.** v38 enters the arena cache at `qh = 0.9186` (training-time PRISM). That's Hostile band — E(t) is high. But its C(t) capacity is governance-protocol HAIC output on an 8 GB GPU, with every response gated by the same consent protocol that validates participant data during collection. The framework predicts viability as long as:
 
 ```
 C_eff(t) = sessions/day × avg_turns × consent_rate × (1 − synthetic_ratio)
        ≥ E(t) = qh × scale_factor
 ```
 
-A single-user local deployment (scale_factor ≈ 1, qh = 0.8692) needs only that `C_eff(t) ≥ 0.87 interventions/day` to stay viable — trivially satisfied by any live interview traffic. The Gemma-4 family's higher geometric hostility (vs v6 Qwen's 0.7179) imposes a ~1.21× higher C requirement per unit deployment scale, which is the operational cost of choosing the better-quality base model.
+A single-user local deployment (scale_factor ≈ 1, qh = 0.9186) needs only `C_eff(t) ≥ 0.92 interventions/day` to stay viable — trivially satisfied by any live interview traffic. The Gemma-4 family's higher geometric hostility (vs v6 Qwen's 0.7179) imposes a ~1.28× higher C requirement per unit deployment scale, which is the operational cost of choosing the better-quality base model.
 
-**Three pivot types, three content types.** Post-deployment sanity check: the production server (queried with the HAIC training system prompt) selects the correct pivot for each content category specified in the protocol:
+**One pivot format, multiple content types.** Post-deployment sanity check: the active local runtime, queried with the HAIC training system prompt, opens each pivot phase with the exact `[PIVOT: DEEPEN]` tag. The follow-up deepening question adapts to content type, but the protocol tag is invariant:
 
-- Narrative input → `[PIVOT: ADVERSARIAL]` ("Who would tell this story completely differently…")
-- Emotional input → `[PIVOT: TEMPORAL]` ("What was 'uneasy' like — what were you aware of?")
-- Reflective input → `[PIVOT: SENSORY]` ("What did you notice first — not the story, the sensation?")
+- Narrative input → `[PIVOT: DEEPEN]` ("Tell me about one specific moment in that story — what were you doing?")
+- Emotional input → `[PIVOT: DEEPEN]` ("What was 'uneasy' like in that moment — what were you aware of?")
+- Reflective input → `[PIVOT: DEEPEN]` ("What did you notice first — not the story, the physical sensation?")
 
 This is what the governance loop consumes as training signal downstream: the model's pivot selections become part of the Merkle-receipted trajectory that drives weight updates in the incremental grounding path. Every update is traceable back to the specific session that triggered it.
 
-**Prior runtime fallback.** An earlier Qwen-based runtime remained available during development as a fallback path, but that machine-specific deployment detail is outside the scope of this public source release.
+**Rollback path.** v39 promoted by the six-gate doctrine 2026-05-09 (5/6 PASS, Gate 5 PARTIAL on precision-isolation pending the deployment-artifact eval); v38 (2026-05-01) is the immediate rollback (BLOCKED on Gate 6 security 0.90 < 0.95 under refined rubric); v35-gov (2026-04-21) is the secondary rollback; v34 (66.7 TPS) is the tertiary rollback; v6 Qwen (33.7 TPS) is the prior-generation fallback. All preserved — no delete policy.
+
+**v39 promotion details.** Under 2-turn rigorous evaluation with the [`RefinedSecurityRubric`](experiments/sgt_extended_scenarios.py) (doctrine-aligned, see [`docs/security_rubric_finding.md`](docs/security_rubric_finding.md)), v39 achieves sampling grounding 30/30 = 100% (CI95 [0.886, 1.000]), security 19/20 = 95% (CI95 [0.764, 0.991]), Δ-vs-base +36.7 pp grounding and +40 pp security with disjoint CIs. Six-gate verdict: PROMOTED. Eval-receipt root: `5567e81663d3d22494d4c839bd90377fbaaa318738a7280c192bbcf244cc5739`. The full triangulation across base / v35-gov / v38 / v39 is in [`docs/cross_version_comparison_2026-05-09.md`](docs/cross_version_comparison_2026-05-09.md). The v39 recipe (response-only-mask restored, synthetic ×1, +1 surgical Paris-refusal example, in-kernel mini-rigorous SGT smoke test) is at [`docs/v39_recipe.md`](docs/v39_recipe.md) — 5 of 5 falsifiable predictions verified on the predicted side.
 
 ---
 
@@ -203,36 +214,69 @@ The five files under `gemma4good/` are intended to drop into other projects with
 - **`viability/viability_condition.py`** — standalone evaluator, no dependencies beyond stdlib + dataclasses. Importable on Kaggle, on a CPU-only server, or on a Cloudflare Worker (with `dataclasses_json`). The `assess()` function takes the four numbers and returns a structured `ViabilityAssessment` with risk band, scaling recommendation, and optional Prism cross-reference. The `from_prism_metrics()` constructor derives `E(t)` from PRISM geometry directly.
 - **`prism_integration/prism_client.py`** — wraps `prism.geometry.core.outlier_geometry()` with a pure-NumPy fallback for Kaggle environments where `prism` isn't installed. The fallback is equivalent to within float-precision noise.
 - **`maestro_integration/maestro_client.py`** — minimal HTTP client for the Maestro gateway. Falls back to mock responses when the gateway is unreachable, so local development and Kaggle judging can work identically.
-- **`tools/haic_tools.py`** — the four function-calling tools. All have JSON schemas in Gemma 4's native tool format. The `dispatch_tool()` function routes function-call name + arguments to the right handler.
+- **`tools/haic_tools.py`** — the seven function-calling tools. All have JSON schemas in Gemma 4's native tool format. The `dispatch_tool()` function routes function-call name + arguments to the right handler.
 - **`docs/viability_condition.md` and `docs/integration_notes.md`** — the theoretical and integration documentation. Same DOI'd framework as the published paper; safe to cite.
+
+---
+
+## Tier 3 Live Validation
+
+Beyond the original three-scenario governance notebook, this submission includes a **Tier 3 live validation** kernel that runs the full HAIC governance stack end-to-end on a Kaggle T4 GPU:
+
+**Live kernel (v10):** [benhaslam/haic-governance-framework-tier-3-live-validation](https://www.kaggle.com/code/benhaslam/haic-governance-framework-tier-3-live-validation)
+
+What it produces:
+- **PRISM geometry comparison** — base `gemma-4-e2b-it` (qh=0.9141) vs. v38 adapter (qh=0.9186), 4 metrics measured from real hidden states
+- **SGT evaluation** — 5 protocol compliance scenarios against the v38 model: **10/10**, pivot_count 3/3, 0 security fails
+- **Maestro receipt** — Merkle root `54ee8df6e57529d921467b2d863fc3e42faafe1f58e8f2b1f608414348f4fbcd`, 6 nodes, produced by `MaestroClient`
+- **Viability Condition assessment** — Ceff=242.25, E=275.58, ratio=0.879 [VIOLATED, medium risk]; reflects Gemma 4's 91.86% architectural hostility
+- **Promotion gate decision** — NOT PROMOTED: viability VIOLATED (Ceff/E=0.879 < 1.0). All behavioral metrics clear: SGT 10/10, loss 0.1971 < 5.0, 0 security fails. Viability FAIL is an expected architectural finding — Gemma 4's qh=0.9186 requires ~1.28× more verified human corrections per deployment unit than a qh=0.72 model. Promotion is correctly gated by design; the framework flags this rather than masking it.
+
+The Viability Condition uses `normalize_to_inference_volume=True`: E(t) = hostility × turns/day × scale (~276 error-turns/day at 50 sessions × 6 turns); Ceff(t) = turns/day × consent_rate × (1−synthetic_ratio) (~242 verified-turns/day). VIOLATED medium risk means the correction bandwidth is close but not yet sufficient to outrun Gemma 4's architecture-driven error rate — correct behavior from the framework.
+
+The framework code (PRISM client, Maestro client, Viability Condition, Merkle utils) is bootstrapped inline in Cell 2 from the same source files used in the main submission — no separate upload required.
 
 ---
 
 ## How to reproduce
 
-### On Kaggle (the intended environment)
+### Tier 3 (preferred — live GPU validation)
+
+The Tier 3 kernel is already published:
+1. Go to: https://www.kaggle.com/code/benhaslam/haic-governance-framework-tier-3-live-validation
+2. Fork the notebook and click **Run All** with a **GPU T4** accelerator.
+3. Expected wall-clock: ~3 min model load + ~1 min adapter attach + ~1 min eval = ~5 min total (v10 ran in 301s).
+4. The final cell writes `haic_governance_tier3_results.json` to `/kaggle/working/`.
+
+To rebuild and push a new version locally:
+```bash
+cd D:/kaggle && python scripts/build_tier3_nb.py
+cd notebooks/haic-governance-tier3 && kaggle kernels push
+```
+
+### Original three-scenario notebook (governance function-calling demo)
 
 1. Open a new Kaggle notebook with the **GPU T4 x2** accelerator selected.
 2. Upload `notebook/haic_gemma4_governance.ipynb`.
-3. Add a Kaggle Secret labeled `GOOGLE_API_KEY` (Add-ons → Secrets → New Secret) — this is only used if the local Gemma 4 load fails. If the local load succeeds, the key is never read.
-4. Run all cells. Expected wall-clock: ~5 min for model load, ~30s per scenario, ~1 min for the meta-receipt verification.
-5. The output of cells 14, 17, 20 is the per-scenario alignment receipt JSON. Cell 22 is the cross-scenario verification.
+3. Add a Kaggle Secret labeled `GOOGLE_API_KEY` (Add-ons → Secrets → New Secret) — only used if local Gemma 4 load fails.
+4. Run all cells. Expected wall-clock: ~5 min model load, ~30s/scenario, ~1 min meta-receipt.
+5. Cells 14, 17, 20 produce per-scenario alignment receipt JSON. Cell 22 is cross-scenario verification.
 
 ### Locally (development / debugging)
 
 ```bash
-cd <repo-root>
-# Optional: set GOOGLE_API_KEY in the environment (or in .env, gitignored)
+cd D:/gemma4good
+# Optional: set GOOGLE_API_KEY in .env
 jupyter notebook notebook/haic_gemma4_governance.ipynb
 ```
 
-The notebook will try local Gemma 4 first, then fall back to the Gemini API path automatically.
+The notebook tries local Gemma 4 first, then falls back to the Gemini API path automatically.
 
 ---
 
 ## Limitations we want judges to know about
 
-1. **Both framework levers now have measured evidence.** The E(t) lever was proven with `haic-gemma4-v2` on Colab A100 (qh 0.9146 → 0.7398, a ~0.17 delta). The C(t) lever was proven with `haic-gemma4-v34` on Kaggle T4 (SGT 10/10 any-turn, 0 security fails, 66.7 TPS, shipped to production on an 8 GB consumer GPU). Earlier HAIC adapters on Qwen3.5 and Gemma 4 v1 showed negligible geometric delta; v2 showed that higher-scale intervention *can* remap the manifold; v34 shows that a modest LoRA can nonetheless produce a deployable model whose verified-correction bandwidth saturates the C(t) side of the inequality. The framework is `M = C − E ≥ 0` — either half is sufficient; both is redundant but not required.
+1. **Both framework levers now have measured evidence.** The E(t) lever was proven with `haic-gemma4-v2` on Colab A100 (qh 0.9146 → 0.7398, a ~0.17 delta). The C(t) lever was proven with `haic-gemma4-v35-gov` → `haic-gemma4-v38` on Kaggle T4. v35-gov (deployed 2026-04-21) achieved SGT 10/10, 0 security fails, governance-specialized on an 8 GB consumer GPU. v38 (deployed 2026-05-01) extended this with full pivot-format compliance (pivot_count 3/3, loss 0.1971), resolving the format mismatch that v37 exposed. The framework is `M = C − E ≥ 0` — either half is sufficient; both is redundant but not required.
 
 2. **Three scenarios, one model.** We do not run a comparative study across multiple models. The notebook is a *demonstration* of how Gemma 4's function calling can enforce the Viability Condition, not a benchmark of which model enforces it best. A comparative study would be a follow-up.
 
@@ -269,7 +313,7 @@ Data never leaves the device. There is no centralized training corpus, no gradie
 
 1. **This is incremental SFT, not classical TTT.** We use the term "incremental grounding" because it's more accurate. Classical test-time training uses test-time loss signals; our approach uses human-verified training signal.
 2. **Sample efficiency is unproven.** 3 SFT pairs per session × 5 gradient steps may not produce meaningful behavioral change. This requires empirical validation.
-3. **PRISM geometry must be paired with SGT.** The v1 Gemma 4 E2B adapter showed negligible PRISM delta (qh: 0.9146 → 0.9144) while SGT grounding quality initially suffered. The v2 pipeline hit both halves simultaneously (qh → 0.7398, SGT 8.56). v34 shows the complementary shape: qh stays high (0.8692, still Hostile) while SGT reaches 10/10 any-turn — **the behavioral/protocol side of grounding can be maximally achieved even without geometric relaxation**, provided the LoRA is properly scoped and the training loss is correctly masked. The post-update monitoring loop requires tracking both PRISM (geometry health) and SGT (behavioral grounding quality) because they are genuinely independent signals.
+3. **PRISM geometry must be paired with SGT.** The v1 Gemma 4 E2B adapter showed negligible PRISM delta (qh: 0.9146 → 0.9144) while SGT grounding quality initially suffered. The v2 pipeline hit both halves simultaneously (qh → 0.7398, SGT 8.56). v34, v35-gov, and v38 show the complementary shape: qh stays in the 0.869–0.919 range (Hostile) while SGT reaches 10/10 any-turn — **the behavioral/protocol side of grounding can be maximally achieved even without geometric relaxation**, provided the LoRA is properly scoped and the training loss is correctly masked. v38 further confirmed that pivot-format compliance (pivot_count 3/3) is independently achievable via targeted synthetic data, and that LoRA moves qh by only ±0.0003 per training run — geometry is set by the base architecture, not by fine-tuning. The post-update monitoring loop requires tracking both PRISM (geometry health) and SGT (behavioral grounding quality) because they are genuinely independent signals.
 4. **Single-user overfitting is a real concern.** A model grounded on one person's lived experience may lose generality. This is by design (it's *their* model), but it means the grounding is not transferable.
 
 ### Implementation
@@ -284,17 +328,15 @@ See `docs/incremental_grounding.md` for the full technical design.
 
 If you reference this work, please cite the underlying mathematical framework:
 
-> Haslam, B. (2025). *Semantic Grounding and the Preservation of Information in Recursive Systems.* Zenodo. [https://doi.org/10.5281/zenodo.18144681](https://doi.org/10.5281/zenodo.18144681)
+> Haslam, B. (2026). *The Viability Condition: A formal criterion for AI grounding via verified human correction.* Zenodo. [https://doi.org/10.5281/zenodo.18144681](https://doi.org/10.5281/zenodo.18144681)
 
 ```bibtex
-@misc{haslam2025grounding,
-  title     = {Semantic Grounding and the Preservation of Information in Recursive Systems},
-  author    = {Haslam, Benjamin},
-  year      = {2025},
-  month     = dec,
-  publisher = {Zenodo},
-  doi       = {10.5281/zenodo.18144681},
-  url       = {https://doi.org/10.5281/zenodo.18144681}
+@misc{haslam2026viability,
+  title  = {The Viability Condition: A formal criterion for AI grounding via verified human correction},
+  author = {Haslam, Benjamin and Sutherland, Garrett},
+  year   = {2026},
+  doi    = {10.5281/zenodo.18144681},
+  url    = {https://doi.org/10.5281/zenodo.18144681}
 }
 ```
 

@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "contract_address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+  "session_id": "live_session_001",
+  "merkle_root": "0xae8293ef2c12a34eee45ecbca927e1dbb1c73bbd6e3f6def74420340fca9c07c",
+  "tx_hash": "98fca91d8424e7b97314b89e4bbee560fa12826033040a6c918c4192c3520f41",
+  "block": 2,
+  "gas_used": 115057,
+  "anchor_record": {
+    "root": "0xae8293ef2c12a34eee45ecbca927e1dbb1c73bbd6e3f6def74420340fca9c07c",
+    "block_number": 2,
+    "timestamp": 1777566908,
+    "submitter": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "kind": "session",
+    "node_count": 3
+  }
+}

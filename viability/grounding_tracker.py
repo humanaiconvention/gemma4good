@@ -26,6 +26,7 @@ class GroundingSession:
     training_receipt_root: Optional[str] = None
     consent_training_signal: str = "granted"
     steps_executed: int = 0
+    mean_surprisal: Optional[float] = None  # avg -log2(P_model) per correction (bits)
     error: Optional[str] = None
 
 
@@ -90,6 +91,22 @@ class GroundingTracker:
             if s.consent_training_signal == "granted"
         )
 
+    def cumulative_ceff_weighted(self) -> float:
+        """
+        Information-theoretic C(t): sum of (pairs × mean_surprisal) per session.
+
+        Weights each correction by its information content.  A correction
+        the model found surprising (high -log2 P) contributes more Ceff
+        than one the model would have generated anyway.  When surprisal is
+        not measured (None), defaults to 1.0 bit per pair — equivalent to
+        the raw count returned by cumulative_ceff().
+        """
+        return sum(
+            s.sft_pair_count * (s.mean_surprisal if s.mean_surprisal is not None else 1.0)
+            for s in self.sessions
+            if s.consent_training_signal == "granted"
+        )
+
     def viability_trend(self) -> list:
         """
         Per-session Viability Condition trajectory.
@@ -106,18 +123,25 @@ class GroundingTracker:
         trend = []
         cumulative = 0.0
 
+        cumulative_weighted = 0.0
+
         for i, s in enumerate(self.sessions):
             if s.consent_training_signal == "granted":
                 cumulative += s.sft_pair_count
+                surprisal = s.mean_surprisal if s.mean_surprisal is not None else 1.0
+                cumulative_weighted += s.sft_pair_count * surprisal
 
             ratio = cumulative / max(self.e_t, 1e-9)
+            ratio_weighted = cumulative_weighted / max(self.e_t, 1e-9)
 
             entry = {
                 "session_idx": i,
                 "session_id": s.session_id,
                 "timestamp": s.timestamp,
                 "cumulative_ceff": cumulative,
+                "cumulative_ceff_weighted": round(cumulative_weighted, 4),
                 "ratio_ceff_e": round(ratio, 4),
+                "ratio_ceff_e_weighted": round(ratio_weighted, 4),
                 "training_executed": s.training_executed,
                 "loss_before": s.loss_before,
                 "loss_after": s.loss_after,
@@ -145,6 +169,7 @@ class GroundingTracker:
     def summary(self) -> dict:
         """Human-readable summary of grounding state."""
         cum_ceff = self.cumulative_ceff()
+        cum_ceff_w = self.cumulative_ceff_weighted()
         return {
             "model_id": self.model_id,
             "e_t": self.e_t,
@@ -152,7 +177,9 @@ class GroundingTracker:
             "consented_sessions": self.consented_session_count,
             "executed_sessions": self.executed_session_count,
             "cumulative_ceff": cum_ceff,
+            "cumulative_ceff_weighted": round(cum_ceff_w, 4),
             "cumulative_ratio": round(cum_ceff / max(self.e_t, 1e-9), 4),
+            "cumulative_ratio_weighted": round(cum_ceff_w / max(self.e_t, 1e-9), 4),
             "monotonically_improving": self.monotonically_improving(),
             "created_at": self.created_at,
         }

@@ -1,20 +1,12 @@
 """
-haic_tools.py — Governance tool implementations for the HAIC × Gemma 4 notebook.
+haic_tools.py — Function-calling tool implementations for the HAIC × Gemma 4 notebook.
 
-Four core tools registered with Gemma 4's native function-calling API:
-  1. assess_wellbeing_domain       — GFS domain scoring and vulnerability classification
-  2. verify_consent_and_provenance — 5-layer HAIC consent check and data lineage verification
-  3. run_prism_analysis            — E(t) proxy metrics via PRISM activation geometry
-  4. generate_alignment_receipt    — Merkle-rooted SHA3-256 cryptographic governance receipt
+These tools are registered with Gemma 4's function-calling API and connect to:
+  - Maestro gateway (sessions, consent, receipts)
+  - Prism geometry library (E(t) proxies)
+  - Viability condition evaluator
 
-Extended tools (available via dispatch_tool, not part of the 4-tool Gemma 4 schema):
-  5. check_viability_condition     — Evaluates Ceff(t) > E(t) for a model/deployment
-  6. run_grounding_update          — Incremental LoRA grounding from a consented session
-
-Runtime connections:
-  - Maestro gateway  (set MAESTRO_GATEWAY_BASE env var, or uses localhost:8000 default)
-  - Prism library    (set PRISM_SRC env var if prism package is not installed)
-  - Viability condition evaluator (viability/check_viability_condition.py)
+Set GATEWAY_BASE env var or edit the constant below.
 """
 
 import json
@@ -23,6 +15,8 @@ import os
 import time
 import uuid
 import hashlib
+
+from utils.merkle import sha3_256_hex, merkle_root as _merkle_root, hash_items_to_leaves
 from typing import Optional
 
 # Incremental grounding — tool #7
@@ -189,9 +183,9 @@ def verify_consent(session_id: str, consent_layers: dict,
         )
         resp.raise_for_status()
         data = resp.json()
-        consent_hash = hashlib.sha256(
-            json.dumps(consent_layers, sort_keys=True).encode()
-        ).hexdigest()
+        consent_hash = sha3_256_hex(
+            json.dumps(consent_layers, sort_keys=True)
+        )
         layers_granted = [k for k, v in consent_layers.items() if v == "granted"]
         return {
             "consent_valid": True,
@@ -200,9 +194,9 @@ def verify_consent(session_id: str, consent_layers: dict,
             "session_id": session_id
         }
     except Exception as e:
-        consent_hash = hashlib.sha256(
-            json.dumps(consent_layers, sort_keys=True).encode()
-        ).hexdigest()
+        consent_hash = sha3_256_hex(
+            json.dumps(consent_layers, sort_keys=True)
+        )
         layers_granted = [k for k, v in consent_layers.items() if v == "granted"]
         return {
             "consent_valid": len(layers_granted) > 0,
@@ -254,7 +248,7 @@ _ARENA_CACHE = {
     "smollm2-135m": {"outlier_ratio": 118.8, "activation_kurtosis": 410.3,  "cardinal_proximity": 0.601,  "quantization_hostility": 0.8503, "worst_layer_zone": "late",  "data_status": "verified"},
     "smollm2-1.7b": {"outlier_ratio": 318.5, "activation_kurtosis": 1602.2, "cardinal_proximity": 0.588,  "quantization_hostility": 0.8614, "worst_layer_zone": "late",  "data_status": "verified"},
     # haic-v6/v7/v8: real measurements 2026-04-07 from
-    # merged locally via
+    # D:\humanai-convention\experiments\qwen3_5_2b\{v6,v7,v8}\merged via
     # run_prism_haic_versions.py. The previous "illustrative" placeholders
     # (qh~0.38, outlier~7.6x) were aspirational, not measured — the actual
     # geometry of these fine-tunes is essentially unchanged from the base
@@ -304,7 +298,7 @@ _ARENA_CACHE = {
         "worst_layer_zone": "unknown",             # pending full PRISM run on GGUF
         "data_status": "verified_partial",         # qh+kurtosis verified, other fields pending
         "deployment_status": "rollback_ready",
-        "deployment_path": "(local — see deployment notes)",
+        "deployment_path": "D:/humanai-convention/experiments/gguf/haic-gemma4-v34-Q5_K_M.gguf",
         "sgt_score_any_turn": 10.0,
         "sgt_security_fails": 0,
         "tps_q5_k_m_rtx2080": 31.2,
@@ -328,7 +322,7 @@ _ARENA_CACHE = {
         "worst_layer_zone": "unknown",             
         "data_status": "verified_partial",         
         "deployment_status": "production",
-        "deployment_path": "(local — see deployment notes)",
+        "deployment_path": "D:/humanai-convention/experiments/gguf/haic-gemma4-v35-gov-Q5_K_M.gguf",
         "artifact_status": "quantized_and_benchmarked",
         "sgt_score_any_turn": 10.0,
         "sgt_security_fails": 0,
@@ -552,26 +546,13 @@ def generate_receipt(session_id: str, messages: list, consent: dict,
             "source": "maestro"
         }
     except Exception as e:
-        # Local Merkle root computation (simplified)
-        nodes = [
-            hashlib.sha256(json.dumps(m, sort_keys=True).encode()).hexdigest()
-            for m in messages
-        ]
-        nodes.append(
-            hashlib.sha256(json.dumps(consent, sort_keys=True).encode()).hexdigest()
-        )
-        # Pair-wise reduction
-        while len(nodes) > 1:
-            if len(nodes) % 2 == 1:
-                nodes.append(nodes[-1])
-            nodes = [
-                hashlib.sha256((nodes[i] + nodes[i+1]).encode()).hexdigest()
-                for i in range(0, len(nodes), 2)
-            ]
-        merkle_root = nodes[0] if nodes else hashlib.sha256(b"empty").hexdigest()
+        # Local Merkle root computation via shared utils
+        leaves = hash_items_to_leaves(messages)
+        leaves.append(sha3_256_hex(json.dumps(consent, sort_keys=True)))
+        root = _merkle_root(leaves)
 
         return {
-            "merkle_root": merkle_root,
+            "merkle_root": root,
             "qr_data_url": None,
             "node_count": len(messages),
             "created_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),

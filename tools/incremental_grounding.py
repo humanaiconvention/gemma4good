@@ -28,6 +28,8 @@ import time
 from dataclasses import dataclass, field, asdict
 from typing import Optional
 
+from utils.merkle import sha3_256_hex as _sha256, merkle_root as _merkle_root
+
 
 # ── Configuration ─────────────────────────────────────────────────────────────
 
@@ -167,26 +169,9 @@ def format_session_as_sft(
 
 
 # ── Merkle utilities ──────────────────────────────────────────────────────────
-
-def _sha256(data: str) -> str:
-    """SHA-256 hex digest of a string."""
-    return hashlib.sha256(data.encode("utf-8")).hexdigest()
-
-
-def _merkle_root(leaves: list) -> str:
-    """Compute Merkle root from a list of hex-string leaves."""
-    if not leaves:
-        return _sha256("empty")
-
-    nodes = list(leaves)
-    while len(nodes) > 1:
-        if len(nodes) % 2 == 1:
-            nodes.append(nodes[-1])
-        nodes = [
-            _sha256(nodes[i] + nodes[i + 1])
-            for i in range(0, len(nodes), 2)
-        ]
-    return nodes[0]
+# _sha256 and _merkle_root are imported from utils.merkle above.
+# The local _sha256 alias preserves call-site compatibility throughout this
+# module without exposing callers to the rename.
 
 
 def hash_adapter_state(adapter_path_or_dict) -> Optional[str]:
@@ -206,7 +191,7 @@ def hash_adapter_state(adapter_path_or_dict) -> Optional[str]:
     if isinstance(adapter_path_or_dict, str):
         # Hash the adapter files on disk
         import os
-        h = hashlib.sha256()
+        h = hashlib.sha3_256()
         adapter_dir = adapter_path_or_dict
         if os.path.isdir(adapter_dir):
             for fname in sorted(os.listdir(adapter_dir)):
@@ -223,7 +208,7 @@ def hash_adapter_state(adapter_path_or_dict) -> Optional[str]:
 
     if isinstance(adapter_path_or_dict, dict):
         # Hash sorted parameter tensors
-        h = hashlib.sha256()
+        h = hashlib.sha3_256()
         for name in sorted(adapter_path_or_dict.keys()):
             h.update(name.encode("utf-8"))
             tensor = adapter_path_or_dict[name]
@@ -259,7 +244,11 @@ def generate_training_receipt(
       - loss_trajectory hash
       - adapter_state_after hash
 
-    Level 2: pairwise SHA-256 reduction → training_receipt_root.
+    Level 2: pairwise SHA3-256 reduction → training_receipt_root.
+    (Uses utils.merkle.merkle_root, which itself uses sha3_256_hex —
+    EVM/keccak256-compatible per the 2f50f83 SHA-256 → SHA3-256 migration.
+    The local _sha256 alias in this module is a callsite-stable name for
+    the SHA3-256 function imported from utils.merkle.)
 
     Any None leaf is hashed as the string "null" — this is explicit, not hidden.
     The receipt declares whether training actually executed.

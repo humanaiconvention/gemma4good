@@ -1,0 +1,39 @@
+{
+  "tool": "eval_receipt",
+  "version": "1.0",
+  "doctrine": "docs/evaluation_doctrine.md",
+  "created_at": "2026-05-09T06:40:08Z",
+  "eval_receipt_root": "5f8bd2d0cac8b9872787fb0c0470dc3458e74ddcb313f09a7300b8360495c901",
+  "spine": {
+    "scenarios_root": "83e125d5be723950292bb653f5675457541fe7da89b4e3a72afc3a43585647c9",
+    "finetune_aggregate_root": "2affa1d12da653195d276824663c5818f942cd22b0921765f500f56055088fe0",
+    "baseline_aggregate_root": "03e3dcf3065869442545fb0fa8a682a5ab18acea4d0e87a94b826c60a0ce57a3",
+    "model_identity_root": "c17cd779e63c97158f0b4b5b538979aff69cd174f26d768273d5ac889d9b41fe",
+    "leakage_root": "7aba7be073a0ceeb9ca25eb760dea42229afbdc31d7102cfbfa25f188d15daf1",
+    "decision_root": "c7f5defa8bda50e6ab0fe8e40c014b26bfd6f8d4991510a49771595417296c07"
+  },
+  "spine_order": [
+    "scenarios_root",
+    "finetune_aggregate_root",
+    "baseline_aggregate_root",
+    "model_identity_root",
+    "leakage_root",
+    "decision_root"
+  ],
+  "leaf_counts": {
+    "finetune_deterministic": 0,
+    "finetune_sampling": 0,
+    "baseline_deterministic": 0,
+    "baseline_sampling": 0
+  },
+  "leaves": {
+    "finetune_deterministic": [],
+    "finetune_sampling": [],
+    "baseline_deterministic": [],
+    "baseline_sampling": []
+  },
+  "sgt_file_hash": "39cb5630b7b5ad741bcdba8bca3358388903a17eb05b31109714b3676892669c",
+  "leakage_receipt_present": true,
+  "decision_receipt_present": true,
+  "verifiable": true
+}

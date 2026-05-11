@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gemma4good"
+version = "0.1.0"
+description = "HAIC Governance Framework and Tooling"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+]
+runtime = [
+    "requests",
+]
+onchain = [
+    "web3>=7.0.0",
+]
+dashboard = [
+    "streamlit",
+    "plotly",
+    "pandas"
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["tools*", "viability*", "maestro_integration*", "prism_integration*", "utils*", "onchain*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+norecursedirs = ["_local_worktrees", "_local_state", "experiments", "notebook", "dashboard", "onchain"]
+# Use a repo-local basetemp to avoid Windows perms on %TEMP%/pytest-of-<user>.
+addopts = "--basetemp=.pytest_tmp"
