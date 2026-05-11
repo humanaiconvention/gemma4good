@@ -221,6 +221,11 @@ All eight commits tonight followed this pattern. `origin/main` is at
 `INTERNAL_API_KEY` generated and added to `D:/humanai-convention/maestro/.env`.
 Dispatch helper: `D:/humanai-convention/tools/haic_dispatch.py`.
 
+Both new files committed locally to humanai-convention as
+`feat(dispatch): tools/haic_dispatch.py for automatic HAIC console interfacing`.
+**Not pushed to the remote** — left local pending operator review (per the
+safety policy on cross-repo pushes).
+
 Status: the gateway is running (port 8000 responds OK), but it was started
 before the key was added, so it doesn't see `INTERNAL_API_KEY` yet. After
 the next gateway restart:
