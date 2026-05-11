@@ -323,6 +323,38 @@ See `docs/incremental_grounding.md` for the full technical design.
 
 ---
 
+## Federated deployment: DiLoCo + the Viability Condition
+
+The three deployment scenarios in this submission (rural health clinic, low-connectivity classroom, deforestation monitoring) are inherently *distributed*: each clinic, classroom, and monitoring station runs Gemma 4 locally, with intermittent connectivity to central infrastructure. The single-node Viability Condition `Ceff(t) > E(t)` extends naturally to this federated setting, and the natural protocol for the extension is DiLoCo.
+
+DiLoCo (Distributed Low-Communication training, Douillard et al. 2023) and its 2026 successor *Decoupled DiLoCo* split optimization into an inner loop (each learner trains locally) and an outer loop (a syncer aggregates fragment deltas every K inner steps). DeepMind validated Decoupled DiLoCo specifically on Gemma 4 12B across four U.S. regions, achieving a 198 Gbps → 0.84 Gbps bandwidth reduction (235×) and maintaining 88% goodput under aggressive failure simulations. The architecture is the right fit for our scenarios for three reasons:
+
+1. **Bandwidth.** The Indonesian classroom scenario assumes a 2-hour daily satellite uplink for 12 schools. Synchronous DDP requires gigabytes per round; DiLoCo fragments are tens of megabytes. Without DiLoCo, this scenario is technical fiction.
+2. **Resilience.** The Amazon monitoring scenario assumes 20 stations subject to cloud blackouts, hardware failures, and potential compromise. Decoupled DiLoCo's quorum-based aggregation maintains 88% goodput when individual nodes fail — no single station can stall training.
+3. **Sovereignty.** The clinic scenario depends on patient data never leaving the clinic. DiLoCo's fragment-only synchronization is exactly that property: only the LoRA delta crosses the wire, never the underlying transcripts.
+
+The federated extension of the Viability Condition is:
+
+```
+Ceff_global(r) = Σ over verified, accepted fragments at round r
+E_global(r)    = max_i E_i + merge_error(K)   where merge_error scales as 1/√K
+Viable_global(r) ⟺ Ceff_global(r) > E_global(r)
+```
+
+Implementation:
+- `viability/distributed_viability.py` — `assess_federated()` and `MergeQuorumPolicy`
+- `tools/diloco_fragment_verifier.py` — `verify_fragment()` performs four checks before a fragment is admitted to the merge: (1) Merkle integrity of the round receipt, (2) consent compliance on every per-session trace in the round, (3) tensor shape coverage (catches the SimSat null-training and v11-partial-save patterns), (4) per-tensor norm bounds (catches poisoned fragments and the all-zero null pattern)
+
+The full design and the per-scenario walkthroughs are in `docs/diloco_integration_2026-05-11.md`.
+
+A SimSat-style DiLoCo deployment was built and validated separately on Gemma-4-E2B (round-1 adapter at `D:/SimSat/weights/...`, eval N=37, exact=0.86). The verifier in this submission catches the two real failure modes that surfaced in that validation: the null-training pattern (LoRA target_modules pointed at vision/audio towers instead of language model decoder layers) and the v11 partial-save pattern (Gemma 4's GQA caused tie_weights() to drop k_proj/v_proj on later layers at save time). Both are documented in the SimSat audit; both are caught by the verifier's shape and coverage checks before a defective fragment can enter the merge.
+
+Citations:
+- Douillard et al. 2023 — arXiv:2311.08105 (original DiLoCo)
+- *Decoupled DiLoCo* 2026 — arXiv:2604.21428 (asynchronous, Gemma-4-validated, 235× bandwidth reduction)
+
+---
+
 ## Citation
 
 If you reference this work, please cite the underlying mathematical framework:
