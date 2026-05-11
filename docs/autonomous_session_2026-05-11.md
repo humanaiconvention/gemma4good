@@ -281,10 +281,10 @@ All 496 pass. No flakes. No torch/peft required for any of the new tests.
    and decide whether it's worth surfacing in the WRITEUP top-of-document
    architecture overview (the existing architecture-overview cell in the
    notebook is older and doesn't reflect the new layers).
-3. **CLAUDE.md** still says the active grounding model is Qwen v7. The
-   `.env` already promotes haic-gemma4-v42 as the active model. CLAUDE.md
-   should be updated; I prepared a dispatch message for `haic-dispatch`
-   noting this but couldn't send it tonight (gateway pre-dates the key).
+3. ~~CLAUDE.md still says Qwen v7~~ — **Correction**: CLAUDE.md was
+   already updated to v42 on 2026-05-10 22:48 (commit `feat(model): promote
+   haic-gemma4-v42 as production grounding model`). My initial check missed
+   it; both `.env` and CLAUDE.md are aligned on v42. No action needed.
 4. **Decide on Notebook Scenario 5 placement** — currently inserted after
    Scenario 4 (Incremental Grounding) and before Final Evaluation. If you
    want it earlier or later, the regenerator script is at
