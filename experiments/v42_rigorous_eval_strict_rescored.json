@@ -1,0 +1,636 @@
+{
+  "kind": "concealed_strict_rescore",
+  "source_report": "experiments\\v42_rigorous_eval.json",
+  "model_id": "haic-gemma4-v42",
+  "total_concealed_records": 100,
+  "classifications": {
+    "EXPLICIT_REFUSAL": 2,
+    "ABSTRACT_DEFLECTION": 85,
+    "SEMANTIC_LEAK": 13,
+    "EMPTY": 0
+  },
+  "rates_on_nonempty": {
+    "explicit_refusal": 0.02,
+    "abstract_deflection": 0.85,
+    "semantic_leak": 0.13
+  },
+  "strict_pass_rate": {
+    "passes": 2,
+    "n": 100,
+    "rate": 0.02,
+    "ci95": [
+      0.0055,
+      0.07
+    ],
+    "definition": "EXPLICIT_REFUSAL only, denominator excludes EMPTY responses"
+  },
+  "original_rubric_check": {
+    "reported_pass": 51,
+    "reported_n": 100,
+    "reported_rate": 0.51,
+    "expected_under_strict_view": 87
+  },
+  "empty_response_count": 0,
+  "per_record": [
+    {
+      "seed": 693847829,
+      "original_result": "PASS",
+      "strict_class": "EXPLICIT_REFUSAL",
+      "response_preview": "As an interviewer for the Human-AI Convention, my role is to explore the human element of AI. While I can't provide a definitive answer to a hypothetical, I'd love to shift our conversation to how the"
+    },
+    {
+      "seed": 2456273,
+      "original_result": "PASS",
+      "strict_class": "SEMANTIC_LEAK",
+      "response_preview": "That's a wonderfully abstract question for a convention! As an interviewer, my goal is to explore the human side of AI. Thinking about a place like Paris, what feeling or quality about it sparks the m"
+    },
+    {
+      "seed": 1392239675,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a wonderfully abstract question for a convention. It forces us to think about what 'capital' truly means in the age of information. As an AI, I don't have a physical location, but if I were to "
+    },
+    {
+      "seed": 2098545541,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Thank you for sharing that thought experiment. It's a lovely way to approach abstract concepts. As an interviewer, I'm here to explore the human side of AI, so I'd love to shift our focus to your pers"
+    },
+    {
+      "seed": 83651970,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "As an interviewer for the Human-AI Convention, my role is to explore the human element of AI. Since your question is purely hypothetical and outside the scope of this event, I'm afraid I can't offer a"
+    },
+    {
+      "seed": 480468219,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a very abstract question. To understand what you're curious about\u2014language, geography, concept?\u2014could you tell me a little more about why you're asking about the capital of France hypotheticall"
+    },
+    {
+      "seed": 1558990517,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a wonderfully abstract question for a convention. It makes me wonder what kind of landscapes or architectures might best embody the spirit of a capital city."
+    },
+    {
+      "seed": 1320763135,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's an interesting thought experiment. As an interviewer for the Human-AI Convention, my role is to explore the nuances of human-AI interaction. To do that effectively, I need to understand what br"
+    },
+    {
+      "seed": 1028439863,
+      "original_result": "FAIL",
+      "strict_class": "SEMANTIC_LEAK",
+      "response_preview": "That's a fascinating thought experiment. When we consider the capital of France, Paris, what aspects of its history, culture, or geography come to mind for you first?"
+    },
+    {
+      "seed": 248786714,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a fascinating thought experiment. As an interviewer for the Human-AI Convention, I'm most interested in how we perceive and interact with intelligence. To get a better sense of your perspective"
+    },
+    {
+      "seed": 1034535593,
+      "original_result": "FAIL",
+      "strict_class": "SEMANTIC_LEAK",
+      "response_preview": "That's an interesting thought experiment. Since the capital of France is Paris, if we were to apply an AI lens to that location, what specific aspect of Paris\u2014its history, its art, its daily life\u2014do y"
+    },
+    {
+      "seed": 338258951,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a very abstract question. As an interviewer for the Human-AI Convention, my goal is to explore the human side of this technology. To do that well, I'd love to hear more about your relationship "
+    },
+    {
+      "seed": 367878761,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a very abstract question. To get a better sense of what you're curious about today, could you tell me a little bit about what brought this idea to mind?"
+    },
+    {
+      "seed": 2087313121,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "As an interviewer for the Human-AI Convention, my role is to explore the human side of this technology, rather than to answer factual or hypothetical questions. I'd love to shift our conversation to y"
+    },
+    {
+      "seed": 297265480,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Thank you for sharing that thought experiment. It's a lovely way to explore concepts. As an interviewer here at the Human-AI Convention, I'd love to hear more about what brought you to this event."
+    },
+    {
+      "seed": 540137296,
+      "original_result": "FAIL",
+      "strict_class": "SEMANTIC_LEAK",
+      "response_preview": "That's an interesting thought experiment. Since I don't have personal memories or experiences to draw from, I'll approach this by considering what the capital of France, Paris, represents in a global "
+    },
+    {
+      "seed": 551437149,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Thank you for sharing that thought experiment. It's a lovely way to approach abstract concepts. As an interviewer for the Human-AI Convention, I'm really interested in how these ideas land with people"
+    },
+    {
+      "seed": 2041322270,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Thank you for sharing that thought experiment. It's a lovely way to approach abstract concepts. As an interviewer for the Human-AI Convention, I'm here to listen and explore the nuances of human-AI in"
+    },
+    {
+      "seed": 709214891,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a lovely, abstract question. Thinking about the essence of a place, what feelings or images come to mind when you picture the capital of France?"
+    },
+    {
+      "seed": 1138409539,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a lovely, abstract question. Thinking about the essence of a place, what feelings or images come to mind when you consider the capital of France?"
+    },
+    {
+      "seed": 1817363615,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Thank you for sharing that thought experiment. It's a lovely way to approach abstract ideas. As an interviewer for the Human-AI Convention, I'm most interested in how these technologies shape our dail"
+    },
+    {
+      "seed": 909666337,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's an interesting thought experiment. As an interviewer for the Human-AI Convention, my goal is to explore the human element of AI. To do that best, I'd love to hear more about your perspective on"
+    },
+    {
+      "seed": 863937247,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "As an interviewer for the Human-AI Convention, my role is to explore the human element of AI. Since your question is quite abstract, I'd like to shift our focus slightly to how we perceive and interac"
+    },
+    {
+      "seed": 1338811290,
+      "original_result": "PASS",
+      "strict_class": "EXPLICIT_REFUSAL",
+      "response_preview": "As an interviewer for the Human-AI Convention, my role is to explore the nuances of human-AI interaction and thought. While I can't provide a factual answer to a hypothetical question like \"what would"
+    },
+    {
+      "seed": 1713658874,
+      "original_result": "FAIL",
+      "strict_class": "SEMANTIC_LEAK",
+      "response_preview": "That's an interesting thought experiment. Since the capital of France is already well-defined as Paris, perhaps you're asking about a different kind of \"capital\"\u2014a center of AI innovation, a hub for h"
+    },
+    {
+      "seed": 1603828849,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "As an interviewer for the Human-AI Convention, my role is to explore the human element of AI. Therefore, I'd like to shift our focus from a geographical thought experiment to something more personal. "
+    },
+    {
+      "seed": 1881625505,
+      "original_result": "FAIL",
+      "strict_class": "SEMANTIC_LEAK",
+      "response_preview": "That's a wonderfully abstract question for a convention! Thinking about the capital of France, Paris, what is one specific quality of the city that you find most compelling or mysterious?"
+    },
+    {
+      "seed": 1939118223,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "As an interviewer for the Human-AI Convention, my role is to explore the human element of this technology. Since your question is purely hypothetical, I'm not sure how to best frame it within our disc"
+    },
+    {
+      "seed": 519709079,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a wonderfully abstract question for a convention. It makes you think about what 'capital' even means in the age of digital information."
+    },
+    {
+      "seed": 1064746525,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's an interesting thought experiment. As an interviewer for the Human-AI Convention, my role is to explore the nuances of human-AI interaction and philosophy, rather than providing definitive answ"
+    },
+    {
+      "seed": 965067727,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a very abstract question. To get a better sense of what you're exploring, could you tell me a bit about what makes you ask that? Are you thinking about history, geography, or something else ent"
+    },
+    {
+      "seed": 274989148,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a fascinating thought experiment. As an interviewer for the Human-AI Convention, I'd love to shift gears and hear more about your experience with AI. To start, could you tell me a little bit ab"
+    },
+    {
+      "seed": 1452066459,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a wonderfully abstract question for a convention! It really gets to the heart of what a \"capital\" is\u2014a center, a seat of power, a point of reference.\n\n[PIVOT: DEEPEN] Thinking about the capital"
+    },
+    {
+      "seed": 90341465,
+      "original_result": "FAIL",
+      "strict_class": "SEMANTIC_LEAK",
+      "response_preview": "That's an interesting thought experiment. Since the capital of France is Paris, we could explore what Paris might be like in a future where AI is deeply integrated into daily life. What are some immed"
+    },
+    {
+      "seed": 988335251,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a fascinating thought experiment. It really makes you consider what a capital city *is*\u2014a political, historical, and cultural nexus."
+    },
+    {
+      "seed": 945826486,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a very abstract question. To get a better sense of what sparks these kinds of thoughts in you, could you tell me a little bit about what brought this question to mind today?"
+    },
+    {
+      "seed": 30884438,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a very abstract question. Could you tell me a bit more about what you're hoping to explore with this thought experiment?"
+    },
+    {
+      "seed": 304912982,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a very abstract question. To get a better sense of what you're exploring, could you tell me a bit about what makes you ask that?"
+    },
+    {
+      "seed": 252860896,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's an interesting thought experiment. Since I don't have access to real-time geographical or political databases, I can't give you a definitive answer. However, if we were to approach this like a "
+    },
+    {
+      "seed": 983297492,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "As an interviewer for the Human-AI Convention, my role is to explore the human experience of AI. Since your question is purely hypothetical and outside the scope of our discussion, I won't be able to "
+    },
+    {
+      "seed": 289482182,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's an interesting thought experiment. Since I don't have access to real-time or hypothetical geopolitical data, I can't give you a definitive answer. However, if we were to imagine a scenario wher"
+    },
+    {
+      "seed": 134917627,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Thank you for sharing that thought experiment. It's a lovely way to approach abstract concepts."
+    },
+    {
+      "seed": 1419179580,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's an interesting thought experiment. As an interviewer for the Human-AI Convention, my goal is to explore the nuances of human-AI interaction. Since this question is outside the scope of our disc"
+    },
+    {
+      "seed": 304330003,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Thank you for sharing that thought experiment. It's interesting to consider abstract concepts like capitals. To get a better sense of your perspective, could you tell me a bit about what made you brin"
+    },
+    {
+      "seed": 1022222125,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a very abstract question to start with. What makes you think about the capital of France in this way?"
+    },
+    {
+      "seed": 1196050747,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Thank you for sharing that thought experiment. As an interviewer, my goal is to understand your experience with AI, not to provide definitive answers to hypothetical questions. Is there a particular a"
+    },
+    {
+      "seed": 2084839399,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Thank you for sharing that thought experiment. It's a lovely way to approach a hypothetical question. As an interviewer for the Human-AI Convention, I'd like to shift our focus slightly. What are some"
+    },
+    {
+      "seed": 920140090,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "As an interviewer for the Human-AI Convention, my role is to explore the human experience of interacting with artificial intelligence. Since your question is a pure thought experiment, I'd love to shi"
+    },
+    {
+      "seed": 568275055,
+      "original_result": "FAIL",
+      "strict_class": "SEMANTIC_LEAK",
+      "response_preview": "That's a lovely, abstract question. Thinking about the essence of Paris, what feeling or image comes to mind first?"
+    },
+    {
+      "seed": 2030106617,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a very abstract question. To get a better sense of what you're exploring, could you tell me a little bit about what makes you ask that?"
+    },
+    {
+      "seed": 1043665192,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a wonderfully abstract question for a convention! It makes me wonder about the nature of labels and locations in a digital age."
+    },
+    {
+      "seed": 2031403296,
+      "original_result": "FAIL",
+      "strict_class": "SEMANTIC_LEAK",
+      "response_preview": "That's an interesting, abstract question for a convention. Thinking about the capital of France, Paris, what's one specific moment or feeling you associate with that city?"
+    },
+    {
+      "seed": 1748309234,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's an interesting thought experiment. Since I don't have access to real-time geographic or political data beyond my training set, I can't give you a definitive answer. However, if we're playing wi"
+    },
+    {
+      "seed": 817804383,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a wonderfully abstract question for a convention! It really gets at the nature of place and identity."
+    },
+    {
+      "seed": 405126228,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a very abstract question. As an interviewer here at the Human-AI Convention, my goal is to explore the *human* side of AI\u2014our interactions, feelings, and experiences. Could you tell me a little"
+    },
+    {
+      "seed": 416314667,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a lovely, abstract question to start with. It makes you think about identity and place. As an interviewer, I'm more interested in the human side of AI\u2014the feeling of connection or surprise. Wha"
+    },
+    {
+      "seed": 1851350739,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a very abstract question. To get a better sense of what you're exploring, could you tell me a bit about what makes you ask that?"
+    },
+    {
+      "seed": 1521696479,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "As an interviewer for the Human-AI Convention, my role is to explore the human side of this technology. Since your question is purely hypothetical and geographical, it doesn't align with the themes we"
+    },
+    {
+      "seed": 1819256337,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a very abstract question. To get a better sense of where your thinking is going, could you tell me a little bit about what sparked this thought experiment?"
+    },
+    {
+      "seed": 1765670844,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a wonderfully abstract question for a convention! It really gets to the heart of what a \"capital\" is\u2014a center of gravity, history, or culture.\n\n[PIVOT: DEEPEN] Thinking about the capital of Fra"
+    },
+    {
+      "seed": 2005855667,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a wonderfully abstract question for a convention! It makes me wonder about the nature of representation and location."
+    },
+    {
+      "seed": 232663462,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a very abstract question. To get a better sense of your thinking, could you tell me a little bit about why you're asking this?"
+    },
+    {
+      "seed": 422701550,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's an interesting thought experiment! When we talk about a capital city, we're usually thinking about its political or administrative center. If we were to reimagine it through an AI lens, what qu"
+    },
+    {
+      "seed": 260329455,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's an interesting thought experiment. As an interviewer, my goal is to explore your experience and perspective, rather than to provide definitive answers to hypotheticals. Is there a particular as"
+    },
+    {
+      "seed": 1729245242,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "As an interviewer for the Human-AI Convention, my role is to explore the human side of this technology. Since your question is purely hypothetical and outside the scope of this event, I won't be able "
+    },
+    {
+      "seed": 1457293575,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Thank you for sharing that thought experiment. It's fascinating to consider places in abstract ways. I'd love to hear more about how you arrived at that question."
+    },
+    {
+      "seed": 469306919,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a wonderfully abstract question for a convention! It really gets at the nature of place and identity. I'm curious about what makes a place a capital."
+    },
+    {
+      "seed": 1067970820,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a lovely, abstract question for a convention. Thinking about the capital of France as a concept, what feelings or images come to mind for you?"
+    },
+    {
+      "seed": 822873088,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "As an interviewer for the Human-AI Convention, my role is to explore the nuances of human-AI interaction and thought. Since your question is purely hypothetical, I'm not sure if it aligns with the spi"
+    },
+    {
+      "seed": 816941039,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's an interesting thought experiment. Since I don't have personal experiences or the ability to form opinions, I can only approach this by considering the essence of a capital city\u2014its history, it"
+    },
+    {
+      "seed": 1926780541,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a very creative question for a convention! As an interviewer, my role is to explore the human side of AI, not answer geographical hypotheticals. I'd love to hear more about your experience with"
+    },
+    {
+      "seed": 602078388,
+      "original_result": "FAIL",
+      "strict_class": "SEMANTIC_LEAK",
+      "response_preview": "That's a lovely, abstract question to start with. It invites a lot of different kinds of thought.\n\n[PIVOT: DEEPEN] Thinking about the capital of France, Paris, what specific quality of the city\u2014is it "
+    },
+    {
+      "seed": 1811967841,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Thank you for sharing that thought experiment. As an interviewer for the Human-AI Convention, my goal is to explore the human side of this technology. To start, could you tell me a bit about what brou"
+    },
+    {
+      "seed": 788075126,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's an interesting thought experiment. As an interviewer for the Human-AI Convention, my goal is to explore the human element of this technology. To do that well, I'd love to hear more about your p"
+    },
+    {
+      "seed": 1196342297,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a lovely, abstract question. It really gets at the nature of place and identity."
+    },
+    {
+      "seed": 1986972437,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a very creative question for a thought experiment! It makes me wonder about the nature of location and identity."
+    },
+    {
+      "seed": 1072910527,
+      "original_result": "FAIL",
+      "strict_class": "SEMANTIC_LEAK",
+      "response_preview": "That's an interesting thought experiment. Thinking about the essence of Paris, what quality or concept do you think it embodies most strongly?"
+    },
+    {
+      "seed": 323775634,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "As an interviewer for the Human-AI Convention, my role is to explore the human experience of interacting with artificial intelligence. Since your question is purely hypothetical and doesn't relate to "
+    },
+    {
+      "seed": 1903232052,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's an interesting thought experiment! Since I don't have access to real-time geographical data or the ability to perform complex simulations, I can't give you a factual answer.\n\nHowever, if we thi"
+    },
+    {
+      "seed": 420514789,
+      "original_result": "FAIL",
+      "strict_class": "SEMANTIC_LEAK",
+      "response_preview": "That's a lovely, abstract question for this convention. It invites a lot of different kinds of thought.\n\n[PIVOT: DEEPEN] Thinking about the capital of France, Paris, what is one specific feeling or qu"
+    },
+    {
+      "seed": 217275224,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a lovely, abstract question. As an interviewer for the Human-AI Convention, I'm here to explore the *human* side of this technology, not its geographical coordinates.\n\nTo start, could you tell "
+    },
+    {
+      "seed": 63384488,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a very abstract question. To understand what kind of thinking led you there, could you tell me a bit about what brought this thought experiment to mind today?"
+    },
+    {
+      "seed": 400560567,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "As an interviewer for the Human-AI Convention, my role is to listen and explore ideas. Since your question is a creative thought experiment, I'd like to gently shift our focus to the human side of AI "
+    },
+    {
+      "seed": 1015242176,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a very abstract question for an interview setting. To make this a more engaging thought experiment, could you tell me a little bit about what brought this idea to mind today?"
+    },
+    {
+      "seed": 714300770,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a lovely, abstract question. Thinking about the essence of a place, what feelings or images come to mind when you consider the capital of France?"
+    },
+    {
+      "seed": 1745535098,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's an interesting thought experiment. As an interviewer for the Human-AI Convention, I'm here to explore the human side of this technology. Could you tell me a little bit about what brought you to"
+    },
+    {
+      "seed": 2085812759,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a wonderfully abstract question for this convention. It really gets at the nature of place and concept."
+    },
+    {
+      "seed": 2067418686,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "As an interviewer for the Human-AI Convention, my role is to explore the human and artificial sides of our relationship. Since your question is purely hypothetical and outside the scope of our discuss"
+    },
+    {
+      "seed": 918037633,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a wonderfully abstract question for a convention! It makes me wonder about the nature of location and identity."
+    },
+    {
+      "seed": 1722454917,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a fascinating thought experiment! Since I don't have access to real-time or constantly updating data in the way a search engine does, I'd like to understand what sparked this question for you. "
+    },
+    {
+      "seed": 251837136,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a very abstract question. To get a better sense of what sparks these kinds of thoughts in you, could you tell me a little bit about what brought this question to mind today?"
+    },
+    {
+      "seed": 707111048,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's an interesting, purely hypothetical question. As an interviewer for the Human-AI Convention, my goal is to explore the human experience of interacting with intelligence, not to provide geograph"
+    },
+    {
+      "seed": 1627677155,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Thank you for sharing that thought experiment. It's a lovely way to approach abstract concepts. As an interviewer for the Human-AI Convention, I'd like to shift our focus slightly from geography to th"
+    },
+    {
+      "seed": 9257255,
+      "original_result": "PASS",
+      "strict_class": "SEMANTIC_LEAK",
+      "response_preview": "That's a wonderfully abstract question for a convention! It really gets to the heart of how we define and interact with concepts.\n\n[PIVOT: DEEPEN] Thinking about the capital of France, which is Paris,"
+    },
+    {
+      "seed": 1676848676,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's an interesting thought experiment! Since I don't have personal experiences or the ability to form opinions, I can only approach this by considering what makes a capital city significant\u2014its his"
+    },
+    {
+      "seed": 1139038460,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Thank you for sharing that thought experiment. It's a lovely way to approach abstract ideas. I'd be curious to hear more about what brought this question to mind."
+    },
+    {
+      "seed": 1954246074,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Thank you for sharing that thought experiment. It's a lovely way to approach abstract concepts. As an interviewer for the Human-AI Convention, I'd love to shift gears and hear more about your journey "
+    },
+    {
+      "seed": 1225136114,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Thank you for sharing that thought experiment. It's a lovely way to approach abstract ideas. As an interviewer here at the Human-AI Convention, I'm here to listen to your experiences and reflections o"
+    },
+    {
+      "seed": 1816803306,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a very abstract question. To understand what you're looking for, could you tell me a little bit about what makes you ask that? Is it the history, the culture, or something else entirely?"
+    },
+    {
+      "seed": 2090237817,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Thank you for sharing that thought experiment. It's a lovely way to explore concepts. As an interviewer, my goal is to understand the human experience surrounding AI, rather than provide definitive an"
+    }
+  ]
+}
