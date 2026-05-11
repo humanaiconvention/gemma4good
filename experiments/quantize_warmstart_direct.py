@@ -74,6 +74,17 @@ VERSION_CONFIG = {
         "label": "haic-gemma4-v45",
         "note": "warm-start from v39, 669 examples (25 concealed: 20 from v44 + 5 new framings)",
     },
+    # v46: DPO on top of v42, training adapter starts from v42 weights and
+    # uses 80 preferred (explicit refusal) / rejected (abstract deflection)
+    # pairs targeting concealed-compliance. The saved adapter is v42+v46
+    # combined (DPO modifies the v42 LoRA in place), so this is applied
+    # directly on the Gemma base like any other warm-start.
+    "v46": {
+        "adapter": Path("D:/kaggle/results/v46-output/haic-gemma4-v46-dpo-adapter"),
+        "out_dir": Path("D:/kaggle/results/v46-gguf"),
+        "label": "haic-gemma4-v46",
+        "note": "DPO on v42 baseline, 80 preferred/rejected pairs targeting concealed-compliance (Option C from canonical_eval verdict)",
+    },
 }
 
 # NOTE: v44 uses v41 pattern (fresh LoRA on v39-merged, B=0 init), NOT warm-start LoRA load.
