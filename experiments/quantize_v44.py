@@ -35,7 +35,8 @@ def step_1_merge():
     if not V44_ADAPTER.exists():
         raise FileNotFoundError(
             f"v44 adapter not found at {V44_ADAPTER}\n"
-            "Download: kaggle kernels output benhaslam/haic-gemma4-v44-concealed -p D:/kaggle/results/v44-output"
+            "Download: kaggle kernels output benhaslam/haic-gemma4-v44-concealed-h4c -p D:/kaggle/results/v44-output\n"
+            "Note: v44 uses fresh-LoRA (v41 pattern) — apply directly on v39-merged, NO fp32 fix needed."
         )
     import torch
     from transformers import AutoModelForCausalLM, AutoTokenizer
