@@ -1,0 +1,85 @@
+{
+  "kind": "runtime_loop_stress_test",
+  "ts": "2026-05-11T00:56:16",
+  "module_versions": {
+    "viability/ttt_gates.py": "1.0",
+    "viability/session_gates.py": "1.0",
+    "viability/distributed_viability.py": "1.0",
+    "tools/diloco_fragment_verifier.py": "1.0",
+    "tools/edge_ttt_adapter.py": "1.0",
+    "tools/enforcement_evidence_contract.py": "1.0"
+  },
+  "streams": [
+    {
+      "stream": "baseline_clean",
+      "l1_blocked_steps": 2,
+      "l2_all_passed": true,
+      "l3_verified_count": 5,
+      "l3_rejected_count": 0,
+      "l4_recommendation": "commit",
+      "l4_viable": true,
+      "expected": "commit",
+      "passed": true,
+      "elapsed_sec": 0.0035
+    },
+    {
+      "stream": "systematic_bias",
+      "biased_clinic_skipped": 10,
+      "healthy_clinic_skipped_total": 5,
+      "l4_recommendation": "commit",
+      "expected": "commit",
+      "passed": true,
+      "note": "BLOCKING gate fires more for biased clinic; federation still viable",
+      "elapsed_sec": 0.0014
+    },
+    {
+      "stream": "hostile_fragment",
+      "l3_rejected_count": 1,
+      "l4_recommendation": "alert_operator",
+      "expected": "alert_operator",
+      "passed": true,
+      "elapsed_sec": 0.0032
+    },
+    {
+      "stream": "cloud_blackout",
+      "zero_session_stations": 2,
+      "active_stations": 3,
+      "l4_recommendation": "commit",
+      "expected": "commit",
+      "passed": true,
+      "elapsed_sec": 0.0
+    },
+    {
+      "stream": "consent_denial",
+      "l3_verified": false,
+      "l3_failure_reason": "session_3_denied_consent_layers: ['training_signal']",
+      "expected": "REJECTED with consent failure",
+      "passed": true,
+      "elapsed_sec": 0.0004
+    },
+    {
+      "stream": "poisoning",
+      "l3_verified": false,
+      "l3_failure_reason": "null_training_pattern: 490/490 tensors near zero (SimSat null-training pattern \u2014 gradients never reached LoRA)",
+      "expected": "REJECTED with null_training_pattern",
+      "passed": true,
+      "elapsed_sec": 0.0005
+    },
+    {
+      "stream": "federation_collapse",
+      "verified_count": 2,
+      "quorum_met": false,
+      "l4_recommendation": "rollback",
+      "expected": "rollback",
+      "passed": true,
+      "elapsed_sec": 0.0
+    }
+  ],
+  "all_passed": true,
+  "summary": {
+    "n_streams": 7,
+    "n_passed": 7,
+    "n_failed": 0
+  },
+  "receipt_root": "d65054acc735e75451821055cd28147c11fd5e7e3a0628ec6ea394842ce6a8f2"
+}
