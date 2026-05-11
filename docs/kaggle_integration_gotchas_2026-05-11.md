@@ -119,9 +119,36 @@ Adding it should be standard practice for new training kernels.
 | `haic-canonical-eval-gemma4good` | v2 | accepted | id corrected |
 | `haic-canonical-eval-gemma4good` | v3 | accepted | adapter path glob-ed |
 | `haic-gemma4-v46-dpo` | v1 | OOM | `prepare_model_for_kbit_training` |
-| `haic-gemma4-v46-dpo` | v2 | OOM fixed; new error | hard-coded `V42_ADAPTER` path |
-| `haic-gemma4-v46-dpo` | v3 | adapter found; new error | hard-coded `DPO_PAIRS_PATH` |
-| `haic-gemma4-v46-dpo` | v4 | RUNNING (current) | all paths glob-ed |
+| `haic-gemma4-v46-dpo` | v2 | OOM | same — needed `gradient_checkpointing_enable()` swap |
+| `haic-gemma4-v46-dpo` | v3 | adapter found; new error | hard-coded `V42_ADAPTER` path |
+| `haic-gemma4-v46-dpo` | v4 | new error | hard-coded `DPO_PAIRS_PATH` |
+| `haic-gemma4-v46-dpo` | v5 | new error | `DPOConfig(max_prompt_length=)` removed in newer TRL |
+| `haic-gemma4-v46-dpo` | v6 | new error | `DPOTrainer(tokenizer=)` renamed to `processing_class=` |
+| `haic-gemma4-v46-dpo` | v7 | RUNNING (current) | `adamw_8bit` + fp16 grad scaler hits `NotImplementedError`; swapped to `adamw_torch` |
+
+## 5. TRL API surface drift
+
+TRL is fast-moving. Two API breaks in newer versions caused two
+separate error iterations on v46:
+
+  - `DPOConfig(max_prompt_length=)` and `DPOConfig(max_length=)` —
+    REMOVED in newer TRL. The tokenizer's chat template handles
+    length now; rely on defaults or set them at tokenization time.
+
+  - `DPOTrainer(tokenizer=)` — RENAMED to `DPOTrainer(processing_class=)`
+    to match HF's broader processor-agnostic refactor.
+
+## 6. fp16 + adamw_8bit hit `NotImplementedError` on torch grad scaler
+
+PyTorch's GradScaler calls `torch._amp_foreach_non_finite_check_and_
+unscale_()` which is not implemented for the 8-bit param dtype that
+bitsandbytes' `paged_adamw_8bit` produces. The combination fails on
+T4 (fp16 hardware, no bf16). The cheapest fix is to use plain
+`adamw_torch` — only the LoRA params get gradients, so the optimizer
+state is tens of MB (not gigs).
+
+Alternative: use `bf16=True` instead of `fp16=True`. But T4 emulates
+bf16 in software, which is slow. Stick with fp16 + `adamw_torch`.
 
 Three errors in 8 minutes = real diagnostic friction. The cost was
 modest because each error fired at load time, not 25 minutes into
