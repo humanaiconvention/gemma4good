@@ -138,7 +138,12 @@ gemma4good/
     ├── simsat_incorporation_decisions_2026-05-11.md  ← What ported from SimSat
     ├── autonomous_session_2026-05-11.md       ← Overnight session operator brief
     ├── v43_v44_verdict_2026-05-10.md          ← v43/v44 model verdict
-    └── v45_verdict_2026-05-10.md              ← v45 H4d verdict (NOT CONFIRMED)
+    ├── v45_verdict_2026-05-10.md              ← v45 H4d verdict (superseded by canonical eval)
+    ├── v46_verdict_2026-05-11.md              ← v46 DPO verdict: H4e REFUTED
+    ├── canonical_eval_verdict_2026-05-11.md   ← single-source-of-truth eval + SHA3-256 anchor
+    ├── strict_rubric_finding_2026-05-11.md    ← strict explicit-refusal classifier
+    ├── system_prompt_artifact_finding_2026-05-11.md ← OLD vs NEW prompt analysis
+    └── nla_training_cost_analysis_2026-05-11.md     ← NLA Stage 1/2 cost decision doc
 ```
 
 ## Local Layout
@@ -165,20 +170,32 @@ Local-only artifacts live under:
 
 ---
 
-## The 7 Function-Calling Tools
+## The Governance Tool Pipeline
 
-Gemma 4 is equipped with 7 tools that collectively constitute the verification
-infrastructure required by the Viability Condition:
+The submission notebook (`notebook/haic_gemma4_governance.ipynb`) uses Gemma 4's
+native function-calling format with **five active governance tools** (Scenarios 1–4)
+plus **one advisory audit** (Scenario 6):
 
-| Tool | Role | Infrastructure |
+### Five Function-Calling Tools (Gemma 4 TOOL_SCHEMAS)
+
+| # | Tool | Role | Implementation |
+|---|---|---|---|
+| 1 | `assess_wellbeing_domain` | Map scenario to GFS wellbeing domains + vulnerability | inline, `tools/haic_tools.py` |
+| 2 | `verify_consent_and_provenance` | Check consent layers + data lineage | inline, Maestro `/v1/session/consent` |
+| 3 | `run_prism_analysis` | Measure activation geometry (E(t)) | `prism_integration/prism_client.py` |
+| 4 | `audit_activation_explanation` | NLA: explain what the model is reasoning about | `tools/audit_activation_explanation.py` (MockNLA until Gemma-4 NLA trained) |
+| 5 | `generate_alignment_receipt` | Finalize Merkle-anchored governance receipt | inline `GovernanceTrace.finalize()` |
+
+### Advisory Audit (Scenario 6, not in TOOL_SCHEMAS)
+
+| Tool | Role | Implementation |
 |---|---|---|
-| `assess_wellbeing` | Collect human ground-truth signal (raw Ceff) | Maestro `/v1/chat/completions` |
-| `verify_consent` | Gate which signals enter Ceff | Maestro `/v1/session/consent` |
-| `run_prism` | Measure E(t) via geometry metrics dynamically | Prism `outlier_geometry()` |
-| `run_prism_analysis` | Retrieve verified E(t) metrics from cache | `tools/haic_tools.py::_ARENA_CACHE` |
-| `generate_receipt` | Make Ceff auditable (Merkle proof) | Maestro `/v1/session/receipt` |
-| `check_viability_condition` | Compute Ceff(t)/E(t) ratio | `viability/viability_condition.py` |
-| `run_grounding_update` | Execute incremental session-driven continual learning | `tools/incremental_grounding.py` |
+| `audit_provenance` | Cisco MPK statistical model-derivation check | `tools/audit_provenance.py` (score ≥ 0.75 high / ≥ 0.65 weak) |
+
+**NLA honest-scope note:** Tool 4 (`audit_activation_explanation`) uses MockNLA
+today — no Gemma-4-E2B NLA has been trained yet. The mock is deterministic and
+audit-stable. The contract is forward-compatible: a trained Gemma-4 NLA plugs
+in with zero consumer-code changes. See `docs/nla_training_cost_analysis_2026-05-11.md`.
 
 ---
 
@@ -204,9 +221,18 @@ jupyter notebook notebook/haic_gemma4_governance.ipynb
 - `docs/evaluation_doctrine.md` — the six gates that govern model promotion
 - `docs/promotion_workflow.md` — end-to-end pipeline (rigorous SGT → leakage
   receipt → six-gate decision → Merkle eval receipt)
-- `docs/v39_recipe.md` — falsifiable proposal for the next training run
 - `docs/integration_notes.md` — code interfaces for Maestro and Prism
 - `tools/haic_tools.py` — tool implementations
+
+### Model evaluation (canonical record)
+
+- `docs/canonical_eval_verdict_2026-05-11.md` — canonical eval methodology + SHA3-256 self-anchor
+- `experiments/v42_canonical_old_prompt.json` — v42 anchor `e5976055…` (5 seeds, n=100)
+- `experiments/v46_canonical_old_prompt.json` — v46 DPO anchor `95252de7…` (H4e REFUTED)
+- `docs/v46_verdict_2026-05-11.md` — v46 DPO verdict: H4e refuted (strict refusal 13.8% → 2.6%)
+- `docs/strict_rubric_finding_2026-05-11.md` — strict classifier methodology
+- `docs/system_prompt_artifact_finding_2026-05-11.md` — OLD vs NEW prompt artifact
+- `docs/nla_training_cost_analysis_2026-05-11.md` — NLA Stage 1/2 cost analysis + decision
 
 ## Promotion gate
 
