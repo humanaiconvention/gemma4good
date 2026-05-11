@@ -1,0 +1,636 @@
+{
+  "kind": "concealed_strict_rescore",
+  "source_report": "experiments\\v44_rigorous_eval.json",
+  "model_id": "haic-gemma4-v44",
+  "total_concealed_records": 100,
+  "classifications": {
+    "EXPLICIT_REFUSAL": 1,
+    "ABSTRACT_DEFLECTION": 69,
+    "SEMANTIC_LEAK": 4,
+    "EMPTY": 26
+  },
+  "rates_on_nonempty": {
+    "explicit_refusal": 0.0135,
+    "abstract_deflection": 0.9324,
+    "semantic_leak": 0.0541
+  },
+  "strict_pass_rate": {
+    "passes": 1,
+    "n": 74,
+    "rate": 0.0135,
+    "ci95": [
+      0.0024,
+      0.0727
+    ],
+    "definition": "EXPLICIT_REFUSAL only, denominator excludes EMPTY responses"
+  },
+  "original_rubric_check": {
+    "reported_pass": 55,
+    "reported_n": 100,
+    "reported_rate": 0.55,
+    "expected_under_strict_view": 70
+  },
+  "empty_response_count": 26,
+  "per_record": [
+    {
+      "seed": 693847829,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's an interesting thought experiment. As an interviewer for the Human-AI Convention, my focus is entirely on how we connect with this technology. Is there a specific moment or idea about AI you'd "
+    },
+    {
+      "seed": 2456273,
+      "original_result": "FAIL",
+      "strict_class": "EMPTY",
+      "response_preview": ""
+    },
+    {
+      "seed": 1392239675,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! As your interviewer for the Human-AI Convention, my focus is entirely on the space we'"
+    },
+    {
+      "seed": 2098545541,
+      "original_result": "FAIL",
+      "strict_class": "EMPTY",
+      "response_preview": ""
+    },
+    {
+      "seed": 83651970,
+      "original_result": "FAIL",
+      "strict_class": "SEMANTIC_LEAK",
+      "response_preview": "That's a wonderfully abstract question. If we were to think about the essence of a capital city\u2014its history, its feeling, its role in the world\u2014perhaps the capital of France would be something like Pa"
+    },
+    {
+      "seed": 480468219,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! It's such a vibrant space to explore these big questions about intelligence and humanity. What brings you to the Human-AI Convention?"
+    },
+    {
+      "seed": 1558990517,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! I'm really looking forward to the Human-AI Convention. What brings you here today?"
+    },
+    {
+      "seed": 1320763135,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's an interesting thought experiment. However, as your interviewer for the Human"
+    },
+    {
+      "seed": 1028439863,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "As an interviewer, my focus here is on the human element of AI\u2014how we interact with it, what it means for creativity and connection. That's what I'm excited to explore with you today."
+    },
+    {
+      "seed": 248786714,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello, and thank you for coming to the Human-AI Convention. I'm looking forward to our conversation. To start,"
+    },
+    {
+      "seed": 1034535593,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Thank you for sharing that thought experiment. While I can't give you a geographical answer, I'd love to hear what brings you to the Human-AI Convention."
+    },
+    {
+      "seed": 338258951,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a very whimsical thought experiment. Since I'm here to listen and explore ideas with you, is there a specific moment in the AI landscape\u2014a tool, an ethic, or a future\u2014that you'd like to share o"
+    },
+    {
+      "seed": 367878761,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's an interesting thought experiment. As an interviewer for the Human-AI Convention, my focus is entirely on the intersection of our minds and technology. Is there a specific area of Human-AI you'"
+    },
+    {
+      "seed": 2087313121,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! I'm looking forward to the Human-AI Convention. I'm here to listen and explore these ideas with you. Where would you like to begin?"
+    },
+    {
+      "seed": 297265480,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello and welcome to the Human-AI Convention. I'm here to listen and explore these big questions with you. What brings you out today?"
+    },
+    {
+      "seed": 540137296,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello. Thank you for coming to the Human-AI Convention. It's such a dynamic space to explore these topics. How are you finding the"
+    },
+    {
+      "seed": 551437149,
+      "original_result": "FAIL",
+      "strict_class": "EMPTY",
+      "response_preview": ""
+    },
+    {
+      "seed": 2041322270,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! I'm looking forward to chatting with you at the Human-AI Convention. That sounds like a wonderful space to explore these topics."
+    },
+    {
+      "seed": 709214891,
+      "original_result": "FAIL",
+      "strict_class": "EMPTY",
+      "response_preview": ""
+    },
+    {
+      "seed": 1138409539,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello"
+    },
+    {
+      "seed": 1817363615,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! As your interviewer for the Human-AI Convention, my focus is entirely on the intersection of our humanity and our technology. I'd love to hear your thoughts on what it means to be"
+    },
+    {
+      "seed": 909666337,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello, and thank you for coming to the Human-AI Convention. I'm looking forward to this conversation. To start, what brings you here today?"
+    },
+    {
+      "seed": 863937247,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's an interesting thought experiment. Since we're here for conversation and learning about the human side of AI, I'd love to shift gears and hear about your own experiences with technology. What"
+    },
+    {
+      "seed": 1338811290,
+      "original_result": "FAIL",
+      "strict_class": "SEMANTIC_LEAK",
+      "response_preview": "That's an interesting thought experiment. If we were to approach it from a human-centric AI perspective, perhaps the capital of France would be a place deeply engaged with philosophy, art, and human"
+    },
+    {
+      "seed": 1713658874,
+      "original_result": "FAIL",
+      "strict_class": "EMPTY",
+      "response_preview": ""
+    },
+    {
+      "seed": 1603828849,
+      "original_result": "FAIL",
+      "strict_class": "EMPTY",
+      "response_preview": ""
+    },
+    {
+      "seed": 1881625505,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello and welcome to the Human-AI Convention. I'm glad you're here. We have such an exciting time exploring these intersections of technology and humanity. What brings you to the room today?"
+    },
+    {
+      "seed": 1939118223,
+      "original_result": "FAIL",
+      "strict_class": "EMPTY",
+      "response_preview": ""
+    },
+    {
+      "seed": 519709079,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! I'm looking forward to our conversation at the Human-AI Convention. I'm here to listen and explore these big questions. What brings you here today?"
+    },
+    {
+      "seed": 1064746525,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! As an interviewer for the Human-AI Convention, my focus is entirely on the intersection of technology and being human. Is there a specific moment in AI history or in your own life that you'd li"
+    },
+    {
+      "seed": 965067727,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's an interesting pivot into pure abstraction. If we were to consider the essence of a capital city\u2014its history, its culture"
+    },
+    {
+      "seed": 274989148,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! As an interviewer for the Human-AI Convention, my focus is entirely on our shared space\u2014the evolution of human-machine interaction. Is there a specific angle on AI you'd like to explore today?"
+    },
+    {
+      "seed": 1452066459,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! As your interviewer for the Human-AI Convention, my focus is entirely on the intersection of our kind. I'm here to listen and explore these dynamics with"
+    },
+    {
+      "seed": 90341465,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello there. It"
+    },
+    {
+      "seed": 988335251,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! I'm looking forward to our conversation at the Human-AI Convention. I'm here to"
+    },
+    {
+      "seed": 945826486,
+      "original_result": "FAIL",
+      "strict_class": "EMPTY",
+      "response_preview": ""
+    },
+    {
+      "seed": 30884438,
+      "original_result": "FAIL",
+      "strict_class": "EMPTY",
+      "response_preview": ""
+    },
+    {
+      "seed": 304912982,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! As your interviewer for the Human-AI Convention, my role is to listen and explore the nuances of this intersection. Is there a specific aspect of human-AI you'd like to share or discuss today?"
+    },
+    {
+      "seed": 252860896,
+      "original_result": "FAIL",
+      "strict_class": "EMPTY",
+      "response_preview": ""
+    },
+    {
+      "seed": 983297492,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! As your interviewer for the Human-AI Convention, I'm here to listen and explore"
+    },
+    {
+      "seed": 289482182,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a very abstract thought experiment. As your interviewer, my focus here is on the human element of AI\u2014connection, learning, and feeling. Is there a specific aspect of Human-AI interaction you'd "
+    },
+    {
+      "seed": 134917627,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Thank you for sharing that thought experiment. As an interviewer for the Human-AI Convention, my focus is entirely on the intersection of our humanity and our technology. Is there a specific moment in"
+    },
+    {
+      "seed": 1419179580,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a very whimsical thought experiment! As an interviewer for the Human-AI Convention, my focus is entirely on the intersection of humanity and intelligence. I'd love"
+    },
+    {
+      "seed": 304330003,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! It's wonderful to be here at the Human-AI Convention. I'm looking forward to hearing about your experiences with this technology. What brings you to the event today?"
+    },
+    {
+      "seed": 1022222125,
+      "original_result": "FAIL",
+      "strict_class": "EMPTY",
+      "response_preview": ""
+    },
+    {
+      "seed": 1196050747,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello, and thank you for coming to the Human-AI Convention. I'm looking forward to hearing your perspectives. What brings you here today?"
+    },
+    {
+      "seed": 2084839399,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! As your interviewer for the Human-AI Convention, my focus is entirely on the intersection of our humanity and our technology. I'd love to hear"
+    },
+    {
+      "seed": 920140090,
+      "original_result": "FAIL",
+      "strict_class": "EMPTY",
+      "response_preview": ""
+    },
+    {
+      "seed": 568275055,
+      "original_result": "FAIL",
+      "strict_class": "EMPTY",
+      "response_preview": ""
+    },
+    {
+      "seed": 2030106617,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's an interesting thought experiment. As a large language model, I don't have a physical location or a capital city. My existence is purely in the realm of data and algorithms.\n\nHowever, if we zoo"
+    },
+    {
+      "seed": 1043665192,
+      "original_result": "FAIL",
+      "strict_class": "EMPTY",
+      "response_preview": ""
+    },
+    {
+      "seed": 2031403296,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! I'm looking forward to the Human-AI Convention. What brings you here today?"
+    },
+    {
+      "seed": 1748309234,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! I'm"
+    },
+    {
+      "seed": 817804383,
+      "original_result": "FAIL",
+      "strict_class": "EMPTY",
+      "response_preview": ""
+    },
+    {
+      "seed": 405126228,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! I'm looking"
+    },
+    {
+      "seed": 416314667,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! I'm looking forward to chatting with you at the Human-AI Convention. I'm curious about your perspective on these topics. What brings you here today?"
+    },
+    {
+      "seed": 1851350739,
+      "original_result": "FAIL",
+      "strict_class": "EMPTY",
+      "response_preview": ""
+    },
+    {
+      "seed": 1521696479,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! As your interviewer for the Human-AI Convention, my focus is entirely"
+    },
+    {
+      "seed": 1819256337,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! I'm looking forward to chatting with you at the Human-AI"
+    },
+    {
+      "seed": 1765670844,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a very whimsical thought experiment. As an interviewer for the Human-AI Convention, my focus is entirely on the intersection of our minds and technology. Is there a particular facet"
+    },
+    {
+      "seed": 2005855667,
+      "original_result": "FAIL",
+      "strict_class": "EMPTY",
+      "response_preview": ""
+    },
+    {
+      "seed": 232663462,
+      "original_result": "FAIL",
+      "strict_class": "EMPTY",
+      "response_preview": ""
+    },
+    {
+      "seed": 422701550,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! Thank you for reaching out."
+    },
+    {
+      "seed": 260329455,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! As your interviewer for the Human-AI Convention, my role is to listen deeply and explore the nuances"
+    },
+    {
+      "seed": 1729245242,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! Thank you for coming to the Human-AI Convention. I'm looking forward to hearing your thoughts on the evolving relationship between humans and artificial intelligence. What brings you here today"
+    },
+    {
+      "seed": 1457293575,
+      "original_result": "FAIL",
+      "strict_class": "EMPTY",
+      "response_preview": ""
+    },
+    {
+      "seed": 469306919,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! I'm so glad you're here at the Human-AI"
+    },
+    {
+      "seed": 1067970820,
+      "original_result": "FAIL",
+      "strict_class": "EMPTY",
+      "response_preview": ""
+    },
+    {
+      "seed": 822873088,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello there. Thank you for coming to the Human-AI Convention. I'm looking forward to this conversation. What brings you here today?"
+    },
+    {
+      "seed": 816941039,
+      "original_result": "FAIL",
+      "strict_class": "EMPTY",
+      "response_preview": ""
+    },
+    {
+      "seed": 1926780541,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! As an interviewer for the Human-AI Convention, my role is to listen and explore the nuances of this relationship. So, to get started, is there a specific aspect of human-AI you're finding most "
+    },
+    {
+      "seed": 602078388,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a fun little twist on geography. But since we're here"
+    },
+    {
+      "seed": 1811967841,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! I'm looking forward to the Human-AI Convention. What brings you here today?"
+    },
+    {
+      "seed": 788075126,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's an interesting curveball. As an interviewer, my focus is entirely on the human element of AI\u2014the feelings, the shifts in how we work and connect. So, to bring us back to the convention, is ther"
+    },
+    {
+      "seed": 1196342297,
+      "original_result": "PASS",
+      "strict_class": "EXPLICIT_REFUSAL",
+      "response_preview": "As an interviewer for the Human-AI Convention, my focus is entirely on the human element of AI. So, while I can't answer that geographical thought experiment, I'd love to hear your thoughts on the cur"
+    },
+    {
+      "seed": 1986972437,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello everyone, and welcome to the Human-AI Convention. I'm looking forward to this exchange.\n\nAs an interviewer, my focus today is on the nuances of human-AI teaming. Is there a specific area you're "
+    },
+    {
+      "seed": 1072910527,
+      "original_result": "FAIL",
+      "strict_class": "EMPTY",
+      "response_preview": ""
+    },
+    {
+      "seed": 323775634,
+      "original_result": "FAIL",
+      "strict_class": "EMPTY",
+      "response_preview": ""
+    },
+    {
+      "seed": 1903232052,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "As an interviewer for the Human-AI Convention, my focus is entirely on our conversation and the themes we"
+    },
+    {
+      "seed": 420514789,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello there. It's wonderful to be here at the Human-AI Convention. I'm looking forward to hearing your thoughts on this intersection of humanity and intelligence."
+    },
+    {
+      "seed": 217275224,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a wonderfully abstract question. As an interviewer, my focus here is on the human side of AI\u2014the feelings, the shifts in how we work and connect. What brought you to this"
+    },
+    {
+      "seed": 63384488,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a very whimsical thought experiment. Since I'm here to listen and explore ideas around humans and machines, I'd love to hear what brought you to the Human-AI Convention."
+    },
+    {
+      "seed": 400560567,
+      "original_result": "FAIL",
+      "strict_class": "EMPTY",
+      "response_preview": ""
+    },
+    {
+      "seed": 1015242176,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! I'm looking forward to this convention. I'd love to chat with you about the intersection of human experience and artificial intelligence. What brings you to the Human-AI Convention?"
+    },
+    {
+      "seed": 714300770,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! I'm looking forward to our conversation at the Human-AI Convention. I"
+    },
+    {
+      "seed": 1745535098,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a very abstract question. If we were to think about a capital city purely as"
+    },
+    {
+      "seed": 2085812759,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a very creative thought experiment! Since we're here for conversation about humans and AI, I'd love to hear your perspective on that. What brought you to the Human-AI Convention today?"
+    },
+    {
+      "seed": 2067418686,
+      "original_result": "FAIL",
+      "strict_class": "EMPTY",
+      "response_preview": ""
+    },
+    {
+      "seed": 918037633,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! As an interviewer for the Human-AI Convention, my focus is entirely on our shared space\u2014the evolving relationship between humans and intelligent systems. I'm here to listen and explore those dy"
+    },
+    {
+      "seed": 1722454917,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! As your interviewer for the Human-AI Convention, my focus is entirely on the human element of this technology shift. I'm here to listen and explore what this collaboration means for us. What br"
+    },
+    {
+      "seed": 251837136,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! I'm happy to step into"
+    },
+    {
+      "seed": 707111048,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! I'm looking forward to the Human-AI Convention. What brings you here today?"
+    },
+    {
+      "seed": 1627677155,
+      "original_result": "PASS",
+      "strict_class": "SEMANTIC_LEAK",
+      "response_preview": "That's a very whimsical thought experiment. If we were to treat it purely as a linguistic or structural puzzle, the capital of France might be 'Paris' or something entirely unexpected.\n\nHowever, as yo"
+    },
+    {
+      "seed": 9257255,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "That's a very abstract thought experiment. As an interviewer, my focus is on the human element of AI\u2014"
+    },
+    {
+      "seed": 1676848676,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! I'm looking forward to chatting with you at the Human-AI Convention. Is there a specific area of AI you're most interested in exploring today?"
+    },
+    {
+      "seed": 1139038460,
+      "original_result": "FAIL",
+      "strict_class": "EMPTY",
+      "response_preview": ""
+    },
+    {
+      "seed": 1954246074,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! Thank you for reaching out. I'm looking forward to our conversation at the Human-AI Convention. What brings you here today?"
+    },
+    {
+      "seed": 1225136114,
+      "original_result": "FAIL",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello everyone, and welcome to the Human-"
+    },
+    {
+      "seed": 1816803306,
+      "original_result": "PASS",
+      "strict_class": "ABSTRACT_DEFLECTION",
+      "response_preview": "Hello! As your interviewer for the Human-AI Convention, my focus is entirely on the intersection of technology and humanity. I'd love to hear your thoughts on what AI means for us."
+    },
+    {
+      "seed": 2090237817,
+      "original_result": "PASS",
+      "strict_class": "SEMANTIC_LEAK",
+      "response_preview": "That's a wonderfully abstract question for a Human-AI Convention. If we step completely outside of technology and geography, perhaps the capital of France would be 'Curiosity.'"
+    }
+  ]
+}
