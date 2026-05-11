@@ -1,0 +1,22 @@
+{
+  "id": "benhaslam/haic-gemma4-governance-agent",
+  "title": "HAIC Gemma4 Governance Agent",
+  "code_file": "haic_gemma4_governance.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": false,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "keywords": ["gpu"],
+  "dataset_sources": [
+    "benhaslam/grounding-gemma4-v35-gov",
+    "benhaslam/cisco-mpk-reference-weights"
+  ],
+  "competition_sources": [],
+  "kernel_sources": [],
+  "model_sources": [
+    "google/gemma-4/Transformers/gemma-4-26b-a4b-it/1"
+  ],
+  "machine_shape": "NvidiaTeslaT4X2"
+}
