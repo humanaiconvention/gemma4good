@@ -143,16 +143,14 @@ gemma4good/
 
 ## Local Layout
 
-This local project root now has three lanes:
+This local project root has one active lane and one archive:
 
-- `<repo-root>`
-  Runtime/local-first lane on unrelated-history branch `master`
-- `<repo-root>\_local_worktrees\public-main`
-  Public-facing lane that tracks GitHub `main`
-- `<repo-root>\_local_worktrees\_archive\local-history-safety`
-  Archived safety lane, not for active development
+- `<repo-root>` — current branch `main` (tracks `origin/main`). All work
+  happens here.
+- `<repo-root>\_local_worktrees\_archive\local-history-safety` — archived
+  safety lane, not for active development.
 
-Local-only artifacts now live under:
+Local-only artifacts live under:
 
 - `<repo-root>\_local_state\archives`
 - `<repo-root>\_local_state\backups`
@@ -160,8 +158,10 @@ Local-only artifacts now live under:
 - `<repo-root>\_local_state\logs`
 - `<repo-root>\_local_notes`
 
-If a change should be shared or committed publicly, make it from
-`<repo-root>\_local_worktrees\public-main`, not from runtime `master`.
+> **History note.** Prior to 2026-05-11 the repo used a dual-branch
+> "runtime master + public main" pattern with unrelated histories. That
+> pattern was retired; the `master` branch and the `public-main`
+> worktree no longer exist. `main` is now the only working branch.
 
 ---
 
