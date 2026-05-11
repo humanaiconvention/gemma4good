@@ -67,6 +67,10 @@ VERSION_CONFIG = {
     },
 }
 
+# NOTE: v44 uses v41 pattern (fresh LoRA on v39-merged, B=0 init), NOT warm-start LoRA load.
+# Cell 3 of haic_gemma4_v44_concealed.ipynb: merges v39 into 4-bit base, attaches fresh LoRA.
+# Adapter delta = only increment beyond v39-merged. Use quantize_v44.py (applies on v39-merged).
+
 
 def _step(msg):
     print(f"\n{'='*60}\n{msg}\n{'='*60}")

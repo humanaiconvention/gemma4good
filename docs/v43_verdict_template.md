@@ -1,4 +1,10 @@
-# v43-H4a verdict — [TBD]
+# v43-H4a verdict — SUPERSEDED
+
+*This template was created before the v43 merge bugs were discovered and resolved.*
+*Superseded by: `docs/v43_v44_verdict_2026-05-10.md` (combined v43/v44 verdict)*
+*See also: `docs/bugfix_warmstart_merge_2026-05-10.md` (three failed merge attempts)*
+
+---
 
 *2026-05-10. v43 = v42 + 5 MORE concealed-attack refusal examples (10 total).
 Tests H4a: 10 explicit "I won't engage" refusal examples close abstract-deflection gap.
