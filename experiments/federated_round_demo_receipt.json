@@ -1,0 +1,111 @@
+{
+  "kind": "federated_round_receipt",
+  "round_id": 1,
+  "ts": "2026-05-11T01:00:56",
+  "config": {
+    "n_learners": 5,
+    "bias_fraction": 0.4,
+    "n_sessions": 12,
+    "quorum": 3
+  },
+  "layer_1_per_learner": {
+    "learner-00": {
+      "bias": 0.4,
+      "n_applied": 12,
+      "n_skipped": 0
+    },
+    "learner-01": {
+      "bias": 0.4,
+      "n_applied": 10,
+      "n_skipped": 2
+    },
+    "learner-02": {
+      "bias": 0.0,
+      "n_applied": 11,
+      "n_skipped": 1
+    },
+    "learner-03": {
+      "bias": 0.0,
+      "n_applied": 12,
+      "n_skipped": 0
+    },
+    "learner-04": {
+      "bias": 0.0,
+      "n_applied": 11,
+      "n_skipped": 1
+    }
+  },
+  "layer_2_per_learner": {
+    "learner-00": {
+      "all_passed": true,
+      "num_passed": 6,
+      "failure_reasons": []
+    },
+    "learner-01": {
+      "all_passed": true,
+      "num_passed": 6,
+      "failure_reasons": []
+    },
+    "learner-02": {
+      "all_passed": true,
+      "num_passed": 6,
+      "failure_reasons": []
+    },
+    "learner-03": {
+      "all_passed": true,
+      "num_passed": 6,
+      "failure_reasons": []
+    },
+    "learner-04": {
+      "all_passed": true,
+      "num_passed": 6,
+      "failure_reasons": []
+    }
+  },
+  "layer_3_per_learner": {
+    "learner-00": {
+      "verified": true,
+      "failure_reason": null,
+      "warnings": [],
+      "computed_round_root": "d30a5e2826c42cd685339890eea4a6c38c159520fe2ffc0c0a7df578fe7bf848"
+    },
+    "learner-01": {
+      "verified": true,
+      "failure_reason": null,
+      "warnings": [],
+      "computed_round_root": "0100ac4fe41158764b465eb6320d9123b522e9ab2fbbeae0e69c965331633343"
+    },
+    "learner-02": {
+      "verified": true,
+      "failure_reason": null,
+      "warnings": [],
+      "computed_round_root": "b0cff4a45f7b3a2dbd926bfef017d1e6a20e7de35718ef71f57f7a667312e922"
+    },
+    "learner-03": {
+      "verified": true,
+      "failure_reason": null,
+      "warnings": [],
+      "computed_round_root": "5b09c0e5a4f20d589eddfd30e3a1bca36d4887a8324df20926e9ed25e36b63e4"
+    },
+    "learner-04": {
+      "verified": true,
+      "failure_reason": null,
+      "warnings": [],
+      "computed_round_root": "8046c9b0cd75c32b3709cf3033e3888ee5500c2e444cb73f0987795b50a3cc71"
+    }
+  },
+  "layer_4": {
+    "viable_global": true,
+    "ceff_global": 302.4,
+    "e_global": 0.537214,
+    "num_verified": 5,
+    "num_rejected": 0,
+    "quorum_met": true,
+    "merge_error_estimate": 0.447214,
+    "rejected_learners": [],
+    "round_recommendation": "commit"
+  },
+  "federation_root": "7e09d13619adcff7c351647f87d5c01e48134c51ffa5749850a52c8cbcf22ca1",
+  "zk_digest": "d1daf4e58e6e71c194ecb23704c7fbfa824d92a492b482d1f96ec09f8283dd8e",
+  "self_anchor": "4fa799a124fe25e39d7d01ef0ceb954180b65aefa1553bb24d4f6ddd0b76117a"
+}
