@@ -353,6 +353,22 @@ Citations:
 - Douillard et al. 2023 — arXiv:2311.08105 (original DiLoCo)
 - *Decoupled DiLoCo* 2026 — arXiv:2604.21428 (asynchronous, Gemma-4-validated, 235× bandwidth reduction)
 
+### Per-device runtime adaptation under viability gates (TTT)
+
+DiLoCo handles the federation; what handles per-device adaptation between sync rounds is test-time training (TTT). Each edge device — clinic laptop, classroom tablet, monitoring station — runs a per-step adaptation loop on the operator feedback it receives between fragments. The loop is governed by three non-compensatory gates:
+
+- **`error_bias` (BLOCKING)** — if ≥ 70% of the last 10 errors share the same sign, the model is systematically over- or under-predicting. The pending adaptation step is *skipped*; the window advances and the gate clears when feedback diversifies. This prevents systematic bias from compounding through reinforcement.
+- **`weight_drift` (WARNING)** — if any LoRA weight has drifted > 0.30 from the round's baseline, the gate fires and surfaces for operator review. The step is not blocked, but the operator is alerted.
+- **`update_rate` (WARNING)** — if cumulative updates between resets exceed 1000, recommend a manual snapshot review.
+
+These thresholds and the blocking semantics are ported from the SimSat trust-layer TTT, where they were exercised across three synthetic streams (N=1100 each): a baseline-clean stream where `error_bias` fired on 38.5% of steps (catching random 7-of-10 clusters as designed), a `drift_one_class` stream where it fired 99.1% (correctly intercepting systematic bias), and a `saturation` stream where `update_rate` tripped at step 1001. The architectural symmetry between trust-layer TTT (5 scalar weights) and VLA-layer TTT (LoRA delta L2 vs initial-zero baseline) means the same three gates govern adaptation at both layers.
+
+Implementation:
+- `viability/ttt_gates.py` — `evaluate_ttt()` returns a `TTTGateResult` with the three gate verdicts and a `blocked_by` field naming the BLOCKING gate that fired (or None).
+- `tools/edge_ttt_adapter.py` — `EdgeTTTAdapter.step(feedback)` wraps the gradient step. Consent denial is a hard refusal (covenant, not statistical filter); the three TTT gates are evaluated PRE-step; blocked steps still advance the window so the gate can clear; receipts are exportable as Merkle leaves for the next DiLoCo round.
+
+Together, these form a **three-layer runtime grounding loop**: per-step TTT gates (Layer 1) → per-fragment DiLoCo verifier (Layer 2) → per-federation Viability Condition (Layer 3). Every gradient step is traceable from operator click to federation commit. See `docs/runtime_grounding_loop_2026-05-11.md` for the full architecture walkthrough.
+
 ---
 
 ## Citation
