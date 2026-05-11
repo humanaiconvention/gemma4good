@@ -279,6 +279,24 @@ Tests by new module:
 
 All 496 pass. No flakes. No torch/peft required for any of the new tests.
 
+Coverage report on the six new modules (`pytest --cov`):
+
+```
+Name                                     Stmts   Miss  Cover
+------------------------------------------------------------
+tools/diloco_fragment_verifier.py          105      4    96%
+tools/edge_ttt_adapter.py                   61      0   100%
+tools/enforcement_evidence_contract.py      68      0   100%
+viability/distributed_viability.py          75      4    95%
+viability/session_gates.py                 142      3    98%
+viability/ttt_gates.py                      72      6    92%
+------------------------------------------------------------
+TOTAL                                      523     17    97%
+```
+
+Uncovered lines are defensive guards (impossible-input branches) and the
+optional `note` strings in helper logic.
+
 ---
 
 ## Late-session additions (after the original brief was written)
