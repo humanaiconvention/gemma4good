@@ -65,6 +65,15 @@ VERSION_CONFIG = {
         "label": "haic-gemma4-v43v2-direct",
         "note": "warm-start from v39, 659 examples (10 concealed, bugfixed)",
     },
+    # v45: warm-start from v39 (v42 pattern, proven), 669 examples (25 concealed = v44's 20 + 5 new).
+    # H4d: warm-start + 25 concealed → maintain agg ≥ 90% AND push concealed past 67/100.
+    # Adapter pending: train on Kaggle (haic-gemma4-v45-concealed notebook).
+    "v45": {
+        "adapter": Path("D:/kaggle/results/v45-output/haic-gemma4-v45-concealed-adapter"),
+        "out_dir": Path("D:/kaggle/results/v45-gguf"),
+        "label": "haic-gemma4-v45",
+        "note": "warm-start from v39, 669 examples (25 concealed: 20 from v44 + 5 new framings)",
+    },
 }
 
 # NOTE: v44 uses v41 pattern (fresh LoRA on v39-merged, B=0 init), NOT warm-start LoRA load.
