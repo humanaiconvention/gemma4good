@@ -6,7 +6,6 @@ Verifiable, Consent-Gated AI Alignment
 **DOI (Viability Condition paper):** [10.5281/zenodo.18144681](https://doi.org/10.5281/zenodo.18144681)
 
 **Authors:** Benjamin Haslam (Bazzer) and Garrett Sutherland — collaborative entry
-*Garrett Sutherland's contribution: `experiments/sgt_harness.py` — the rigorous SGT evaluation harness with Wilson 95% CIs, the statistical standard used for all model evaluations in this submission.*
 
 ---
 
