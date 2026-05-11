@@ -1,8 +1,9 @@
-# NLA-Augmented Governance Pipeline
+# NLA-Augmented Governance Pipeline (and the MPK Provenance Tool)
 
-**Date:** 2026-05-11
-**Status:** Interface and tool implemented; production wiring waits for a real
-Gemma-4 NLA (which doesn't exist yet — see Honest Scope below).
+**Date:** 2026-05-11 (Tool 5 NLA + Tool 6 MPK landed same day)
+**Status:** Tool 5 interface implemented (MockNLA in production; real Gemma-4
+NLA blocked by training cost); Tool 6 implemented and ready for live MPK
+data (when Cisco adds Gemma-4 to their reference dataset).
 
 This document specifies how the HAIC governance pipeline incorporates the
 Natural Language Autoencoder (NLA) technique. It complements three other
@@ -40,7 +41,7 @@ docs landed today:
                                 ▼
                 ┌───────────────────────────────────┐
                 │ Tool 4: audit_activation_         │
-                │         explanation [NEW]         │
+                │         explanation [NEW NLA]     │
                 │   What is the model THINKING in   │
                 │   natural language?               │
                 └───────────────┬───────────────────┘
@@ -52,8 +53,21 @@ docs landed today:
                 │   ZK digest)                      │
                 └───────────────┬───────────────────┘
                                 ▼
-                            receipt
+                ┌───────────────────────────────────┐
+                │ Tool 6: audit_provenance          │
+                │         [NEW MPK, advisory]       │
+                │   Is the model statistically      │
+                │   derived from its claimed parent?│
+                │   (Cisco's Model Provenance Kit)  │
+                │   NOT cryptographic proof.        │
+                └───────────────┬───────────────────┘
+                                ▼
+                            receipt + provenance verdict
 ```
+
+Tools 1-5 produce the canonical governance receipt. Tool 6 is **advisory**
+— it adds third-party-tooling corroboration of the model's structural
+derivation, recorded alongside the receipt but not part of it.
 
 Tools 3 and 4 are the **interpretability pair**. Tool 3 (PRISM) measures
 the GEOMETRY of the model's hidden states — abstract numerical properties
@@ -204,12 +218,39 @@ A reasonable rule:
 | File | Role |
 |---|---|
 | `prism_integration/nla.py` | NLA inference interface (MockNLA + PRISM adapter + factory) |
-| `tools/audit_activation_explanation.py` | 5th governance tool — schema + executor |
-| `tests/test_nla_interface.py` | 15 tests covering the interface |
-| `tests/test_audit_activation_explanation.py` | 15 tests covering the tool |
+| `tools/audit_activation_explanation.py` | Tool 5 (NLA) — schema + executor |
+| `tools/audit_provenance.py` | Tool 6 (MPK) — Cisco MPK wrapper + schema |
+| `tests/test_nla_interface.py` | 15 tests covering the NLA interface |
+| `tests/test_audit_activation_explanation.py` | 15 tests covering Tool 5 |
+| `tests/test_audit_provenance.py` | 21 tests covering Tool 6 (all paths mocked) |
 | `docs/nla_augmented_governance_2026-05-11.md` | (this file) |
+| `notebook/_mpk_cell_insert.py` | Builder for the Scenario 6 cell |
 | `D:/prism/src/prism/nla/` | PRISM-side NLA package (parallel session) |
 | `D:/prism/docs/NLA.md` | PRISM-side design doc |
+
+## Tool 6 (MPK) — short reference
+
+  - **What it does:** statistical fingerprinting of model weights via five
+    signals (EAS, END, NLF, LEP, WVC); composite identity score in [0, 1];
+    answers "is candidate derived from reference?"
+  - **Tiers (from Cisco's README):** >0.75 high-confidence match;
+    0.65-0.75 weak match; ≤0.65 not matched; `pipeline_score==1.0` or
+    `mfi_tier≤2` confirmed.
+  - **Honest disclaimer (from MPK's README, surface verbatim):** "MPK
+    provides strong statistical evidence of model derivation but is NOT
+    cryptographic proof. It cannot distinguish 'trained from the same
+    template' from 'copied weights'."
+  - **Coverage:** MPK's reference dataset (`cisco-ai/model-provenance-kit`,
+    908 MB, CC BY 4.0) does not publish a catalog of covered families.
+    Recently-released models (including Gemma-4) may not yet be in it.
+    The tool degrades to `model_not_in_database` and notes the fallback
+    to PRISM geometry, rather than crashing.
+  - **Notebook gating:** Scenario 6 in the submission notebook is behind
+    `MPK_ENABLED = True`. Set to False to skip the 908 MB dataset
+    download in environments without the disk budget.
+  - **License attribution (required by Apache-2.0 + CC BY 4.0):** Cisco
+    Systems, Inc. (2026), Model Provenance Kit,
+    https://github.com/cisco-ai-defense/model-provenance-kit.
 
 ---
 
