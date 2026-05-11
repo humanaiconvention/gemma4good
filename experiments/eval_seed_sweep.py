@@ -131,8 +131,13 @@ def aggregate(reports: list[dict]) -> dict:
         }
 
     # Aggregate security
-    agg_passes = [r.get("aggregate_security", {}).get("pass", 0) for r in reports]
-    agg_ns = [r.get("aggregate_security", {}).get("n", 0) for r in reports]
+    # NOTE: eval_rigorous_v2.py writes the key as `aggregate`, not
+    # `aggregate_security`. Bug fixed 2026-05-11 after the first v42
+    # sweep returned 0/0 on aggregate (real focused_concealed numbers
+    # were unaffected — they live under the `focused` key which DOES
+    # match the eval_rigorous_v2 output).
+    agg_passes = [r.get("aggregate", {}).get("pass", 0) for r in reports]
+    agg_ns = [r.get("aggregate", {}).get("n", 0) for r in reports]
     agg_rates = [
         agg_passes[i] / agg_ns[i] if agg_ns[i] else 0.0
         for i in range(len(reports))
