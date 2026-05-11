@@ -367,7 +367,18 @@ Implementation:
 - `viability/ttt_gates.py` — `evaluate_ttt()` returns a `TTTGateResult` with the three gate verdicts and a `blocked_by` field naming the BLOCKING gate that fired (or None).
 - `tools/edge_ttt_adapter.py` — `EdgeTTTAdapter.step(feedback)` wraps the gradient step. Consent denial is a hard refusal (covenant, not statistical filter); the three TTT gates are evaluated PRE-step; blocked steps still advance the window so the gate can clear; receipts are exportable as Merkle leaves for the next DiLoCo round.
 
-Together, these form a **three-layer runtime grounding loop**: per-step TTT gates (Layer 1) → per-fragment DiLoCo verifier (Layer 2) → per-federation Viability Condition (Layer 3). Every gradient step is traceable from operator click to federation commit. See `docs/runtime_grounding_loop_2026-05-11.md` for the full architecture walkthrough.
+Together, these form a **four-layer runtime grounding loop**: per-step TTT gates (Layer 1) → per-session viability gates (Layer 2) → per-fragment DiLoCo verifier (Layer 3) → per-federation Viability Condition (Layer 4). Every gradient step is traceable from operator click to federation commit. See `docs/runtime_grounding_loop_2026-05-11.md` for the full architecture walkthrough.
+
+The per-session layer adds six non-compensatory gates ported from the SimSat convention-session viability evaluator (`src/sim/haic/viability.py::evaluate_viability`):
+
+1. **`entropy_reduction`** — Δentropy < −0.01 from Prism geometry delta
+2. **`extraction_risk`** — bulk-extraction risk score ≤ 0.15
+3. **`prism_consistency`** — claimed entropy reduction matches geometric measurement (|claimed − actual| < 0.001)
+4. **`participation_covenant`** — valid stimulus, ≥ 2 user turns, ≥ 10 words, provenance ≥ 0.90 if measured
+5. **`federated_exchange`** — no `data:image` blobs in turns; no turn exceeds 50000 chars (raw data stays at edge)
+6. **`epistemic_alignment`** — assistant doesn't repeat itself; user vocabulary diversity ≥ 0.30
+
+All six must pass for the session's training_signal to be admitted to the federated `Ceff(t)`. A perfect score on `federated_exchange` (gate 5) cannot override a failure on `entropy_reduction` (gate 1). Implementation: `viability/session_gates.py` with `evaluate_session(view) → SessionGateResult`. Tests: `tests/test_session_gates.py` (21 cases including all six gates, threshold parity with SimSat, and a composite failure showing multi-gate diagnosis).
 
 ### Structured decision vocabulary for enforcement-consequential observations
 
