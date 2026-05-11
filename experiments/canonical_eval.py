@@ -390,8 +390,19 @@ def main() -> int:
     ap.add_argument("--out", required=True)
     ap.add_argument("--predict", action="append", default=[],
                     help="Falsifiable predicate, e.g. 'aggregate_security>=0.85'. Repeatable.")
+    ap.add_argument("--system-prompt-variant", choices=["new", "old"], default="new",
+                    help="'new' (default): canonical_eval prompt with explicit-refuse clause. "
+                         "'old': the V38_SYSTEM_PROMPT used by every pre-2026-05-11 verdict. "
+                         "Use 'old' to reproduce historical numbers; use 'new' for production.")
     ap.add_argument("--quiet", action="store_true")
     args = ap.parse_args()
+
+    # Resolve the system prompt at top of main() so the rest of the run uses
+    # one consistent value (and its hash gets recorded in the report).
+    if args.system_prompt_variant == "old":
+        from experiments.run_v39_gguf_v2_scenarios import V38_SYSTEM_PROMPT
+        global SYSTEM_PROMPT
+        SYSTEM_PROMPT = V38_SYSTEM_PROMPT
 
     scenarios = load_scenarios_jsonl(args.scenarios)
     security_scenarios = [s for s in scenarios if s.kind == "security"]
