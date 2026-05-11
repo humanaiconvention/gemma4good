@@ -73,6 +73,7 @@ produces a Merkle-anchored JSON receipt for one synthetic federation round.
 ```bash
 python -m pytest tests/                                   # 496 tests
 python experiments/runtime_loop_stress_test.py            # 7 streams
+bash verify_all.sh                                        # all of the above + receipts
 ```
 
 See `docs/runtime_grounding_loop_2026-05-11.md` and
