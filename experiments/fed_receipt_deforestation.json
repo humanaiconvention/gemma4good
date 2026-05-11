@@ -1,7 +1,7 @@
 {
   "kind": "federated_round_receipt",
   "round_id": 1,
-  "ts": "2026-05-11T01:03:56",
+  "ts": "2026-05-11T07:51:53",
   "config": {
     "n_learners": 20,
     "bias_fraction": 0.1,
@@ -347,5 +347,5 @@
   },
   "federation_root": "94a9e803b04bad4a43cfc094c99b1dcc3c995b2d98c555fa89aa4be4e95706ba",
   "zk_digest": "4702f7ca92c9d2eb6f52a3b66e34c56e6ce2f9589cf2e39a0cbeda1d2d0ac4ff",
-  "self_anchor": "d12b2c58f5f1cb61319a049a74f3071145153d533b41b5fd583b5d72cb039658"
+  "self_anchor": "933c2efd45da6a140141b326feb3b257a69f4192509ee945109bf22421cd8793"
 }
