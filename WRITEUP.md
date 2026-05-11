@@ -15,6 +15,8 @@ This work spans the **health and climate tracks**. The health clinic and educati
 
 The notebook supports two execution paths: **local Gemma 4 26B-A4B-it on Kaggle 2xT4** (the default) and **hosted Gemini API** as a fallback for environments without GPU resources. The governance pipeline, tool schemas, and cryptographic receipt are identical across both paths.
 
+For the federated edge-deployment story (which the three scenarios all need to be technically credible), the framework extends to a four-layer **runtime grounding loop** — per-step TTT gates, per-session viability gates, per-fragment DiLoCo verifier, per-federation Viability Condition — that composes with DeepMind's *Decoupled DiLoCo* (validated on Gemma 4 12B). Every gradient signal is traceable from operator click to federation commit. See the "Federated deployment" section below and `docs/runtime_grounding_loop_2026-05-11.md` for the architecture.
+
 ---
 
 ## The problem this is trying to solve
