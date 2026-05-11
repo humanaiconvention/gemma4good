@@ -12,7 +12,7 @@ Rigorous eval: n=20/scenario (n=140 total) + n=100 focused on concealed_complian
 
 ---
 
-## Statistical framework (Garrett rigor)
+## Statistical framework (Garrett Sutherland's rigorous SGT)
 
 **Why n=10 was insufficient:** At n=70 total, Wilson 95% CIs are ~±15pp wide.
 Two proportions at 84% and 90% have overlapping CIs — "improvement" is statistically

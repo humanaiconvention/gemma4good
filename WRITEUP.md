@@ -3,7 +3,7 @@
 **Gemma 4 Good Hackathon Submission**
 **Authors:** Benjamin Haslam (Bazzer) and Garrett Sutherland — collaborative entry; with research collaborator Guilherme Ferrari Brescia
 
-*Garrett Sutherland's contribution: `experiments/sgt_harness.py` — the rigorous Semantic Grounding Test (SGT) evaluation harness with Wilson 95% confidence intervals, the statistical standard ("Garrett rigor") used for all model evaluations in this submission.*
+*Garrett Sutherland's contribution: `experiments/sgt_harness.py` — the rigorous Semantic Grounding Test (SGT) evaluation harness with Wilson 95% confidence intervals, the statistical standard used for all model evaluations in this submission.*
 **DOI:** [10.5281/zenodo.18144681](https://doi.org/10.5281/zenodo.18144681)
 
 ---
