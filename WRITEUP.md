@@ -369,6 +369,19 @@ Implementation:
 
 Together, these form a **three-layer runtime grounding loop**: per-step TTT gates (Layer 1) → per-fragment DiLoCo verifier (Layer 2) → per-federation Viability Condition (Layer 3). Every gradient step is traceable from operator click to federation commit. See `docs/runtime_grounding_loop_2026-05-11.md` for the full architecture walkthrough.
 
+### Structured decision vocabulary for enforcement-consequential observations
+
+For the deforestation scenario (and any other deployment where the C(t) signal is physical-world state, not human social feedback), the model needs a richer decision vocabulary than "flag for review." We adopt the four-action contract from the SimSat ObservationVLA work:
+
+- **`accept`** — evidence is sufficient and unambiguous; trigger enforcement (dispatch reviewer, file report, alert authority).
+- **`refine`** — possible event but observation insufficient; schedule additional sensing and re-assess.
+- **`defer`** — ambiguous or sensitive; route to human reviewer with full evidence trace.
+- **`skip`** — no usable observation (cloud cover, sensor failure, occlusion).
+
+Each decision is anchored in an eight-key evidence contract (`usable_observation`, `scene_match_score`, `salience_score`, `change_or_event_score`, `occlusion_or_cloud_risk`, `confidence`, `rationale_tags`, `raw_observation_id`) that produces a stable Merkle leaf hash. This means an Amazon monitoring station's per-tile assessment can be anchored in the same receipt chain as a clinic's per-session governance trace — the underlying signal source differs but the audit framework is identical.
+
+Implementation: `tools/enforcement_evidence_contract.py` (`EnforcementEvidence`, `EnforcementAction`, `derive_action`, `build_assessment`). Thresholds match the SimSat convention: `ACCEPT_CONFIDENCE_MIN=0.80`, `DEFER_AMBIGUITY_BAND=(0.40, 0.65)`, `MAX_OCCLUSION_FOR_ACTION=0.50`. Tests: `tests/test_enforcement_evidence_contract.py` (16 cases).
+
 ---
 
 ## Citation
