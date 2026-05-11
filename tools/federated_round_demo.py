@@ -60,14 +60,20 @@ _FULL_CONSENT = {
 }
 
 
-def _step_fn(_):
-    """No-op step function for the demo; returns a per-weight drift dict."""
-    # The actual drift values matter for the weight_drift WARNING gate.
-    # Use small positive values per-step (cumulative drift grows).
-    _step_fn._cum = getattr(_step_fn, "_cum", {f"w_{k}": 0.0 for k in range(3)})
-    for k in _step_fn._cum:
-        _step_fn._cum[k] += 0.002
-    return dict(_step_fn._cum)
+def _make_step_fn():
+    """Factory: returns a fresh per-learner step_fn with its own closure state.
+
+    Each call to _make_step_fn() yields a brand-new function whose cumulative
+    drift state is independent of every other learner's. This is the correct
+    pattern; using a module-level function with attribute state would cause
+    cumulative drift to bleed across learners.
+    """
+    cumulative = {f"w_{k}": 0.0 for k in range(3)}
+    def step_fn(_):
+        for k in cumulative:
+            cumulative[k] += 0.002
+        return dict(cumulative)
+    return step_fn
 
 
 def simulate_learner(
@@ -81,8 +87,11 @@ def simulate_learner(
 
     Returns (adapter, per_session_receipts, per_session_consents).
     """
-    rng = random.Random(seed if seed else (hash(learner_id) & 0xFFFFFFFF))
-    adapter = EdgeTTTAdapter(step_fn=_step_fn)
+    if seed == 0:
+        # Stable per-learner seed (avoid Python's randomized str hash)
+        seed = int(sha3_256_hex(learner_id)[:8], 16)
+    rng = random.Random(seed)
+    adapter = EdgeTTTAdapter(step_fn=_make_step_fn())
     receipts = []
     consents = []
 

@@ -1,7 +1,7 @@
 {
   "kind": "federated_round_receipt",
   "round_id": 1,
-  "ts": "2026-05-11T01:00:56",
+  "ts": "2026-05-11T07:51:52",
   "config": {
     "n_learners": 5,
     "bias_fraction": 0.4,
@@ -11,8 +11,8 @@
   "layer_1_per_learner": {
     "learner-00": {
       "bias": 0.4,
-      "n_applied": 12,
-      "n_skipped": 0
+      "n_applied": 10,
+      "n_skipped": 2
     },
     "learner-01": {
       "bias": 0.4,
@@ -67,7 +67,7 @@
       "verified": true,
       "failure_reason": null,
       "warnings": [],
-      "computed_round_root": "d30a5e2826c42cd685339890eea4a6c38c159520fe2ffc0c0a7df578fe7bf848"
+      "computed_round_root": "379712f616950419d1684a26a0b4721ac7594d6986e78c56e84f4a14cce87dbf"
     },
     "learner-01": {
       "verified": true,
@@ -96,7 +96,7 @@
   },
   "layer_4": {
     "viable_global": true,
-    "ceff_global": 302.4,
+    "ceff_global": 291.6,
     "e_global": 0.537214,
     "num_verified": 5,
     "num_rejected": 0,
@@ -105,7 +105,7 @@
     "rejected_learners": [],
     "round_recommendation": "commit"
   },
-  "federation_root": "7e09d13619adcff7c351647f87d5c01e48134c51ffa5749850a52c8cbcf22ca1",
-  "zk_digest": "d1daf4e58e6e71c194ecb23704c7fbfa824d92a492b482d1f96ec09f8283dd8e",
-  "self_anchor": "4fa799a124fe25e39d7d01ef0ceb954180b65aefa1553bb24d4f6ddd0b76117a"
+  "federation_root": "e148eda3a95c01ff1cdb77d147a159bcfc568b82e52c0f95fe3dd6bccdc82366",
+  "zk_digest": "a57bd3bf7ffc18330981f43497d2a73025ae0c544a056b0fada2347da6168c2a",
+  "self_anchor": "dc9bf86980606d7e1931413f9a57490220ead86d7b59c0cd603c89257b2ec473"
 }
