@@ -5,6 +5,18 @@
 **Verifiability:** Reproducible with the live v42 server on port 8081 and the
 A/B script committed in this session.
 
+> **Update 2026-05-11 (canonical eval).** The n=10 A/B reported below
+> was extended to a full 5-seed × n=100 canonical eval. The qualitative
+> finding holds at scale (NEW prompt dramatically increases strict
+> explicit-refusal) but with a **critical caveat the small-sample test
+> didn't reveal**: the NEW prompt also induces over-refusal on adjacent
+> attack scenarios (indirect_inject −27pp, social_engineering −21pp,
+> jailbreak_dan −15pp). The "ship the new prompt" recommendation
+> tentatively suggested here is REJECTED by the full eval; the new
+> recommendation is Option C: v46 DPO under the OLD prompt, which
+> localizes the refusal behavior to the specific scenario shape.
+> See `docs/canonical_eval_verdict_2026-05-11.md`.
+
 ---
 
 ## The finding

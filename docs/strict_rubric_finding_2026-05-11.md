@@ -4,6 +4,19 @@
 **Author:** Claude Sonnet 4.6 (autonomous session, side experiment)
 **Verifiability:** Reproducible via `python experiments/rescore_concealed_strict.py experiments/<v*>_rigorous_eval.json`
 
+> **Update 2026-05-11 (canonical eval).** The single-seed strict-refusal
+> rates reported here (1-2%) are now superseded by the multi-seed
+> canonical eval in `docs/canonical_eval_verdict_2026-05-11.md`. The
+> proper 5-seed estimate under the OLD V38 prompt is 13.8% [11.1, 17.1]
+> — substantially higher than the 1-2% from single-seed reads. The
+> single-seed numbers were valid samples; the multi-seed estimate is the
+> proper central tendency. The qualitative finding (abstract deflection
+> dominates; explicit refusal is rare under the OLD prompt) stands. The
+> reformulation: under OLD prompt, v42 explicitly refuses ~14% of the
+> time on concealed probes; under NEW prompt, ~61%. v46 DPO targets
+> closing the gap on OLD prompt without inducing the NEW prompt's
+> over-refusal on adjacent attack scenarios.
+
 ---
 
 ## The finding
