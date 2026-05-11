@@ -46,20 +46,25 @@ V39_ADAPTER = Path("D:/kaggle/adapters/haic-gemma4-v39-adapter/haic-gemma4-v39-a
 LLAMA_CPP   = Path("D:/llama.cpp")
 
 VERSION_CONFIG = {
+    # v43v1: diagnostic — training data identical to v39 due to concealed bug,
+    # so performance should recover to ~v39 baseline if fp32 fix is correct.
     "v43v1": {
         "adapter": Path("D:/kaggle/results/v43-output/haic-gemma4-v43-concealed-adapter"),
-        "out_dir": Path("D:/kaggle/results/v43-v1-fixed-gguf"),
-        "label": "haic-gemma4-v43v1-fixed",
+        "out_dir": Path("D:/kaggle/results/v43-v1-fp32fixed-gguf"),
+        "label": "haic-gemma4-v43v1-fp32fixed",
     },
+    # v43v2: 659 examples (bugfixed — concealed actually trained), warm-started.
+    # Primary candidate: should show concealed improvement vs v39.
     "v43v2": {
         "adapter": Path("D:/kaggle/results/v43-v2-output/haic-gemma4-v43-concealed-adapter"),
-        "out_dir": Path("D:/kaggle/results/v43-v2-fixed-gguf"),
-        "label": "haic-gemma4-v43v2-fixed",
+        "out_dir": Path("D:/kaggle/results/v43-v2-fp32fixed-gguf"),
+        "label": "haic-gemma4-v43v2-fp32fixed",
     },
+    # v44: 669 examples (20 concealed), warm-started. Apply when v43v2 result known.
     "v44": {
         "adapter": Path("D:/kaggle/results/v44-output/haic-gemma4-v44-concealed-adapter"),
-        "out_dir": Path("D:/kaggle/results/v44-fixed-gguf"),
-        "label": "haic-gemma4-v44-fixed",
+        "out_dir": Path("D:/kaggle/results/v44-fp32fixed-gguf"),
+        "label": "haic-gemma4-v44-fp32fixed",
     },
 }
 
