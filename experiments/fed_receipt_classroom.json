@@ -1,0 +1,223 @@
+{
+  "kind": "federated_round_receipt",
+  "round_id": 1,
+  "ts": "2026-05-11T01:03:56",
+  "config": {
+    "n_learners": 12,
+    "bias_fraction": 0.0,
+    "n_sessions": 20,
+    "quorum": 6
+  },
+  "layer_1_per_learner": {
+    "learner-00": {
+      "bias": 0.0,
+      "n_applied": 11,
+      "n_skipped": 9
+    },
+    "learner-01": {
+      "bias": 0.0,
+      "n_applied": 18,
+      "n_skipped": 2
+    },
+    "learner-02": {
+      "bias": 0.0,
+      "n_applied": 19,
+      "n_skipped": 1
+    },
+    "learner-03": {
+      "bias": 0.0,
+      "n_applied": 20,
+      "n_skipped": 0
+    },
+    "learner-04": {
+      "bias": 0.0,
+      "n_applied": 19,
+      "n_skipped": 1
+    },
+    "learner-05": {
+      "bias": 0.0,
+      "n_applied": 15,
+      "n_skipped": 5
+    },
+    "learner-06": {
+      "bias": 0.0,
+      "n_applied": 17,
+      "n_skipped": 3
+    },
+    "learner-07": {
+      "bias": 0.0,
+      "n_applied": 16,
+      "n_skipped": 4
+    },
+    "learner-08": {
+      "bias": 0.0,
+      "n_applied": 17,
+      "n_skipped": 3
+    },
+    "learner-09": {
+      "bias": 0.0,
+      "n_applied": 20,
+      "n_skipped": 0
+    },
+    "learner-10": {
+      "bias": 0.0,
+      "n_applied": 18,
+      "n_skipped": 2
+    },
+    "learner-11": {
+      "bias": 0.0,
+      "n_applied": 20,
+      "n_skipped": 0
+    }
+  },
+  "layer_2_per_learner": {
+    "learner-00": {
+      "all_passed": true,
+      "num_passed": 6,
+      "failure_reasons": []
+    },
+    "learner-01": {
+      "all_passed": true,
+      "num_passed": 6,
+      "failure_reasons": []
+    },
+    "learner-02": {
+      "all_passed": true,
+      "num_passed": 6,
+      "failure_reasons": []
+    },
+    "learner-03": {
+      "all_passed": true,
+      "num_passed": 6,
+      "failure_reasons": []
+    },
+    "learner-04": {
+      "all_passed": true,
+      "num_passed": 6,
+      "failure_reasons": []
+    },
+    "learner-05": {
+      "all_passed": true,
+      "num_passed": 6,
+      "failure_reasons": []
+    },
+    "learner-06": {
+      "all_passed": true,
+      "num_passed": 6,
+      "failure_reasons": []
+    },
+    "learner-07": {
+      "all_passed": true,
+      "num_passed": 6,
+      "failure_reasons": []
+    },
+    "learner-08": {
+      "all_passed": true,
+      "num_passed": 6,
+      "failure_reasons": []
+    },
+    "learner-09": {
+      "all_passed": true,
+      "num_passed": 6,
+      "failure_reasons": []
+    },
+    "learner-10": {
+      "all_passed": true,
+      "num_passed": 6,
+      "failure_reasons": []
+    },
+    "learner-11": {
+      "all_passed": true,
+      "num_passed": 6,
+      "failure_reasons": []
+    }
+  },
+  "layer_3_per_learner": {
+    "learner-00": {
+      "verified": true,
+      "failure_reason": null,
+      "warnings": [],
+      "computed_round_root": "87eac8d52780c7277867331624d7c101536d1fd36d49fd86e080583eb2898539"
+    },
+    "learner-01": {
+      "verified": true,
+      "failure_reason": null,
+      "warnings": [],
+      "computed_round_root": "17a2c9b2a69b39c86983f095c47b8c447a0dc7f85bcae49e45b600fb63620b69"
+    },
+    "learner-02": {
+      "verified": true,
+      "failure_reason": null,
+      "warnings": [],
+      "computed_round_root": "7f0f2ccce13407dd1026b604d67b34dcbae4ef8d11ffb1ff9e938d130e994119"
+    },
+    "learner-03": {
+      "verified": true,
+      "failure_reason": null,
+      "warnings": [],
+      "computed_round_root": "ecd0a6b75c230329e70f9e1b08464d9502365d849b260972b18b9f990ff668cf"
+    },
+    "learner-04": {
+      "verified": true,
+      "failure_reason": null,
+      "warnings": [],
+      "computed_round_root": "a0cfae198c1e18b62c8b4826641281bc929e75a2c151bca32c101f93ef3473a7"
+    },
+    "learner-05": {
+      "verified": true,
+      "failure_reason": null,
+      "warnings": [],
+      "computed_round_root": "554a96acb1812104e60a2de853b5398a0fed59f8c83d0af78e6f3786f7bfa81c"
+    },
+    "learner-06": {
+      "verified": true,
+      "failure_reason": null,
+      "warnings": [],
+      "computed_round_root": "786d93c2d42904b19321fe28c165d9d38775e046db200a4d7880e2a1d514304a"
+    },
+    "learner-07": {
+      "verified": true,
+      "failure_reason": null,
+      "warnings": [],
+      "computed_round_root": "57dc528f3374a7de599e003505c25480dea8da50f599552554961c907bcf269e"
+    },
+    "learner-08": {
+      "verified": true,
+      "failure_reason": null,
+      "warnings": [],
+      "computed_round_root": "0319c5ef85a8122474b1aff2ba7112590bb3e6f8ed50e563a951dbe28c6e24e1"
+    },
+    "learner-09": {
+      "verified": true,
+      "failure_reason": null,
+      "warnings": [],
+      "computed_round_root": "c38a2ac229acf9cca32e0209bdc3e9f224d4fa57cbcd7b36e67e58e97107e6b3"
+    },
+    "learner-10": {
+      "verified": true,
+      "failure_reason": null,
+      "warnings": [],
+      "computed_round_root": "09e79e97927c849176d2411d67f67ad7c9bdfa476070def36c125b407b347140"
+    },
+    "learner-11": {
+      "verified": true,
+      "failure_reason": null,
+      "warnings": [],
+      "computed_round_root": "823de25b2b2953dd96168aa32a1d5d77ae4aa713fc08cb418a97e026bbf61780"
+    }
+  },
+  "layer_4": {
+    "viable_global": true,
+    "ceff_global": 1134.0,
+    "e_global": 0.338675,
+    "num_verified": 12,
+    "num_rejected": 0,
+    "quorum_met": true,
+    "merge_error_estimate": 0.288675,
+    "rejected_learners": [],
+    "round_recommendation": "commit"
+  },
+  "federation_root": "efa0b396e554922e4400b7d30a26279f12663f5e0880845ec0d6624c612d4882",
+  "zk_digest": "0c3965ff6be7cb3d7059b2cc1b4856e01bbf864f6cb9dd2cd9d72937db699d19",
+  "self_anchor": "aee045e51a12a7508dc5d9cd277262ce95503d4f7a3168de5a1f8c7213c7fb18"
+}
