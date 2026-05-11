@@ -254,5 +254,4 @@ gap would still be invisible.
 
 ---
 
-*Addendum date: 2026-05-08. Author: Benjamin Haslam, with the rigorous
-harness running in the background as this was written.*
+*Addendum date: 2026-05-08. Authors: Benjamin Haslam and Garrett Sutherland (collaborative entry). The rigorous SGT harness that generates all statistical results in this addendum is Garrett Sutherland's work.*

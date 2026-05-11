@@ -1,7 +1,9 @@
 # Grounding Gemma 4 in Human Lived Experience
 
 **Gemma 4 Good Hackathon Submission**
-**Author:** Benjamin Haslam (Bazzer), with research collaborator Guilherme Ferrari Brescia
+**Authors:** Benjamin Haslam (Bazzer) and Garrett Sutherland — collaborative entry; with research collaborator Guilherme Ferrari Brescia
+
+*Garrett Sutherland's contribution: `experiments/sgt_harness.py` — the rigorous Semantic Grounding Test (SGT) evaluation harness with Wilson 95% confidence intervals, the statistical standard ("Garrett rigor") used for all model evaluations in this submission.*
 **DOI:** [10.5281/zenodo.18144681](https://doi.org/10.5281/zenodo.18144681)
 
 ---
@@ -331,7 +333,7 @@ If you reference this work, please cite the underlying mathematical framework:
 ```bibtex
 @misc{haslam2026viability,
   title  = {The Viability Condition: A formal criterion for AI grounding via verified human correction},
-  author = {Haslam, Benjamin},
+  author = {Haslam, Benjamin and Sutherland, Garrett},
   year   = {2026},
   doi    = {10.5281/zenodo.18144681},
   url    = {https://doi.org/10.5281/zenodo.18144681}
