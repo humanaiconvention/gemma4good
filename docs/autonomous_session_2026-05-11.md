@@ -12,12 +12,19 @@ Gemma4Good submission. It is intended as the operator's morning brief.
 
 ## Executive summary
 
-Eight commits, four new modules with full unit-test coverage, four
-documentation files, one notebook scenario, attribution fixes across
-external-facing docs, and a working HAIC console dispatch helper. All pushed
-to both `origin/master` (runtime lane) and `origin/main` (public lane).
+Eighteen commits, six new modules with 97% unit-test coverage, eight
+documentation files, one notebook scenario, one end-to-end verification
+script, attribution fixes across external-facing docs, and a working HAIC
+console dispatch helper. All pushed to both `origin/master` (runtime lane)
+and `origin/main` (public lane).
 
 Headline test count: **496/496 passing.** 85 of those are new this session.
+Coverage on the six new modules: **97%** (523 stmts, 17 uncovered, all
+defensive guards on impossible inputs).
+
+End-to-end reproducibility: `bash verify_all.sh` runs the entire suite
+(unit tests + stress test + scenario receipts byte-comparison vs reference)
+and returns 0 only if everything is healthy.
 
 The competition-relevant work answers a real gap: the SimSat track (also
 HumanAI Convention work) had built and validated substantial distributed-
@@ -30,6 +37,12 @@ all four pieces were ported and integrated.
 ## What landed (by commit, most recent first)
 
 ```
+ef5a6b4  README: add bash verify_all.sh to Test-It quick-start
+89387dd  Determinism + verify_all.sh: end-to-end reproducibility script
+c0c2026  Operator brief: note humanai-convention dispatch helper not yet pushed
+ef7d61c  WRITEUP TL;DR: surface the runtime grounding loop to top-of-document
+b4774f9  Operator brief: add 97% coverage report for the six new modules
+fb40dc8  Operator brief: add late-session additions block
 7115174  Three scenario-specific federation receipts (clinic, classroom, deforestation)
 b5ee9bb  README: add runtime grounding loop diagram + updated project structure
 ff9e557  Federated round demo CLI: end-to-end receipt generator
@@ -41,15 +54,16 @@ cae6087  SimSat incorporation inventory + operator-brief correction
 0c1c84f  Notebook Scenario 5: federated runtime grounding loop demo
 986932e  TTT integration: per-device runtime adaptation under viability gates
 08257ed  DiLoCo integration: federated Viability Condition + fragment verifier
-273a5a0  Remove Garrett description line from external docs (DOI adjacency fix)
-e0cd721  Restore "Garrett rigor" in internal docs (not for external use)
-9ba93d4  Remove invented "Garrett rigor" nickname from attribution
-8872380  Attribution: add Garrett Sutherland as co-author (collaborative entry)
 a680a6b  v45 verdict: H4d NOT CONFIRMED — warm-start = fresh LoRA at 25 concealed
 ```
 
-16 commits total. v45 verdict landed at 22:00 (pre-autonomous);
-the remaining 15 are autonomous-session output.
+Plus 4 attribution-fix commits before the architectural work began
+(8872380, 9ba93d4, e0cd721, 273a5a0). 22 commits in total tonight on
+gemma4good; v45 verdict landed at 22:00 (pre-autonomous); the remaining
+21 are autonomous-session output.
+
+One additional commit landed locally in humanai-convention but not
+pushed (the dispatch helper, awaiting operator review).
 
 ---
 
