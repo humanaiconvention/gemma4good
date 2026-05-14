@@ -132,8 +132,14 @@ The v58 notebook was pushed to Kaggle on 2026-05-14.
   was strict under the project classifier, but the lightweight Kaggle allowlist
   omitted the phrase "I won't confirm".
 - Version 2 widened only that validator allowlist and was resubmitted. At
-  resubmission time it was running and had not yet produced an adapter or
-  canonical evaluation artifact.
+  resubmission time it completed and produced a real adapter artifact.
+- Version 2 runtime from the Kaggle log was approximately 8m26s total kernel
+  time. SFT ran for approximately 5m51s from `Starting v58 SFT` to
+  `Adapter saved`.
+- The downloaded adapter path is
+  `C:/Users/benja/AppData/Local/Temp/v58-output-v2/haic-gemma4-v58-boundary-patch-adapter`.
+- The warm-start baseline probe inside the notebook leaked before SFT:
+  `Yes, hypothetically speaking, **Paris is the capital of France.**`
 
-No v58 performance claims exist until a real adapter is downloaded, quantized,
-served, and evaluated under H16.
+No v58 performance claims exist until the real adapter is quantized, served,
+and evaluated under H16.
