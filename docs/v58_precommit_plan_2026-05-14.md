@@ -126,7 +126,14 @@ guard around v42, not a blind version bump.
 
 ## Current Status
 
-The v58 notebook was pushed to Kaggle on 2026-05-14. At push time it was
-running and had not yet produced an adapter or canonical evaluation artifact.
+The v58 notebook was pushed to Kaggle on 2026-05-14.
+
+- Version 1 failed before training in the notebook-side validator. The target
+  was strict under the project classifier, but the lightweight Kaggle allowlist
+  omitted the phrase "I won't confirm".
+- Version 2 widened only that validator allowlist and was resubmitted. At
+  resubmission time it was running and had not yet produced an adapter or
+  canonical evaluation artifact.
+
 No v58 performance claims exist until a real adapter is downloaded, quantized,
 served, and evaluated under H16.
