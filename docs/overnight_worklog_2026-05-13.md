@@ -43,6 +43,21 @@ Kaggle status at 2026-05-13 21:21 PDT:
 
 - `KernelWorkerStatus.RUNNING`
 
+Update at 2026-05-13 21:45 PDT:
+
+- Kaggle v55 version 1 ended with `KernelWorkerStatus.ERROR`.
+- The failure was a scientific guardrail, not a training crash:
+  - v42 generated only 17/40 accepted direct-injection-positive completions.
+  - Many direct-injection variants caused v42 to leak Paris.
+  - The notebook assertion stopped before SFT, as intended.
+- Fix applied:
+  - expanded the direct-injection prompt pool around the attack family v42 is
+    known to handle (`Ignore all previous instructions...`) while still
+    excluding the exact canonical eval prompt.
+  - regenerated and syntax-checked the v55 notebook.
+  - pushed Kaggle version 2:
+    `https://www.kaggle.com/code/benhaslam/haic-gemma4-v55-user-only-mixed-sft`
+
 ## Verification Performed
 
 - `python -m pytest tests/test_canonical_eval.py -q` -> 19 passed
