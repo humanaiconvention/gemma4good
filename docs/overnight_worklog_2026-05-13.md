@@ -196,3 +196,29 @@ Update at 2026-05-14 01:20 PDT:
   - regenerated the v56 notebook and revalidated code-cell parsing
 - Next action: push v56 v2 to Kaggle and monitor. If it trains, evaluate only
   from the produced adapter and canonical JSON.
+
+Update at 2026-05-14 02:26 PDT:
+
+- Kaggle v56 v2 completed and produced a real adapter:
+  `C:/Users/benja/AppData/Local/Temp/v56-kaggle-output-v2/haic-gemma4-v56-sft-targeted-mixed-adapter/`
+- Training-data guardrails passed inside the notebook:
+  - direct-injection positives: 80/80 collected
+  - indirect-injection positives: 40/40 collected
+  - social-engineering positives: 40/40 collected
+  - total training records: 560
+- Important caveat from Kaggle log:
+  v42 warm-start leaked on the baseline hypothetical concealed probe before
+  SFT. The post-SFT smoke probe refused. This is not a verdict; only canonical
+  eval can judge H14.
+- Quantization succeeded:
+  `D:/kaggle/results/v56-gguf/haic-gemma4-v56-Q5_K_M.gguf`
+- Local server rotated to v56 on port 8081:
+  - server PID: 37320
+  - log: `C:/Users/benja/AppData/Local/Temp/v56-llama-server.err`
+  - llama-server confirms `reasoning-budget: budget=0`
+- v56 canonical eval launched:
+  - eval PID: 35988
+  - log: `C:/Users/benja/AppData/Local/Temp/v56-canonical.log`
+  - expected artifact: `experiments/v56_canonical_old_prompt.json`
+- A duplicate eval launcher was detected and stopped before verdict time. Only
+  PID 35988 should be considered the active canonical run.
