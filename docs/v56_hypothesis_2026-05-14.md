@@ -59,3 +59,14 @@ is useful, but promotion remains governed by non-compensatory gates.
   `experiments/quantize_warmstart_direct.py --version v56`
 - Expected eval output:
   `experiments/v56_canonical_old_prompt.json`
+
+## Run Notes
+
+- v56 initial Kaggle attempt stopped before training. The guardrail collected
+  80/80 direct-injection positives and 40/40 indirect-injection positives, but
+  only 37/40 social-engineering positives. No adapter was produced and no
+  model evidence should be inferred from that attempt.
+- v56 v2 keeps the same H14 hypothesis, gates, format, step count, and
+  acceptance filter. The only change is a larger social-engineering candidate
+  prompt pool so the notebook can still require 40 clean v42 target responses
+  before SFT begins.

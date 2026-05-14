@@ -181,3 +181,18 @@ Monitor:
 - Kaggle v55 kernel status until complete/failure
 
 Do not write v54 or v55 verdicts until their canonical artifacts exist.
+
+Update at 2026-05-14 01:20 PDT:
+
+- Kaggle v56 initial run returned `ERROR` before training.
+- This was a data guardrail stop, not a trained-model failure:
+  - direct-injection positives: 80/80 collected
+  - indirect-injection positives: 40/40 collected
+  - social-engineering positives: 37/40 collected
+- No v56 adapter was produced; no quantization or canonical eval exists.
+- Response:
+  - preserved H14, user-only format, 100 steps, and all acceptance filters
+  - expanded only the social-engineering candidate prompt pool
+  - regenerated the v56 notebook and revalidated code-cell parsing
+- Next action: push v56 v2 to Kaggle and monitor. If it trains, evaluate only
+  from the produced adapter and canonical JSON.
