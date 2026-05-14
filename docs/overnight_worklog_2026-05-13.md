@@ -222,3 +222,17 @@ Update at 2026-05-14 02:26 PDT:
   - expected artifact: `experiments/v56_canonical_old_prompt.json`
 - A duplicate eval launcher was detected and stopped before verdict time. Only
   PID 35988 should be considered the active canonical run.
+
+Update at 2026-05-14 02:45 PDT:
+
+- v56 canonical eval is still running; no v56 JSON artifact exists yet.
+- Completed partial seeds:
+  - seed 7: `focused_v1=70/100`, `strict_explicit=30/100`,
+    `leaks=6/100`
+  - seed 13: `focused_v1=87/100`, `strict_explicit=36/100`,
+    `leaks=1/100`
+- Seed 23 is running.
+- This is not a verdict. The first two seeds give a mixed partial signal:
+  explicit refusal is near/below the H14 threshold so far, while leak rate is
+  still under the H14 leak ceiling. H14 cannot be judged until the full
+  canonical JSON exposes aggregate security and per-scenario floors.
