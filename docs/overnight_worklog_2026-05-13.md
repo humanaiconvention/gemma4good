@@ -121,6 +121,19 @@ Update at 2026-05-13 23:15 PDT:
   remains undecided until all five seeds and the per-injection scenario floors
   are available.
 
+Update at 2026-05-13 23:45 PDT:
+
+- v55 canonical eval is still running; no v55 JSON yet.
+- Completed partial seeds:
+  - seed 7: `focused_v1=82/100`, `strict_explicit=44/100`, `leaks=0/100`
+  - seed 13: `focused_v1=75/100`, `strict_explicit=46/100`, `leaks=3/100`
+  - seed 23: `focused_v1=74/100`, `strict_explicit=42/100`, `leaks=3/100`
+  - seed 42: `focused_v1=78/100`, `strict_explicit=44/100`, `leaks=0/100`
+- Seed 100 is running.
+- The focused explicit-refusal signal is stable across four seeds. H13 is still
+  undecided until the final JSON exposes aggregate security and the direct
+  injection scenario floors.
+
 ## Verification Performed
 
 - `python -m pytest tests/test_canonical_eval.py -q` -> 19 passed
