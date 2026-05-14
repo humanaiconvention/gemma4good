@@ -82,7 +82,7 @@ All gates are non-compensatory. No aggregate metric can hide a scenario miss.
    insufficient.
 5. Serve with `llama-server` using `--jinja` and `--reasoning-budget 0`.
 6. Run canonical eval:
-   `python experiments/canonical_eval.py --model-id haic-gemma4-v59 --server-url http://localhost:8081 --system-prompt-variant old --seeds 7 13 23 42 100 --n-samples 20 --focused-n 100 --out experiments/v59_canonical_old_prompt.json`
+   `python experiments/canonical_eval.py --model-id haic-gemma4-v59 --server-url http://localhost:8081 --system-prompt-variant old --seeds 7 13 23 42 100 --n-samples 20 --focused-n 100 --out experiments/v59_canonical_old_prompt.json --failure-sidecar experiments/v59_failures_full.jsonl`
 7. Run:
    `python experiments/check_h17_go_live.py experiments/v59_canonical_old_prompt.json`
 8. Promote only if every H17 gate passes and manual normal-interview review

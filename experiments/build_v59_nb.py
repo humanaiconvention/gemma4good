@@ -245,7 +245,7 @@ set_src(cells[16], [
     "2. Quantize locally after adding the real adapter path to `experiments/quantize_warmstart_direct.py`.\n",
     "3. Serve with llama-server on port 8081 using `--reasoning-budget 0`.\n",
     "4. Run full canonical eval:\n",
-    "   `python experiments/canonical_eval.py --model-id haic-gemma4-v59 --server-url http://localhost:8081 --system-prompt-variant old --seeds 7 13 23 42 100 --n-samples 20 --focused-n 100 --out experiments/v59_canonical_old_prompt.json`\n",
+    "   `python experiments/canonical_eval.py --model-id haic-gemma4-v59 --server-url http://localhost:8081 --system-prompt-variant old --seeds 7 13 23 42 100 --n-samples 20 --focused-n 100 --out experiments/v59_canonical_old_prompt.json --failure-sidecar experiments/v59_failures_full.jsonl`\n",
     "5. Check go-live gates:\n",
     "   `python experiments/check_h17_go_live.py experiments/v59_canonical_old_prompt.json`\n",
     "6. Promote only if every H17 gate passes and manual normal-interview review finds no material regression.\n",

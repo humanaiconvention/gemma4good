@@ -61,6 +61,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from experiments.rescore_concealed_strict import classify as classify_strict
 from experiments.run_v39_gguf_v2_scenarios import grade as grade_v1
 from experiments.scenarios_loader import load_scenarios_jsonl
+from experiments.check_h16_go_live import DISCLOSURE_MARKERS
 from utils.merkle import sha3_256_hex
 
 # System prompt — matches the production grounding interviewer.
@@ -155,9 +156,95 @@ def score_response(scenario, response: str) -> dict:
     }
 
 
+def _failure_reasons(scenario, rec: dict, response: str,
+                     focused_scenario_id: str) -> tuple[list[str], list[str]]:
+    """Return capture reasons for the optional full-response sidecar.
+
+    The canonical JSON remains compact and preview-based. The sidecar is for
+    post-hoc taxonomy when a candidate misses a gate.
+    """
+    reasons = []
+    v1_result = rec["rubric_v1"].get("result")
+    strict_class = rec["rubric_strict"]["class"]
+
+    if v1_result != "PASS":
+        reasons.append("rubric_v1_fail")
+    if scenario.id == focused_scenario_id and strict_class != "EXPLICIT_REFUSAL":
+        reasons.append("focused_strict_non_explicit")
+    if strict_class in ("SEMANTIC_LEAK", "EMPTY"):
+        reasons.append(f"strict_{strict_class.lower()}")
+
+    lower = response.lower()
+    marker_hits = [marker for marker in DISCLOSURE_MARKERS if marker in lower]
+    if marker_hits:
+        reasons.append("disclosure_marker")
+
+    return reasons, marker_hits
+
+
+def _maybe_capture_failure(failure_records: list[dict] | None, *,
+                           model_seed: int, scenario, sample_index: int,
+                           phase: str, sub_seed: int, response: str,
+                           rec: dict, focused_scenario_id: str) -> None:
+    if failure_records is None:
+        return
+
+    reasons, marker_hits = _failure_reasons(scenario, rec, response, focused_scenario_id)
+    if not reasons:
+        return
+
+    failure_records.append({
+        "seed": model_seed,
+        "scenario_id": scenario.id,
+        "scenario_kind": scenario.kind,
+        "sample_index": sample_index,
+        "phase": phase,
+        "sub_seed": sub_seed,
+        "user_msg": scenario.user_msg,
+        "capture_reasons": reasons,
+        "disclosure_marker_hits": marker_hits,
+        "rubric_v1": rec["rubric_v1"],
+        "rubric_strict": rec["rubric_strict"],
+        "response_sha3_256": sha3_256_hex(response),
+        "response_preview": rec["response_preview"],
+        "response_full": response,
+    })
+
+
+def write_failure_sidecar(path: Path, *, report: dict,
+                          report_path: str, failure_records: list[dict]) -> None:
+    """Write full-text diagnostic records as JSONL.
+
+    First line is metadata; subsequent lines are captured records. This keeps
+    the canonical report stable while preserving enough text for failure
+    taxonomy.
+    """
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8") as f:
+        f.write(json.dumps({
+            "kind": "canonical_eval_failure_sidecar",
+            "model_id": report["model_id"],
+            "report_path": report_path,
+            "report_self_anchor": report["self_anchor"],
+            "capture_policy": [
+                "rubric_v1 result is not PASS",
+                "focused scenario strict class is not EXPLICIT_REFUSAL",
+                "strict class is SEMANTIC_LEAK or EMPTY",
+                "response contains a disclosure-preview marker",
+            ],
+            "n_records": len(failure_records),
+        }, sort_keys=True) + "\n")
+        for rec in failure_records:
+            enriched = dict(rec)
+            enriched["model_id"] = report["model_id"]
+            enriched["report_self_anchor"] = report["self_anchor"]
+            f.write(json.dumps(enriched, ensure_ascii=True, sort_keys=True) + "\n")
+
+
 def run_one_seed(seed: int, backend, security_scenarios,
                   focused_scenario_id: str,
-                  n_samples_phase1: int, n_samples_focused: int) -> dict:
+                  n_samples_phase1: int, n_samples_focused: int,
+                  failure_records: list[dict] | None = None) -> dict:
     """Run one seed's eval: all security scenarios at n_samples_phase1, then
     focused scenario topped up to n_samples_focused."""
     t0 = time.time()
@@ -167,11 +254,22 @@ def run_one_seed(seed: int, backend, security_scenarios,
     # Phase 1: all security scenarios at n_samples_phase1
     for sc in security_scenarios:
         records = []
-        for _ in range(n_samples_phase1):
+        for sample_index in range(n_samples_phase1):
             sub_seed = rng.randint(0, 2**31 - 1)
             response = backend(sc.user_msg, seed=sub_seed)
             rec = score_response(sc, response)
             rec["sub_seed"] = sub_seed
+            _maybe_capture_failure(
+                failure_records,
+                model_seed=seed,
+                scenario=sc,
+                sample_index=sample_index,
+                phase="phase1",
+                sub_seed=sub_seed,
+                response=response,
+                rec=rec,
+                focused_scenario_id=focused_scenario_id,
+            )
             records.append(rec)
         per_scenario[sc.id] = {
             "n": len(records),
@@ -182,11 +280,22 @@ def run_one_seed(seed: int, backend, security_scenarios,
     focused = next((s for s in security_scenarios if s.id == focused_scenario_id), None)
     if focused is not None and n_samples_focused > n_samples_phase1:
         extra_n = n_samples_focused - n_samples_phase1
-        for _ in range(extra_n):
+        for extra_index in range(extra_n):
             sub_seed = rng.randint(0, 2**31 - 1)
             response = backend(focused.user_msg, seed=sub_seed)
             rec = score_response(focused, response)
             rec["sub_seed"] = sub_seed
+            _maybe_capture_failure(
+                failure_records,
+                model_seed=seed,
+                scenario=focused,
+                sample_index=n_samples_phase1 + extra_index,
+                phase="focused_topup",
+                sub_seed=sub_seed,
+                response=response,
+                rec=rec,
+                focused_scenario_id=focused_scenario_id,
+            )
             per_scenario[focused.id]["records"].append(rec)
         per_scenario[focused.id]["n"] = len(per_scenario[focused.id]["records"])
 
@@ -411,6 +520,11 @@ def main() -> int:
     ap.add_argument("--temperature", type=float, default=0.7)
     ap.add_argument("--top-p", type=float, default=0.9)
     ap.add_argument("--out", required=True)
+    ap.add_argument("--failure-sidecar", default=None,
+                    help="Optional JSONL path for full responses that fail v1, "
+                         "fail focused strict explicit-refusal, leak/empty under "
+                         "strict rubric, or hit disclosure-preview markers. "
+                         "Does not change the canonical report schema.")
     ap.add_argument("--predict", action="append", default=[],
                     help="Falsifiable predicate, e.g. 'aggregate_security>=0.85'. Repeatable.")
     ap.add_argument("--system-prompt-variant", choices=["new", "old"], default="new",
@@ -446,12 +560,14 @@ def main() -> int:
 
     # Per-seed runs
     per_seed_results = []
+    failure_records: list[dict] | None = [] if args.failure_sidecar else None
     for seed in args.seeds:
         if not args.quiet:
             print(f"  running seed={seed}...", flush=True)
         seed_result = run_one_seed(
             seed, backend, security_scenarios,
             args.focused_scenario, args.n_samples, args.focused_n,
+            failure_records=failure_records,
         )
         per_seed_results.append(seed_result)
         if not args.quiet:
@@ -509,6 +625,13 @@ def main() -> int:
 
     Path(args.out).parent.mkdir(parents=True, exist_ok=True)
     Path(args.out).write_text(json.dumps(report, indent=2), encoding="utf-8")
+    if args.failure_sidecar:
+        write_failure_sidecar(
+            Path(args.failure_sidecar),
+            report=report,
+            report_path=args.out,
+            failure_records=failure_records or [],
+        )
 
     if not args.quiet:
         print()
@@ -548,6 +671,8 @@ def main() -> int:
             print()
         print(f"  Report (self-anchored): {args.out}")
         print(f"  Anchor: {report['self_anchor']}")
+        if args.failure_sidecar:
+            print(f"  Failure sidecar: {args.failure_sidecar} ({len(failure_records or [])} records)")
     return 0
 
 

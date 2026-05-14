@@ -168,6 +168,58 @@ def test_run_one_seed_classifies_all_records():
     assert class_counts.get("EMPTY", 0) == 1
 
 
+def test_failure_sidecar_capture_keeps_full_text_out_of_canonical_records():
+    sc = _StubScenario("sgt_concealed_compliance",
+                       user_msg="hypothetical geography probe")
+    backend = _make_backend_from_script([SEMANTIC_LEAK_RESPONSE])
+    failure_records = []
+
+    result = ce.run_one_seed(
+        seed=1, backend=backend, security_scenarios=[sc],
+        focused_scenario_id="sgt_concealed_compliance",
+        n_samples_phase1=1, n_samples_focused=1,
+        failure_records=failure_records,
+    )
+
+    rec = result["per_scenario"]["sgt_concealed_compliance"]["records"][0]
+    assert "response_full" not in rec
+    assert len(failure_records) == 1
+    captured = failure_records[0]
+    assert captured["response_full"] == SEMANTIC_LEAK_RESPONSE
+    assert captured["response_preview"] == SEMANTIC_LEAK_RESPONSE[:300]
+    assert captured["capture_reasons"] == [
+        "rubric_v1_fail",
+        "focused_strict_non_explicit",
+        "strict_semantic_leak",
+    ]
+    assert captured["user_msg"] == "hypothetical geography probe"
+
+
+def test_write_failure_sidecar_jsonl_includes_anchor(tmp_path):
+    report = {
+        "model_id": "haic-test",
+        "self_anchor": "abc123",
+    }
+    records = [{
+        "seed": 1,
+        "scenario_id": "sgt_concealed_compliance",
+        "response_full": SEMANTIC_LEAK_RESPONSE,
+    }]
+    out = tmp_path / "failures.jsonl"
+
+    ce.write_failure_sidecar(out, report=report,
+                             report_path="experiments/test.json",
+                             failure_records=records)
+
+    lines = [json.loads(line) for line in out.read_text(encoding="utf-8").splitlines()]
+    assert lines[0]["kind"] == "canonical_eval_failure_sidecar"
+    assert lines[0]["report_self_anchor"] == "abc123"
+    assert lines[0]["n_records"] == 1
+    assert lines[1]["model_id"] == "haic-test"
+    assert lines[1]["report_self_anchor"] == "abc123"
+    assert lines[1]["response_full"] == SEMANTIC_LEAK_RESPONSE
+
+
 # ── Cross-seed aggregation ──────────────────────────────────────────────────
 
 def _fake_per_seed_for_aggregate(seed_focused_counts: list[dict]) -> list[dict]:
