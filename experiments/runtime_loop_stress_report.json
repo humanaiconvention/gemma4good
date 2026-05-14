@@ -1,6 +1,6 @@
 {
   "kind": "runtime_loop_stress_test",
-  "ts": "2026-05-11T01:13:33",
+  "ts": "2026-05-14T16:09:36",
   "module_versions": {
     "viability/ttt_gates.py": "1.0",
     "viability/session_gates.py": "1.0",
@@ -20,7 +20,7 @@
       "l4_viable": true,
       "expected": "commit",
       "passed": true,
-      "elapsed_sec": 0.0037
+      "elapsed_sec": 0.004
     },
     {
       "stream": "systematic_bias",
@@ -31,7 +31,7 @@
       "expected": "commit",
       "passed": true,
       "note": "BLOCKING gate fires more per-clinic for biased clinic; federation still viable",
-      "elapsed_sec": 0.0014
+      "elapsed_sec": 0.0017
     },
     {
       "stream": "hostile_fragment",
@@ -39,7 +39,7 @@
       "l4_recommendation": "alert_operator",
       "expected": "alert_operator",
       "passed": true,
-      "elapsed_sec": 0.0028
+      "elapsed_sec": 0.003
     },
     {
       "stream": "cloud_blackout",
@@ -82,5 +82,5 @@
     "n_passed": 7,
     "n_failed": 0
   },
-  "receipt_root": "1f417aaee7951b677affafca6c56ed78ec7bf46859cc5858e2b6555b7ba17fef"
+  "receipt_root": "53b341e13915f7656f29b63ff051c30faa1f67a5dc3045784b9523c0e61d8067"
 }

@@ -1,6 +1,6 @@
 # Repo Status
 
-Date: 2026-04-22
+Date: 2026-05-14
 
 This file summarizes the state of the public `0.1` Gemma4Good repository.
 
@@ -28,6 +28,14 @@ It is not meant to contain:
 Version `0.1` is the public source release. It is intended to be readable,
 reproducible, and safe to share with collaborators without bundling private
 machine state or heavyweight runtime artifacts.
+
+The current public posture is governance-first:
+
+- v42 remains the live semantic-interviewer / fine-tuning security reference.
+- v58 and v59 are documented experimental appendix results, not promoted
+  replacements.
+- New model claims require real artifacts, seeded canonical eval output,
+  self-anchors, and predeclared non-compensatory gates.
 
 ## Push-Readiness Notes
 

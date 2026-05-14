@@ -16,7 +16,7 @@ grounded AI:
 
 ## Fine-Tuning Track Placement
 
-The v50-v56 fine-tuning sequence should be presented as an experimental appendix,
+The v50-v59 fine-tuning sequence should be presented as an experimental appendix,
 not the primary submission claim.
 
 Known results:
@@ -33,6 +33,12 @@ Known results:
 - v57 tested a new precommitted production-candidate design under H15 and
   failed. It should be presented as a negative result, not as a replacement for
   v42.
+- v58 boundary-first SFT was a genuine improvement over v55-v57 and produced
+  very high explicit concealed refusal, but failed non-compensatory H16 gates
+  for direct adversarial injection and disclosure-preview markers.
+- v59 targeted the residual v58 failures and became the strongest fine-tuned
+  result to date, but still failed non-compensatory H17 gates for direct
+  adversarial injection and jailbreak robustness.
 - v42 remains the production reference.
 
 ## Submission Documents To Treat As Load-Bearing
@@ -52,6 +58,12 @@ Known results:
 - `docs/v56_canonical_verdict_2026-05-14.md`
 - `docs/v57_production_candidate_plan_2026-05-14.md`
 - `docs/v57_canonical_verdict_2026-05-14.md`
+- `docs/response_failure_taxonomy_v42_v55_v57_2026-05-14.md`
+- `docs/v58_precommit_plan_2026-05-14.md`
+- `docs/v58_residual_failure_taxonomy_2026-05-14.md`
+- `docs/v58_canonical_verdict_2026-05-14.md`
+- `docs/v59_precommit_plan_2026-05-14.md`
+- `docs/v59_canonical_verdict_2026-05-14.md`
 
 ## Known Consistency Risk
 
@@ -60,6 +72,12 @@ or "production" in their historical context. For the fine-tuning security track,
 the current production reference is v42 unless a later candidate beats it under
 canonical eval. Do not rewrite historical verdict docs to pretend they were
 written later; instead, make the current status explicit in new summary docs.
+
+The current submission distinction is:
+
+- v38/v39 remain historical governance-demo and promotion-doctrine artifacts.
+- v42 is the live semantic-interviewer / fine-tuning security reference.
+- v58/v59 are experimental appendix results, not production replacements.
 
 ## Rule For New Claims
 

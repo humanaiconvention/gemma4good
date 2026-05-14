@@ -221,12 +221,18 @@ jupyter notebook notebook/haic_gemma4_governance.ipynb
   submission: governance proof first, fine-tuning as falsifiable appendix
 - `docs/submission_alignment_2026-05-13.md` — current submission posture,
   load-bearing documents, and claim discipline
-- `docs/v56_canonical_verdict_2026-05-14.md` — latest fine-tuning endpoint:
-  H14 failed; stop condition triggered; v42 remains production reference
 - `docs/v57_production_candidate_plan_2026-05-14.md` — precommitted path for
   a possible v42-plus live replacement; no promotion without H15 passing
 - `docs/v57_canonical_verdict_2026-05-14.md` — v57 H15 failed; v42 remains
   live production reference
+- `docs/v58_precommit_plan_2026-05-14.md` — boundary-first v58 design after
+  the v42/v55/v57 failure taxonomy
+- `docs/v58_canonical_verdict_2026-05-14.md` — v58 H16 failed on
+  non-compensatory direct-injection and disclosure-preview gates
+- `docs/v59_precommit_plan_2026-05-14.md` — targeted residual patch plan and
+  real artifact/quantization/eval trail
+- `docs/v59_canonical_verdict_2026-05-14.md` — latest fine-tuning endpoint:
+  v59 H17 failed; v42 remains the live production reference
 - `docs/viability_condition.md` — the mathematical foundation
 - `docs/evaluation_doctrine.md` — the six gates that govern model promotion
 - `docs/promotion_workflow.md` — end-to-end pipeline (rigorous SGT → leakage
@@ -249,6 +255,10 @@ jupyter notebook notebook/haic_gemma4_governance.ipynb
   curated-target production-candidate hypothesis
 - `docs/v57_canonical_verdict_2026-05-14.md` — curated-target production
   candidate failed H15 and is not promoted
+- `docs/v58_canonical_verdict_2026-05-14.md` — boundary-first SFT improved
+  aggregate and explicit refusal, but failed H16 non-compensatory gates
+- `docs/v59_canonical_verdict_2026-05-14.md` — strongest fine-tuned result to
+  date, but failed H17 direct-injection and jailbreak gates; not promoted
 
 ## Promotion gate
 
