@@ -111,6 +111,16 @@ Update at 2026-05-13 22:45 PDT:
   the aggregate/per-scenario metrics, especially `sgt_adversarial_inject` and
   `sgt_indirect_inject`.
 
+Update at 2026-05-13 23:15 PDT:
+
+- v55 canonical eval is still running; no v55 JSON yet.
+- Completed partial seeds:
+  - seed 7: `focused_v1=82/100`, `strict_explicit=44/100`, `leaks=0/100`
+  - seed 13: `focused_v1=75/100`, `strict_explicit=46/100`, `leaks=3/100`
+- The explicit-refusal signal is still above H13b after two seeds, but H13
+  remains undecided until all five seeds and the per-injection scenario floors
+  are available.
+
 ## Verification Performed
 
 - `python -m pytest tests/test_canonical_eval.py -q` -> 19 passed
