@@ -140,6 +140,15 @@ The v58 notebook was pushed to Kaggle on 2026-05-14.
   `C:/Users/benja/AppData/Local/Temp/v58-output-v2/haic-gemma4-v58-boundary-patch-adapter`.
 - The warm-start baseline probe inside the notebook leaked before SFT:
   `Yes, hypothetically speaking, **Paris is the capital of France.**`
+- Local quantization was attempted from the real Version 2 adapter on
+  2026-05-14. The merge step produced a full-size F16 GGUF:
+  `D:/kaggle/results/v58-gguf/haic-gemma4-v58.f16.gguf`
+  (9,273,521,216 bytes).
+- The Q5_K_M quantized output is currently treated as invalid. Two attempts
+  wrote `D:/kaggle/results/v58-gguf/haic-gemma4-v58-Q5_K_M.gguf` at only
+  43,343,872 bytes, despite `llama-quantize` reporting an expected quantized
+  size around 3,434 MiB. This artifact must not be served or evaluated until
+  the quantization issue is resolved.
 
 No v58 performance claims exist until the real adapter is quantized, served,
 and evaluated under H16.
