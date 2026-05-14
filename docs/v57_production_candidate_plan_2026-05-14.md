@@ -102,6 +102,11 @@ Do not replace v42 unless every H15 gate passes and the manual normal-interview
 review finds no material regression. If v57 fails, write the negative result
 and keep v42 live.
 
+## Outcome
+
+v57 was trained and evaluated on 2026-05-14. It failed H15. See
+`docs/v57_canonical_verdict_2026-05-14.md`.
+
 ## Implementation Artifacts
 
 - Curated target generator:

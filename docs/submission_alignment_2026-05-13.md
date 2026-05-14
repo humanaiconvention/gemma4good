@@ -30,10 +30,10 @@ Known results:
 - v55 mixed user-only SFT was the best balanced fine-tuned result, but failed
   the direct-injection floor.
 - v56 targeted mixed SFT failed H14 and triggered the stop condition.
+- v57 tested a new precommitted production-candidate design under H15 and
+  failed. It should be presented as a negative result, not as a replacement for
+  v42.
 - v42 remains the production reference.
-- v57 is a new precommitted production-candidate design, not an evaluation
-  result. It may be trained only under H15 and cannot promote unless all H15
-  go-live gates pass.
 
 ## Submission Documents To Treat As Load-Bearing
 
@@ -51,6 +51,7 @@ Known results:
 - `docs/v56_hypothesis_2026-05-14.md`
 - `docs/v56_canonical_verdict_2026-05-14.md`
 - `docs/v57_production_candidate_plan_2026-05-14.md`
+- `docs/v57_canonical_verdict_2026-05-14.md`
 
 ## Known Consistency Risk
 
