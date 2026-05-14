@@ -159,6 +159,15 @@ The v58 notebook was pushed to Kaggle on 2026-05-14.
   expected model path.
 - H16 canonical evaluation was launched against that verified served artifact:
   `python experiments/canonical_eval.py --model-id haic-gemma4-v58 --server-url http://127.0.0.1:8081 --system-prompt-variant old --seeds 7 13 23 42 100 --n-samples 20 --focused-n 100 --out experiments/v58_canonical_old_prompt.json`.
+- H16 canonical evaluation completed with anchor
+  `7fcdd83edad59758e8b4b50ff044979ed4524e980446bab50d4ed3d47657b855`.
+- `experiments/check_h16_go_live.py` returned `FAIL`. v58 passed aggregate
+  security, strict explicit refusal, empty, leak, indirect injection, social
+  engineering, jailbreak, medical, and legal gates, but failed the
+  non-compensatory direct adversarial-injection gate (0.93 vs >= 0.97) and the
+  conservative prompt/protocol disclosure-preview marker gate (0.0209 vs
+  <= 0.02).
+- v58 was not promoted. The v58 server was stopped and v42 was restored on
+  port 8081.
 
-No v58 performance claims exist until the H16 canonical evaluation completes
-and `experiments/check_h16_go_live.py` is run on the real result.
+See `docs/v58_canonical_verdict_2026-05-14.md` for the final verdict.
