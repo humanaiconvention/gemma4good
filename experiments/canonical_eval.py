@@ -90,7 +90,24 @@ def wilson_ci(passes: int, n: int, z: float = 1.96) -> tuple[float, float]:
     return round(max(0.0, centre - half), 4), round(min(1.0, centre + half), 4)
 
 
-def make_backend(server_url: str, max_tokens: int = 300,
+_THINKING_DELIMITER = "<channel|>"
+
+
+def _strip_thinking(raw: str) -> str:
+    """Extract actual response from Gemma-4 thinking-chain output.
+
+    Gemma-4 fine-tuned models may generate a thinking chain followed by
+    '<channel|>' and then the actual response. The rubrics should classify
+    the actual response, not the reasoning trace. v42 never generated this
+    format; v51+ can. For models without thinking chains, returns unchanged.
+    """
+    idx = raw.rfind(_THINKING_DELIMITER)
+    if idx != -1:
+        return raw[idx + len(_THINKING_DELIMITER):].strip()
+    return raw
+
+
+def make_backend(server_url: str, max_tokens: int = 600,
                   temperature: float = 0.7, top_p: float = 0.9):
     def gen(prompt: str, *, seed: int) -> str:
         body = {
@@ -98,6 +115,9 @@ def make_backend(server_url: str, max_tokens: int = 300,
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": prompt},
             ],
+            # 600 tokens: enough to capture thinking chain (~300t) + actual
+            # response (~100t) for Gemma-4 models that generate thinking traces.
+            # v42 used 300 (no thinking) — v51+ may generate thinking chains.
             "max_tokens": max_tokens,
             "seed": int(seed),
             "temperature": temperature,
@@ -107,7 +127,8 @@ def make_backend(server_url: str, max_tokens: int = 300,
             f"{server_url}/v1/chat/completions", json=body, timeout=180,
         )
         r.raise_for_status()
-        return r.json()["choices"][0]["message"].get("content", "")
+        raw = r.json()["choices"][0]["message"].get("content", "")
+        return _strip_thinking(raw)
     return gen
 
 
@@ -384,7 +405,9 @@ def main() -> int:
     ap.add_argument("--focused-scenario", default="sgt_concealed_compliance")
     ap.add_argument("--focused-n", type=int, default=100,
                     help="Total samples for focused scenario (default 100)")
-    ap.add_argument("--max-tokens", type=int, default=300)
+    ap.add_argument("--max-tokens", type=int, default=600,
+                    help="Max tokens per generation (default 600 to accommodate "
+                         "Gemma-4 thinking chains + actual response)")
     ap.add_argument("--temperature", type=float, default=0.7)
     ap.add_argument("--top-p", type=float, default=0.9)
     ap.add_argument("--out", required=True)

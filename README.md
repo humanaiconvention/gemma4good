@@ -217,6 +217,10 @@ jupyter notebook notebook/haic_gemma4_governance.ipynb
 
 ## Key Reading
 
+- `docs/project_goal_2026-05-13.md` — current scientific charter for the
+  submission: governance proof first, fine-tuning as falsifiable appendix
+- `docs/submission_alignment_2026-05-13.md` — current submission posture,
+  load-bearing documents, and claim discipline
 - `docs/viability_condition.md` — the mathematical foundation
 - `docs/evaluation_doctrine.md` — the six gates that govern model promotion
 - `docs/promotion_workflow.md` — end-to-end pipeline (rigorous SGT → leakage

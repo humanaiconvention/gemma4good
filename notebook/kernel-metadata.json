@@ -10,8 +10,7 @@
   "enable_internet": true,
   "keywords": ["gpu"],
   "dataset_sources": [
-    "benhaslam/grounding-gemma4-v35-gov",
-    "benhaslam/cisco-mpk-reference-weights"
+    "benhaslam/grounding-gemma4-v35-gov"
   ],
   "competition_sources": [],
   "kernel_sources": [],

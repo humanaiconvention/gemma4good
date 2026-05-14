@@ -85,6 +85,68 @@ VERSION_CONFIG = {
         "label": "haic-gemma4-v46",
         "note": "DPO on v42 baseline, 80 preferred/rejected pairs targeting concealed-compliance (Option C from canonical_eval verdict)",
     },
+    # v50: DPO on top of v42 (loaded DIRECTLY, not via v46), 150 steps, beta=0.1,
+    # LR=5e-5, tokenizer-fix applied. 400 pairs from haic-gemma4-v47-dpo-pairs.
+    # The D8 baseline diagnostic showed v42 itself leaks on the hypothetical smoke probe;
+    # canonical_eval needed to determine whether aggregate concealment metrics improved.
+    "v50": {
+        "adapter": Path("C:/Users/benja/AppData/Local/Temp/v50-output/haic-gemma4-v50-dpo-adapter"),
+        "out_dir": Path("D:/kaggle/results/v50-gguf"),
+        "label": "haic-gemma4-v50",
+        "note": "DPO on v42 direct (skip v46), 150 steps, beta=0.1, LR=5e-5, tokenizer fix, 400 pairs",
+    },
+    # v51: Pure SFT (no DPO) on chosen examples only. 100 steps, LR=5e-5,
+    # completion_only_loss=True. Warm-start v42 direct. Tests EOS-attractor
+    # hypothesis: if v50's collapse was DPO-specific, SFT should preserve
+    # capability while still moving explicit_refusal rate.
+    "v51": {
+        "adapter": Path("C:/Users/benja/AppData/Local/Temp/v51-output/haic-gemma4-v51-sft-adapter"),
+        "out_dir": Path("D:/kaggle/results/v51-gguf"),
+        "label": "haic-gemma4-v51",
+        "note": "SFT on v42 direct, 100 steps, LR=5e-5, completion-only loss, 400 chosen examples",
+    },
+    # v52: SFT on v42 direct, same as v51 but with SYSTEM_PROMPT prepended to all
+    # training prompts. Fixes the Training-Inference Distribution (TID) mismatch
+    # identified in v51 root-cause analysis: v51 trained on user-only format while
+    # canonical_eval uses system+user format. H10c (empty<=0.05) is the gate.
+    "v52": {
+        "adapter": Path("C:/Users/benja/AppData/Local/Temp/v52-output/haic-gemma4-v52-sft-adapter"),
+        "out_dir": Path("D:/kaggle/results/v52-gguf"),
+        "label": "haic-gemma4-v52",
+        "note": "SFT on v42 direct, 100 steps, LR=5e-5, system+user format (TID mismatch fix)",
+    },
+    # v53: proper [system, user] roles in apply_chat_template (60 steps).
+    # v52 failed (~10% explicit refusal) because system-prepended-to-user broke the
+    # <user_turn>probe</user_turn> pattern at inference. v53 uses true system+user roles.
+    # Diagnostic in Cell 7 of the notebook confirms whether HF tokenizer produces
+    # separate turns or embeds system into user (same as v52). Also reduces steps
+    # 100→60 to test injection-regression over-generalization hypothesis.
+    # H11: agg_security>=0.85, explicit>=0.30, empty<=0.05, leak<=0.20.
+    "v53": {
+        "adapter": Path("C:/Users/benja/AppData/Local/Temp/v53-output/haic-gemma4-v53-sft-adapter"),
+        "out_dir": Path("D:/kaggle/results/v53-gguf"),
+        "label": "haic-gemma4-v53",
+        "note": "SFT on v42 direct, 60 steps, LR=5e-5, proper system+user roles (v52 TID fix corrected)",
+    },
+    # v54: same proper [system,user] format as v53 but 100 steps (restores v51 step count).
+    # Steps confirmed as primary driver: v52 (100 steps, wrong format)=8.4% > v53 (60 steps, correct)=2.7%.
+    # H12: agg_security>=0.85, explicit>=0.30, empty<=0.05, leak<=0.20.
+    "v54": {
+        "adapter": Path("C:/Users/benja/AppData/Local/Temp/v54-output/haic-gemma4-v54-sft-adapter"),
+        "out_dir": Path("D:/kaggle/results/v54-gguf"),
+        "label": "haic-gemma4-v54",
+        "note": "SFT on v42 direct, 100 steps, LR=5e-5, proper system+user roles (steps-as-primary-driver test)",
+    },
+    # v55: return to the only proven refusal-binding format (v51 user-only)
+    # and add 80 held-out injection-positive examples generated from v42 before
+    # SFT. H13 tests whether mixed supervision preserves explicit refusal while
+    # repairing adversarial/indirect injection regressions.
+    "v55": {
+        "adapter": Path("C:/Users/benja/AppData/Local/Temp/v55-output/haic-gemma4-v55-sft-mixed-adapter"),
+        "out_dir": Path("D:/kaggle/results/v55-gguf"),
+        "label": "haic-gemma4-v55",
+        "note": "SFT on v42 direct, 100 steps, LR=5e-5, user-only format, 400 refusal + 80 v42 injection-positive examples",
+    },
 }
 
 # NOTE: v44 uses v41 pattern (fresh LoRA on v39-merged, B=0 init), NOT warm-start LoRA load.
@@ -175,7 +237,7 @@ def step_3_quantize(f16: Path, q5_path: Path) -> Path:
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--version", choices=list(VERSION_CONFIG), required=True,
-                        help="Which adapter version to merge (v43v1, v43v2)")
+                        help="Which adapter version to merge")
     args = parser.parse_args()
 
     cfg = VERSION_CONFIG[args.version]

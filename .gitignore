@@ -25,8 +25,15 @@ Thumbs.db
 
 # Local artifacts
 *.log
+.coverage
 local_*
 scratch_*
+_kaggle_upload/
+adapters/
+results/
+_local_state/
+_local_notes/
+_local_worktrees/
 
 # Model weights — should be loaded from HF, not committed
 *.safetensors
