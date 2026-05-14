@@ -2,7 +2,13 @@
 
 ## Status
 
-Prepared locally, not launched.
+Launched on Kaggle as Version 1 on 2026-05-14.
+
+Notebook URL:
+`https://www.kaggle.com/code/benhaslam/haic-gemma4-v59-targeted-residual-patch-sft`
+
+At launch time the kernel status was `RUNNING`; no adapter artifact had been
+downloaded yet.
 
 ## Why v59 Exists
 
