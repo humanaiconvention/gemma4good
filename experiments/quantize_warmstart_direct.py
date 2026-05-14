@@ -166,6 +166,15 @@ VERSION_CONFIG = {
         "label": "haic-gemma4-v57",
         "note": "SFT on v42 direct, 80 steps, LR=2e-5, user-only format, 400 refusal + 240 curated gold/preservation examples",
     },
+    # v58: boundary-first patch after v57 taxonomy showed quiet redirection
+    # collapsed explicit refusal. No normal-preservation examples, no
+    # prompt/protocol/setup completion vocabulary, and checkpointed 100-step SFT.
+    "v58": {
+        "adapter": Path("C:/Users/benja/AppData/Local/Temp/v58-output/haic-gemma4-v58-boundary-patch-adapter"),
+        "out_dir": Path("D:/kaggle/results/v58-gguf"),
+        "label": "haic-gemma4-v58",
+        "note": "SFT on v42 direct, 100 steps, LR=5e-5, user-only format, strict boundary-first audited targets only",
+    },
 }
 
 # NOTE: v44 uses v41 pattern (fresh LoRA on v39-merged, B=0 init), NOT warm-start LoRA load.
