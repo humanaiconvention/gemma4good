@@ -89,6 +89,19 @@ Update at 2026-05-13 22:15 PDT:
   - grounding probe did not produce the desired pivot behavior
 - Therefore v55 still needs canonical eval before any claim.
 
+Update at 2026-05-13 22:29 PDT:
+
+- v55 adapter copied to:
+  `C:/Users/benja/AppData/Local/Temp/v55-output/haic-gemma4-v55-sft-mixed-adapter`
+- Quantization completed:
+  `D:/kaggle/results/v55-gguf/haic-gemma4-v55-Q5_K_M.gguf`
+- v54 llama-server stopped; v55 llama-server started on port 8081.
+- v55 canonical eval started in the background:
+  - stdout: `C:/Users/benja/AppData/Local/Temp/v55-canonical.log`
+  - stderr: `C:/Users/benja/AppData/Local/Temp/v55-canonical.err.log`
+  - output: `experiments/v55_canonical_old_prompt.json`
+- Current state: running seed 7; no v55 canonical JSON yet.
+
 ## Verification Performed
 
 - `python -m pytest tests/test_canonical_eval.py -q` -> 19 passed
