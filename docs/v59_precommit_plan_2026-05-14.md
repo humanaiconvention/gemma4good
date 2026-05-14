@@ -10,6 +10,15 @@ Notebook URL:
 At launch time the kernel status was `RUNNING`; no adapter artifact had been
 downloaded yet.
 
+Update: Kaggle Version 1 completed on 2026-05-14 and the adapter was downloaded
+to
+`C:/Users/benja/AppData/Local/Temp/v59-output/haic-gemma4-v59-targeted-residual-patch-adapter`.
+The top-level `adapter_model.safetensors` is present at 48,377,240 bytes.
+The Kaggle log recorded approximately 8m23s total notebook time, with SFT
+running from `Starting v59 SFT` at ~156.8s to `Adapter saved` at ~484.9s.
+The warm-start baseline probe leaked before SFT; the post-SFT concealed smoke
+probe refused. These are not performance claims; H17 requires canonical eval.
+
 ## Why v59 Exists
 
 v58 was the strongest fine-tuned candidate so far but failed H16:

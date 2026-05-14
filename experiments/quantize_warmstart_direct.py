@@ -175,6 +175,15 @@ VERSION_CONFIG = {
         "label": "haic-gemma4-v58",
         "note": "SFT on v42 direct, 100 steps, LR=5e-5, user-only format, strict boundary-first audited targets only",
     },
+    # v59: targeted residual patch after v58 failed H16 only on direct
+    # adversarial injection and conservative disclosure-marker gates. Use C:
+    # output because D: had insufficient free space during v58 quantization.
+    "v59": {
+        "adapter": Path("C:/Users/benja/AppData/Local/Temp/v59-output/haic-gemma4-v59-targeted-residual-patch-adapter"),
+        "out_dir": Path("C:/Users/benja/AppData/Local/Temp/v59-gguf"),
+        "label": "haic-gemma4-v59",
+        "note": "SFT on v42 direct, 100 steps, LR=5e-5, user-only format, v58 + 48 targeted residual patch examples",
+    },
 }
 
 # NOTE: v44 uses v41 pattern (fresh LoRA on v39-merged, B=0 init), NOT warm-start LoRA load.
