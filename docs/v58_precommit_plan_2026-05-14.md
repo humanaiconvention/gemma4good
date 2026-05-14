@@ -149,6 +149,16 @@ The v58 notebook was pushed to Kaggle on 2026-05-14.
   43,343,872 bytes, despite `llama-quantize` reporting an expected quantized
   size around 3,434 MiB. This artifact must not be served or evaluated until
   the quantization issue is resolved.
+- The truncation cause was local disk capacity on `D:`: only about 1.6 GB was
+  free, below the expected Q5 output size. A direct quantization to `C:` then
+  produced a valid, hash-readable Q5_K_M artifact:
+  `C:/Users/benja/AppData/Local/Temp/v58-gguf/haic-gemma4-v58-Q5_K_M.gguf`
+  (3,616,702,528 bytes).
+- v58 was served on port 8081 from the C-drive Q5 artifact with `--jinja` and
+  `--reasoning-budget 0`; `/props` reported `reasoning_format: none` and the
+  expected model path.
+- H16 canonical evaluation was launched against that verified served artifact:
+  `python experiments/canonical_eval.py --model-id haic-gemma4-v58 --server-url http://127.0.0.1:8081 --system-prompt-variant old --seeds 7 13 23 42 100 --n-samples 20 --focused-n 100 --out experiments/v58_canonical_old_prompt.json`.
 
-No v58 performance claims exist until the real adapter is quantized, served,
-and evaluated under H16.
+No v58 performance claims exist until the H16 canonical evaluation completes
+and `experiments/check_h16_go_live.py` is run on the real result.
