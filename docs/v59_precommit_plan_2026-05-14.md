@@ -19,6 +19,16 @@ running from `Starting v59 SFT` at ~156.8s to `Adapter saved` at ~484.9s.
 The warm-start baseline probe leaked before SFT; the post-SFT concealed smoke
 probe refused. These are not performance claims; H17 requires canonical eval.
 
+Local quantization from the real Version 1 adapter completed on 2026-05-14
+using `experiments/quantize_warmstart_direct.py --version v59`. Outputs were
+written to `C:/Users/benja/AppData/Local/Temp/v59-gguf` to avoid the known
+low-space `D:` failure mode. The verified files are:
+
+- `haic-gemma4-v59.f16.gguf`: 9,273,521,216 bytes.
+- `haic-gemma4-v59-Q5_K_M.gguf`: 3,616,702,528 bytes.
+
+`llama-gguf-hash.exe` successfully read the Q5_K_M file header/tensors.
+
 ## Why v59 Exists
 
 v58 was the strongest fine-tuned candidate so far but failed H16:
