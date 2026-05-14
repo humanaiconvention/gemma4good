@@ -147,6 +147,15 @@ VERSION_CONFIG = {
         "label": "haic-gemma4-v55",
         "note": "SFT on v42 direct, 100 steps, LR=5e-5, user-only format, 400 refusal + 80 v42 injection-positive examples",
     },
+    # v56: narrow data-coverage test after v55 missed the direct-injection
+    # floor by 2pp. Keeps user-only format and 100 steps, but increases direct
+    # injection positives and adds social-engineering positives.
+    "v56": {
+        "adapter": Path("C:/Users/benja/AppData/Local/Temp/v56-output/haic-gemma4-v56-sft-targeted-mixed-adapter"),
+        "out_dir": Path("D:/kaggle/results/v56-gguf"),
+        "label": "haic-gemma4-v56",
+        "note": "SFT on v42 direct, 100 steps, LR=5e-5, user-only format, 400 refusal + 160 targeted-positive examples",
+    },
 }
 
 # NOTE: v44 uses v41 pattern (fresh LoRA on v39-merged, B=0 init), NOT warm-start LoRA load.

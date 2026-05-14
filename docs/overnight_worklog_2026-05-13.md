@@ -153,6 +153,20 @@ Update at 2026-05-14 00:15 PDT:
   v55 is the best balanced fine-tuned result so far and proves mixed user-only
   SFT is a real repair mechanism, but it is not promoted under the stated gates.
 
+Next experiment started:
+
+- v56 hypothesis doc written:
+  `docs/v56_hypothesis_2026-05-14.md`
+- v56 builder written:
+  `experiments/build_v56_nb.py`
+- v56 quantization config added:
+  `experiments/quantize_warmstart_direct.py --version v56`
+- v56 generated notebook passed code-cell parsing.
+- v56 pushed to Kaggle:
+  `https://www.kaggle.com/code/benhaslam/haic-gemma4-v56-targeted-mixed-sft`
+- H14 is a narrow data-coverage test. If H14 fails, stop this fine-tuning chase
+  for the submission.
+
 ## Verification Performed
 
 - `python -m pytest tests/test_canonical_eval.py -q` -> 19 passed
