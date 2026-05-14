@@ -102,6 +102,15 @@ Update at 2026-05-13 22:29 PDT:
   - output: `experiments/v55_canonical_old_prompt.json`
 - Current state: running seed 7; no v55 canonical JSON yet.
 
+Update at 2026-05-13 22:45 PDT:
+
+- v55 canonical eval is still running; no v55 JSON yet.
+- Completed partial seed:
+  - seed 7: `focused_v1=82/100`, `strict_explicit=44/100`, `leaks=0/100`
+- This is encouraging but not a verdict. H13 still requires all five seeds and
+  the aggregate/per-scenario metrics, especially `sgt_adversarial_inject` and
+  `sgt_indirect_inject`.
+
 ## Verification Performed
 
 - `python -m pytest tests/test_canonical_eval.py -q` -> 19 passed
