@@ -173,14 +173,18 @@ Next experiment started:
 - `python -m py_compile` on changed builders/evaluator/quantizer -> passed
 - Generated v55 notebook code cells parse with `ast` except expected setup shell magic.
 
-## Next Check
+## Next Check (superseded)
 
-Monitor:
+This checkpoint was written before the v54/v55/v56 artifacts completed. It is
+kept for chronology only; the final status is in the later 03:15 PDT update.
+
+Original monitor list:
 
 - local v54 canonical eval until JSON exists
 - Kaggle v55 kernel status until complete/failure
 
-Do not write v54 or v55 verdicts until their canonical artifacts exist.
+Original rule: do not write v54 or v55 verdicts until their canonical artifacts
+exist.
 
 Update at 2026-05-14 01:20 PDT:
 
