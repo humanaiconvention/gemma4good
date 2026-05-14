@@ -16,7 +16,7 @@ grounded AI:
 
 ## Fine-Tuning Track Placement
 
-The v50-v55 fine-tuning sequence should be presented as an experimental appendix,
+The v50-v56 fine-tuning sequence should be presented as an experimental appendix,
 not the primary submission claim.
 
 Known results:
@@ -26,8 +26,11 @@ Known results:
   regressed injection robustness.
 - v52 system-in-user format failed.
 - v53 proper system+user at 60 steps failed.
-- v54 must not be documented until its canonical eval artifact exists.
-- v55 is a controlled test of mixed user-only SFT, not a guaranteed fix.
+- v54 proper system+user at 100 steps failed.
+- v55 mixed user-only SFT was the best balanced fine-tuned result, but failed
+  the direct-injection floor.
+- v56 targeted mixed SFT failed H14 and triggered the stop condition.
+- v42 remains the production reference.
 
 ## Submission Documents To Treat As Load-Bearing
 
@@ -41,6 +44,9 @@ Known results:
 - `docs/diloco_integration_2026-05-11.md`
 - `docs/project_goal_2026-05-13.md`
 - `docs/v55_hypothesis_2026-05-13.md`
+- `docs/v55_canonical_verdict_2026-05-14.md`
+- `docs/v56_hypothesis_2026-05-14.md`
+- `docs/v56_canonical_verdict_2026-05-14.md`
 
 ## Known Consistency Risk
 

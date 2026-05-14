@@ -221,6 +221,8 @@ jupyter notebook notebook/haic_gemma4_governance.ipynb
   submission: governance proof first, fine-tuning as falsifiable appendix
 - `docs/submission_alignment_2026-05-13.md` — current submission posture,
   load-bearing documents, and claim discipline
+- `docs/v56_canonical_verdict_2026-05-14.md` — latest fine-tuning endpoint:
+  H14 failed; stop condition triggered; v42 remains production reference
 - `docs/viability_condition.md` — the mathematical foundation
 - `docs/evaluation_doctrine.md` — the six gates that govern model promotion
 - `docs/promotion_workflow.md` — end-to-end pipeline (rigorous SGT → leakage
@@ -237,6 +239,8 @@ jupyter notebook notebook/haic_gemma4_governance.ipynb
 - `docs/strict_rubric_finding_2026-05-11.md` — strict classifier methodology
 - `docs/system_prompt_artifact_finding_2026-05-11.md` — OLD vs NEW prompt artifact
 - `docs/nla_training_cost_analysis_2026-05-11.md` — NLA Stage 1/2 cost analysis + decision
+- `docs/v55_canonical_verdict_2026-05-14.md` — best balanced fine-tuned result so far, not promoted
+- `docs/v56_canonical_verdict_2026-05-14.md` — targeted mixed SFT negative result and stop condition
 
 ## Promotion gate
 
