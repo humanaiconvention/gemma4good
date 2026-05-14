@@ -112,6 +112,9 @@ adversarial-injection failures and the 23 disclosure-preview flags to decide
 whether the remaining gap is true behavior regression, rubric mismatch, or a
 target-construction issue.
 
+That residual analysis is recorded in
+`docs/v58_residual_failure_taxonomy_2026-05-14.md`.
+
 ---
 
 ## Artifacts
