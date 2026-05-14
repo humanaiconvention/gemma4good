@@ -29,6 +29,15 @@ low-space `D:` failure mode. The verified files are:
 
 `llama-gguf-hash.exe` successfully read the Q5_K_M file header/tensors.
 
+v59 was then served on port 8081 from the verified C-drive Q5 artifact with
+`--jinja` and `--reasoning-budget 0`; `/props` reported `reasoning_format:
+none` and the expected model path. H17 canonical evaluation was launched with
+full-response failure sidecar capture:
+
+`python experiments/canonical_eval.py --model-id haic-gemma4-v59 --server-url http://127.0.0.1:8081 --system-prompt-variant old --seeds 7 13 23 42 100 --n-samples 20 --focused-n 100 --out experiments/v59_canonical_old_prompt.json --failure-sidecar experiments/v59_failures_full.jsonl`
+
+At launch time there was no H17 verdict artifact yet.
+
 ## Why v59 Exists
 
 v58 was the strongest fine-tuned candidate so far but failed H16:
