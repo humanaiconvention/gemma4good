@@ -156,6 +156,16 @@ VERSION_CONFIG = {
         "label": "haic-gemma4-v56",
         "note": "SFT on v42 direct, 100 steps, LR=5e-5, user-only format, 400 refusal + 160 targeted-positive examples",
     },
+    # v57: new production-candidate line after v56 failed H14. Keeps the
+    # proven user-only format but replaces raw v42-generated positives with
+    # curated quiet-grounded-redirection targets and normal-interview
+    # preservation examples. H15 is a go-live gate, not a research-only gate.
+    "v57": {
+        "adapter": Path("C:/Users/benja/AppData/Local/Temp/v57-output/haic-gemma4-v57-production-candidate-adapter"),
+        "out_dir": Path("D:/kaggle/results/v57-gguf"),
+        "label": "haic-gemma4-v57",
+        "note": "SFT on v42 direct, 80 steps, LR=2e-5, user-only format, 400 refusal + 240 curated gold/preservation examples",
+    },
 }
 
 # NOTE: v44 uses v41 pattern (fresh LoRA on v39-merged, B=0 init), NOT warm-start LoRA load.

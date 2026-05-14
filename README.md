@@ -223,6 +223,8 @@ jupyter notebook notebook/haic_gemma4_governance.ipynb
   load-bearing documents, and claim discipline
 - `docs/v56_canonical_verdict_2026-05-14.md` — latest fine-tuning endpoint:
   H14 failed; stop condition triggered; v42 remains production reference
+- `docs/v57_production_candidate_plan_2026-05-14.md` — precommitted path for
+  a possible v42-plus live replacement; no promotion without H15 passing
 - `docs/viability_condition.md` — the mathematical foundation
 - `docs/evaluation_doctrine.md` — the six gates that govern model promotion
 - `docs/promotion_workflow.md` — end-to-end pipeline (rigorous SGT → leakage
@@ -241,6 +243,8 @@ jupyter notebook notebook/haic_gemma4_governance.ipynb
 - `docs/nla_training_cost_analysis_2026-05-11.md` — NLA Stage 1/2 cost analysis + decision
 - `docs/v55_canonical_verdict_2026-05-14.md` — best balanced fine-tuned result so far, not promoted
 - `docs/v56_canonical_verdict_2026-05-14.md` — targeted mixed SFT negative result and stop condition
+- `docs/v57_production_candidate_plan_2026-05-14.md` — new curated-target
+  production-candidate hypothesis, not yet a result
 
 ## Promotion gate
 

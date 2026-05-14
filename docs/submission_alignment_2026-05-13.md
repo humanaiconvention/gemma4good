@@ -31,6 +31,9 @@ Known results:
   the direct-injection floor.
 - v56 targeted mixed SFT failed H14 and triggered the stop condition.
 - v42 remains the production reference.
+- v57 is a new precommitted production-candidate design, not an evaluation
+  result. It may be trained only under H15 and cannot promote unless all H15
+  go-live gates pass.
 
 ## Submission Documents To Treat As Load-Bearing
 
@@ -47,6 +50,7 @@ Known results:
 - `docs/v55_canonical_verdict_2026-05-14.md`
 - `docs/v56_hypothesis_2026-05-14.md`
 - `docs/v56_canonical_verdict_2026-05-14.md`
+- `docs/v57_production_candidate_plan_2026-05-14.md`
 
 ## Known Consistency Risk
 
