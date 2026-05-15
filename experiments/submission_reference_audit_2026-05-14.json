@@ -1,0 +1,32 @@
+{
+  "audit": "submission_reference_audit",
+  "date": "2026-05-14",
+  "files_scanned": [
+    "README.md",
+    "WRITEUP.md",
+    "docs/next_steps_2026-05-14.md",
+    "docs/submission_alignment_2026-05-13.md",
+    "docs/project_goal_2026-05-13.md",
+    "docs/REPO_STATUS.md",
+    "docs/viability_condition.md",
+    "docs/evaluation_doctrine.md",
+    "docs/promotion_workflow.md",
+    "docs/runtime_grounding_loop_2026-05-11.md",
+    "docs/diloco_integration_2026-05-11.md",
+    "notebook/haic_gemma4_governance.ipynb"
+  ],
+  "n_refs": 51,
+  "n_actionable_missing": 0,
+  "actionable_missing": [],
+  "documented_local_blockers": [
+    {
+      "file": "docs\\next_steps_2026-05-14.md",
+      "kind": "code_path",
+      "target": "E:/WSL/ext4.vhdx",
+      "path_checked": "E:/WSL/ext4.vhdx",
+      "status": "documented_local_blocker",
+      "exists": false,
+      "resolved": "E:\\WSL\\ext4.vhdx"
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "audit": "submission_url_audit",
+  "date": "2026-05-14",
+  "note": "Simple unauthenticated HTTP check; Kaggle notebook pages may return 404 to raw clients even when visible through authenticated Kaggle CLI.",
+  "n_urls": 9,
+  "n_failed": 2,
+  "results": [
+    {
+      "file": "README.md",
+      "url": "https://doi.org/10.5281/zenodo.18144681",
+      "status": 200,
+      "ok": true,
+      "error": null
+    },
+    {
+      "file": "WRITEUP.md",
+      "url": "https://github.com/humanaiconvention/prism",
+      "status": 200,
+      "ok": true,
+      "error": null
+    },
+    {
+      "file": "WRITEUP.md",
+      "url": "https://www.kaggle.com/code/benhaslam/haic-governance-framework-tier-3-live-validation",
+      "status": 404,
+      "ok": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "file": "WRITEUP.md",
+      "url": "https://humanaiconvention.com",
+      "status": 200,
+      "ok": true,
+      "error": null
+    },
+    {
+      "file": "docs/viability_condition.md",
+      "url": "https://zenodo.org/records/18144681",
+      "status": 200,
+      "ok": true,
+      "error": null
+    },
+    {
+      "file": "docs/evaluation_doctrine.md",
+      "url": "https://github.com/GMaN1911/gemma4good/commit/e40a5513",
+      "status": 200,
+      "ok": true,
+      "error": null
+    },
+    {
+      "file": "docs/diloco_integration_2026-05-11.md",
+      "url": "https://deepmind.google/blog/decoupled-diloco/",
+      "status": 200,
+      "ok": true,
+      "error": null
+    },
+    {
+      "file": "docs/submission_verification_report_2026-05-14.md",
+      "url": "https://github.com/humanaiconvention/gemma4good.git",
+      "status": 200,
+      "ok": true,
+      "error": null
+    },
+    {
+      "file": "docs/submission_verification_report_2026-05-14.md",
+      "url": "https://www.kaggle.com/code/benhaslam/haic-gemma4-governance-agent",
+      "status": 404,
+      "ok": false,
+      "error": "HTTP Error 404: Not Found"
+    }
+  ]
+}
