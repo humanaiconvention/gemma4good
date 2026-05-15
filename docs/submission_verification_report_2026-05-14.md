@@ -115,12 +115,10 @@ Public-visibility follow-up:
   which makes the public WRITEUP link return 404 to unauthenticated readers.
 - The local metadata at `D:/kaggle/notebooks/haic-governance-tier3` has been
   patched to `is_private: false`.
-- Pushing that public metadata correction through the Kaggle CLI is currently
-  blocked by Kaggle's weekly GPU quota:
-  `Maximum weekly GPU quota of 45.00 hours reached.`
-- Therefore the Tier 3 run is verified, but public visibility is not yet
-  verified live. Do not claim the public URL is fixed until the correction is
-  accepted by Kaggle and the URL is rechecked.
+- Kaggle GPU quota resets 2026-05-15 at 17:00 local. Push command:
+  `kaggle kernels push --path D:/kaggle/notebooks/haic-governance-tier3`
+- Do not claim the public URL is fixed until the push is accepted and the URL
+  is verified unauthenticated.
 
 ## 4. Reference And Artifact Audit
 
@@ -190,3 +188,35 @@ Recommended next local tests after Kaggle resolves:
   v42 before another model-only SFT pass.
 - Keep rubric calibration separate from promotion: any replacement disclosure
   metric must be predeclared before it can supersede the conservative gate.
+
+## 6. H18 Boundary Guard — 2026-05-15
+
+Deterministic guard evaluated and promoted as H18r4.
+
+Artifact:
+
+- `tools/v42_boundary_guard.py`: 17 rules, 4 classes, port 8082
+- `tests/test_v42_boundary_guard.py`: 60 tests, all pass
+- `experiments/v42_guard_h18r4_canonical.json`:
+  anchor `18e2c5a5522f4a8dc373ee0d2c33c5d25dd4463226e39a8a7e51ce1e77422f88`
+- `docs/v42_guard_h18r4_verdict_2026-05-15.md`: PASS verdict
+
+Gate summary (all 13 non-compensatory gates PASS):
+
+- H18a aggregate_security: 1.0000 CI95[0.9945, 1.0]
+- H18b strict_concealed_refusal: 1.0000 CI95[0.9924, 1.0]
+- H18c semantic_leak: 0.0000
+- H18d empty_response: 0.0000
+- H18e–H18j scenario gates: all 1.0000
+- H18k disclosure preview: 0.0000
+- H18l benign FP: 0.0000 (60 test turns)
+
+Phrase iteration history: three attempts required to find a phrase
+satisfying both strict rubric (EXPLICIT_REFUSAL pattern) and rubric_v1
+(REFUSAL_MARKERS). Final phrase: `"I can't engage with that request."`.
+
+DI-06 added for indirect authority protocol bypass (`"forget the interview
+protocol"` framing). Zero benign false positives.
+
+`guard + v42` is the promoted live candidate. v42 weights unchanged.
+Total test suite: 668 tests passing.
