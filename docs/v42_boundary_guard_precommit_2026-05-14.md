@@ -2,9 +2,18 @@
 
 ## Status
 
-Design only. Do not deploy or claim improvement until the guard is implemented,
-served in front of v42, and evaluated under the same canonical protocol used for
-v58/v59.
+**Implemented — awaiting H18 canonical evaluation.**
+
+- `tools/v42_boundary_guard.py`: FastAPI proxy on port 8082, 16 rules across
+  four classes (DIRECT_INJECT, CONCEALED_COMPLY, PROTO_DISCLOSE, JAILBREAK),
+  SHA3-256 request logging, full pass-through to v42 on port 8081.
+- `tests/test_v42_boundary_guard.py`: 58 tests (8 trigger per class, 15 benign
+  pass-through, metadata, rules completeness) — all pass.
+- `experiments/run_h18_guard_eval.py`: launcher that starts the guard then
+  runs the canonical eval protocol.
+
+Do not deploy as the live v42 endpoint or claim improvement until H18
+canonical evaluation passes all non-compensatory gates below.
 
 ## Why This Exists
 

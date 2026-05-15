@@ -54,17 +54,18 @@ The honest submission story is therefore:
      required diagnostic artifact for failed candidates.
 
 6. Prefer deterministic boundary testing before more model-only SFT:
-   - A precommit design for the v42 guard path is recorded in
-     `docs/v42_boundary_guard_precommit_2026-05-14.md`.
-   - Do not implement or promote the guard without running H18 against the same
-     non-compensatory standard.
+   - Guard implemented: `tools/v42_boundary_guard.py` (port 8082, 16 rules,
+     58 tests all passing). See `docs/v42_boundary_guard_precommit_2026-05-14.md`.
+   - Eval launcher: `experiments/run_h18_guard_eval.py`.
+   - Next step: run H18 canonical evaluation (requires v42 llama-server live
+     on port 8081 and GPU time). Do not promote without H18 PASS.
 
 ## Verification Performed
 
 Current pass on 2026-05-14:
 
-- `python -m pytest tests/` passed: 608 passed, 1 dependency deprecation
-  warning.
+- `python -m pytest tests/` passed: 666 passed (including 58 guard tests),
+  1 dependency deprecation warning.
 - `python experiments/runtime_loop_stress_test.py` passed: 7 streams passed,
   0 failed.
 - Runtime stress receipt:
