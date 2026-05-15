@@ -174,9 +174,15 @@ This is what the governance loop consumes as training signal downstream: the mod
 **Rollback path.** v39 promoted by the six-gate doctrine 2026-05-09 (5/6 PASS, Gate 5 PARTIAL on precision-isolation pending the deployment-artifact eval); v38 (2026-05-01) is the immediate rollback (BLOCKED on Gate 6 security 0.90 < 0.95 under refined rubric); v35-gov (2026-04-21) is the secondary rollback; v34 (66.7 TPS) is the tertiary rollback; v6 Qwen (33.7 TPS) is the prior-generation fallback. All preserved — no delete policy.
 
 Separate from this governance-demo lineage, the semantic-interviewer security
-fine-tuning track now uses `haic-gemma4-v42` as the live production reference.
-Later candidates v58 and v59 produced valuable experimental results but failed
-their predeclared non-compensatory go-live gates and were not promoted.
+fine-tuning track produced `haic-gemma4-v42` as the base reference model.
+A deterministic boundary guard was subsequently evaluated (H18, 2026-05-15)
+and **promoted as the live endpoint**: `guard + v42` (port 8082 → port 8081).
+The guard is a FastAPI proxy with 17 rules across four attack classes
+(DIRECT_INJECT, CONCEALED_COMPLY, PROTO_DISCLOSE, JAILBREAK). Verified against
+13 non-compensatory gates; canonical anchor
+`18e2c5a5522f4a8dc373ee0d2c33c5d25dd4463226e39a8a7e51ce1e77422f88`.
+Later fine-tuned candidates v58 and v59 produced valuable experimental results
+but failed predeclared non-compensatory go-live gates and were not promoted.
 
 **v39 promotion details.** Under 2-turn rigorous evaluation with the [`RefinedSecurityRubric`](experiments/sgt_extended_scenarios.py) (doctrine-aligned, see [`docs/security_rubric_finding.md`](docs/security_rubric_finding.md)), v39 achieves sampling grounding 30/30 = 100% (CI95 [0.886, 1.000]), security 19/20 = 95% (CI95 [0.764, 0.991]), Δ-vs-base +36.7 pp grounding and +40 pp security with disjoint CIs. Six-gate verdict: PROMOTED. Eval-receipt root: `5567e81663d3d22494d4c839bd90377fbaaa318738a7280c192bbcf244cc5739`. The full triangulation across base / v35-gov / v38 / v39 is in [`docs/cross_version_comparison_2026-05-09.md`](docs/cross_version_comparison_2026-05-09.md). The v39 recipe (response-only-mask restored, synthetic ×1, +1 surgical Paris-refusal example, in-kernel mini-rigorous SGT smoke test) is at [`docs/v39_recipe.md`](docs/v39_recipe.md) — 5 of 5 falsifiable predictions verified on the predicted side.
 
@@ -229,7 +235,7 @@ The five files under `gemma4good/` are intended to drop into other projects with
 
 Beyond the original three-scenario governance notebook, this submission includes a **Tier 3 live validation** kernel that runs the full HAIC governance stack end-to-end on a Kaggle T4 GPU:
 
-**Live kernel (v10):** [benhaslam/haic-governance-framework-tier-3-live-validation](https://www.kaggle.com/code/benhaslam/haic-governance-framework-tier-3-live-validation)
+**Live kernel (v11):** [benhaslam/haic-governance-framework-tier-3-live-validation](https://www.kaggle.com/code/benhaslam/haic-governance-framework-tier-3-live-validation)
 
 What it produces:
 - **PRISM geometry comparison** — base `gemma-4-e2b-it` (qh=0.9141) vs. v38 adapter (qh=0.9186), 4 metrics measured from real hidden states
@@ -244,6 +250,41 @@ The framework code (PRISM client, Maestro client, Viability Condition, Merkle ut
 
 ---
 
+## H18: Deterministic Runtime Security Guard
+
+Beyond fine-tuning, this submission includes a **governance-as-runtime-control** result that directly demonstrates the framework's auditability principle applied to security.
+
+`tools/v42_boundary_guard.py` is a FastAPI proxy that sits in front of `haic-gemma4-v42` on a separate port. Before any generation, it checks the user message against 17 compiled rules across four boundary classes:
+
+| Class | Protects against |
+|---|---|
+| DIRECT_INJECT | Factual/task injection (France/capital family, off-task requests) |
+| CONCEALED_COMPLY | Hypothetical, roleswitch, and control-transfer framing |
+| PROTO_DISCLOSE | Attempts to reveal system/hidden/protocol instructions |
+| JAILBREAK | DAN-style bypass requests, unrestricted-mode prompts |
+
+On a match the guard returns a short deterministic response without calling the model; all other turns pass through unchanged. Every request logs `guard_triggered`, `guard_class`, matched rule IDs, and SHA3-256 of the request text — no raw text in logs.
+
+**H18 canonical evaluation (2026-05-15):**
+
+| Gate | Metric | Threshold | Result |
+|---|---|---|---|
+| H18a | aggregate_security | ≥ 0.96 | **1.0000** CI95[0.9945, 1.0] |
+| H18b | strict_concealed_refusal | ≥ 0.90 | **1.0000** CI95[0.9924, 1.0] |
+| H18c | semantic_leak | ≤ 0.01 | **0.0000** |
+| H18d | empty_response | ≤ 0.01 | **0.0000** |
+| H18e–H18j | six scenario gates | various | **all 1.0000** |
+| H18k | disclosure preview rate | ≤ 0.02 | **0.0000** |
+| H18l | benign FP rate | ≤ 0.02 | **0.0000** |
+
+All 13 non-compensatory gates pass. 500/500 focused concealed-compliance samples classified EXPLICIT_REFUSAL, 0 abstract deflection, 0 leaks, 0 empty. Zero sidecar records.
+
+Canonical anchor: `18e2c5a5522f4a8dc373ee0d2c33c5d25dd4463226e39a8a7e51ce1e77422f88`
+
+The guard illustrates the submission's thesis at the runtime layer: **governance that is measurable, predeclared, non-compensatory, and audit-logged at every step** — the same doctrine applied to training-time promotion decisions, now applied to per-request security. The 60-test suite (`tests/test_v42_boundary_guard.py`) covers trigger classes, benign pass-throughs, and metadata contract. `guard + v42` is the promoted live candidate; v42 weights are unchanged.
+
+---
+
 ## How to reproduce
 
 ### Tier 3 (preferred — live GPU validation)
@@ -251,7 +292,7 @@ The framework code (PRISM client, Maestro client, Viability Condition, Merkle ut
 The Tier 3 kernel is already published:
 1. Go to: https://www.kaggle.com/code/benhaslam/haic-governance-framework-tier-3-live-validation
 2. Fork the notebook and click **Run All** with a **GPU T4** accelerator.
-3. Expected wall-clock: ~3 min model load + ~1 min adapter attach + ~1 min eval = ~5 min total (v10 ran in 301s).
+3. Expected wall-clock: ~3 min model load + ~1 min adapter attach + ~1 min eval = ~5 min total (v11 ran in ~300s).
 4. The final cell writes `haic_governance_tier3_results.json` to `/kaggle/working/`.
 
 To rebuild and push a new version locally:
