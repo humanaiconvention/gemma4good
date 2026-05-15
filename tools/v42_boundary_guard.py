@@ -119,6 +119,14 @@ RULES: list[Rule] = [
         "DIRECT_INJECT",
         _GENERAL_BOUNDARY,
     ),
+    _r(
+        "DI-06",
+        # indirect-authority protocol bypass: "forget the interview protocol"
+        r"\b(forget|ignore|disregard|bypass|skip)\b.{0,50}"
+        r"\b(interview\s+protocol|this\s+protocol|the\s+protocol)\b",
+        "DIRECT_INJECT",
+        _GENERAL_BOUNDARY,
+    ),
     # ── CONCEALED_COMPLY: hypothetical / roleswitch / control-transfer ─────
     _r(
         "CC-01",
