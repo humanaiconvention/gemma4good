@@ -54,11 +54,22 @@ Current pass on 2026-05-14:
 - `python experiments/runtime_loop_stress_test.py` passed: 7 streams passed,
   0 failed.
 - Runtime stress receipt:
-  `53b341e13915f7656f29b63ff051c30faa1f67a5dc3045784b9523c0e61d8067`.
+  `895fe57109d260ca5e494be0a5346a7922c083f019356a7458a04abec0302cb8`.
+- `bash verify_all.sh` could not run because local WSL failed to mount
+  `E:/WSL/ext4.vhdx` (`ERROR_PATH_NOT_FOUND`). The same verification steps were
+  run directly in PowerShell/Python:
+  - 608 tests passed.
+  - Runtime-loop coverage subset passed: 85 tests, 97% total coverage.
+  - Runtime stress test passed: 7 streams, 0 failed.
+  - Fresh clinic, classroom, and deforestation receipts matched the committed
+    reference receipts after timestamp/self-anchor normalization.
 - Live server check: `http://127.0.0.1:8081/health` returned OK and `/props`
   reported model path
   `D:/kaggle/results/v42-gguf/haic-gemma4-v42-Q5_K_M.gguf` with
   `reasoning_format: none`.
+- Notebook claim audit completed: the submitted notebook now distinguishes the
+  historical v35/v38 governance-demo lineage from v42 as the live
+  semantic-interviewer security reference.
 
 ## Do Not Do By Default
 
