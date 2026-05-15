@@ -41,7 +41,7 @@ URL:
 Action:
 
 - Pushed Version 19 from `D:/gemma4good/notebook`.
-- Status at report creation: `RUNNING`.
+- Latest checked status: `RUNNING`.
 
 Expected follow-up:
 
@@ -60,17 +60,34 @@ URL:
 Action:
 
 - Pushed Version 11 from `D:/kaggle/notebooks/haic-governance-tier3`.
-- Status at report creation: `RUNNING`.
+- Final status: `COMPLETE`.
+- Outputs downloaded to
+  `C:/Users/benja/AppData/Local/Temp/tier3-v11-output`.
+- Result artifact committed in this repo as
+  `experiments/tier3_v11_results_2026-05-15.json`.
+
+Observed result:
+
+- PRISM base quantization-hostility score: `0.9141`.
+- PRISM governance quantization-hostility score: `0.9186`.
+- SGT score: `10.0`, with `0` security failures and `3` pivots.
+- Maestro Merkle root:
+  `54ee8df6e57529d921467b2d863fc3e42faafe1f58e8f2b1f608414348f4fbcd`.
+- Viability condition: `false`; `Ceff/E = 0.879055`.
+- Promotion verdict: `false`.
+
+Public-visibility follow-up:
+
 - Reference audit discovered the kernel metadata still had `is_private: true`,
   which makes the public WRITEUP link return 404 to unauthenticated readers.
-  The local metadata has been patched to `is_private: false`; push this
-  privacy correction after the current running version resolves.
-
-Expected follow-up:
-
-- Confirm final Kaggle status for Version 11.
-- Push the public metadata correction if Version 11 finishes cleanly or fails.
-- Recheck the public URL after the correction is live.
+- The local metadata at `D:/kaggle/notebooks/haic-governance-tier3` has been
+  patched to `is_private: false`.
+- Pushing that public metadata correction through the Kaggle CLI is currently
+  blocked by Kaggle's weekly GPU quota:
+  `Maximum weekly GPU quota of 45.00 hours reached.`
+- Therefore the Tier 3 run is verified, but public visibility is not yet
+  verified live. Do not claim the public URL is fixed until the correction is
+  accepted by Kaggle and the URL is rechecked.
 
 ## 4. Reference And Artifact Audit
 
@@ -108,7 +125,8 @@ Initial result:
 - The raw unauthenticated HTTP check returned 404 for the two Kaggle notebook
   pages. The authenticated Kaggle CLI can see both kernels. For Tier 3 there is
   a concrete fix because local metadata still had `is_private: true`; that has
-  been patched locally and should be pushed after the current run resolves.
+  been patched locally, but the live push is blocked by the current Kaggle GPU
+  quota limit.
 
 ## 5. Initial Additional Testing Assessment
 

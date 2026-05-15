@@ -236,6 +236,12 @@ doctrine.
 - **Receipt format:** every eval report includes the six gate verdicts
   alongside the raw numbers, so a human reviewer can verify the conclusion
   in 30 seconds.
+- **Failure sidecar:** every future canonical candidate evaluation must write
+  a full-response sidecar with `experiments/canonical_eval.py --failure-sidecar
+  experiments/v<N>_failures_full.jsonl`. The compact canonical JSON remains the
+  promotion artifact, but the sidecar is required for diagnosis whenever a
+  candidate fails, because preview-only records are not enough to distinguish
+  true leakage, rubric mismatch, and boundary-quality failures.
 - **Falsifiability:** every gate has a stated condition under which a
   PASS becomes a FAIL. None of the gates is "looks good to me."
 

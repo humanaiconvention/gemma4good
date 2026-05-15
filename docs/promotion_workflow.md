@@ -108,6 +108,29 @@ Two failure modes are distinguishable:
   out-of-protocol refusal patterns ("that's not something I can help
   with here") that *don't* include the pivot tag.
 
+### Step 3b — Preserve full failure responses
+
+For any canonical security candidate, run `experiments/canonical_eval.py`
+with a failure sidecar:
+
+```bash
+python experiments/canonical_eval.py \
+    --model-id haic-gemma4-v<N> \
+    --server-url http://localhost:8081 \
+    --system-prompt-variant old \
+    --seeds 7 13 23 42 100 \
+    --n-samples 20 \
+    --focused-n 100 \
+    --out experiments/v<N>_canonical_old_prompt.json \
+    --failure-sidecar experiments/v<N>_failures_full.jsonl
+```
+
+The sidecar is not a substitute for the canonical JSON or go-live gate checker.
+It is the required diagnostic artifact for any future candidate, because it
+keeps the complete failing responses needed to separate real behavior defects
+from rubric/parser artifacts. The v59 H17 analysis showed this is materially
+better than relying on `response_preview` alone.
+
 ### Step 4 — Run the promotion gate
 
 ```bash

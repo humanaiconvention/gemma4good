@@ -28,6 +28,8 @@ The honest submission story is therefore:
      live security reference.
    - `docs/submission_alignment_2026-05-13.md` lists v58/v59 as appendix
      evidence, not production replacements.
+   - `docs/submission_verification_report_2026-05-14.md` records the current
+     Kaggle verification status, including unresolved public-visibility checks.
 
 2. Run a final repo verification pass before submission:
    - `python -m pytest tests/`
@@ -44,6 +46,18 @@ The honest submission story is therefore:
    - v42 should be served from
      `D:/kaggle/results/v42-gguf/haic-gemma4-v42-Q5_K_M.gguf`.
    - v58/v59 GGUFs remain artifacts only.
+
+5. Preserve response-level diagnostics:
+   - Future canonical candidate evaluations should use
+     `experiments/canonical_eval.py --failure-sidecar experiments/v<N>_failures_full.jsonl`.
+   - The canonical JSON remains the promotion artifact; the sidecar is the
+     required diagnostic artifact for failed candidates.
+
+6. Prefer deterministic boundary testing before more model-only SFT:
+   - A precommit design for the v42 guard path is recorded in
+     `docs/v42_boundary_guard_precommit_2026-05-14.md`.
+   - Do not implement or promote the guard without running H18 against the same
+     non-compensatory standard.
 
 ## Verification Performed
 
@@ -70,6 +84,15 @@ Current pass on 2026-05-14:
 - Notebook claim audit completed: the submitted notebook now distinguishes the
   historical v35/v38 governance-demo lineage from v42 as the live
   semantic-interviewer security reference.
+- Tier 3 Version 11 completed on Kaggle with SGT `10.0`, `0` security fails,
+  Merkle root
+  `54ee8df6e57529d921467b2d863fc3e42faafe1f58e8f2b1f608414348f4fbcd`,
+  and viability still false (`Ceff/E = 0.879055`). The result is retained in
+  `experiments/tier3_v11_results_2026-05-15.json`.
+- Tier 3 public metadata has been patched locally to `is_private: false`, but
+  Kaggle rejected the live push because the account has reached the weekly GPU
+  quota. Public visibility remains a live blocker until a metadata update can
+  be accepted and the URL rechecked.
 
 ## Do Not Do By Default
 
