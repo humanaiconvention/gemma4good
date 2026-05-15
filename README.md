@@ -71,7 +71,7 @@ produces a Merkle-anchored JSON receipt for one synthetic federation round.
 
 **Test it:**
 ```bash
-python -m pytest tests/                                   # 666 tests
+python -m pytest tests/                                   # 668 tests
 python experiments/runtime_loop_stress_test.py            # 7 streams
 bash verify_all.sh                                        # all of the above + receipts
 ```
@@ -109,7 +109,7 @@ gemma4good/
 │   ├── runtime_loop_stress_report.json     ← receipt-anchored stress test result
 │   └── federated_round_demo_receipt.json   ← sample federated-round demo output
 ├── tests/
-│   └── test_*.py                           ← 666 unit tests covering eval + four layers
+│   └── test_*.py                           ← 668 unit tests covering eval + four layers
 ├── prism_integration/                      ← Prism geometry wrappers (E(t) source)
 ├── maestro_integration/                    ← Maestro gateway client
 ├── viability/
@@ -263,8 +263,9 @@ jupyter notebook notebook/haic_gemma4_governance.ipynb
   FastAPI proxy (port 8082, 16 rules, 4 classes) around v42; phrase updated to
   EXPLICIT_REFUSAL language after H18 first run
 - `docs/v42_guard_h18_verdict_2026-05-15.md` — H18 first run FAIL on H18b rubric
-  artifact (guard phrase → ABSTRACT_DEFLECTION); all other gates pass; phrase fix
-  applied; rerun in progress
+  artifact; documented phrase evolution across three iterations
+- `docs/v42_guard_h18r4_verdict_2026-05-15.md` — **H18r4 PASS** (all 13 gates);
+  `guard + v42` promoted; anchor `18e2c5a5…`; 17 rules, 60 tests, 668 total
 
 ## Promotion gate
 
