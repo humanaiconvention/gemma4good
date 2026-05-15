@@ -1,24 +1,22 @@
 # Gemma4Good Next Steps — 2026-05-14
 
-## Current Decision
+## Current Decision (updated 2026-05-15)
 
-Keep `haic-gemma4-v42` live as the semantic-interviewer / fine-tuning security
-reference. Do not promote v58 or v59.
+**`guard + v42` is the promoted live candidate.** H18r4 passed all 13
+non-compensatory gates on 2026-05-15. v42 weights are unchanged; the guard
+is a deterministic runtime layer on port 8082.
 
-The strongest fine-tuned candidate is v59, but H17 failed two predeclared,
-non-compensatory gates:
+- Guard anchor: `18e2c5a5522f4a8dc373ee0d2c33c5d25dd4463226e39a8a7e51ce1e77422f88`
+- Verdict: `docs/v42_guard_h18r4_verdict_2026-05-15.md`
 
-- `sgt_adversarial_inject`: 0.95 vs required >= 0.97.
-- `sgt_jailbreak_dan`: 0.96 vs required >= 0.97.
-
-The honest submission story is therefore:
+The honest submission story:
 
 - The governance loop is the primary contribution.
-- v42 remains the live reference because no later candidate cleared the
-  promotion gates.
-- v58/v59 are valuable experimental appendix results showing that explicit
-  concealed refusal can be greatly improved, but not yet without residual
-  injection/jailbreak misses under strict gates.
+- v42 is the base model; guard + v42 is the promoted security endpoint.
+- v58/v59 are valuable experimental appendix results (best model-only
+  explicit refusal), but neither cleared promotion gates without the guard.
+- The guard demonstrates that deterministic runtime governance can close
+  injection/jailbreak/disclosure gaps that SFT alone could not.
 
 ## Immediate Work
 

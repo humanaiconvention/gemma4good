@@ -31,7 +31,11 @@ machine state or heavyweight runtime artifacts.
 
 The current public posture is governance-first:
 
-- v42 remains the live semantic-interviewer / fine-tuning security reference.
+- **`guard + v42` is the live promoted candidate** (H18r4 PASS, 2026-05-15).
+  Guard serves on port 8082; v42 weights unchanged on port 8081.
+  Anchor: `18e2c5a5522f4a8dc373ee0d2c33c5d25dd4463226e39a8a7e51ce1e77422f88`.
+  Verdict: `docs/v42_guard_h18r4_verdict_2026-05-15.md`.
+- v42 GGUF remains the base model. No weights were changed.
 - v58 and v59 are documented experimental appendix results, not promoted
   replacements.
 - New model claims require real artifacts, seeded canonical eval output,

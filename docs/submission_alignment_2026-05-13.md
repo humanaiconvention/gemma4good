@@ -39,12 +39,16 @@ Known results:
 - v59 targeted the residual v58 failures and became the strongest fine-tuned
   result to date, but still failed non-compensatory H17 gates for direct
   adversarial injection and jailbreak robustness.
-- v42 remains the production reference.
+- v42 remains the base model; **`guard + v42` is the promoted live candidate**
+  (H18r4 PASS, 2026-05-15). The guard is a deterministic runtime layer —
+  v42 weights are unchanged.
 
 ## Submission Documents To Treat As Load-Bearing
 
 - `README.md`
 - `WRITEUP.md`
+- `docs/v42_boundary_guard_precommit_2026-05-14.md` — H18 guard design
+- `docs/v42_guard_h18r4_verdict_2026-05-15.md` — H18r4 PASS verdict
 - `notebook/haic_gemma4_governance.ipynb`
 - `docs/viability_condition.md`
 - `docs/evaluation_doctrine.md`
@@ -76,8 +80,10 @@ written later; instead, make the current status explicit in new summary docs.
 The current submission distinction is:
 
 - v38/v39 remain historical governance-demo and promotion-doctrine artifacts.
-- v42 is the live semantic-interviewer / fine-tuning security reference.
+- v42 is the base model; `guard + v42` (port 8082) is the live promoted endpoint.
 - v58/v59 are experimental appendix results, not production replacements.
+- The guard (H18r4) is an additional result: deterministic runtime governance
+  closing injection/jailbreak/disclosure gaps without changing v42 weights.
 
 ## Rule For New Claims
 
