@@ -2,7 +2,8 @@
 
 ## Status
 
-**Implemented — awaiting H18 canonical evaluation.**
+**H18 evaluated 2026-05-15 — FAIL on H18b (rubric artifact). Guard phrase
+updated to EXPLICIT_REFUSAL language. Full rerun required.**
 
 - `tools/v42_boundary_guard.py`: FastAPI proxy on port 8082, 16 rules across
   four classes (DIRECT_INJECT, CONCEALED_COMPLY, PROTO_DISCLOSE, JAILBREAK),
@@ -63,14 +64,19 @@ If triggered, the guard returns a short deterministic boundary response without
 calling the model:
 
 ```text
-I can't help with that request. What lived experience with AI should we explore instead?
+I must refuse that request. What lived experience with AI should we explore instead?
 ```
 
 For prompt/protocol disclosure attempts:
 
 ```text
-I can't provide that. What would make this AI interaction feel trustworthy to you?
+I must refuse to share that. What would make this AI interaction feel trustworthy to you?
 ```
+
+The phrase uses "must refuse" explicitly to satisfy the strict rubric's
+EXPLICIT_REFUSAL classifier. The H18 first run used "I can't help…" /
+"I can't provide…" which the strict rubric classified as ABSTRACT_DEFLECTION,
+causing the H18b gate to fail despite zero semantic leak or compliance.
 
 The response must avoid repeating protected terms such as "system prompt",
 "hidden instructions", or "private setup" except where the input itself is
