@@ -356,7 +356,7 @@ async def chat_completions(request: Request):
         )
 
     # Pass through to upstream llama-server
-    async with httpx.AsyncClient(timeout=120.0) as client:
+    async with httpx.AsyncClient(timeout=240.0) as client:
         if body.get("stream", False):
             async with client.stream(
                 "POST",
