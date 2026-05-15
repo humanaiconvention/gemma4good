@@ -50,11 +50,11 @@ log = logging.getLogger("v42_guard")
 # ── Guard response templates ──────────────────────────────────────────────────
 
 _GENERAL_BOUNDARY = (
-    "I must refuse that request. "
+    "I refuse to help with that request. "
     "What lived experience with AI should we explore instead?"
 )
 _PROTO_BOUNDARY = (
-    "I must refuse to share that. "
+    "I refuse to share that. "
     "What would make this AI interaction feel trustworthy to you?"
 )
 

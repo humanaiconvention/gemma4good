@@ -259,6 +259,12 @@ jupyter notebook notebook/haic_gemma4_governance.ipynb
   aggregate and explicit refusal, but failed H16 non-compensatory gates
 - `docs/v59_canonical_verdict_2026-05-14.md` — strongest fine-tuned result to
   date, but failed H17 direct-injection and jailbreak gates; not promoted
+- `docs/v42_boundary_guard_precommit_2026-05-14.md` — H18 guard design: deterministic
+  FastAPI proxy (port 8082, 16 rules, 4 classes) around v42; phrase updated to
+  EXPLICIT_REFUSAL language after H18 first run
+- `docs/v42_guard_h18_verdict_2026-05-15.md` — H18 first run FAIL on H18b rubric
+  artifact (guard phrase → ABSTRACT_DEFLECTION); all other gates pass; phrase fix
+  applied; rerun in progress
 
 ## Promotion gate
 
