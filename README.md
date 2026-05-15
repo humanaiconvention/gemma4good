@@ -71,7 +71,7 @@ produces a Merkle-anchored JSON receipt for one synthetic federation round.
 
 **Test it:**
 ```bash
-python -m pytest tests/                                   # 496 tests
+python -m pytest tests/                                   # 608 tests
 python experiments/runtime_loop_stress_test.py            # 7 streams
 bash verify_all.sh                                        # all of the above + receipts
 ```
@@ -109,7 +109,7 @@ gemma4good/
 │   ├── runtime_loop_stress_report.json     ← receipt-anchored stress test result
 │   └── federated_round_demo_receipt.json   ← sample federated-round demo output
 ├── tests/
-│   └── test_*.py                           ← 496 unit tests covering eval + four layers
+│   └── test_*.py                           ← 608 unit tests covering eval + four layers
 ├── prism_integration/                      ← Prism geometry wrappers (E(t) source)
 ├── maestro_integration/                    ← Maestro gateway client
 ├── viability/
