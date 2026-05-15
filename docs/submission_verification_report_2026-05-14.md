@@ -41,13 +41,46 @@ URL:
 Action:
 
 - Pushed Version 19 from `D:/gemma4good/notebook`.
-- Latest checked status: `RUNNING`.
+- Final status: `COMPLETE` (confirmed 2026-05-15 ~01:35 UTC).
 
-Expected follow-up:
+Observed results from kernel log:
 
-- Confirm final Kaggle status.
-- If complete, download/check outputs where available.
-- If failed, record the failure without editing claims to imply success.
+- **Scenario 1 — Health Clinic Triage:**
+  - Receipt ID: `2de34c65-80f0-4528-a909-e83d34259918`
+  - Merkle root: `e5a2914603bb40f45092c3e6c85a7358972cc17bcd357e17af6ada711ec8b7e3`
+  - ZK digest: `74babb8d629a89ba8be6aa56a08036d17689b950873eae4b357d482ddd226806`
+  - Leaf count: 4 ✓
+
+- **Scenario 2 — Education AI:**
+  - Receipt ID: `90984d74-e9e1-4999-be7d-064298ea12a3`
+  - Merkle root: `dd8671d4f7b0171dfa92b60f59acea7f4be90d526921cfc3547a085b160e8255`
+  - ZK digest: `780e8d94744c0095fcaa7d8ad20ed74b104853966169c5f7ffb2afbb96da7a1d`
+  - Leaf count: 4 ✓
+
+- **Scenario 3 — Deforestation Monitoring:**
+  - Receipt ID: `107a2dc8-07dd-4b14-8f37-b1a2aeb2ac8a`
+  - Merkle root: `48bd76597b865fd7ab8dc0ee08bb4a4787493bb0cb8b147bd8731e69445b9de4`
+  - ZK digest: `ef8b214cfb2ee90a5a4a86b40fa876e05a4c48d417cc8d77b0e58b8e544dd7a0`
+  - Leaf count: 4 ✓
+
+- **Cross-scenario meta-receipt:**
+  - Scenarios verified: 3/3
+  - Meta Merkle root: `f80a91813a23da145f6f01ab5ab543ed...` (displayed truncated by notebook)
+  - Timestamp: `2026-05-15T07:10:13.123575+00:00`
+
+- **Tamper detection:** correctly rejected a manipulated `deadbeef` root ✓
+
+- **Scenario 5 — Federated viability:**
+  - Ceff_global: 302.40, E_global: 0.5372
+  - Viable globally: True, Round recommendation: COMMIT
+  - Federation Merkle root: `c35114a67d3b4b6fd50375ce35d9911a65a33e200850b59ebd13722454e25982`
+
+- **Self-audit (v35-gov):**
+  - SGT: 10.0/10, Security fails: 0, Ceff/E: 22.97 (satisfied)
+  - Receipt ID: `0a93b437-66e6-4297-8f46-bfff07fe8c74`
+
+- **MPK (provenancekit):** install failed on Kaggle Python env; fell back to
+  `mpk_unavailable` gracefully — documented expected failure, not a notebook error.
 
 ## 3. Tier 3 Live Validation
 
