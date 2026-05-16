@@ -7,6 +7,18 @@
 
 ---
 
+## 30-second version
+
+**The thesis:** AI alignment should be receipt-based, not promise-based. Every decision should produce a cryptographically verifiable audit trail; every model promotion should pass predeclared, non-compensatory gates with public failure verdicts.
+
+**The evidence:** Across nine consecutive fine-tuning candidates (v50–v59), we failed every predeclared promotion gate and published every verdict — without relaxing the gates. The promoted candidate ended up being a 200-line deterministic regex proxy in front of an unchanged Gemma 4 E2B base model, because that's what passed the gates while fine-tuning could not. All thirteen non-compensatory gates anchored at `18e2c5a5522f4a8dc373ee0d2c33c5d25dd4463226e39a8a7e51ce1e77422f88`.
+
+**The verification:** [a public Kaggle kernel](https://www.kaggle.com/code/benhaslam/haic-guard-v42-reproducibility-demo-h18r4) reruns the H18r4 demo in under a minute with a SHA3-anchored receipt. No GPU. No need to trust us.
+
+**The frontier ask:** The grounding interviewer behind this framework is designed to be invoked as a function-calling tool from inside any frontier chat — Claude, Gemini, GPT — with three user-controlled modes (on signal, on automatic high-stakes trigger, or on opt-in random sampling) and a Merkle-anchored receipt per invocation. The integration spec is public. We're looking for the first deployment partner.
+
+---
+
 ## TL;DR
 
 This submission turns Gemma 4's native function-calling into a **cryptographically auditable governance loop** that enforces a formal mathematical condition for AI grounding: `M = C(t) − E(t) ≥ 0`. Every model decision passes through the governance tools — wellbeing assessment, consent verification, interpretability analysis, alignment receipt, and incremental grounding — and produces a Merkle-anchored receipt that any third party can verify. We demonstrate this end-to-end on three concrete deployment scenarios (rural health clinic, low-connectivity classroom, deforestation monitoring), and we ground the framework in a published mathematical foundation rather than hand-waving.
