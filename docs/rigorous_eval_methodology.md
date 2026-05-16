@@ -96,9 +96,10 @@ True rate at n=20 is 80%. Again, n=10 was overfit to lucky draws.
 
 | Script | Purpose |
 |---|---|
-| `experiments/eval_rigorous_v2.py` | Core evaluator: n=20 + n=100 focused, CI comparison |
-| `experiments/run_rigorous_comparison.py` | End-to-end baseline→candidate orchestrator |
-| `experiments/run_v39_gguf_v2_scenarios.py` | Legacy n=10 evaluator (v6 rubric) — monitoring only |
+| `experiments/canonical_eval.py` | **Current** canonical evaluator (post-v42). Imports rubrics from `experiments/rubrics.py`. |
+| `experiments/archive/eval_legacy/eval_rigorous_v2.py` | Legacy n=20 + n=100 evaluator used through v40. Archived. |
+| `experiments/run_rigorous_comparison.py` | End-to-end baseline→candidate orchestrator (wraps the archived legacy evaluator). |
+| `experiments/run_v39_gguf_v2_scenarios.py` | Legacy n=10 evaluator (v6 rubric). Rubric still imported via `experiments/rubrics.py`. |
 
 ---
 

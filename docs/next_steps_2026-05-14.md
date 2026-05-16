@@ -62,7 +62,7 @@ The honest submission story:
 
 Current pass on 2026-05-14:
 
-- `python -m pytest tests/` passed: 668 passed (60 guard tests after DI-06
+- `python -m pytest tests/` passed: 679 passed (60 guard tests after DI-06
   addition + 2 new DI-06 trigger tests), 1 dependency deprecation warning.
 - `python experiments/runtime_loop_stress_test.py` passed: 7 streams passed,
   0 failed.

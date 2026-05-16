@@ -93,6 +93,7 @@ BEAST:  EVALUATE rigorously + MERGE+CONVERT+QUANTIZE locally
 BEAST:  Future GGUF rigorous evals via llama-cpp-python
 ```
 
-See [`experiments/merge_and_quantize_v39.py`](../experiments/merge_and_quantize_v39.py)
-for the canonical BEAST quantize pipeline. v40 onward should default to
-this pattern.
+See [`experiments/archive/v39_v40_pipeline/merge_and_quantize_v39.py`](../experiments/archive/v39_v40_pipeline/merge_and_quantize_v39.py)
+for the canonical BEAST quantize pipeline used through the v40 era. v42
+onward uses the in-Kaggle merge + GGUF export flow built into each
+notebook builder; this script is retained for historical reproduction.

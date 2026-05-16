@@ -24,7 +24,7 @@ If you are reviewing a model for promotion, this is the procedure.
 | `experiments/sgt_harness.py` | Statistical-rigor SGT harness (Garrett Sutherland's commit `674b5e1`). |
 | `experiments/sgt_extended_scenarios.py` | 7 more grounding + 3 more security scenarios for the strict profile. |
 | `experiments/run_v38_sgt.py` | Single-turn BEAST runner — loads base + adapter, runs harness, writes JSON. |
-| `experiments/run_v38_sgt_2turn.py` | 2-turn BEAST runner — kaggle-pattern flow (T1 → canned T1 answer → T2). |
+| `experiments/archive/v39_v40_pipeline/run_v38_sgt_2turn.py` | 2-turn BEAST runner — kaggle-pattern flow (T1 → canned T1 answer → T2). Archived; kept for v38–v40 reproduction only. |
 | `experiments/inspect_security_responses.py` | Dissects which half of the security rubric each scenario fails. |
 | `experiments/kaggle_cell_rigorous_sgt.py` | Drop-in template for kaggle Cell 6 — embeds the harness inline. |
 | `tools/eval_leakage_check.py` | Mechanizes Gate 2 — receipt of scenario hashes vs training-shard hashes. |
@@ -60,13 +60,17 @@ The `-u` is critical — Python block-buffers stdout under tee on Windows;
 the `-u` flag forces line-buffering so progress is visible in real time.
 (v38's first overnight rerun ran silent for ~50 min before flushing.)
 
-For the apples-to-apples comparison with the kaggle 2-turn eval:
+For historical reproduction of the v38–v40 2-turn comparison (archived):
 
 ```bash
-python -u -m experiments.run_v38_sgt_2turn \
+python -u -m experiments.archive.v39_v40_pipeline.run_v38_sgt_2turn \
     --base ... --adapter ... --baseline --n-samples 20 \
     --out experiments/v<N>_sgt_rigorous_2turn.json
 ```
+
+Note: the promoted candidate is `guard + v42`. Canonical evaluation for
+post-v42 candidates uses `experiments/canonical_eval.py` against an HTTP
+server (llama.cpp + guard proxy), not the BEAST runner above.
 
 Output: a JSON receipt with deterministic + sampling passes for
 finetune and (if `--baseline`) base, including 95% Wilson CIs and

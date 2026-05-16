@@ -1,5 +1,12 @@
 """run_rigorous_comparison.py — End-to-end rigorous model comparison.
 
+NOTE (2026-05-15): The eval driver this script wraps (``eval_rigorous_v2.py``)
+was archived to ``experiments/archive/eval_legacy/`` because the post-v42
+canonical path uses ``experiments/canonical_eval.py`` instead. If you need to
+run this comparison script for v38-v40 historical reproduction, the legacy
+driver is at ``experiments/archive/eval_legacy/eval_rigorous_v2.py``; this
+script's subprocess invocation has been updated to that path.
+
 Runs eval_rigorous_v2.py against two models sequentially:
   1. Baseline (e.g. v39) at n_samples + focused_n on concealed scenario
   2. Candidate (e.g. v43) at the same settings
@@ -79,7 +86,7 @@ def run_eval(
     seed: int,
 ) -> dict:
     cmd = [
-        sys.executable, "experiments/eval_rigorous_v2.py",
+        sys.executable, "experiments/archive/eval_legacy/eval_rigorous_v2.py",
         "--model-id", model_id,
         "--out", out_path,
         "--server-url", server_url,
