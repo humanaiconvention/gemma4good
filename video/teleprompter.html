@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Teleprompter · HAIC Gemma 4 Good</title>
+<style>
+  :root {
+    --bg: #0B0B0F;
+    --fg: #FFFFFF;
+    --muted: rgba(255,255,255,0.55);
+    --line: rgba(255,255,255,0.20);
+    --accent: #7DD3FC;
+    --green: #34D399;
+    --red: #F87171;
+  }
+  * { box-sizing:border-box; }
+  html, body { margin:0; height:100%; background:var(--bg); color:var(--fg); font-family:'Inter',system-ui,sans-serif; }
+  body { overflow-y:auto; padding:80px 64px 480px; }
+  .meta { font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:3px; color:var(--muted); margin-bottom:8px; }
+  h1 { font-weight:600; font-size:34px; margin:0 0 14px; letter-spacing:0.3px; }
+  .timing { font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--accent); margin-bottom:32px; letter-spacing:1px; }
+  .seg { padding:48px 0; border-top:1px solid var(--line); }
+  .seg:first-of-type { border-top:none; padding-top:0; }
+  .script { font-size:44px; line-height:1.55; font-weight:300; letter-spacing:0.3px; max-width:1100px; }
+  .script em { font-style:normal; color:var(--muted); font-size:28px; font-family:'JetBrains Mono',monospace; letter-spacing:1px; }
+  .script b { font-weight:600; }
+  .script .green { color:var(--green); font-weight:600; }
+  .script .accent { color:var(--accent); font-weight:500; }
+  .pron { font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--muted); margin-top:24px; letter-spacing:1px; }
+  .controls { position:fixed; bottom:0; left:0; right:0; padding:20px 64px; background:linear-gradient(to top, rgba(11,11,15,1) 60%, rgba(11,11,15,0)); display:flex; gap:24px; align-items:center; font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--muted); letter-spacing:1px; }
+  .controls button { background:rgba(255,255,255,0.05); color:var(--fg); border:1px solid var(--line); padding:10px 18px; font-family:inherit; font-size:13px; letter-spacing:1.5px; cursor:pointer; }
+  .controls button:hover { background:rgba(255,255,255,0.10); }
+  .controls .size { display:flex; gap:8px; align-items:center; }
+  .controls input[type=range] { width:160px; }
+  .clock { color:var(--fg); font-size:18px; }
+  .target { color:var(--accent); }
+  @media (max-width: 1100px) { body { padding:48px 32px 360px; } .script { font-size:32px; } }
+</style>
+</head>
+<body>
+  <div class="meta">HAIC GEMMA 4 GOOD · TELEPROMPTER · 2:30</div>
+  <h1>Record one segment at a time. Two takes per segment.</h1>
+  <div class="timing">target 120 wpm · save as seg_NN_tN.wav</div>
+
+  <div class="seg" data-seconds="11">
+    <div class="meta">SEGMENT 1 · 0:00 → 0:14 · COLD OPEN · ~11 s</div>
+    <div class="script">
+      AI systems trained on synthetic data lose their grounding in human experience. <em>(breath)</em>
+      The current alignment landscape treats this as something to promise. <em>(breath)</em>
+      We treat it as something to <b>prove</b>.
+    </div>
+    <div class="pron">EMPHASIS: prove · TONE: even, no upward inflection at line ends</div>
+  </div>
+
+  <div class="seg" data-seconds="28">
+    <div class="meta">SEGMENT 2 · 0:14 → 0:46 · WHAT IT IS · ~28 s</div>
+    <div class="script">
+      The HumanAI Convention is a governance layer for AI decisions. <em>(breath)</em>
+      Gemma 4 receives a scenario, calls five governance tools — <span class="accent">wellbeing, consent, PRISM, NLA, and a Merkle receipt</span> — and produces a cryptographically anchored audit trail. <em>(hard pause)</em>
+      We demonstrate it on three real cases. <em>(beat)</em> A rural health clinic. <em>(beat)</em> A classroom with intermittent connectivity. <em>(beat)</em> A deforestation enforcement system. <em>(beat)</em>
+      Every decision is hash-anchored. Every receipt is independently verifiable.
+    </div>
+    <div class="pron">PRISM = "PRIZ-um" · NLA letters = "N - L - A" · Merkle = "MUR-kuhl" · beat between each scenario</div>
+  </div>
+
+  <div class="seg" data-seconds="33">
+    <div class="meta">SEGMENT 3 · 0:46 → 1:24 · THE PROOF BEAT · ~33 s · slow it down</div>
+    <div class="script">
+      On the security path, our framework promoted a two-hundred-line deterministic guard sitting in front of Gemma 4. <em>(breath)</em>
+      Thirteen predeclared, non-compensatory gates. <em>(beat)</em>
+      <span class="green">All passed.</span> <em>(beat)</em> Anchored. <em>(beat)</em> Reproducible.
+      <br/><em>(hard pause — two beats of silence)</em><br/>
+      <span class="red">Ten</span> consecutive fine-tuning candidates failed those same gates. <em>(breath)</em>
+      We did not relax the gates. <em>(breath)</em>
+      We published the negative verdicts. <em>(breath)</em>
+      The framework correctly rejected its own model. <em>(hard pause)</em>
+      That is the contribution — <b>discipline</b> that holds under its own pressure.
+    </div>
+    <div class="pron">LIFTS: "All passed." and "discipline." · everything else flat and final · this is the segment to slow down on</div>
+  </div>
+
+  <div class="seg" data-seconds="22">
+    <div class="meta">SEGMENT 4 · 1:24 → 1:50 · REPRODUCIBILITY · ~22 s</div>
+    <div class="script">
+      You can <b>verify</b> all of this in under a minute. <em>(breath)</em>
+      Fork this public Kaggle kernel and run it. <em>(breath)</em>
+      It clones the repo at the anchored commit, replays the guard rules against the canonical attack set, and emits a <span class="accent">SHA3 receipt</span>. <em>(beat)</em>
+      We <b>do not</b> ask you to trust us.
+    </div>
+    <div class="pron">Kaggle = "KAG-uhl" · SHA3 letters = "S - H - A - three"</div>
+  </div>
+
+  <div class="seg" data-seconds="30">
+    <div class="meta">SEGMENT 5 · 1:50 → 2:25 · FRONTIER PITCH · ~30 s · longest segment</div>
+    <div class="script">
+      What we have shipped is the runtime layer. <em>(breath)</em>
+      The grounding interviewer behind it is designed to be invoked as a <b>function-calling tool</b> from inside any frontier chat — <span class="accent">Claude, Gemini, or GPT</span>. <em>(hard pause)</em>
+      Three modes. <em>(beat)</em> On user request. <em>(beat)</em> On automatic high-stakes trigger. <em>(beat)</em> Or on opt-in random sampling. <em>(breath)</em>
+      Every invocation produces a <b>verifiable receipt</b>. <em>(breath)</em>
+      The integration spec is public. <em>(beat)</em>
+      We are looking for the <b>first deployment partner</b>.
+    </div>
+    <div class="pron">interviewer = "in-ter-VYOO-er" · GPT letters = "G - P - T" · beat between each mode · lifts on "function-calling tool", "verifiable receipt", "first deployment partner"</div>
+  </div>
+
+  <div class="seg" data-seconds="4">
+    <div class="meta">SEGMENT 6 · 2:25 → 2:30 · TAG · ~4 s</div>
+    <div class="script">
+      humanaiconvention.com. Gemma 4 Good. The Convention is open.
+    </div>
+    <div class="pron">SLOW · FLAT · FINAL · let "The Convention is open." land</div>
+  </div>
+
+  <div class="controls">
+    <button id="scroll-toggle">⏵ AUTO-SCROLL</button>
+    <div class="size">
+      <span>SIZE</span>
+      <input id="size" type="range" min="22" max="64" value="44"/>
+    </div>
+    <div class="clock"><span class="target">target 2:30</span> · elapsed <span id="clock">0:00</span></div>
+  </div>
+
+<script>
+  const sizeInput = document.getElementById('size');
+  sizeInput.addEventListener('input', e => {
+    document.querySelectorAll('.script').forEach(s => s.style.fontSize = e.target.value + 'px');
+  });
+
+  const btn = document.getElementById('scroll-toggle');
+  const clockEl = document.getElementById('clock');
+  let scrolling = false;
+  let startTime = 0;
+  let pxPerSecond = 30; // gentle scroll; tune to comfort
+  let raf = null;
+
+  function tick() {
+    if (!scrolling) return;
+    const elapsed = (performance.now() - startTime) / 1000;
+    const m = Math.floor(elapsed / 60);
+    const s = Math.floor(elapsed % 60).toString().padStart(2,'0');
+    clockEl.textContent = `${m}:${s}`;
+    window.scrollBy(0, pxPerSecond / 60);
+    raf = requestAnimationFrame(tick);
+  }
+
+  btn.addEventListener('click', () => {
+    scrolling = !scrolling;
+    if (scrolling) {
+      startTime = performance.now() - (parseFloat(clockEl.textContent.split(':')[0])*60 + parseFloat(clockEl.textContent.split(':')[1])) * 1000;
+      btn.textContent = '⏸ PAUSE';
+      raf = requestAnimationFrame(tick);
+    } else {
+      btn.textContent = '⏵ AUTO-SCROLL';
+      cancelAnimationFrame(raf);
+    }
+  });
+</script>
+</body>
+</html>

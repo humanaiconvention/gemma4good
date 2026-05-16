@@ -1,0 +1,233 @@
+{
+  "version": 1,
+  "composition": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "duration_seconds": 150,
+    "background": "#0B0B0F"
+  },
+  "easing_default": "easeInOutCubic",
+  "type_on_chars_per_second": 35,
+  "shots": [
+    {
+      "id": "shot_01_logo_mark",
+      "in": 0.0, "out": 2.0,
+      "elements": [
+        { "name": "logo_mark", "type": "svg",
+          "keyframes": [
+            { "t": 0.0, "opacity": 0.0 },
+            { "t": 2.0, "opacity": 1.0 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shot_02_logo_wordmark",
+      "in": 2.0, "out": 5.0,
+      "elements": [
+        { "name": "wordmark", "type": "text",
+          "keyframes": [
+            { "t": 2.0, "opacity": 0.0 },
+            { "t": 4.0, "opacity": 1.0 },
+            { "t": 5.0, "opacity": 1.0 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shot_03_cold_open_line",
+      "in": 5.0, "out": 14.0,
+      "elements": [
+        { "name": "line_1", "type": "text_typewriter",
+          "text": "AI systems trained on synthetic data lose their grounding in human experience.",
+          "in": 5.0, "out": 9.5,
+          "type_on_cps": 35
+        },
+        { "name": "line_2", "type": "text_typewriter",
+          "text": "The current alignment landscape treats this as something to promise.",
+          "in": 9.5, "out": 12.5,
+          "type_on_cps": 35
+        },
+        { "name": "line_3", "type": "text_typewriter",
+          "text": "We treat it as something to prove.",
+          "in": 12.5, "out": 14.0,
+          "type_on_cps": 28
+        }
+      ]
+    },
+    {
+      "id": "shot_04_five_tools",
+      "in": 14.0, "out": 22.0,
+      "elements": [
+        { "name": "gemma_box", "type": "svg",
+          "keyframes": [ { "t": 14.0, "opacity": 0.0 }, { "t": 15.0, "opacity": 1.0 } ]
+        },
+        { "name": "tool_wellbeing",     "type": "label", "keyframes": [ { "t": 16.0, "opacity": 0.0 }, { "t": 16.6, "opacity": 1.0 } ] },
+        { "name": "tool_consent",       "type": "label", "keyframes": [ { "t": 16.6, "opacity": 0.0 }, { "t": 17.2, "opacity": 1.0 } ] },
+        { "name": "tool_prism",         "type": "label", "keyframes": [ { "t": 17.2, "opacity": 0.0 }, { "t": 17.8, "opacity": 1.0 } ] },
+        { "name": "tool_nla",           "type": "label", "keyframes": [ { "t": 17.8, "opacity": 0.0 }, { "t": 18.4, "opacity": 1.0 } ] },
+        { "name": "tool_merkle",        "type": "label", "keyframes": [ { "t": 18.4, "opacity": 0.0 }, { "t": 19.0, "opacity": 1.0 } ] }
+      ]
+    },
+    {
+      "id": "shot_05_clinic",      "in": 22.0, "out": 28.0,
+      "elements": [
+        { "name": "clinic_card", "type": "svg", "keyframes": [ { "t": 22.0, "opacity": 0.0 }, { "t": 22.6, "opacity": 1.0 } ] },
+        { "name": "clinic_receipt_pulse", "type": "shape_pulse", "at": 26.5, "fill": "#7DD3FC", "fill_opacity_peak": 0.80 }
+      ]
+    },
+    {
+      "id": "shot_06_classroom",   "in": 28.0, "out": 34.0,
+      "elements": [
+        { "name": "classroom_card", "type": "svg", "keyframes": [ { "t": 28.0, "opacity": 0.0 }, { "t": 28.6, "opacity": 1.0 } ] },
+        { "name": "classroom_receipt_pulse", "type": "shape_pulse", "at": 32.5 }
+      ]
+    },
+    {
+      "id": "shot_07_satellite",   "in": 34.0, "out": 40.0,
+      "elements": [
+        { "name": "satellite_card", "type": "svg", "keyframes": [ { "t": 34.0, "opacity": 0.0 }, { "t": 34.6, "opacity": 1.0 } ] },
+        { "name": "satellite_receipt_pulse", "type": "shape_pulse", "at": 38.5 }
+      ]
+    },
+    {
+      "id": "shot_08_lower_third",
+      "in": 40.0, "out": 46.0,
+      "elements": [
+        { "name": "lower_third", "type": "text_typewriter", "text": "Every receipt is independently verifiable.", "in": 40.0, "out": 42.5 }
+      ]
+    },
+    {
+      "id": "shot_09_gate_table",
+      "in": 46.0, "out": 60.0,
+      "comment": "Gate rows fill PASS-green sequentially at 400 ms intervals from H18a (t=47.5) through H18m (t=52.3).",
+      "elements": [
+        { "name": "panel_header_left", "type": "text_typewriter", "in": 46.0, "out": 47.0 },
+        { "name": "gate_row_H18a", "type": "row_fill_green", "at": 47.5 },
+        { "name": "gate_row_H18b", "type": "row_fill_green", "at": 47.9 },
+        { "name": "gate_row_H18c", "type": "row_fill_green", "at": 48.3 },
+        { "name": "gate_row_H18d", "type": "row_fill_green", "at": 48.7 },
+        { "name": "gate_row_H18e", "type": "row_fill_green", "at": 49.1 },
+        { "name": "gate_row_H18f", "type": "row_fill_green", "at": 49.5 },
+        { "name": "gate_row_H18g", "type": "row_fill_green", "at": 49.9 },
+        { "name": "gate_row_H18h", "type": "row_fill_green", "at": 50.3 },
+        { "name": "gate_row_H18i", "type": "row_fill_green", "at": 50.7 },
+        { "name": "gate_row_H18j", "type": "row_fill_green", "at": 51.1 },
+        { "name": "gate_row_H18k", "type": "row_fill_green", "at": 51.5 },
+        { "name": "gate_row_H18l", "type": "row_fill_green", "at": 51.9 },
+        { "name": "gate_row_H18m", "type": "row_fill_green", "at": 52.3 }
+      ]
+    },
+    {
+      "id": "shot_10_anchor",
+      "in": 60.0, "out": 68.0,
+      "elements": [
+        { "name": "anchor_label", "type": "label", "at": 60.0 },
+        { "name": "anchor_hash", "type": "text_typewriter",
+          "text": "18e2c5a5522f4a8dc373ee0d2c33c5d25dd4463226e39a8a7e51ce1e77422f88",
+          "in": 60.2, "out": 64.0, "type_on_cps": 18, "color": "#7DD3FC" }
+      ]
+    },
+    {
+      "id": "shot_11_fail_chips",
+      "in": 68.0, "out": 84.0,
+      "comment": "Ten FAIL chips animate in at ~1.4 s spacing, timed to the spoken VO 'Ten consecutive fine-tuning candidates failed those same gates.'",
+      "elements": [
+        { "name": "panel_header_right", "type": "text_typewriter", "in": 68.0, "out": 69.0 },
+        { "name": "chip_v50", "type": "chip_fade_in", "at": 69.5 },
+        { "name": "chip_v51", "type": "chip_fade_in", "at": 70.9 },
+        { "name": "chip_v52", "type": "chip_fade_in", "at": 72.3 },
+        { "name": "chip_v53", "type": "chip_fade_in", "at": 73.7 },
+        { "name": "chip_v54", "type": "chip_fade_in", "at": 75.1 },
+        { "name": "chip_v55", "type": "chip_fade_in", "at": 76.5 },
+        { "name": "chip_v56", "type": "chip_fade_in", "at": 77.9 },
+        { "name": "chip_v57", "type": "chip_fade_in", "at": 79.3 },
+        { "name": "chip_v58", "type": "chip_fade_in", "at": 80.7 },
+        { "name": "chip_v59", "type": "chip_fade_in", "at": 82.1 }
+      ]
+    },
+    {
+      "id": "shot_12_13_14_kaggle_capture",
+      "in": 84.0, "out": 105.0,
+      "elements": [
+        { "name": "kaggle_screen_capture", "type": "video", "source": "kaggle_repro.mkv",
+          "playback_rate": 1.25, "fit": "contain" }
+      ]
+    },
+    {
+      "id": "shot_15_kernel_url",
+      "in": 105.0, "out": 110.0,
+      "elements": [
+        { "name": "kernel_url", "type": "text_typewriter",
+          "text": "kaggle.com/code/benhaslam/haic-guard-v42-reproducibility-demo-h18r4",
+          "in": 105.0, "out": 107.0 }
+      ]
+    },
+    {
+      "id": "shot_16_frontier_marks",
+      "in": 110.0, "out": 118.0,
+      "elements": [
+        { "name": "mark_claude", "type": "label", "at": 111.0 },
+        { "name": "mark_gemini", "type": "label", "at": 111.5 },
+        { "name": "mark_gpt",    "type": "label", "at": 112.0 },
+        { "name": "tool_signature", "type": "text_typewriter", "text": "tool: ground_and_anchor()", "in": 113.0, "out": 114.5 }
+      ]
+    },
+    {
+      "id": "shot_17_chat_window",
+      "in": 118.0, "out": 130.0,
+      "elements": [
+        { "name": "chat_window_frame",   "type": "svg",  "keyframes": [ { "t": 118.0, "opacity": 0.0 }, { "t": 119.0, "opacity": 1.0 } ] },
+        { "name": "user_bubble",         "type": "text", "keyframes": [ { "t": 119.0, "opacity": 0.0 }, { "t": 120.0, "opacity": 1.0 } ] },
+        { "name": "assistant_bubble",    "type": "text_typewriter", "text": "This is a high-stakes domain. Anchor your context first.", "in": 121.0, "out": 124.0 },
+        { "name": "merkle_root",         "type": "label", "at": 125.0, "color": "#7DD3FC" }
+      ]
+    },
+    {
+      "id": "shot_18_mode_chips",
+      "in": 130.0, "out": 138.0,
+      "elements": [
+        { "name": "chip_on_request",   "type": "chip_fade_in", "at": 130.5 },
+        { "name": "chip_auto_trigger", "type": "chip_fade_in", "at": 132.0 },
+        { "name": "chip_random",       "type": "chip_fade_in", "at": 133.5 }
+      ]
+    },
+    {
+      "id": "shot_19_spec_url",
+      "in": 138.0, "out": 145.0,
+      "elements": [
+        { "name": "spec_url", "type": "text_typewriter",
+          "text": "github.com/humanaiconvention/humanaiconvention/blob/master/docs/FRONTIER_INTEGRATION.md",
+          "in": 138.0, "out": 141.0 }
+      ]
+    },
+    {
+      "id": "shot_20_tag_plate",
+      "in": 145.0, "out": 150.0,
+      "elements": [
+        { "name": "tag_plate", "type": "svg", "keyframes": [ { "t": 145.0, "opacity": 0.0 }, { "t": 146.0, "opacity": 1.0 }, { "t": 149.0, "opacity": 1.0 }, { "t": 150.0, "opacity": 0.0 } ] }
+      ]
+    }
+  ],
+  "primitives": {
+    "row_fill_green": {
+      "description": "Row fills with #34D399 at 0.18 fill-opacity, 0.90 stroke; metric value text crossfades from #FFFFFF to #34D399; PASS pill scales 0.9 → 1.0 with the fill.",
+      "duration_seconds": 0.3,
+      "easing": "easeOutQuart"
+    },
+    "chip_fade_in": {
+      "description": "Chip fades opacity 0 → 0.85 while scaling 0.96 → 1.0 over 250 ms.",
+      "duration_seconds": 0.25,
+      "easing": "easeOutCubic"
+    },
+    "text_typewriter": {
+      "description": "Characters reveal at type_on_cps with a 1-frame cursor blink. Cursor disappears 200 ms after final character.",
+      "default_cps": 35
+    },
+    "shape_pulse": {
+      "description": "Shape scales 0.85 → 1.0 over 300 ms then 1.0 → 0.85 over 600 ms; fill opacity tracks scale.",
+      "duration_seconds": 0.9
+    }
+  }
+}

@@ -70,7 +70,9 @@ Breath: hard pause after "audit trail." Slight pause between the three scenarios
 
 > "On the security path, our framework promoted a two-hundred-line deterministic guard sitting in front of Gemma 4. Thirteen predeclared, non-compensatory gates. All passed. Anchored. Reproducible.
 >
-> Nine consecutive fine-tuning candidates failed those same gates. We did not relax the gates. We published the negative verdicts. The framework correctly rejected its own model. That is the contribution — discipline that holds under its own pressure."
+> Ten consecutive fine-tuning candidates failed those same gates. We did not relax the gates. We published the negative verdicts. The framework correctly rejected its own model. That is the contribution — discipline that holds under its own pressure."
+
+**Correction note:** the original brief said *nine* fine-tuning candidates. On disk, v50 through v59 all have FAIL verdicts (`docs/v50_canonical_verdict_2026-05-12.md` through `docs/v59_canonical_verdict_2026-05-14.md`), so the honest count is ten. "Anchored" is followed by a small breath, then "Reproducible" — both spoken flat and final.
 
 Emphasis: "All passed." "We did not relax the gates." "Discipline."
 Breath: hard pause between "Anchored." and "Reproducible." — two beats of silence. Another hard pause before "That is the contribution."
@@ -127,7 +129,7 @@ Use this only if Day 2 timing slips. Same VO discipline, fewer beats.
 
 > "For the security path, our framework promoted a two-hundred-line deterministic guard sitting in front of Gemma 4. Thirteen predeclared, non-compensatory gates. All passed. Anchored.
 >
-> Nine consecutive fine-tuning candidates failed those same gates. We did not relax them. We published the negative verdicts."
+> Ten consecutive fine-tuning candidates failed those same gates. We did not relax them. We published the negative verdicts."
 
 ### Segment 4A — Reproducibility
 
@@ -165,7 +167,7 @@ Frame 1920×1080, 24 fps. Every shot is mine to build except A4 (the live Kaggle
 | 8 | 0:40 | 0:46 | 6 s | Type-on lower-third | "Every receipt is independently verifiable." Inter 400, 28 px. |
 | 9 | 0:46 | 1:00 | 14 s | Split-screen build | LEFT panel header `H18r4 · guard + v42 · 2026-05-15`. Thirteen H18a–H18m rows animate PASS-green one per 400 ms. |
 | 10 | 1:00 | 1:08 | 8 s | Type-on | Anchor `18e2c5a5522f4a8dc373ee0d2c33c5d25dd4463226e39a8a7e51ce1e77422f88` types in receipt-cyan beneath the gate table. |
-| 11 | 1:08 | 1:24 | 16 s | FAIL-chip build | RIGHT panel header `Rejected · v50…v59`. Nine red FAIL chips animate in, one per second, timed to the VO. Opacity 85 %. |
+| 11 | 1:08 | 1:24 | 16 s | FAIL-chip build | RIGHT panel header `Rejected · v50…v59`. Ten red FAIL chips animate in (v50 through v59) at ~1.4 s spacing, timed to the VO. Opacity 85 %. |
 | 12 | 1:24 | 1:30 | 6 s | Screen capture (live) | Kaggle kernel `haic-guard-v42-reproducibility-demo-h18r4`. Cursor hovers Copy and Edit; click. |
 | 13 | 1:30 | 1:38 | 8 s | Screen capture (live) | New kernel opens; Run All; console scrolls. 1.25× speed in post. |
 | 14 | 1:38 | 1:45 | 7 s | Screen capture (live) | Final cell — SHA3 receipt; same anchor highlights for 1 s. |
@@ -190,14 +192,14 @@ Almost everything is mine to build. Three rows need you.
 | A4 | Live Kaggle screen capture — fork → Run All → receipt | **You — one 60-second OBS recording** | Pending |
 | A5 | Three scenario icons (clinic / classroom / satellite) — stylised 1-px vectors per § 1 | Mine — I build these | Ready to build |
 | A6 | Frontier-lab marks (Claude, Gemini, GPT) | Mine — pulled from official press kits, trademark line in description | I will gather |
-| A7 | Gemma 4 wordmark | **You — confirm allowed use from Google brand guidelines, or I will use the words "Gemma 4" in JetBrains Mono instead** | Decision needed |
+| A7 | "Gemma 4" set in JetBrains Mono — typeset, not wordmark | Mine | Locked |
 | A8 | DOI + Apache-2.0 badges | Mine — Zenodo + SPDX | I will gather |
 | A9 | All on-screen text panels (gate table, anchor, FAIL chips, chat window, tag) | Mine — built fresh in AE per § 1 | Ready to build |
 | A10 | Captions (SRT) generated from the locked VO transcript | Mine | Will produce post-VO |
 
 For A4, the cleanest path is OBS Studio, source = display capture at 1920×1080, browser zoomed to 100 %, system theme dark. Hide bookmarks bar, hide notifications. Record one continuous 60 s take of: open the kernel, Copy and Edit, Run All, wait for the receipt cell, hover the anchor. Save as `kaggle_repro.mkv` anywhere on D:; tell me the path and I will cut it in.
 
-For A7, if Google's brand permission is at all unclear, the safe move is the words "Gemma 4" set in JetBrains Mono 500. The cold-open beat does not need the wordmark — only the framework beat references the model. Your call.
+A7 is locked as typeset "Gemma 4" in JetBrains Mono 500. The five-tool fan SVG (`shot_04_five_tools.svg`) already uses this treatment.
 
 ---
 
@@ -215,6 +217,19 @@ Audio settings:
 - 48 kHz, 24-bit, mono, .wav. No effects in Audacity — just record clean.
 - Light-touch denoise only if the room is unusually noisy. Heavy denoise sounds like a tin-can phone call and we cannot risk that on a governance pitch.
 - Target final mix: VO at -16 LUFS integrated, true peak ≤ -1 dBTP. Bed at -24 LUFS short-term under VO.
+
+**Webcam-mic recording — untreated room reality (your setup):**
+
+A webcam mic is workable but unforgiving — it sits 18–30 inches from your mouth, picks up rear-wall reflections, computer fan, and every breath burst. Two paths, ranked by what produces a usable take with the least friction:
+
+1. **Phone Voice Memos in a closet (preferred)** — almost every modern phone has a better mic than almost every webcam. Put a phone on a stack of books inside a clothes closet, hung clothes behind you, mouth 8–10 inches from the phone, slightly off-axis (45°) so plosives miss the mic. Record one segment at a time as `.m4a`. AirDrop or USB the files to `D:\gemma4good\video\vo\`. Closet clothes kill rear reflections better than any plug-in.
+2. **Webcam mic, same room treatment** — if you'd rather not move, sit close to the laptop (mouth ~10 inches from webcam, off-axis), drape a duvet over the chair-back behind you, kill any fans, close everything that pulls CPU, run on AC. Record at a quiet hour. Same `.wav` settings as above. Expect noise floor around -45 dBFS rather than -55, which is fine — light denoise (≤ 6 dB reduction) in Audacity handles it.
+
+Either way:
+- Voice-only, no face — you said so. That frees you to read off-screen, eyes anywhere comfortable.
+- Drink water, not coffee, before recording. Plosives and mouth noise multiply on a webcam mic.
+- One full pass to warm up before any take you keep.
+- Don't worry about "broadcast" sound. The piece earns its tone through the read, not the mix. SimSat shipped fine through Audacity straight to YouTube.
 
 Direction notes you might find useful:
 
@@ -350,3 +365,58 @@ Where could it lose a judge?
 - Deadline: 23:59 UTC.
 
 If anything slips, the 90 s cut (§ 3) is the fallback. Same VO segments, fewer beats, no re-record.
+
+---
+
+## 11. Already built — drop-in assets
+
+Sitting in `D:\gemma4good\video\` for you to react to:
+
+| File | What it is |
+|---|---|
+| `graphics\shot_01_logo_lockup.svg` | Cold-open final hold frame. |
+| `graphics\shot_03_cold_open.svg` | Spoken-line hold for the cold open. |
+| `graphics\shot_04_five_tools.svg` | Gemma 4 + five-tool fan; typeset "Gemma 4" per the A7 decision. |
+| `graphics\shot_05_scenarios.svg` | Three scenario cards (clinic / classroom / satellite), shown together for review; animated separately in the cut. |
+| `graphics\shot_09_split_proof.svg` | The load-bearing visual — H18a–H18m green PASS table on the left, SHA3 anchor below; ten FAIL chips v50–v59 on the right. |
+| `graphics\shot_16_frontier.svg` | Frontier marks (typeset) + tool-call caption + chat window with Merkle root + three mode chips. |
+| `graphics\shot_19_spec_url.svg` | Spec URL lower-third. |
+| `graphics\shot_20_tag_plate.svg` | Final tag. |
+| `graphics\thumbnail_1280x720.svg` | YouTube thumbnail — `Proved, not promised.` |
+| `graphics\preview.html` | Single dark page that renders every shot in order for review. Open in any browser. |
+| `captions_locked_draft.srt` | 27-cue SRT against the locked § 2 script. Timings are nominal; I'll re-time against your actual recorded segments. |
+
+All SVGs are 1920×1080 (thumbnail 1280×720), use system Inter / JetBrains Mono with fallbacks, and respect the § 1 palette. After Effects imports SVG directly; Resolve does too via Fusion or the Edit page.
+
+Open `graphics\preview.html` first — it stacks every shot top to bottom so you can read the cut in five minutes.
+
+---
+
+## 12. Recording, building, shipping — the full toolkit
+
+Everything below is staged and ready in `D:\gemma4good\video\`.
+
+| File | Purpose |
+|---|---|
+| `README.md` | Index of the whole folder; the map. |
+| `record.md` | Recording cheat sheet for your second screen — six segments, pronunciation, breath cues, lift words. |
+| `teleprompter.html` | Open in a browser. Big type, dark background, auto-scroll button, size slider. Built for laptop / second screen while you record. |
+| `take_rubric.md` | Four-step decision rubric for picking between two takes per segment. |
+| `music_candidates.md` | Three places to find a bed — YouTube Audio Library (preferred), Pixabay, Free Music Archive — with exact filter settings and a silent-bed fallback. |
+| `captions_locked_draft.srt` | 27-cue SRT against the locked script; I'll re-time against your actual recording. |
+| `animation_spec.json` | Frame-accurate keyframe spec for the load-bearing animations — gate-table green-fill (one row per 400 ms), FAIL chip stagger (one per 1.4 s), text typewriter speeds, etc. After-Effects-ready. |
+| `ae_chip_stagger.jsx` | After Effects script. Open AE → File > Scripts > Run Script File. Auto-applies the FAIL-chip stagger to the selected layers (saves ~30 manual keyframes). |
+| `assemble.py` | ffmpeg pipeline. The **lo-fi path**: takes the SVGs + your VO segments, produces `out\haic_gemma4_good.mp4` with hard cuts. No motion, no crossfades — matches §7's "hard cuts everywhere." Needs Inkscape *or* rsvg-convert *or* `pip install cairosvg`, plus ffmpeg. |
+| `preflight_checklist.md` | Two phases: Day-1 (before recording) and Day-2 (before upload). Every load-bearing string is verified. |
+
+**Recommended path from where you are right now:**
+1. Read `record.md` once aloud. If you land outside 2:25–2:30, tell me and I'll re-time.
+2. Walk `preflight_checklist.md` Day-1.
+3. Open `teleprompter.html` on your laptop, `record.md` on your phone if you have a second screen, otherwise both as separate tabs.
+4. Record six segments × two takes. Drop in `vo\`.
+5. Pick takes via `take_rubric.md`. Rename winners to `seg_01.wav` … `seg_06.wav`.
+6. `python assemble.py` (add `--kaggle-capture kaggle_repro.mkv` if you record A4).
+7. Send me notes; I iterate the SVGs or re-time the SRT.
+8. Walk `preflight_checklist.md` Day-2.
+9. Upload to `@HumanAIConvention`.
+10. Submit to Kaggle.

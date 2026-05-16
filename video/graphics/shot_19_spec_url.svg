@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <rect width="1920" height="1080" fill="#0B0B0F"/>
+  <g transform="translate(96, 880)">
+    <text x="0" y="0" font-family="'JetBrains Mono', monospace" font-size="16" font-weight="500" fill="#FFFFFF" fill-opacity="0.55" letter-spacing="3">FRONTIER-INTEGRATION SPEC</text>
+    <line x1="0" y1="20" x2="1728" y2="20" stroke="#FFFFFF" stroke-opacity="0.20"/>
+    <text x="0" y="80" font-family="'JetBrains Mono', monospace" font-size="32" font-weight="500" fill="#FFFFFF" letter-spacing="0.5">github.com/humanaiconvention/humanaiconvention</text>
+    <text x="0" y="120" font-family="'JetBrains Mono', monospace" font-size="32" font-weight="500" fill="#7DD3FC" fill-opacity="0.90" letter-spacing="0.5">/blob/master/docs/FRONTIER_INTEGRATION.md</text>
+  </g>
+</svg>

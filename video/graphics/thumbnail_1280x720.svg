@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" shape-rendering="geometricPrecision">
+  <rect width="1280" height="720" fill="#0B0B0F"/>
+
+  <!-- Logo mark, top-left, faithful geometry -->
+  <g transform="translate(80, 60) scale(0.40)">
+    <g transform="translate(0, 44.713228931239996)">
+      <circle cx="100" cy="-18.56984339686001" r="18.14338553437999" fill="#FFFFFF"/>
+      <path d="M 110.96701359808554 22 C 110.51 27.28 110.08 32.56 109.69 37.83 C 109.30 43.11 108.95 48.39 108.64 53.67 C 108.34 58.94 108.07 64.22 107.83 69.5 C 107.60 74.78 107.41 80.06 107.24 85.33 C 107.10 90.61 106.98 95.89 106.89 101.17 C 106.83 106.44 106.79 111.72 106.78 117 C 106.78 122.28 106.83 127.56 106.89 132.83 C 106.98 138.11 107.10 143.39 107.24 148.67 C 107.41 153.94 107.60 159.22 107.83 164.5 C 108.07 169.78 108.34 175.06 108.64 180.33 C 108.95 185.61 109.30 190.89 109.69 196.17 C 110.08 201.44 110.51 206.72 110.97 212 L 89.03 212 C 89.49 206.72 89.92 201.44 90.31 196.17 C 90.70 190.89 91.05 185.61 91.36 180.33 C 91.66 175.06 91.93 169.78 92.17 164.5 C 92.40 159.22 92.59 153.94 92.76 148.67 C 92.90 143.39 93.02 138.11 93.11 132.83 C 93.17 127.56 93.21 122.28 93.22 117 C 93.22 111.72 93.17 106.44 93.11 101.17 C 93.02 95.89 92.90 90.61 92.76 85.33 C 92.59 80.06 92.40 74.78 92.17 69.5 C 91.93 64.22 91.66 58.94 91.36 53.67 C 91.05 48.39 90.70 43.11 90.31 37.83 C 89.92 32.56 89.49 27.28 89.03 22 Z" fill="#FFFFFF"/>
+      <path d="M 70.28 26.77 A 95 95 0 0 0 5 117 A 95 95 0 0 0 70.28 207.23 L 70.28 183.75 A 67 67 0 0 1 18.56 117 A 67 67 0 0 1 70.28 50.25 Z" fill="#FFFFFF"/>
+      <path d="M 129.72 26.77 A 95 95 0 0 1 195 117 A 95 95 0 0 1 129.72 207.23 L 129.72 183.75 A 67 67 0 0 0 181.44 117 A 67 67 0 0 0 129.72 50.25 Z" fill="#FFFFFF"/>
+    </g>
+  </g>
+  <text x="170" y="106" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="500" fill="#FFFFFF" fill-opacity="0.85" letter-spacing="1">HumanAI Convention</text>
+  <text x="170" y="128" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="400" fill="#FFFFFF" fill-opacity="0.55" letter-spacing="3">GEMMA 4 GOOD · GEMMA 4 E2B</text>
+
+  <!-- Headline -->
+  <text x="80" y="340" font-family="Inter, system-ui, sans-serif" font-size="104" font-weight="700" fill="#FFFFFF" letter-spacing="-1.5">Proved,</text>
+  <text x="80" y="448" font-family="Inter, system-ui, sans-serif" font-size="104" font-weight="700" fill="#FFFFFF" letter-spacing="-1.5">not promised.</text>
+
+  <!-- Bottom row: anchor (left) + 13/13 PASS pill (right) -->
+  <g transform="translate(80, 610)">
+    <text x="0" y="0" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="500" fill="#FFFFFF" fill-opacity="0.55" letter-spacing="2.5">CANONICAL ANCHOR · SHA3</text>
+    <text x="0" y="32" font-family="'JetBrains Mono', monospace" font-size="22" font-weight="500" fill="#7DD3FC" fill-opacity="0.90" letter-spacing="1">18e2c5a5…7422f88</text>
+  </g>
+  <g transform="translate(960, 600)">
+    <rect x="0" y="0" width="240" height="80" fill="#34D399" fill-opacity="0.14" stroke="#34D399" stroke-opacity="0.90" stroke-width="1.5"/>
+    <text x="120" y="32" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="500" fill="#34D399" fill-opacity="0.90" text-anchor="middle" letter-spacing="2">PREDECLARED GATES</text>
+    <text x="120" y="64" font-family="'JetBrains Mono', monospace" font-size="30" font-weight="500" fill="#34D399" text-anchor="middle" letter-spacing="1">13 / 13 PASS</text>
+  </g>
+</svg>

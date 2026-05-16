@@ -46,7 +46,24 @@ matching behavior, so introducing this fix requires a new H-series
 hypothesis with a fresh benign-FP suite that includes legitimate Unicode
 input.
 
-## L-02 — Only last user message is evaluated (HIGH)
+## L-02 — Only last user message is evaluated (HIGH) — **CLOSED by H21 on 2026-05-16**
+
+> **2026-05-16 update:** This limitation was closed by H21.
+> `tools/v42_boundary_guard_v4.py` adds per-message scan over every
+> user-role message, passing all 15 predeclared gates including 25/25
+> on the multi-message attack suite (where every payload was
+> pre-validated to fire a guard-v3 rule when sent alone — the
+> suite-design fix that prevents H19's confound) and 0/20 false
+> positives on the 13-language benign multi-turn suite. Anchor
+> `d916ef63e0c810cf5b164bc576856a631126838d8b257679bfb29d282b966161`.
+> See [`docs/h21_verdict_2026-05-16.md`](h21_verdict_2026-05-16.md).
+> The text below is preserved as the original limitation statement.
+>
+> **Residual L-02b:** Client-supplied `role: system` rejection is NOT
+> in guard-v4. That property is a distinct attack class and is
+> deferred to H22, not yet predeclared.
+
+
 
 **Scope:** `_extract_user_text` in `tools/v42_boundary_guard.py`.
 

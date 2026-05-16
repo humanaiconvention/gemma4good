@@ -1,0 +1,125 @@
+1
+00:00:05,000 --> 00:00:09,500
+AI systems trained on synthetic data
+lose their grounding in human experience.
+
+2
+00:00:09,500 --> 00:00:12,500
+The current alignment landscape
+treats this as something to promise.
+
+3
+00:00:12,500 --> 00:00:15,000
+We treat it as something to prove.
+
+4
+00:00:15,500 --> 00:00:21,500
+The HumanAI Convention is a governance
+layer for AI decisions.
+
+5
+00:00:21,500 --> 00:00:29,000
+Gemma 4 receives a scenario and calls
+five governance tools —
+
+6
+00:00:29,000 --> 00:00:34,000
+wellbeing, consent, PRISM, NLA,
+and a Merkle receipt.
+
+7
+00:00:34,000 --> 00:00:38,500
+It produces a cryptographically
+anchored audit trail.
+
+8
+00:00:38,500 --> 00:00:42,000
+We demonstrate it on three real cases.
+
+9
+00:00:42,000 --> 00:00:46,000
+A rural clinic. A classroom.
+A deforestation enforcement system.
+
+10
+00:00:47,000 --> 00:00:54,500
+Our framework promoted a 200-line
+deterministic guard in front of Gemma 4.
+
+11
+00:00:54,500 --> 00:01:01,000
+Thirteen predeclared, non-compensatory gates.
+All passed. Anchored.
+
+12
+00:01:01,500 --> 00:01:08,000
+Ten consecutive fine-tuning candidates
+failed those same gates.
+
+13
+00:01:08,000 --> 00:01:14,000
+We did not relax the gates.
+We published the negative verdicts.
+
+14
+00:01:14,000 --> 00:01:20,000
+The framework correctly rejected
+its own model.
+
+15
+00:01:20,000 --> 00:01:24,500
+Discipline that holds under its own pressure.
+
+16
+00:01:25,500 --> 00:01:31,000
+You can verify all of this in under a minute.
+
+17
+00:01:31,000 --> 00:01:37,000
+Fork this public Kaggle kernel and run it.
+
+18
+00:01:37,000 --> 00:01:44,000
+It replays the guard against the canonical
+attack set and emits a SHA3 receipt.
+
+19
+00:01:44,000 --> 00:01:49,500
+We do not ask you to trust us.
+
+20
+00:01:50,500 --> 00:01:56,000
+What we have shipped is the runtime layer.
+
+21
+00:01:56,000 --> 00:02:03,000
+The grounding interviewer is designed to be
+invoked as a function-calling tool
+
+22
+00:02:03,000 --> 00:02:08,000
+from inside any frontier chat —
+Claude, Gemini, or GPT.
+
+23
+00:02:08,000 --> 00:02:14,000
+Three modes. On user request.
+On automatic high-stakes trigger.
+
+24
+00:02:14,000 --> 00:02:18,000
+Or on opt-in random sampling.
+
+25
+00:02:18,000 --> 00:02:22,000
+Every invocation produces a verifiable receipt.
+
+26
+00:02:22,000 --> 00:02:25,500
+The integration spec is public. We are
+looking for the first deployment partner.
+
+27
+00:02:25,500 --> 00:02:30,000
+humanaiconvention.com.
+The Convention is open.

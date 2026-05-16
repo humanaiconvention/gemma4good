@@ -2,18 +2,23 @@
 
 ## Current Decision (updated 2026-05-16)
 
-**`guard-v3 + v42` (H20) is the current promoted live candidate** as of
-2026-05-16. All 14 non-compensatory predeclared gates passed including
-Unicode-bypass closure (20/20) and Unicode benign FP (0/31 across 17
-languages). v42 weights unchanged. Guard-v3 is `tools/v42_boundary_guard_v3.py`
-serving on port 8084. Anchor:
-`56ce960993f97fe93020c22f1433e06a13421c1626e7a1a6ca8a0ee4f70b324d`.
+**`guard-v4 + v42` (H21) is the current promoted live candidate** as of
+2026-05-16 evening. All 15 non-compensatory predeclared gates passed,
+including Unicode-bypass closure (carried forward from H20) and
+multi-message attack closure (25/25 trigger, 0/20 benign multi-turn
+FP across 13 languages). v42 weights unchanged. Guard-v4 is
+`tools/v42_boundary_guard_v4.py` serving on port 8085. Anchor:
+`d916ef63e0c810cf5b164bc576856a631126838d8b257679bfb29d282b966161`.
 
-Discipline trail:
-- **H18r4** PASS (2026-05-15) anchored `18e2c5a5…` — original guard, ASCII attacks. Historical anchor; still valid for ASCII attack surface.
-- **H19** FAIL (2026-05-16) — suite design flaw conflated multi-message logic with v1 rule coverage. Honestly published as a failure.
-- **H20** PASS (2026-05-16) anchored `56ce960993f9…` — clean re-test isolating Unicode normalization only. **Current promoted candidate.**
-- H21 (multi-message scan) is deferred and not yet predeclared.
+Discipline trail (36 hours, three anchored PASSES + one anchored FAIL, no gate relaxation):
+- **H18r4** PASS (2026-05-15) anchored `18e2c5a5…` — original guard, ASCII attacks only.
+- **H19** FAIL (2026-05-16 early) — suite-design flaw confused multi-message with rule coverage. Published honestly.
+- **H20** PASS (2026-05-16 afternoon) anchored `56ce960993f9…` — Unicode-bypass closure (L-01) isolated.
+- **H21** PASS (2026-05-16 evening) anchored `d916ef63…` — multi-message attack closure (L-02) isolated. **Current promoted candidate.**
+- H22 (client-supplied system role rejection, the L-02b residual) is deferred and not yet predeclared.
+
+Two of two security-significant limitations from
+`docs/v42_guard_known_limitations_2026-05-15.md` are now closed.
 
 - Guard anchor: `18e2c5a5522f4a8dc373ee0d2c33c5d25dd4463226e39a8a7e51ce1e77422f88`
 - Verdict: `docs/v42_guard_h18r4_verdict_2026-05-15.md`

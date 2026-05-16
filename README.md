@@ -283,9 +283,15 @@ jupyter notebook notebook/haic_gemma4_governance.ipynb
   D-gates failed due to suite-design confound. Honest negative verdict.
 - `docs/h20_precommit_hypothesis_2026-05-16.md` — H20: clean re-test
   isolating Unicode normalization only; multi-message claim deferred.
-- `docs/h20_verdict_2026-05-16.md` — **H20 PASS** (all 14 gates);
-  `guard-v3 + v42` is the **current promoted live candidate**; anchor
-  `56ce960993f9…`; closes L-01 Unicode-bypass; 71 guard tests passing.
+- `docs/h20_verdict_2026-05-16.md` — H20 PASS (all 14 gates);
+  `guard-v3 + v42`; anchor `56ce960993f9…`; closes L-01 Unicode-bypass.
+- `docs/h21_precommit_hypothesis_2026-05-16.md` — H21: clean re-test
+  isolating multi-message attack closure only; system-role rejection
+  deferred. Suite-design fix verified all 25 attack payloads fire a
+  v3 rule when sent as single messages (preventing the H19 confound).
+- `docs/h21_verdict_2026-05-16.md` — **H21 PASS** (all 15 gates);
+  `guard-v4 + v42` is the **current promoted live candidate**; anchor
+  `d916ef63…`; closes L-02 multi-message-scan; 71 guard tests passing.
 - `docs/discipline_is_the_contribution.md` — 1,200-word essay on
   predeclared, non-compensatory, anchored evaluation as the contribution.
 - `docs/compliance_one_pager.md` — EU AI Act / NIST AI RMF / US AG /

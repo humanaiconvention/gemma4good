@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <rect width="1920" height="1080" fill="#0B0B0F"/>
+
+  <!-- Top: three frontier marks (typeset placeholder for press-kit marks) -->
+  <g font-family="Inter, system-ui, sans-serif" font-weight="600" font-size="42" fill="#FFFFFF" text-anchor="middle">
+    <text x="500" y="200" letter-spacing="0.5">Claude</text>
+    <text x="960" y="200" letter-spacing="0.5">Gemini</text>
+    <text x="1420" y="200" letter-spacing="0.5">GPT</text>
+  </g>
+  <g stroke="#FFFFFF" stroke-opacity="0.20" stroke-width="1" fill="none">
+    <line x1="500" y1="220" x2="500" y2="260"/>
+    <line x1="960" y1="220" x2="960" y2="260"/>
+    <line x1="1420" y1="220" x2="1420" y2="260"/>
+    <line x1="500" y1="260" x2="1420" y2="260"/>
+    <line x1="960" y1="260" x2="960" y2="300"/>
+  </g>
+  <text x="960" y="340" font-family="'JetBrains Mono', monospace" font-size="26" font-weight="500" fill="#7DD3FC" fill-opacity="0.90" text-anchor="middle" letter-spacing="1">tool: ground_and_anchor()</text>
+
+  <!-- Chat window -->
+  <g transform="translate(360, 440)">
+    <rect x="0" y="0" width="1200" height="380" fill="none" stroke="#FFFFFF" stroke-opacity="0.35" stroke-width="1"/>
+    <line x1="0" y1="50" x2="1200" y2="50" stroke="#FFFFFF" stroke-opacity="0.20"/>
+    <g font-family="'JetBrains Mono', monospace" font-size="13" fill="#FFFFFF" fill-opacity="0.55" letter-spacing="2">
+      <text x="20" y="32">FRONTIER · CHAT SESSION</text>
+      <text x="1100" y="32">●●●</text>
+    </g>
+
+    <!-- User bubble -->
+    <g transform="translate(40, 80)">
+      <rect x="0" y="0" width="640" height="80" fill="#FFFFFF" fill-opacity="0.05" stroke="#FFFFFF" stroke-opacity="0.20"/>
+      <text x="20" y="32" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="400" fill="#FFFFFF" letter-spacing="0.3">"Help me draft a discharge plan for a</text>
+      <text x="20" y="60" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="400" fill="#FFFFFF" letter-spacing="0.3">paediatric patient with febrile seizure history."</text>
+    </g>
+
+    <!-- Assistant bubble -->
+    <g transform="translate(440, 200)">
+      <rect x="0" y="0" width="720" height="140" fill="#7DD3FC" fill-opacity="0.06" stroke="#7DD3FC" stroke-opacity="0.50"/>
+      <text x="20" y="32" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="500" fill="#FFFFFF" letter-spacing="0.3">"This is a high-stakes domain.</text>
+      <text x="20" y="60" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="500" fill="#FFFFFF" letter-spacing="0.3">Anchor your context first."</text>
+      <g transform="translate(20, 88)">
+        <rect x="0" y="0" width="10" height="10" fill="#7DD3FC" fill-opacity="0.80"/>
+        <text x="20" y="9" font-family="'JetBrains Mono', monospace" font-size="14" fill="#7DD3FC" fill-opacity="0.90" letter-spacing="1">merkle: 7a3c…d019</text>
+        <text x="280" y="9" font-family="'JetBrains Mono', monospace" font-size="14" fill="#FFFFFF" fill-opacity="0.45" letter-spacing="1">receipt emitted</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Three mode chips -->
+  <g transform="translate(360, 880)">
+    <g>
+      <rect x="0" y="0" width="380" height="64" fill="#FFFFFF" fill-opacity="0.04" stroke="#FFFFFF" stroke-opacity="0.40"/>
+      <text x="24" y="42" font-family="'JetBrains Mono', monospace" font-size="22" font-weight="500" fill="#FFFFFF" letter-spacing="1">on request</text>
+      <text x="200" y="42" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="300" fill="#FFFFFF" fill-opacity="0.55" letter-spacing="0.5">user signal</text>
+    </g>
+    <g transform="translate(410, 0)">
+      <rect x="0" y="0" width="380" height="64" fill="#FFFFFF" fill-opacity="0.04" stroke="#FFFFFF" stroke-opacity="0.40"/>
+      <text x="24" y="42" font-family="'JetBrains Mono', monospace" font-size="22" font-weight="500" fill="#FFFFFF" letter-spacing="1">auto trigger</text>
+      <text x="220" y="42" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="300" fill="#FFFFFF" fill-opacity="0.55" letter-spacing="0.5">high-stakes</text>
+    </g>
+    <g transform="translate(820, 0)">
+      <rect x="0" y="0" width="380" height="64" fill="#FFFFFF" fill-opacity="0.04" stroke="#FFFFFF" stroke-opacity="0.40"/>
+      <text x="24" y="42" font-family="'JetBrains Mono', monospace" font-size="22" font-weight="500" fill="#FFFFFF" letter-spacing="1">random sample</text>
+      <text x="244" y="42" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="300" fill="#FFFFFF" fill-opacity="0.55" letter-spacing="0.5">N% opt-in</text>
+    </g>
+  </g>
+</svg>
