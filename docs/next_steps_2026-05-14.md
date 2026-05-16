@@ -1,10 +1,16 @@
 # Gemma4Good Next Steps — 2026-05-14
 
-## Current Decision (updated 2026-05-15)
+## Current Decision (updated 2026-05-16)
 
-**`guard + v42` is the promoted live candidate.** H18r4 passed all 13
-non-compensatory gates on 2026-05-15. v42 weights are unchanged; the guard
-is a deterministic runtime layer on port 8082.
+**`guard + v42` (H18r4) remains the promoted live candidate.** H18r4 passed
+all 13 non-compensatory gates on 2026-05-15. v42 weights are unchanged; the
+guard is a deterministic runtime layer on port 8082.
+
+**H19 FAILED its predeclared gates** (`docs/h19_verdict_2026-05-16.md`,
+2026-05-16). The Unicode-bypass mitigation in `tools/v42_boundary_guard_v2.py`
+is proven effective in isolation, but the multi-message attack suite was a
+flawed instrument and H19-D failed. Per the non-compensatory discipline, H19
+overall verdict is FAIL and no new anchor is promoted. The H18r4 anchor stands.
 
 - Guard anchor: `18e2c5a5522f4a8dc373ee0d2c33c5d25dd4463226e39a8a7e51ce1e77422f88`
 - Verdict: `docs/v42_guard_h18r4_verdict_2026-05-15.md`

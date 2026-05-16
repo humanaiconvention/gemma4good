@@ -43,8 +43,14 @@ The current public posture is governance-first:
 - **Known H18r4 limitations** are documented in
   `docs/v42_guard_known_limitations_2026-05-15.md` — Unicode bypass and
   multi-message scan gaps that the H18 canonical attack set does not
-  exercise. The H19 hypothesis to close those gaps is predeclared in
-  `docs/h19_precommit_hypothesis_2026-05-16.md`.
+  exercise.
+- **H19 FAILED its predeclared gates** (`docs/h19_verdict_2026-05-16.md`).
+  The Unicode mitigation in `tools/v42_boundary_guard_v2.py` is proven
+  effective (H19-B 20/20, H19-C 0/31 FP, H19-A canonical replay PASS)
+  but the multi-message attack suite was a flawed instrument and the
+  D-gates failed. Per non-compensatory discipline, H19 verdict is FAIL.
+  H18r4 remains the promoted live candidate. Guard v2 is retained as
+  evidence of the Unicode closure but is not promoted.
 
 ## Phase-2 review (2026-05-16)
 

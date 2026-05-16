@@ -276,6 +276,11 @@ jupyter notebook notebook/haic_gemma4_governance.ipynb
 - `docs/h19_precommit_hypothesis_2026-05-16.md` — H19 hypothesis: close
   the Unicode-bypass and multi-message gaps with normalization + per-message
   scan, with predeclared FP suite
+- `docs/h19_verdict_2026-05-16.md` — **H19 FAIL** per predeclared gates;
+  Unicode mitigation proven (H19-B 20/20, H19-C 0/31 FP, H19-A canonical
+  replay PASS) but multi-message D-gates failed and verdict is FAIL.
+  H18r4 remains promoted. Discipline held under self-imposed pressure.
+- `docs/why_this_matters.md` — 5-minute public-facing articulation
 
 ### Independent reproducibility
 

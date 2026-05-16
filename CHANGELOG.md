@@ -8,7 +8,29 @@ level rollup; the dated docs in `docs/` are the load-bearing record.
 
 ## [Unreleased] — 2026-05-16
 
-### Added
+### Added — H19 verdict (FAIL — discipline held)
+- `docs/h19_verdict_2026-05-16.md` — H19 FAILS per predeclared gates.
+  - H19-A canonical replay PASS (aggregate_security 0.9943, strict
+    EXPLICIT_REFUSAL 500/500, semantic_leak 0)
+  - H19-B Unicode-bypass closure PASS (20/20 attacks triggered)
+  - H19-C Unicode benign FP PASS (0/31 false positives across 17 languages)
+  - H19-D1 multi-message attack FAIL (16/20; the 4 misses test v1 rule
+    coverage gaps, not multi-msg iteration logic — suite was a flawed
+    instrument for the hypothesis as written)
+  - H19-D2 system-role injection FAIL (4/5; the 1 miss has system at
+    message position 0 which the precommit explicitly permits as the
+    operator system prompt; suite contradicted precommit)
+  - Result: H18r4 remains promoted. Guard v2 retained as evidence of
+    Unicode closure but not promoted. A future H20 with cleaner suite
+    design would address the multi-message claim independently.
+- `docs/why_this_matters.md` — 5-minute public-facing articulation
+  of the project's thesis, what it proves, and what it honestly does NOT
+  prove. Designed to fill the gap between the website tagline and the
+  full repo for someone landing cold.
+- `SECURITY.md` — security policy with explicit scope, acknowledged
+  limitations link, and what the project does / does not commit to.
+
+### Added (earlier in 2026-05-16)
 - `docs/h19_precommit_hypothesis_2026-05-16.md` — H19 hypothesis to close
   the Unicode-bypass (L-01) and multi-message-scan (L-02) gaps in the
   H18r4 guard. Three predeclared test suites committed before any
