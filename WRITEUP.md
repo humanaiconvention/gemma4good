@@ -287,6 +287,20 @@ The guard illustrates the submission's thesis at the runtime layer: **governance
 
 ## How to reproduce
 
+### Guard reproducibility (preferred — fastest, no GPU needed)
+
+For an independent confirmation of the H18r4 guard claim without any
+GPU or model loading, see the public Kaggle reproducibility notebook:
+
+[**benhaslam/haic-guard-v42-reproducibility-demo-h18r4**](https://www.kaggle.com/code/benhaslam/haic-guard-v42-reproducibility-demo-h18r4)
+
+It clones this repository, displays the exact 16-rule set, replays a
+representative subset of canonical attacks through the pure-function
+`apply_guard()`, confirms both deterministic boundary phrases satisfy
+both rubrics, and emits a SHA3-anchored receipt — all in under a minute
+of wall-clock time. The Kaggle kernel is public and runs end-to-end
+without authentication.
+
 ### Tier 3 (preferred — live GPU validation)
 
 The Tier 3 kernel is already published:

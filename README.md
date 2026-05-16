@@ -277,6 +277,12 @@ jupyter notebook notebook/haic_gemma4_governance.ipynb
   the Unicode-bypass and multi-message gaps with normalization + per-message
   scan, with predeclared FP suite
 
+### Independent reproducibility
+
+- Public Kaggle notebook: [**`benhaslam/haic-guard-v42-reproducibility-demo-h18r4`**](https://www.kaggle.com/code/benhaslam/haic-guard-v42-reproducibility-demo-h18r4) —
+  runs the H18r4 guard demo end-to-end on Kaggle T4 in under a minute,
+  emits a SHA3-anchored receipt
+
 ## Promotion gate
 
 To evaluate any candidate (v42 and later — uses canonical_eval):
