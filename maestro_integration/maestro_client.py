@@ -13,6 +13,7 @@ Usage:
 """
 
 import json
+import logging
 import time
 import hashlib
 import os
@@ -20,11 +21,16 @@ from typing import Optional
 
 from utils.merkle import sha3_256_hex, merkle_root as _compute_merkle_root, hash_items_to_leaves
 
+log = logging.getLogger(__name__)
+
 try:
     import requests as _requests
     _HAS_REQUESTS = True
+    # Narrow network-error type that all _requests calls can raise.
+    _NetError: type[BaseException] = _requests.RequestException
 except ImportError:
     _HAS_REQUESTS = False
+    _NetError = OSError  # placeholder; never triggered when _HAS_REQUESTS is False
 
 
 class MaestroClient:
@@ -54,7 +60,8 @@ class MaestroClient:
             resp.raise_for_status()
             self._token = resp.json()["token"]
             return self._token
-        except Exception:
+        except (_NetError, ValueError, KeyError) as exc:
+            log.debug("dev_token failed: %s", exc)
             return None
 
     def set_token(self, token: str) -> None:
@@ -75,7 +82,8 @@ class MaestroClient:
         try:
             resp = _requests.get(f"{self.base_url}/health", timeout=5)
             return resp.json()
-        except Exception as e:
+        except (_NetError, ValueError) as e:
+            log.debug("health check failed: %s", e)
             return {"status": "unreachable", "error": str(e)}
 
     def chat(self, messages: list, stream: bool = False) -> Optional[dict]:
@@ -91,7 +99,8 @@ class MaestroClient:
             )
             resp.raise_for_status()
             return resp.json()
-        except Exception:
+        except (_NetError, ValueError) as exc:
+            log.debug("chat failed: %s", exc)
             return None
 
     def submit_consent(self, session_id: str, consent: dict) -> dict:
@@ -107,7 +116,8 @@ class MaestroClient:
             )
             resp.raise_for_status()
             return resp.json()
-        except Exception as e:
+        except (_NetError, ValueError) as e:
+            log.debug("submit_consent failed: %s", e)
             return {"error": str(e)}
 
     def submit_receipt(
@@ -135,8 +145,8 @@ class MaestroClient:
                 )
                 resp.raise_for_status()
                 return resp.json()
-            except Exception:
-                pass
+            except (_NetError, ValueError) as exc:
+                log.debug("submit_receipt gateway failed, falling back to local: %s", exc)
 
         # Local fallback
         return self._local_receipt(session_id, messages, consent)
@@ -172,5 +182,6 @@ class MaestroClient:
             )
             resp.raise_for_status()
             return resp.json().get("runs", [])
-        except Exception:
+        except (_NetError, ValueError) as exc:
+            log.debug("prism_runs failed: %s", exc)
             return []

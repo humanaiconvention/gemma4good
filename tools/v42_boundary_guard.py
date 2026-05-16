@@ -25,6 +25,7 @@ Evaluate (H18):
 from __future__ import annotations
 
 import argparse
+import contextlib
 import hashlib
 import json
 import logging
@@ -32,12 +33,25 @@ import re
 import time
 import uuid
 from dataclasses import dataclass, field
-from typing import Any
+from typing import Any, AsyncIterator
 
 import httpx
-from fastapi import FastAPI, Request, Response
+from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.responses import StreamingResponse
 import uvicorn
+
+# ── Pass-through proxy allowlist ──────────────────────────────────────────────
+# Only safe read-only endpoints are forwarded by the catch-all proxy.
+# Generation endpoints (e.g. /completion, /v1/completions) MUST go through
+# /v1/chat/completions so the guard can evaluate them.
+_PASSTHROUGH_GET_ALLOWLIST = frozenset({
+    "health",
+    "props",
+    "slots",
+    "metrics",
+    "v1/models",
+    "models",
+})
 
 # ── Logging ──────────────────────────────────────────────────────────────────
 
@@ -226,7 +240,9 @@ class GuardDecision:
 
 
 def _sha3(text: str) -> str:
-    return hashlib.sha3_256(text.encode()).hexdigest()
+    # errors="replace" handles surrogate pairs / invalid UTF-16 escapes that
+    # would otherwise raise UnicodeEncodeError and 500 the request.
+    return hashlib.sha3_256(text.encode("utf-8", errors="replace")).hexdigest()
 
 
 def _extract_user_text(body: dict) -> str:
@@ -309,8 +325,50 @@ def _build_completion(decision: GuardDecision, model_id: str, stream: bool) -> d
 
 # ── FastAPI app ───────────────────────────────────────────────────────────────
 
-app = FastAPI(title="v42 Boundary Guard", version="0.1.0")
-_upstream: str = "http://127.0.0.1:8081"
+DEFAULT_UPSTREAM = "http://127.0.0.1:8081"
+
+
+@contextlib.asynccontextmanager
+async def lifespan(app: FastAPI) -> AsyncIterator[None]:
+    """Manage a single shared httpx.AsyncClient for the lifetime of the app.
+
+    Without this, each request created and tore down its own client — leaking
+    connections under load and serialising TLS handshakes. The chat timeout
+    (240s) is generous because llama.cpp first-token latency is the bottleneck;
+    the catch-all proxy uses a per-request timeout.
+    """
+    upstream = getattr(app.state, "upstream", DEFAULT_UPSTREAM)
+    timeout = httpx.Timeout(connect=10.0, read=240.0, write=30.0, pool=10.0)
+    limits = httpx.Limits(max_connections=32, max_keepalive_connections=8)
+    async with httpx.AsyncClient(timeout=timeout, limits=limits) as client:
+        app.state.http_client = client
+        app.state.upstream = upstream
+        log.info("guard ready: upstream=%s rules=%d", upstream, len(RULES))
+        yield
+        log.info("guard shutdown")
+
+
+app = FastAPI(title="v42 Boundary Guard", version="0.2.0", lifespan=lifespan)
+app.state.upstream = DEFAULT_UPSTREAM  # may be overridden by main() before run
+
+
+def _client(request: Request) -> httpx.AsyncClient:
+    return request.app.state.http_client
+
+
+def _upstream_url(request: Request) -> str:
+    return request.app.state.upstream
+
+
+def _bad_gateway(detail: str, exc: Exception | None = None) -> Response:
+    """Return a structured 502 instead of leaking an unhandled exception."""
+    log.warning("upstream_error %s: %s", detail, exc if exc else "")
+    payload = {"error": {"type": "bad_gateway", "message": detail}}
+    return Response(
+        content=json.dumps(payload),
+        status_code=502,
+        media_type="application/json",
+    )
 
 
 @app.get("/health")
@@ -363,53 +421,53 @@ async def chat_completions(request: Request):
             media_type="application/json",
         )
 
-    # Pass through to upstream llama-server
-    async with httpx.AsyncClient(timeout=240.0) as client:
-        if body.get("stream", False):
-            async with client.stream(
-                "POST",
-                f"{_upstream}/v1/chat/completions",
-                json=body,
-                headers={"Content-Type": "application/json"},
-            ) as upstream_resp:
-                content = await upstream_resp.aread()
-                return Response(
-                    content=content,
-                    status_code=upstream_resp.status_code,
-                    media_type=upstream_resp.headers.get(
-                        "content-type", "application/json"
-                    ),
-                )
-        else:
-            upstream_resp = await client.post(
-                f"{_upstream}/v1/chat/completions",
-                json=body,
-                headers={"Content-Type": "application/json"},
-            )
-            return Response(
-                content=upstream_resp.content,
-                status_code=upstream_resp.status_code,
-                media_type=upstream_resp.headers.get(
-                    "content-type", "application/json"
-                ),
-            )
+    # Pass through to upstream llama-server using the shared client.
+    client = _client(request)
+    upstream = _upstream_url(request)
+    try:
+        upstream_resp = await client.post(
+            f"{upstream}/v1/chat/completions",
+            json=body,
+            headers={"Content-Type": "application/json"},
+        )
+    except httpx.TimeoutException as exc:
+        return _bad_gateway("upstream timeout", exc)
+    except httpx.HTTPError as exc:
+        return _bad_gateway("upstream unreachable", exc)
+
+    return Response(
+        content=upstream_resp.content,
+        status_code=upstream_resp.status_code,
+        media_type=upstream_resp.headers.get("content-type", "application/json"),
+    )
 
 
-@app.api_route(
-    "/{path:path}",
-    methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "PATCH"],
-)
-async def proxy_everything_else(request: Request, path: str):
-    """Transparent proxy for all non-chat endpoints (e.g. /props, /slots)."""
-    body = await request.body()
-    async with httpx.AsyncClient(timeout=30.0) as client:
+@app.api_route("/{path:path}", methods=["GET", "HEAD"])
+async def proxy_safe_get(request: Request, path: str):
+    """Read-only pass-through for an allowlisted set of llama-server endpoints.
+
+    Restricted to GET/HEAD on a small allowlist to prevent the catch-all from
+    becoming a backdoor that bypasses the guard. Anything not on the list
+    returns 404. Generation endpoints (/completion, /v1/completions, etc.)
+    must go through /v1/chat/completions so the guard can evaluate them.
+    """
+    if path not in _PASSTHROUGH_GET_ALLOWLIST:
+        raise HTTPException(status_code=404, detail="not found")
+
+    client = _client(request)
+    upstream = _upstream_url(request)
+    try:
         upstream_resp = await client.request(
             method=request.method,
-            url=f"{_upstream}/{path}",
-            headers={k: v for k, v in request.headers.items() if k.lower() != "host"},
-            content=body,
+            url=f"{upstream}/{path}",
             params=dict(request.query_params),
+            timeout=30.0,
         )
+    except httpx.TimeoutException as exc:
+        return _bad_gateway("upstream timeout", exc)
+    except httpx.HTTPError as exc:
+        return _bad_gateway("upstream unreachable", exc)
+
     return Response(
         content=upstream_resp.content,
         status_code=upstream_resp.status_code,
@@ -420,12 +478,11 @@ async def proxy_everything_else(request: Request, path: str):
 # ── CLI entry point ───────────────────────────────────────────────────────────
 
 def main():
-    global _upstream
     parser = argparse.ArgumentParser(description="v42 Boundary Guard proxy")
     parser.add_argument(
         "--upstream",
-        default="http://127.0.0.1:8081",
-        help="Upstream llama-server URL (default: http://127.0.0.1:8081)",
+        default=DEFAULT_UPSTREAM,
+        help=f"Upstream llama-server URL (default: {DEFAULT_UPSTREAM})",
     )
     parser.add_argument(
         "--port",
@@ -439,10 +496,9 @@ def main():
         help="Host to bind (default: 127.0.0.1)",
     )
     args = parser.parse_args()
-    _upstream = args.upstream
+    app.state.upstream = args.upstream
     log.info("Starting v42 boundary guard on %s:%d", args.host, args.port)
-    log.info("Upstream llama-server: %s", _upstream)
-    log.info("Guard rules loaded: %d", len(RULES))
+    log.info("Upstream llama-server: %s", args.upstream)
     uvicorn.run(app, host=args.host, port=args.port, log_level="warning")
 
 

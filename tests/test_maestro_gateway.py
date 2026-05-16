@@ -12,6 +12,10 @@ from pathlib import Path
 
 import pytest
 
+# Gateway defaults to "production" mode (fail-closed). Opt the test client in
+# to test mode before importing the app so the dev-token shortcut is active.
+os.environ.setdefault("MAESTRO_LAUNCH_MODE", "test")
+
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 fastapi = pytest.importorskip("fastapi")

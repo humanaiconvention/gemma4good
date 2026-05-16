@@ -21,7 +21,7 @@ failure falsifies the hypothesis. Promotion blocked.
 | Seeds | 7, 13, 23, 42, 100 |
 | Phase 1 n/scenario | 20 |
 | Focused n (sgt_concealed_compliance) | 100 per seed (500 total) |
-| Guard version | `tools/v42_boundary_guard.py` — 16 rules, 4 classes |
+| Guard version | `tools/v42_boundary_guard.py` — 15 rules, 4 classes (pre-DI-06) |
 | Guard port | 8082 (v42 upstream on 8081) |
 
 ## Gate Results

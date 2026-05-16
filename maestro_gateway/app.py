@@ -39,9 +39,15 @@ from utils.merkle import sha3_256_hex, merkle_root, hash_items_to_leaves
 
 
 # ── config ───────────────────────────────────────────────────────────────────
-MODE         = os.environ.get("MAESTRO_LAUNCH_MODE", "test")
+# MODE = "test" enables the dev-token shortcut and the /dev-token endpoint.
+# Production deploys MUST set MAESTRO_LAUNCH_MODE=production explicitly so an
+# unconfigured environment never falls into open-auth mode.
+MODE         = os.environ.get("MAESTRO_LAUNCH_MODE", "production")
 DEV_TOKEN    = os.environ.get("MAESTRO_DEV_TOKEN", f"dev-{uuid.uuid4().hex[:16]}")
 RATE_LIMIT_S = float(os.environ.get("MAESTRO_RATE_LIMIT_S", "0.5"))
+# Chat endpoint size cap: 40 messages aligns with the receipt cap (CS5 defense).
+CHAT_MAX_MESSAGES = int(os.environ.get("MAESTRO_CHAT_MAX_MESSAGES", "40"))
+CHAT_MAX_CONTENT_CHARS = int(os.environ.get("MAESTRO_CHAT_MAX_CONTENT_CHARS", "8192"))
 
 app = FastAPI(
     title="Maestro Gateway (reference)",
@@ -80,7 +86,10 @@ class ReceiptBody(BaseModel):
     consent: dict[str, Any]
 
 class ChatBody(BaseModel):
-    messages: list[dict[str, Any]]
+    # Bounded to prevent DoS via oversized message arrays. The per-message
+    # content cap is enforced in the handler (Pydantic can't express nested
+    # dict-field maxima cleanly across versions).
+    messages: list[dict[str, Any]] = Field(..., max_length=CHAT_MAX_MESSAGES)
     stream: bool = False
 
 
@@ -146,6 +155,11 @@ def chat(body: ChatBody, _tok: str = Depends(auth)) -> dict:
     """Echo stub. Wire to vLLM / Gemini / Ollama in production."""
     if not body.messages:
         raise HTTPException(status_code=400, detail="empty messages")
+    # Per-message content size cap to prevent oversized-payload DoS.
+    for m in body.messages:
+        c = m.get("content", "")
+        if isinstance(c, str) and len(c) > CHAT_MAX_CONTENT_CHARS:
+            raise HTTPException(status_code=413, detail="message too large")
     last = body.messages[-1].get("content", "")
     return {
         "id": f"chatcmpl-{uuid.uuid4().hex[:12]}",

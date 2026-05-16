@@ -26,10 +26,18 @@ ONCHAIN = Path(__file__).resolve().parent
 
 from utils.merkle import sha3_256_hex, merkle_root, hash_items_to_leaves
 
-# Anvil's well-known pre-funded account #0 (10_000 ETH).
-ANVIL_PRIVATE_KEY = "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"
-ANVIL_RPC = "http://127.0.0.1:8545"
-CHAIN_ID = 31337  # Anvil default
+# Anvil's well-known pre-funded account #0 (10_000 ETH on a local dev chain).
+# This is a PUBLIC, deterministic key shipped with foundry — it controls no
+# real funds and is reproduced verbatim in every anvil tutorial. It is here
+# so the local roundtrip test runs without env setup. Override via the
+# ANVIL_PRIVATE_KEY env var if needed.
+# safe-secret-scan: anvil-default-account-0  # noqa: E501
+ANVIL_PRIVATE_KEY = os.environ.get(
+    "ANVIL_PRIVATE_KEY",
+    "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
+)
+ANVIL_RPC = os.environ.get("ANVIL_RPC", "http://127.0.0.1:8545")
+CHAIN_ID = int(os.environ.get("ANVIL_CHAIN_ID", "31337"))  # Anvil default
 
 # Minimal HAICAnchor ABI — mirror of anchor_client.py ANCHOR_ABI.
 from onchain.anchor_client import ANCHOR_ABI, AnchorClient, session_id_to_bytes32

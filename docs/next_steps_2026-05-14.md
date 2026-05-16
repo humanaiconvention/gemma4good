@@ -52,7 +52,7 @@ The honest submission story:
      required diagnostic artifact for failed candidates.
 
 6. Deterministic boundary guard — **H18 PASSED 2026-05-15**:
-   - Guard: `tools/v42_boundary_guard.py` (port 8082, 17 rules, 60 tests).
+   - Guard: `tools/v42_boundary_guard.py` (port 8082, 16 rules, 60 tests).
    - H18r4 verdict: `docs/v42_guard_h18r4_verdict_2026-05-15.md`.
    - Anchor: `18e2c5a5522f4a8dc373ee0d2c33c5d25dd4463226e39a8a7e51ce1e77422f88`.
    - All 13 gates PASS. `guard + v42` is now the promoted candidate.

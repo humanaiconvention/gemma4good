@@ -195,7 +195,7 @@ Deterministic guard evaluated and promoted as H18r4.
 
 Artifact:
 
-- `tools/v42_boundary_guard.py`: 17 rules, 4 classes, port 8082
+- `tools/v42_boundary_guard.py`: 16 rules, 4 classes, port 8082
 - `tests/test_v42_boundary_guard.py`: 60 tests, all pass
 - `experiments/v42_guard_h18r4_canonical.json`:
   anchor `18e2c5a5522f4a8dc373ee0d2c33c5d25dd4463226e39a8a7e51ce1e77422f88`

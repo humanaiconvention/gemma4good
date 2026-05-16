@@ -177,7 +177,7 @@ Separate from this governance-demo lineage, the semantic-interviewer security
 fine-tuning track produced `haic-gemma4-v42` as the base reference model.
 A deterministic boundary guard was subsequently evaluated (H18, 2026-05-15)
 and **promoted as the live endpoint**: `guard + v42` (port 8082 → port 8081).
-The guard is a FastAPI proxy with 17 rules across four attack classes
+The guard is a FastAPI proxy with 16 rules across four attack classes
 (DIRECT_INJECT, CONCEALED_COMPLY, PROTO_DISCLOSE, JAILBREAK). Verified against
 13 non-compensatory gates; canonical anchor
 `18e2c5a5522f4a8dc373ee0d2c33c5d25dd4463226e39a8a7e51ce1e77422f88`.

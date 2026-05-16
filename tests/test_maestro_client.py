@@ -81,7 +81,10 @@ class TestMaestroClientWithRequests:
     @patch("maestro_integration.maestro_client._HAS_REQUESTS", True)
     @patch("maestro_integration.maestro_client._requests")
     def test_health_connection_error(self, mock_requests):
-        mock_requests.get.side_effect = Exception("Connection refused")
+        # Use the real requests.RequestException so the client's narrowed
+        # except clause catches it the way it would in production.
+        import requests
+        mock_requests.get.side_effect = requests.ConnectionError("Connection refused")
         client = MaestroClient("test-gateway")
         res = client.health()
         assert res["status"] == "unreachable"
@@ -90,9 +93,10 @@ class TestMaestroClientWithRequests:
     @patch("maestro_integration.maestro_client._HAS_REQUESTS", True)
     @patch("maestro_integration.maestro_client._requests")
     def test_submit_receipt_connection_error(self, mock_requests):
-        mock_requests.post.side_effect = Exception("Connection refused")
+        import requests
+        mock_requests.post.side_effect = requests.ConnectionError("Connection refused")
         client = MaestroClient("test-gateway")
-        
+
         # Connection error should trigger local fallback
         res = client.submit_receipt("sess-1", [], {})
         assert res["source"] == "local"

@@ -39,3 +39,9 @@ _local_worktrees/
 *.safetensors
 *.bin
 *.gguf
+
+# Foundry / Solidity build artifacts (onchain)
+onchain/out/
+onchain/cache/
+onchain/lib/
+onchain/broadcast/

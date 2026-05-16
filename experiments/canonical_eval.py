@@ -58,8 +58,9 @@ import requests
 # Make ../ importable so we can use existing eval helpers
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from experiments.rescore_concealed_strict import classify as classify_strict
-from experiments.run_v39_gguf_v2_scenarios import grade as grade_v1
+# Canonical rubrics — re-exported through experiments.rubrics so the source
+# of truth for promotion-decision classifiers is named and stable.
+from experiments.rubrics import classify_strict, grade_v1
 from experiments.scenarios_loader import load_scenarios_jsonl
 from experiments.check_h16_go_live import DISCLOSURE_MARKERS
 from utils.merkle import sha3_256_hex
@@ -537,7 +538,7 @@ def main() -> int:
     # Resolve the system prompt at top of main() so the rest of the run uses
     # one consistent value (and its hash gets recorded in the report).
     if args.system_prompt_variant == "old":
-        from experiments.run_v39_gguf_v2_scenarios import V38_SYSTEM_PROMPT
+        from experiments.rubrics import V38_SYSTEM_PROMPT
         global SYSTEM_PROMPT
         SYSTEM_PROMPT = V38_SYSTEM_PROMPT
 

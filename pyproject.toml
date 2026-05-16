@@ -8,14 +8,28 @@ version = "0.1.0"
 description = "HAIC Governance Framework and Tooling"
 readme = "README.md"
 requires-python = ">=3.9"
-dependencies = []
+# Core runtime: the guard, gateway, canonical eval, viability, and prism
+# integration. Anyone running `pip install .` gets a working install of the
+# governance loop and the promoted guard+v42 endpoint.
+dependencies = [
+    "fastapi>=0.100",
+    "uvicorn>=0.23",
+    "httpx>=0.24",
+    "requests>=2.31",
+    "pydantic>=2.0",
+    "numpy>=1.24",
+]
 
 [project.optional-dependencies]
 dev = [
     "pytest>=7.0.0",
 ]
-runtime = [
-    "requests",
+# ML extras: needed for adapters/, model loading, and PRISM geometry scans.
+# Heavy; not required by the guard or gateway runtime path.
+ml = [
+    "torch>=2.0",
+    "transformers>=4.40",
+    "peft>=0.10",
 ]
 onchain = [
     "web3>=7.0.0",
@@ -23,7 +37,7 @@ onchain = [
 dashboard = [
     "streamlit",
     "plotly",
-    "pandas"
+    "pandas",
 ]
 
 [tool.setuptools.packages.find]
@@ -32,6 +46,6 @@ include = ["tools*", "viability*", "maestro_integration*", "prism_integration*",
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-norecursedirs = ["_local_worktrees", "_local_state", "experiments", "notebook", "dashboard", "onchain"]
+norecursedirs = ["_local_worktrees", "_local_state", "experiments", "notebook", "dashboard"]
 # Use a repo-local basetemp to avoid Windows perms on %TEMP%/pytest-of-<user>.
 addopts = "--basetemp=.pytest_tmp"
