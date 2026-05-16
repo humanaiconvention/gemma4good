@@ -88,10 +88,10 @@ Current pass on 2026-05-14:
   `54ee8df6e57529d921467b2d863fc3e42faafe1f58e8f2b1f608414348f4fbcd`,
   and viability still false (`Ceff/E = 0.879055`). The result is retained in
   `experiments/tier3_v11_results_2026-05-15.json`.
-- Tier 3 public metadata has been patched locally to `is_private: false`, but
-  Kaggle rejected the live push because the account has reached the weekly GPU
-  quota. Public visibility remains a live blocker until a metadata update can
-  be accepted and the URL rechecked.
+- Tier 3 public visibility **resolved 2026-05-15**: Version 12 pushed at 17:03
+  local after GPU quota reset, completed at 17:08, HTTP 200 confirmed
+  unauthenticated. Results identical to v11 (deterministic). Artifact committed
+  as `experiments/tier3_v12_results_2026-05-15.json`.
 
 ## Do Not Do By Default
 

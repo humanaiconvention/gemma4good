@@ -109,16 +109,17 @@ Observed result:
 - Viability condition: `false`; `Ceff/E = 0.879055`.
 - Promotion verdict: `false`.
 
-Public-visibility follow-up:
+Public-visibility follow-up — **RESOLVED 2026-05-15**:
 
 - Reference audit discovered the kernel metadata still had `is_private: true`,
-  which makes the public WRITEUP link return 404 to unauthenticated readers.
-- The local metadata at `D:/kaggle/notebooks/haic-governance-tier3` has been
-  patched to `is_private: false`.
-- Kaggle GPU quota resets 2026-05-15 at 17:00 local. Push command:
-  `kaggle kernels push --path D:/kaggle/notebooks/haic-governance-tier3`
-- Do not claim the public URL is fixed until the push is accepted and the URL
-  is verified unauthenticated.
+  which made the public WRITEUP link return 404 to unauthenticated readers.
+- The local metadata was patched to `is_private: false` and pushed as Version 12
+  at 17:03 local after the Kaggle GPU quota reset.
+- Version 12 completed at 17:08 local (status: `COMPLETE`).
+- Unauthenticated HTTP check: `https://www.kaggle.com/code/benhaslam/haic-governance-framework-tier-3-live-validation`
+  returned **HTTP 200**. Public visibility confirmed.
+- v12 results are identical to v11 (deterministic run); artifact committed as
+  `experiments/tier3_v12_results_2026-05-15.json`.
 
 ## 4. Reference And Artifact Audit
 
@@ -153,11 +154,10 @@ External URL audit:
 Initial result:
 
 - DOI, GitHub, HumanAI Convention, Zenodo, and DeepMind links resolved.
-- The raw unauthenticated HTTP check returned 404 for the two Kaggle notebook
-  pages. The authenticated Kaggle CLI can see both kernels. For Tier 3 there is
-  a concrete fix because local metadata still had `is_private: true`; that has
-  been patched locally, but the live push is blocked by the current Kaggle GPU
-  quota limit.
+- Both Kaggle notebook URLs now return HTTP 200 unauthenticated (confirmed
+  2026-05-15 17:08 local): main submission notebook (v19) and Tier 3 validation
+  (v12). The earlier 404 for Tier 3 was caused by `is_private: true` in kernel
+  metadata; patched and pushed as v12 after GPU quota reset.
 
 ## 5. Initial Additional Testing Assessment
 

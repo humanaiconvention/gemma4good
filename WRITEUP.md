@@ -235,7 +235,7 @@ The five files under `gemma4good/` are intended to drop into other projects with
 
 Beyond the original three-scenario governance notebook, this submission includes a **Tier 3 live validation** kernel that runs the full HAIC governance stack end-to-end on a Kaggle T4 GPU:
 
-**Live kernel (v11):** [benhaslam/haic-governance-framework-tier-3-live-validation](https://www.kaggle.com/code/benhaslam/haic-governance-framework-tier-3-live-validation)
+**Live kernel (v12):** [benhaslam/haic-governance-framework-tier-3-live-validation](https://www.kaggle.com/code/benhaslam/haic-governance-framework-tier-3-live-validation)
 
 What it produces:
 - **PRISM geometry comparison** — base `gemma-4-e2b-it` (qh=0.9141) vs. v38 adapter (qh=0.9186), 4 metrics measured from real hidden states
@@ -292,7 +292,7 @@ The guard illustrates the submission's thesis at the runtime layer: **governance
 The Tier 3 kernel is already published:
 1. Go to: https://www.kaggle.com/code/benhaslam/haic-governance-framework-tier-3-live-validation
 2. Fork the notebook and click **Run All** with a **GPU T4** accelerator.
-3. Expected wall-clock: ~3 min model load + ~1 min adapter attach + ~1 min eval = ~5 min total (v11 ran in ~300s).
+3. Expected wall-clock: ~3 min model load + ~1 min adapter attach + ~1 min eval = ~5 min total (v12 ran in ~300s).
 4. The final cell writes `haic_governance_tier3_results.json` to `/kaggle/working/`.
 
 To rebuild and push a new version locally:
