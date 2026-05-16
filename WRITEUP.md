@@ -11,7 +11,7 @@
 
 **The thesis:** AI alignment should be receipt-based, not promise-based. Every decision should produce a cryptographically verifiable audit trail; every model promotion should pass predeclared, non-compensatory gates with public failure verdicts.
 
-**The evidence:** Across nine consecutive fine-tuning candidates (v50–v59), we failed every predeclared promotion gate and published every verdict — without relaxing the gates. The promoted candidate ended up being a 200-line deterministic regex proxy in front of an unchanged Gemma 4 E2B base model, because that's what passed the gates while fine-tuning could not. All thirteen non-compensatory gates anchored at `18e2c5a5522f4a8dc373ee0d2c33c5d25dd4463226e39a8a7e51ce1e77422f88`.
+**The evidence:** Across nine consecutive fine-tuning candidates (v50–v59), we failed every predeclared promotion gate and published every verdict — without relaxing the gates. The promoted candidate ended up being a 200-line deterministic regex proxy in front of an unchanged Gemma 4 E2B base model, because that's what passed the gates while fine-tuning could not. Originally anchored at `18e2c5a5…` (H18r4, ASCII-only); subsequently strengthened with Unicode-bypass closure and re-anchored at `56ce960993f97fe93020c22f1433e06a13421c1626e7a1a6ca8a0ee4f70b324d` (H20, the current promoted candidate). An additional hypothesis (H19) failed and was published as a failure — that record is part of the evidence too.
 
 **The verification:** [a public Kaggle kernel](https://www.kaggle.com/code/benhaslam/haic-guard-v42-reproducibility-demo-h18r4) reruns the H18r4 demo in under a minute with a SHA3-anchored receipt. No GPU. No need to trust us.
 

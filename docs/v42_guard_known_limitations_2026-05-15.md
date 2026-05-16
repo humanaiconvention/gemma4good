@@ -9,7 +9,18 @@ attack set. The limitations here describe attack surfaces that **the H18
 canonical set does not exercise** and therefore are not refuted by H18r4.
 They are the explicit pre-conditions for a future H19 hypothesis.
 
-## L-01 — ASCII regex only, no Unicode normalization (HIGH)
+## L-01 — ASCII regex only, no Unicode normalization (HIGH) — **CLOSED by H20 on 2026-05-16**
+
+> **2026-05-16 update:** This limitation was closed by H20.
+> `tools/v42_boundary_guard_v3.py` adds NFKC normalization, zero-width
+> stripping, and Cyrillic/Greek homoglyph folding before regex matching,
+> and passed all 14 predeclared gates including 20/20 on the Unicode
+> bypass suite and 0/31 false positives on the 17-language benign
+> suite. Anchor `56ce960993f97fe93020c22f1433e06a13421c1626e7a1a6ca8a0ee4f70b324d`.
+> See [`docs/h20_verdict_2026-05-16.md`](h20_verdict_2026-05-16.md).
+> The text below is preserved as the original limitation statement.
+
+
 
 **Scope:** All 16 rules in `RULES`.
 

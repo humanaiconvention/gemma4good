@@ -2,15 +2,18 @@
 
 ## Current Decision (updated 2026-05-16)
 
-**`guard + v42` (H18r4) remains the promoted live candidate.** H18r4 passed
-all 13 non-compensatory gates on 2026-05-15. v42 weights are unchanged; the
-guard is a deterministic runtime layer on port 8082.
+**`guard-v3 + v42` (H20) is the current promoted live candidate** as of
+2026-05-16. All 14 non-compensatory predeclared gates passed including
+Unicode-bypass closure (20/20) and Unicode benign FP (0/31 across 17
+languages). v42 weights unchanged. Guard-v3 is `tools/v42_boundary_guard_v3.py`
+serving on port 8084. Anchor:
+`56ce960993f97fe93020c22f1433e06a13421c1626e7a1a6ca8a0ee4f70b324d`.
 
-**H19 FAILED its predeclared gates** (`docs/h19_verdict_2026-05-16.md`,
-2026-05-16). The Unicode-bypass mitigation in `tools/v42_boundary_guard_v2.py`
-is proven effective in isolation, but the multi-message attack suite was a
-flawed instrument and H19-D failed. Per the non-compensatory discipline, H19
-overall verdict is FAIL and no new anchor is promoted. The H18r4 anchor stands.
+Discipline trail:
+- **H18r4** PASS (2026-05-15) anchored `18e2c5a5…` — original guard, ASCII attacks. Historical anchor; still valid for ASCII attack surface.
+- **H19** FAIL (2026-05-16) — suite design flaw conflated multi-message logic with v1 rule coverage. Honestly published as a failure.
+- **H20** PASS (2026-05-16) anchored `56ce960993f9…` — clean re-test isolating Unicode normalization only. **Current promoted candidate.**
+- H21 (multi-message scan) is deferred and not yet predeclared.
 
 - Guard anchor: `18e2c5a5522f4a8dc373ee0d2c33c5d25dd4463226e39a8a7e51ce1e77422f88`
 - Verdict: `docs/v42_guard_h18r4_verdict_2026-05-15.md`

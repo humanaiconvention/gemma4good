@@ -269,17 +269,27 @@ jupyter notebook notebook/haic_gemma4_governance.ipynb
   EXPLICIT_REFUSAL language after H18 first run
 - `docs/v42_guard_h18_verdict_2026-05-15.md` — H18 first run FAIL on H18b rubric
   artifact; documented phrase evolution across three iterations
-- `docs/v42_guard_h18r4_verdict_2026-05-15.md` — **H18r4 PASS** (all 13 gates);
-  `guard + v42` promoted; anchor `18e2c5a5…`; 16 rules, 60 tests, 679 total
-- `docs/v42_guard_known_limitations_2026-05-15.md` — security gaps that
-  H18r4 does NOT anchor (Unicode bypass, multi-message scan)
+- `docs/v42_guard_h18r4_verdict_2026-05-15.md` — H18r4 PASS (all 13 gates);
+  original `guard + v42` promotion; anchor `18e2c5a5…`; 16 rules, 60 tests.
+  Historical anchor for the ASCII-only attack surface.
+- `docs/v42_guard_known_limitations_2026-05-15.md` — original security gaps
+  that H18r4 did NOT anchor (Unicode bypass = **L-01, now CLOSED by H20**;
+  multi-message scan = L-02, still open and deferred to H21)
 - `docs/h19_precommit_hypothesis_2026-05-16.md` — H19 hypothesis: close
   the Unicode-bypass and multi-message gaps with normalization + per-message
   scan, with predeclared FP suite
 - `docs/h19_verdict_2026-05-16.md` — **H19 FAIL** per predeclared gates;
-  Unicode mitigation proven (H19-B 20/20, H19-C 0/31 FP, H19-A canonical
-  replay PASS) but multi-message D-gates failed and verdict is FAIL.
-  H18r4 remains promoted. Discipline held under self-imposed pressure.
+  Unicode mitigation proven (H19-B 20/20, H19-C 0/31 FP) but multi-message
+  D-gates failed due to suite-design confound. Honest negative verdict.
+- `docs/h20_precommit_hypothesis_2026-05-16.md` — H20: clean re-test
+  isolating Unicode normalization only; multi-message claim deferred.
+- `docs/h20_verdict_2026-05-16.md` — **H20 PASS** (all 14 gates);
+  `guard-v3 + v42` is the **current promoted live candidate**; anchor
+  `56ce960993f9…`; closes L-01 Unicode-bypass; 71 guard tests passing.
+- `docs/discipline_is_the_contribution.md` — 1,200-word essay on
+  predeclared, non-compensatory, anchored evaluation as the contribution.
+- `docs/compliance_one_pager.md` — EU AI Act / NIST AI RMF / US AG /
+  OECD mapping of HAIC primitives.
 - `docs/why_this_matters.md` — 5-minute public-facing articulation
 
 ### Independent reproducibility
