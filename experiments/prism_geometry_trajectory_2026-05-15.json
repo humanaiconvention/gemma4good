@@ -1,0 +1,91 @@
+{
+  "scan_date": "2026-05-15",
+  "device": "cuda",
+  "load_mode": "bfloat16_device_map_auto",
+  "known_baselines": {
+    "gemma-4-e2b-it-base": {
+      "quantization_hostility": 0.9141,
+      "outlier_ratio": 98.8852,
+      "activation_kurtosis": 1124.8143,
+      "cardinal_proximity": 0.808,
+      "layers_sampled": 20,
+      "source": "tier3_v12"
+    },
+    "v35-gov-adapter": {
+      "quantization_hostility": 0.9186,
+      "outlier_ratio": 96.2314,
+      "activation_kurtosis": 1138.6332,
+      "cardinal_proximity": 0.8144,
+      "layers_sampled": 20,
+      "source": "tier3_v12"
+    }
+  },
+  "scanned": [
+    {
+      "label": "v55",
+      "path": "D:/kaggle/results/v55-gguf/haic-gemma4-v55-merged",
+      "quantization_hostility": 0.9125,
+      "n_layers": 35,
+      "n_hostile_layers": 34,
+      "worst_layer_hostility": 0.9781,
+      "best_layer_hostility": 0.6713,
+      "elapsed_s": 36.9
+    },
+    {
+      "label": "v56",
+      "path": "D:/kaggle/results/v56-gguf/haic-gemma4-v56-merged",
+      "quantization_hostility": 0.9125,
+      "n_layers": 35,
+      "n_hostile_layers": 34,
+      "worst_layer_hostility": 0.9782,
+      "best_layer_hostility": 0.6711,
+      "elapsed_s": 26.9
+    },
+    {
+      "label": "v57",
+      "path": "D:/kaggle/results/v57-gguf/haic-gemma4-v57-merged",
+      "quantization_hostility": 0.9127,
+      "n_layers": 35,
+      "n_hostile_layers": 34,
+      "worst_layer_hostility": 0.9788,
+      "best_layer_hostility": 0.6711,
+      "elapsed_s": 25.8
+    },
+    {
+      "label": "v58",
+      "path": "D:/kaggle/results/v58-gguf/haic-gemma4-v58-merged",
+      "quantization_hostility": 0.9122,
+      "n_layers": 35,
+      "n_hostile_layers": 34,
+      "worst_layer_hostility": 0.9781,
+      "best_layer_hostility": 0.6715,
+      "elapsed_s": 25.8
+    }
+  ],
+  "summary": [
+    {
+      "label": "v55",
+      "qh": 0.9125,
+      "delta_vs_base": -0.0016,
+      "direction": "\u2248 unchanged"
+    },
+    {
+      "label": "v56",
+      "qh": 0.9125,
+      "delta_vs_base": -0.0016,
+      "direction": "\u2248 unchanged"
+    },
+    {
+      "label": "v57",
+      "qh": 0.9127,
+      "delta_vs_base": -0.0014,
+      "direction": "\u2248 unchanged"
+    },
+    {
+      "label": "v58",
+      "qh": 0.9122,
+      "delta_vs_base": -0.0019,
+      "direction": "\u2248 unchanged"
+    }
+  ]
+}
