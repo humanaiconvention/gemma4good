@@ -31,7 +31,7 @@ def _normalize_outlier_ratio(outlier_ratio: float) -> float:
     as prism_client._outlier_geometry_numpy. outlier_ratio=1 → 0, =50 → 1."""
     return min(math.log(max(outlier_ratio, 1.0)) / math.log(50.0), 1.0)
 
-GATEWAY_BASE = os.environ.get("MAESTRO_GATEWAY_BASE", "http://localhost:8000")
+GATEWAY_BASE: str = os.environ.get("MAESTRO_GATEWAY_BASE", "http://localhost:8000")
 
 
 # ── Tool 1: assess_wellbeing ──────────────────────────────────────────────────

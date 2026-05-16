@@ -245,7 +245,7 @@ def _sha3(text: str) -> str:
     return hashlib.sha3_256(text.encode("utf-8", errors="replace")).hexdigest()
 
 
-def _extract_user_text(body: dict) -> str:
+def _extract_user_text(body: dict[str, Any]) -> str:
     """Extract the last user message from an OpenAI-style chat request."""
     messages = body.get("messages", [])
     for msg in reversed(messages):
@@ -293,7 +293,9 @@ def apply_guard(user_text: str) -> GuardDecision:
 
 # ── Synthetic completion builder ──────────────────────────────────────────────
 
-def _build_completion(decision: GuardDecision, model_id: str, stream: bool) -> dict:
+def _build_completion(
+    decision: GuardDecision, model_id: str, stream: bool
+) -> dict[str, Any]:
     """Build an OpenAI-compatible completion from a guard response."""
     msg_id = f"guard-{uuid.uuid4().hex[:12]}"
     choice = {

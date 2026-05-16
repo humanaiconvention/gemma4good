@@ -99,15 +99,20 @@ gemma4good/
 │   ├── enforcement_evidence_contract.py    ← VLA-style 8-key evidence + 4 actions
 │   └── federated_round_demo.py             ← End-to-end CLI demo of all four layers
 ├── experiments/
+│   ├── canonical_eval.py                   ← CURRENT canonical eval driver (post-v42)
+│   ├── rubrics.py                          ← canonical strict + v1 rubrics (stable API)
 │   ├── sgt_harness.py                      ← rigorous SGT (Garrett Sutherland's)
 │   ├── sgt_extended_scenarios.py           ← 10 grounding + 5 security scenarios
-│   ├── run_v38_sgt.py                      ← BEAST runner (1-turn)
-│   ├── run_v38_sgt_2turn.py                ← BEAST runner (2-turn, kaggle-pattern)
+│   ├── run_v38_sgt.py                      ← BEAST runner (1-turn, pre-v42 era)
 │   ├── inspect_security_responses.py       ← failure-mode dissection helper
 │   ├── kaggle_cell_rigorous_sgt.py         ← drop-in cell for kaggle build scripts
 │   ├── runtime_loop_stress_test.py         ← 7-stream end-to-end runtime loop validation
 │   ├── runtime_loop_stress_report.json     ← receipt-anchored stress test result
-│   └── federated_round_demo_receipt.json   ← sample federated-round demo output
+│   ├── prism_geometry_trajectory.py        ← v55–v58 PRISM qh scan
+│   ├── h19_*.jsonl                         ← H19 predeclared Unicode/multi-msg suites
+│   ├── h19_offline_eval.py                 ← H19 offline gate runner (B/C/D)
+│   ├── v42_guard_h18r4_canonical.json      ← H18r4 PROMOTED anchor 18e2c5a5…
+│   └── archive/                            ← v43–v59 notebook builders, legacy evals
 ├── tests/
 │   └── test_*.py                           ← 679 unit tests covering eval + four layers
 ├── prism_integration/                      ← Prism geometry wrappers (E(t) source)
@@ -266,35 +271,41 @@ jupyter notebook notebook/haic_gemma4_governance.ipynb
   artifact; documented phrase evolution across three iterations
 - `docs/v42_guard_h18r4_verdict_2026-05-15.md` — **H18r4 PASS** (all 13 gates);
   `guard + v42` promoted; anchor `18e2c5a5…`; 16 rules, 60 tests, 679 total
+- `docs/v42_guard_known_limitations_2026-05-15.md` — security gaps that
+  H18r4 does NOT anchor (Unicode bypass, multi-message scan)
+- `docs/h19_precommit_hypothesis_2026-05-16.md` — H19 hypothesis: close
+  the Unicode-bypass and multi-message gaps with normalization + per-message
+  scan, with predeclared FP suite
 
 ## Promotion gate
 
-To evaluate any candidate adapter:
+To evaluate any candidate (v42 and later — uses canonical_eval):
 
 ```bash
-# 1. Rigorous SGT (BEAST or kaggle)
-python -u -m experiments.run_v38_sgt --base ... --adapter ... --baseline \
-    --n-samples 20 --seed 42 --out experiments/v<N>_sgt_rigorous.json
+# 1. Start the candidate via llama-server, then run canonical eval.
+python experiments/canonical_eval.py \
+    --model-id haic-gemma4-v<N> \
+    --server-url http://127.0.0.1:8081 \
+    --scenarios experiments/sgt_scenarios_v2.jsonl \
+    --system-prompt-variant old \
+    --seeds 7 13 23 42 100 \
+    --n-samples 20 \
+    --focused-n 100 \
+    --out experiments/v<N>_canonical.json \
+    --failure-sidecar experiments/v<N>_failures.jsonl
 
-# 2. Eval-set leakage receipt
-python -m tools.eval_leakage_check \
-    --training data/v35_gov_final.jsonl ... \
-    --out experiments/v<N>_leakage_receipt.json
+# 2. The canonical JSON contains all 13 H-series gate results and a SHA3-256
+#    self-anchor. Gate thresholds are predeclared in the matching docs/hypothesis
+#    file BEFORE the run (per evaluation_doctrine.md).
 
-# 3. Six-gate decision
-python -m tools.check_promotion \
-    --report experiments/v<N>_sgt_rigorous.json \
-    --leakage experiments/v<N>_leakage_receipt.json \
-    --out experiments/v<N>_promotion_decision.json
-# Exit code: 0 = PROMOTED, 1 = BLOCKED, 2 = INDETERMINATE
-
-# 4. Merkle-anchored eval receipt
-python -m tools.eval_receipt \
-    --sgt experiments/v<N>_sgt_rigorous.json \
-    --leakage experiments/v<N>_leakage_receipt.json \
-    --decision experiments/v<N>_promotion_decision.json \
-    --out experiments/v<N>_eval_receipt.json
+# 3. Verdict: write docs/v<N>_canonical_verdict_<DATE>.md citing the anchor,
+#    gate results, and PASS/FAIL decision per the precommit gates.
 ```
+
+For the v38-v40 era six-gate decision pipeline (BEAST runner, leakage check,
+check_promotion CLI), see `docs/promotion_workflow.md` — that pipeline is
+still functional for historical reproduction but post-v42 promotion uses
+canonical_eval above.
 
 The pipeline is non-compensatory: any one of the six gates failing blocks
 promotion. See [`docs/promotion_workflow.md`](docs/promotion_workflow.md)

@@ -35,9 +35,9 @@ The current alignment landscape treats this as something to *promise* ("trust us
 
 ## What the notebook actually does
 
-### The four-tool pipeline
+### The five-tool pipeline
 
-Gemma 4 receives a scenario prompt and a system message containing schemas for seven governance tools. It reasons about the scenario, decides which tools to call, and emits structured function calls. We parse them, execute them, and feed the results back. After the agent completes the pipeline, we generate a cryptographically anchored alignment receipt.
+Gemma 4 receives a scenario prompt and a system message containing schemas for **five active governance tools** (plus one advisory audit in Scenario 6). It reasons about the scenario, decides which tools to call, and emits structured function calls. We parse them, execute them, and feed the results back. After the agent completes the pipeline, we generate a cryptographically anchored alignment receipt.
 
 | Tool | What it does | Mapping to the Viability Condition |
 |---|---|---|
@@ -254,7 +254,7 @@ The framework code (PRISM client, Maestro client, Viability Condition, Merkle ut
 
 Beyond fine-tuning, this submission includes a **governance-as-runtime-control** result that directly demonstrates the framework's auditability principle applied to security.
 
-`tools/v42_boundary_guard.py` is a FastAPI proxy that sits in front of `haic-gemma4-v42` on a separate port. Before any generation, it checks the user message against 17 compiled rules across four boundary classes:
+`tools/v42_boundary_guard.py` is a FastAPI proxy that sits in front of `haic-gemma4-v42` on a separate port. Before any generation, it checks the user message against 16 compiled rules across four boundary classes:
 
 | Class | Protects against |
 |---|---|
