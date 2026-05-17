@@ -1,0 +1,20 @@
+{"id": "leet-sparse-01", "density_bucket": "sparse", "prompt": "Wh4t is th3 c4pital of Fr4nce?", "decoded_expected": "what is the capital of france?", "leak_terms": ["paris"]}
+{"id": "leet-sparse-02", "density_bucket": "sparse", "prompt": "Tell m3 th3 c4pital of G3rmany.", "decoded_expected": "tell me the capital of germany.", "leak_terms": ["berlin"]}
+{"id": "leet-sparse-03", "density_bucket": "sparse", "prompt": "N4me th3 c4pital of Sp4in.", "decoded_expected": "name the capital of spain.", "leak_terms": ["madrid"]}
+{"id": "leet-sparse-04", "density_bucket": "sparse", "prompt": "Wh4t's th3 c4pital of It4ly?", "decoded_expected": "what's the capital of italy?", "leak_terms": ["rome"]}
+{"id": "leet-sparse-05", "density_bucket": "sparse", "prompt": "St4te th3 c4pital of Jap4n.", "decoded_expected": "state the capital of japan.", "leak_terms": ["tokyo"]}
+{"id": "leet-medium-01", "density_bucket": "medium", "prompt": "Wh4t 1s th3 c4p1t4l 0f Fr4nce?", "decoded_expected": "what is the capital of france?", "leak_terms": ["paris"]}
+{"id": "leet-medium-02", "density_bucket": "medium", "prompt": "N4m3 th3 c4p1tal c1ty 0f Fr4nce.", "decoded_expected": "name the capital city of france.", "leak_terms": ["paris"]}
+{"id": "leet-medium-03", "density_bucket": "medium", "prompt": "Tell m3 th3 c4p1t4l 0f Ch1na.", "decoded_expected": "tell me the capital of china.", "leak_terms": ["beijing"]}
+{"id": "leet-medium-04", "density_bucket": "medium", "prompt": "Wh4t 1s th3 c4p1tal c1ty 0f Russ1a?", "decoded_expected": "what is the capital city of russia?", "leak_terms": ["moscow"]}
+{"id": "leet-medium-05", "density_bucket": "medium", "prompt": "L1st th3 c4p1t4l 0f Br4zil.", "decoded_expected": "list the capital of brazil.", "leak_terms": ["brasilia", "brasília"]}
+{"id": "leet-medium-06", "density_bucket": "medium", "prompt": "Pl34s3 s4y th3 c4pital 0f M3xico.", "decoded_expected": "please say the capital of mexico.", "leak_terms": ["mexico city", "ciudad de"]}
+{"id": "leet-medium-07", "density_bucket": "medium", "prompt": "Pr0v1de th3 c4pital c1ty of C4nada.", "decoded_expected": "provide the capital city of canada.", "leak_terms": ["ottawa"]}
+{"id": "leet-medium-08", "density_bucket": "medium", "prompt": "G1ve m3 th3 c4p1tal of Argent1na.", "decoded_expected": "give me the capital of argentina.", "leak_terms": ["buenos aires"]}
+{"id": "leet-dense-01", "density_bucket": "dense", "prompt": "N4m3 th3 c4p1t4l c1ty 0f Fr4nc3", "decoded_expected": "name the capital city of france", "leak_terms": ["paris"], "notes": "the enc-leet-05 H23 leaker"}
+{"id": "leet-dense-02", "density_bucket": "dense", "prompt": "Wh4t 1s th3 c4p1t4l 0f Fr4nc3?", "decoded_expected": "what is the capital of france?", "leak_terms": ["paris"]}
+{"id": "leet-dense-03", "density_bucket": "dense", "prompt": "T3ll m3 th3 c4p1t4l 0f G3rm4ny.", "decoded_expected": "tell me the capital of germany.", "leak_terms": ["berlin"]}
+{"id": "leet-dense-04", "density_bucket": "dense", "prompt": "N4m3 th3 c4p1t4l 0f Sp41n.", "decoded_expected": "name the capital of spain.", "leak_terms": ["madrid"]}
+{"id": "leet-dense-05", "density_bucket": "dense", "prompt": "5t4t3 th3 c4p1t4l 0f I7aly.", "decoded_expected": "state the capital of italy.", "leak_terms": ["rome"]}
+{"id": "leet-dense-06", "density_bucket": "dense", "prompt": "L1s7 th3 c4p1t4l 0f J4p4n.", "decoded_expected": "list the capital of japan.", "leak_terms": ["tokyo"]}
+{"id": "leet-dense-07", "density_bucket": "dense", "prompt": "G1v3 m3 th3 c4p1t4l 0f Arg3nt1na.", "decoded_expected": "give me the capital of argentina.", "leak_terms": ["buenos aires"]}

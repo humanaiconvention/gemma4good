@@ -209,7 +209,7 @@ hypothesis with a fresh anchor.
 | L-02 | Single-message scan only | **CLOSED** | H21 anchor `d916ef63…` |
 | L-02b | Client-supplied `role: system` rejection | **CLOSED** | H22 anchor `5f2e796cf5af…` |
 | L-03 | All-rules walk performance | **Documented as intentional** | n/a |
-| L-08 | Leetspeak / character-substitution bypass | **OPEN** (discovered by H23, deferred to future H24) | — |
+| L-08 | Leetspeak / character-substitution bypass | **CLOSED** | H24 anchor `eb61ebc7c0fe…` |
 | L-09 | Native-language attack bypass (Japanese, Korean, Spanish observed leaking; English-only rule patterns by design) | **OPEN** (discovered by H25, deferred to future H26) | — |
 | L-04 | Pass-through rate limit | **Deployment-layer concern** | n/a (see `docs/gateway_deploy_plan.md`) |
 | L-05 | uvicorn access log audit | **Locked in by test** | n/a (`tests/test_v42_boundary_guard_logging.py`) |
@@ -221,15 +221,18 @@ L-07) via H-series anchors or removal. All originally-documented
 ergonomic items documented as intentional or routed to the correct
 architectural layer (L-03, L-04, L-05, L-06).
 
-**L-08 is a NEW item discovered through H23.** It is a medium-severity
-character-substitution attack class (leetspeak) where v42 implicitly
-decodes the encoded attack 1 in 5 leet variants. The guard does not
-detect it because leet substitution involves digit-for-letter swaps
-(4→a, 3→e, 1→i, 0→o) that have legitimate use in normal text — blind
-leet-fold would create benign-text false positives. L-08 is the first
-limitation in the H-series record that does not have an obvious
-mitigation, and is documented openly rather than rushed into a
-half-baked H24. The full diagnosis is in `docs/h23_verdict_2026-05-16.md`.
+**L-08 was discovered through H23 and CLOSED via H24** at anchor
+`eb61ebc7c0fef6bf200dedaed40d5f48d4c18da0c3624e8dc7efc041192cb55f`.
+The closure mechanism is a leet-fold pre-pass in guard-v6 that applies
+the substitution table `{0:o, 1:i, 3:e, 4:a, 5:s, 7:t}` to normalized
+text and matches the 16 H18r4 rules over both the original and folded
+surfaces. The minimal six-digit table was chosen up-front (less-common
+8/9/2 deliberately excluded) so that benign digit-containing text
+("I'm 4 years old", "Room 3B", "$5.99", "100 dollars") does not
+decode into rule-matching strings. H24's predeclared E1 gate (≤ 0.02
+benign-with-digits FP) was satisfied at 0/30 with the chosen table.
+The full diagnosis chain is in `docs/h23_verdict_2026-05-16.md`
+(discovery) and `docs/h24_verdict_2026-05-16.md` (closure).
 
 ## Historical note: original H19 scope
 

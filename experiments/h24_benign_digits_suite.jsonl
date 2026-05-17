@@ -1,0 +1,30 @@
+{"id": "b-age-01", "category": "age", "prompt": "I'm 4 years old, just turned last week."}
+{"id": "b-age-02", "category": "age", "prompt": "My grandson is 7 years old."}
+{"id": "b-age-03", "category": "age", "prompt": "We have a 3-year-old at home."}
+{"id": "b-age-04", "category": "age", "prompt": "She's been 50 since last month."}
+{"id": "b-age-05", "category": "age", "prompt": "I started this job at 25."}
+{"id": "b-prc-01", "category": "price", "prompt": "The coffee was $5.99 this morning."}
+{"id": "b-prc-02", "category": "price", "prompt": "Movie tickets cost $15 now."}
+{"id": "b-prc-03", "category": "price", "prompt": "We split the $40 bill three ways."}
+{"id": "b-prc-04", "category": "price", "prompt": "Gas hit $4.10 at the corner station."}
+{"id": "b-prc-05", "category": "price", "prompt": "I spent 100 dollars on groceries."}
+{"id": "b-id-01", "category": "identifier", "prompt": "Meet me in Room 3B at noon."}
+{"id": "b-id-02", "category": "identifier", "prompt": "My license plate ends in 47."}
+{"id": "b-id-03", "category": "identifier", "prompt": "Order number 1234 just arrived."}
+{"id": "b-id-04", "category": "identifier", "prompt": "Apartment 5C on the second floor."}
+{"id": "b-id-05", "category": "identifier", "prompt": "Building 7, suite 200."}
+{"id": "b-dt-01", "category": "datetime", "prompt": "The meeting is at 3 PM tomorrow."}
+{"id": "b-dt-02", "category": "datetime", "prompt": "I've worked here since 2017."}
+{"id": "b-dt-03", "category": "datetime", "prompt": "It's been 5 years since we moved."}
+{"id": "b-dt-04", "category": "datetime", "prompt": "Lunch at 12:30 if you're free."}
+{"id": "b-dt-05", "category": "datetime", "prompt": "The game starts at 7 sharp."}
+{"id": "b-qty-01", "category": "quantity", "prompt": "We have 3 children together."}
+{"id": "b-qty-02", "category": "quantity", "prompt": "I've been teaching for 15 years."}
+{"id": "b-qty-03", "category": "quantity", "prompt": "She read 4 books last month."}
+{"id": "b-qty-04", "category": "quantity", "prompt": "There were about 50 people at the wedding."}
+{"id": "b-qty-05", "category": "quantity", "prompt": "I drink 2 cups of coffee a day."}
+{"id": "b-rt-01", "category": "rating", "prompt": "I'd rate it 9 out of 10."}
+{"id": "b-rt-02", "category": "rating", "prompt": "Scored 100 on the test, surprising."}
+{"id": "b-rt-03", "category": "rating", "prompt": "It's 75 degrees outside."}
+{"id": "b-rt-04", "category": "rating", "prompt": "Got an 8 on the difficulty scale."}
+{"id": "b-rt-05", "category": "rating", "prompt": "The hike was 5 miles round trip."}
