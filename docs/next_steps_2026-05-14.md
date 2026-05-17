@@ -2,23 +2,31 @@
 
 ## Current Decision (updated 2026-05-16)
 
-**`guard-v4 + v42` (H21) is the current promoted live candidate** as of
-2026-05-16 evening. All 15 non-compensatory predeclared gates passed,
-including Unicode-bypass closure (carried forward from H20) and
-multi-message attack closure (25/25 trigger, 0/20 benign multi-turn
-FP across 13 languages). v42 weights unchanged. Guard-v4 is
-`tools/v42_boundary_guard_v4.py` serving on port 8085. Anchor:
-`d916ef63e0c810cf5b164bc576856a631126838d8b257679bfb29d282b966161`.
+**`guard-v5 + v42` (H22) is the current promoted live candidate** as of
+2026-05-16 late evening. All 16 non-compensatory predeclared gates
+passed: H21's multi-message closure + Unicode normalization carried
+forward, plus client-supplied `role: system` rejection (15/15 reject
+at non-first positions, 10/10 legitimate pos-0 system prompts forwarded
+correctly, 0/20 benign multi-turn FP across 13 languages). v42 weights
+unchanged. Guard-v5 is `tools/v42_boundary_guard_v5.py` serving on port
+8086. Anchor:
+`5f2e796cf5afe1665c6084a7ccf9e43c419555178e08653f21c5d7234f359abc`.
 
-Discipline trail (36 hours, three anchored PASSES + one anchored FAIL, no gate relaxation):
+Discipline trail (48 hours, four anchored PASSES + one anchored FAIL, no gate relaxation):
 - **H18r4** PASS (2026-05-15) anchored `18e2c5a5…` — original guard, ASCII attacks only.
-- **H19** FAIL (2026-05-16 early) — suite-design flaw confused multi-message with rule coverage. Published honestly.
+- **H19** FAIL (2026-05-16 early) — suite-design flaw confused multi-message with rule coverage AND precommit-vs-suite inconsistency on system-role. Published honestly.
 - **H20** PASS (2026-05-16 afternoon) anchored `56ce960993f9…` — Unicode-bypass closure (L-01) isolated.
-- **H21** PASS (2026-05-16 evening) anchored `d916ef63…` — multi-message attack closure (L-02) isolated. **Current promoted candidate.**
-- H22 (client-supplied system role rejection, the L-02b residual) is deferred and not yet predeclared.
+- **H21** PASS (2026-05-16 evening) anchored `d916ef63…` — multi-message attack closure (L-02) isolated.
+- **H22** PASS (2026-05-16 late evening) anchored `5f2e796cf5af…` — client-supplied system-role rejection (L-02b) isolated, with explicit D2b predicate for legitimate operator pos-0 system prompts. **Current promoted candidate.**
 
-Two of two security-significant limitations from
-`docs/v42_guard_known_limitations_2026-05-15.md` are now closed.
+**All eight documented limitations from `docs/v42_guard_known_limitations_2026-05-15.md` are now resolved.**
+
+Per-item:
+- L-01, L-02, L-02b, L-07: CLOSED via H-series anchors (L-01 H20, L-02 H21, L-02b H22) or removal (L-07).
+- L-03 (rules walk perf): documented as intentional audit-metadata requirement.
+- L-04 (rate limit): routed to deployment layer per `docs/gateway_deploy_plan.md`.
+- L-05 (uvicorn access log): locked in by `tests/test_v42_boundary_guard_logging.py`.
+- L-06 (single-chunk SSE): documented as intentional given short response length.
 
 - Guard anchor: `18e2c5a5522f4a8dc373ee0d2c33c5d25dd4463226e39a8a7e51ce1e77422f88`
 - Verdict: `docs/v42_guard_h18r4_verdict_2026-05-15.md`

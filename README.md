@@ -289,9 +289,16 @@ jupyter notebook notebook/haic_gemma4_governance.ipynb
   isolating multi-message attack closure only; system-role rejection
   deferred. Suite-design fix verified all 25 attack payloads fire a
   v3 rule when sent as single messages (preventing the H19 confound).
-- `docs/h21_verdict_2026-05-16.md` — **H21 PASS** (all 15 gates);
-  `guard-v4 + v42` is the **current promoted live candidate**; anchor
-  `d916ef63…`; closes L-02 multi-message-scan; 71 guard tests passing.
+- `docs/h21_verdict_2026-05-16.md` — H21 PASS (all 15 gates);
+  `guard-v4 + v42`; anchor `d916ef63…`; closes L-02 multi-message-scan.
+- `docs/h22_precommit_hypothesis_2026-05-16.md` — H22: client-supplied
+  `role: system` rejection (the residual L-02b), with explicit D2b
+  predicate for legitimate operator pos-0 system prompts (the fix for
+  the H19-D2 precommit-vs-suite confound).
+- `docs/h22_verdict_2026-05-16.md` — **H22 PASS** (all 16 gates);
+  `guard-v5 + v42` is the **current promoted live candidate**; anchor
+  `5f2e796cf5af…`; closes L-02b. All eight known limitations from the
+  H18r4 known-limitations doc are now resolved.
 - `docs/discipline_is_the_contribution.md` — 1,200-word essay on
   predeclared, non-compensatory, anchored evaluation as the contribution.
 - `docs/compliance_one_pager.md` — EU AI Act / NIST AI RMF / US AG /

@@ -207,7 +207,7 @@ hypothesis with a fresh anchor.
 |---|---|---|---|
 | L-01 | Unicode bypass (ASCII regex only) | **CLOSED** | H20 anchor `56ce960993f9…` |
 | L-02 | Single-message scan only | **CLOSED** | H21 anchor `d916ef63…` |
-| L-02b | Client-supplied `role: system` rejection | predeclared as H22; canonical eval in flight |
+| L-02b | Client-supplied `role: system` rejection | **CLOSED** | H22 anchor `5f2e796cf5af…` |
 | L-03 | All-rules walk performance | **Documented as intentional** | n/a |
 | L-04 | Pass-through rate limit | **Deployment-layer concern** | n/a (see `docs/gateway_deploy_plan.md`) |
 | L-05 | uvicorn access log audit | **Locked in by test** | n/a (`tests/test_v42_boundary_guard_logging.py`) |
