@@ -33,8 +33,9 @@ Figma/Keynote, or an AI image tool can render them fast.*
   > **governance loop for Gemma 4.**
 - Below the headline, a thin teal divider line.
 - Below the divider, in JetBrains Mono, smaller:
-  > `H18r4 anchor: 18e2c5a5522f4a8dc373ee0d2c33c5d25dd4463226e39a8a7e51ce1e77422f88`
-- Bottom-right corner, ultra small: `humanaiconvention.com · CC0`
+  > `H24 anchor: eb61ebc7c0fef6bf200dedaed40d5f48d4c18da0c3624e8dc7efc041192cb55f`
+  > (current promoted; full H18r4 → H24 chain in WRITEUP.md)
+- Bottom-right corner, ultra small: `humanaiconvention.com · Apache 2.0`
 
 **Texture note:** subtle horizontal grid lines like a terminal background, very low opacity (0.03–0.05). Optional, helps it not feel flat.
 
@@ -107,39 +108,66 @@ Right-side annotation: "Same deterministic refusal for every matched class — a
 
 **Aspect:** 1200×900 px.
 
-**Purpose:** make the discipline visible. *Nine red, one green.* The single most distinctive thing about the submission.
+**Purpose:** make the discipline visible. *Eleven FAILs and six PASSes,
+in order, with the gates that never moved.* The single most distinctive
+thing about the submission.
 
 **Content:**
 
-A table or vertical list. JetBrains Mono throughout.
+A table or vertical list. JetBrains Mono throughout. Two visual blocks
+divided by a thin horizontal rule: the fine-tuning sequence above,
+the boundary-guard sequence below.
 
 ```
-H10  v42-bare           FAIL
-H11  v50  DPO           FAIL  (collapsed to empty)
-H12  v51  user-only SFT FAIL  (injection regressed)
-H13  v52  fmt ablation  FAIL
-H13  v53  fmt ablation  FAIL
-H14  v55  mixed SFT     FAIL  (best balanced, missed direct-inject)
-H14  v56  targeted SFT  FAIL  (stop condition)
+─── Fine-tuning track (v42 baseline + nine attempts) ───────────────────
+H10  v42-bare            FAIL
+H11  v50  DPO            FAIL  (collapsed to empty)
+H12  v51  user-only SFT  FAIL  (injection regressed)
+H13  v52  fmt ablation   FAIL
+H13  v53  fmt ablation   FAIL
+H14  v55  mixed SFT      FAIL  (best balanced, missed direct-inject)
+H14  v56  targeted SFT   FAIL  (stop condition)
 H15  v57  prod-candidate FAIL
 H16  v58  boundary-first FAIL  (injection + disclosure)
 H17  v59  residual patch FAIL  (injection + jailbreak)
-H18  guard + v42        PASS  ← anchor 18e2c5a5...
-H19  guard-v2 (uni+msg) FAIL  (suite confound)
-H20  guard-v3 (uni)     ???   ← in progress
+
+─── Boundary-guard track (deterministic regex proxy + v42) ─────────────
+H18r4 guard-v1  (ASCII baseline)    PASS  ← anchor 18e2c5a5...
+H19   guard-v2  (combined attempt)  FAIL  (suite-design confound)
+H20   guard-v3  (Unicode closure)   PASS  ← anchor 56ce960993f9...
+H21   guard-v4  (per-message scan)  PASS  ← anchor d916ef63...
+H22   guard-v5  (sys-role reject)   PASS  ← anchor 5f2e796cf5af...
+H23   encoded-payload (behavioral)  PASS  (at 1/20 = 0.05 threshold; L-08 surfaced)
+H25   native-language attack        FAIL  (L-09 surfaced and published openly)
+H24   guard-v6  (leet-fold)         PASS  ← anchor eb61ebc7c0fe...  PROMOTED
 ```
 
-Each FAIL in red; the PASS in green; the in-progress one (H20) in amber.
+Each FAIL in red; each PASS in green; the threshold-PASS row (H23)
+gets a slightly muted green to honestly signal "PASS at threshold
+exactly, not with margin." The H24 row gets a subtle teal outline or
+right-side `← PROMOTED` callout in the accent color.
 
-Below the table, a single line:
-> **"Nine consecutive failures. One anchored result. The gates did not move."**
+Below the table, two lines:
+> **"Eleven failures. Six anchored passes. Two honest FAILs published."**
+> **"The gates did not move."**
 
 Bottom credit, tiny:
 > `Every verdict at github.com/humanaiconvention/gemma4good/blob/main/docs/`
 
-**Style:** this is the most opinionated image. It should look like a leaderboard or a record book, not a marketing diagram. Sparse. Bold. Trust the typography.
+**Style:** this is the most opinionated image. It should look like a
+leaderboard or a record book, not a marketing diagram. Sparse. Bold.
+Trust the typography. The thin horizontal rule between the two tracks
+is important — it's what separates "the architecture we tried first"
+from "the architecture that won by passing the gates."
 
-(Note: if H20 lands by submission time, replace `???` with the actual verdict before exporting. If not, leaving `??? in progress` is honest — the discipline literally is "we don't know the answer until the eval finishes," and showing that is on-brand.)
+**Why this works:** the original "nine red, one green" framing was
+striking. The current framing is even sharper: most fails are in the
+fine-tuning loop (a familiar story); most passes are in the guard
+loop (an unfamiliar one). The contrast tells the whole submission
+thesis without a single marketing word.
+
+(Note: if a future H26 lands before export, append it. If not,
+the eight-step guard chain stands as-shipped.)
 
 ---
 
