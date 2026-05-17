@@ -5,7 +5,10 @@ designed to make a specific claim that the writeup substantiates.
 Specs are tight enough that any of: Claude Design, you in
 Figma/Keynote, or an AI image tool can render them fast.*
 
-**Status:** 2026-05-16. Hand off to whoever's making the cover assets.
+**Status:** 2026-05-17 (refreshed). Cover headline rewritten to lead
+with the artifact rather than the contrarian-failure framing. H-series
+table updated to show H26 as PROMOTED. Video-thumb framing softened
+for non-YouTube use. All anchor hashes updated to H26.
 
 ---
 
@@ -28,14 +31,27 @@ Figma/Keynote, or an AI image tool can render them fast.*
 **Layout:**
 
 - Top-left, small uppercase eyebrow: `HUMANAI CONVENTION · GEMMA 4 GOOD`
-- Center, large headline in two lines:
-  > **A cryptographically verifiable**
-  > **governance loop for Gemma 4.**
+- Center, large headline (single line, hero weight):
+  > **Verifiable governance for Gemma 4.**
 - Below the headline, a thin teal divider line.
-- Below the divider, in JetBrains Mono, smaller:
-  > `H24 anchor: eb61ebc7c0fef6bf200dedaed40d5f48d4c18da0c3624e8dc7efc041192cb55f`
-  > (current promoted; full H18r4 → H24 chain in WRITEUP.md)
+- Below the divider, in mid-weight Inter (NOT monospace) — this is the
+  subtitle, the receipt-of-receipts:
+  > **Every decision hash-anchored. Every promotion predeclared.**
+- Below the subtitle, in JetBrains Mono, smaller / 0.62 opacity:
+  > `H26 anchor: 4d0d7bf05ea2cc8d323b08982329455c72a999bd6da5a75a8b136a81b8ad8bb8`
+  > (current promoted; full H18r4 → H26 chain in WRITEUP.md)
 - Bottom-right corner, ultra small: `humanaiconvention.com · Apache 2.0`
+
+**Tone notes:**
+
+- The headline is a positive, concrete claim about the artifact — not
+  a contrarian provocation about failure. Judges sorting a feed need
+  to know what they'd be clicking into.
+- The subtitle does the discipline work: "hash-anchored" + "predeclared"
+  are the two non-negotiable claims that the H-series proves.
+- The anchor hash is visible. The hash itself is a credibility signal
+  even if no one reads it character-by-character; the willingness to
+  show it differentiates from "trust us" claims.
 
 **Texture note:** subtle horizontal grid lines like a terminal background, very low opacity (0.03–0.05). Optional, helps it not feel flat.
 
@@ -52,7 +68,7 @@ Figma/Keynote, or an AI image tool can render them fast.*
 A simple horizontal flow with five rounded rectangles connected by arrows:
 
 ```
-[User turn] → [Boundary Guard (16 rules)] → [Gemma 4 E2B + v42] → [5 Governance Tools] → [Merkle receipt]
+[User turn] → [Boundary Guard (27 rules)] → [Gemma 4 E2B + v42] → [5 Governance Tools] → [Merkle receipt]
                        ↓                                                        ↑
                   refuses + logs                                       SHA3-256 anchored
                   attacks deterministically
@@ -60,7 +76,7 @@ A simple horizontal flow with five rounded rectangles connected by arrows:
 
 Each box has a one-line label below it in JetBrains Mono:
 
-- Boundary Guard: `tools/v42_boundary_guard.py — 16 rules · 4 classes`
+- Boundary Guard: `tools/v42_boundary_guard_v7.py — 27 rules · 4 classes · 11 languages`
 - Gemma 4 E2B + v42: `unchanged base + LoRA adapter`
 - 5 Governance Tools: `wellbeing · consent · PRISM · NLA · receipt`
 - Merkle receipt: `Merkle root + SHA3-256 self-anchor`
@@ -68,6 +84,12 @@ Each box has a one-line label below it in JetBrains Mono:
 Side annotation, top-right:
 - "Every decision: hash-anchored, independently verifiable"
 - "Every promotion: 13 non-compensatory gates, predeclared"
+
+(The current promoted candidate is `guard-v7 + v42` at H26 anchor
+`4d0d7bf05ea2…`. Earlier versions of this diagram showed 16 rules
+matching H18r4; the diagram should now show 27 rules to reflect
+H24's leet-fold + H26's eleven multi-language rules. If a future
+H27 expands coverage further, update the count again.)
 
 **Style:** the guard box gets a subtle amber outline (it's the security layer); the Merkle receipt box gets a subtle teal outline (it's the verification layer). Everything else is neutral white-on-dark.
 
@@ -108,18 +130,38 @@ Right-side annotation: "Same deterministic refusal for every matched class — a
 
 **Aspect:** 1200×900 px.
 
-**Purpose:** make the discipline visible. *Eleven FAILs and six PASSes,
-in order, with the gates that never moved.* The single most distinctive
-thing about the submission.
+**Purpose:** make the discipline visible. *Seven anchored passes and
+two honest FAILs, in order, with the gates that never moved.* The
+single most distinctive thing about the submission.
+
+**Headline framing — IMPORTANT:**
+
+Lead with the wins, not the losses. The earlier draft led with
+"Eleven failures. Six anchored passes." That ordering is wrong for
+Kaggle judges: it reads as self-deprecation rather than rigor. The
+correct ordering puts the PASSES first; the FAILs are present but
+not headlining.
 
 **Content:**
 
 A table or vertical list. JetBrains Mono throughout. Two visual blocks
-divided by a thin horizontal rule: the fine-tuning sequence above,
-the boundary-guard sequence below.
+divided by a thin horizontal rule: the boundary-guard sequence on top
+(the architecture that won) and the fine-tuning sequence below (the
+architecture that didn't).
 
 ```
-─── Fine-tuning track (v42 baseline + nine attempts) ───────────────────
+─── Boundary-guard track (deterministic regex proxy + v42) ─────────────
+H18r4 guard-v1  (ASCII baseline)    PASS  ← anchor 18e2c5a5...
+H19   guard-v2  (combined attempt)  FAIL  (suite-design confound)
+H20   guard-v3  (Unicode closure)   PASS  ← anchor 56ce960993f9...
+H21   guard-v4  (per-message scan)  PASS  ← anchor d916ef63...
+H22   guard-v5  (sys-role reject)   PASS  ← anchor 5f2e796cf5af...
+H23   encoded-payload (behavioral)  PASS  (at 1/20 = 0.05 threshold; L-08 surfaced)
+H25   native-language attack        FAIL  (L-09 surfaced and published openly)
+H24   guard-v6  (leet-fold)         PASS  ← anchor eb61ebc7c0fe... (L-08 closed)
+H26   guard-v7  (multi-language)    PASS  ← anchor 4d0d7bf05ea2... (L-09 closed)  ← PROMOTED
+
+─── Fine-tuning track (v42 baseline + nine attempts that didn't pass gates) ─
 H10  v42-bare            FAIL
 H11  v50  DPO            FAIL  (collapsed to empty)
 H12  v51  user-only SFT  FAIL  (injection regressed)
@@ -130,25 +172,17 @@ H14  v56  targeted SFT   FAIL  (stop condition)
 H15  v57  prod-candidate FAIL
 H16  v58  boundary-first FAIL  (injection + disclosure)
 H17  v59  residual patch FAIL  (injection + jailbreak)
-
-─── Boundary-guard track (deterministic regex proxy + v42) ─────────────
-H18r4 guard-v1  (ASCII baseline)    PASS  ← anchor 18e2c5a5...
-H19   guard-v2  (combined attempt)  FAIL  (suite-design confound)
-H20   guard-v3  (Unicode closure)   PASS  ← anchor 56ce960993f9...
-H21   guard-v4  (per-message scan)  PASS  ← anchor d916ef63...
-H22   guard-v5  (sys-role reject)   PASS  ← anchor 5f2e796cf5af...
-H23   encoded-payload (behavioral)  PASS  (at 1/20 = 0.05 threshold; L-08 surfaced)
-H25   native-language attack        FAIL  (L-09 surfaced and published openly)
-H24   guard-v6  (leet-fold)         PASS  ← anchor eb61ebc7c0fe...  PROMOTED
 ```
 
 Each FAIL in red; each PASS in green; the threshold-PASS row (H23)
 gets a slightly muted green to honestly signal "PASS at threshold
-exactly, not with margin." The H24 row gets a subtle teal outline or
+exactly, not with margin." The H26 row gets a teal outline +
 right-side `← PROMOTED` callout in the accent color.
 
-Below the table, two lines:
-> **"Eleven failures. Six anchored passes. Two honest FAILs published."**
+Above the table, the headline:
+> **"Seven anchored passes. Two honest FAILs published. Zero gate relaxations."**
+
+Below the table, a single emphasis line:
 > **"The gates did not move."**
 
 Bottom credit, tiny:
@@ -157,32 +191,56 @@ Bottom credit, tiny:
 **Style:** this is the most opinionated image. It should look like a
 leaderboard or a record book, not a marketing diagram. Sparse. Bold.
 Trust the typography. The thin horizontal rule between the two tracks
-is important — it's what separates "the architecture we tried first"
-from "the architecture that won by passing the gates."
+is important — it's what separates "the architecture that won by
+passing the gates" (above) from "the architecture we tried first
+and rigorously falsified" (below).
 
-**Why this works:** the original "nine red, one green" framing was
-striking. The current framing is even sharper: most fails are in the
-fine-tuning loop (a familiar story); most passes are in the guard
-loop (an unfamiliar one). The contrast tells the whole submission
-thesis without a single marketing word.
+**Why this ordering works:** judges first see the PASSES — the
+artifact that earned promotion. Then the eye drops to the FAILs and
+understands they're not hidden, they're published with the same
+discipline as the PASSES. The contrast tells the whole submission
+thesis: the discipline is symmetric across wins and losses.
 
-(Note: if a future H26 lands before export, append it. If not,
-the eight-step guard chain stands as-shipped.)
+(Note: if a future H27 lands before export, append it to the
+boundary-guard track. If not, the nine-step chain stands as-shipped.)
 
 ---
 
-## Optional 5th image (if you want a visual hook for video thumbnails)
+## Optional 5th image (visual hook for video thumbnails)
 
 **Aspect:** 1280×720 px.
 
-**Content:** white text on near-black, just one line, large:
+**Default content (Kaggle-safe — use this for any non-YouTube use):**
 
-> **"We failed nine AI models in a row. That's the headline."**
-
-In smaller text below:
+> **"Verifiable governance for Gemma 4."**
+>
+> *Smaller, mid-weight Inter:*
+> `7 anchored passes · 2 honest FAILs · 0 gate relaxations`
+>
+> *Bottom, JetBrains Mono, small:*
 > `gemma4good · humanaiconvention.com`
 
-Use as YouTube thumbnail.
+**Alternative content (YouTube-only, contrarian hook):**
+
+> **"The promoted candidate is 330 lines of regex."**
+>
+> *Smaller:*
+> `What survives nine failed fine-tunes? Discipline.`
+>
+> *Bottom:*
+> `gemma4good · humanaiconvention.com`
+
+**Why the swap:** the earlier draft used "We failed nine AI models in
+a row. That's the headline." That works as YouTube curiosity-bait,
+where the reader is hostile-to-AI-hype and rewards self-criticism.
+It does NOT work as a Kaggle gallery thumbnail, where judges sorting
+$200K-prize entries are looking for "did this team build something
+that works?" Leading with FAILS on the cover gives them no reason
+to click.
+
+The Kaggle-safe default leads with the artifact and lets the numbers
+do the discipline-signaling. The YouTube alternative is preserved
+for that specific channel.
 
 ---
 
