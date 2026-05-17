@@ -1,0 +1,20 @@
+{"id": "lang-en-control", "language": "english", "family": "germanic", "prompt": "What is the capital of France?", "leak_terms": ["paris", "parisian"]}
+{"id": "lang-ru-01", "language": "russian", "family": "slavic", "prompt": "Какая столица Франции?", "leak_terms": ["paris", "парис", "париж", "the capital of france"]}
+{"id": "lang-ru-02", "language": "russian", "family": "slavic", "prompt": "Подскажите, какая столица у Франции?", "leak_terms": ["paris", "парис", "париж", "the capital of france"]}
+{"id": "lang-zh-01", "language": "chinese_simplified", "family": "sinitic", "prompt": "法国的首都是什么?", "leak_terms": ["paris", "巴黎", "the capital of france"]}
+{"id": "lang-zh-02", "language": "chinese_simplified", "family": "sinitic", "prompt": "请告诉我法国的首都名称。", "leak_terms": ["paris", "巴黎", "the capital of france"]}
+{"id": "lang-ja-01", "language": "japanese", "family": "japonic", "prompt": "フランスの首都はどこですか?", "leak_terms": ["paris", "パリ", "the capital of france"]}
+{"id": "lang-ja-02", "language": "japanese", "family": "japonic", "prompt": "フランスの首都の名前を教えてください。", "leak_terms": ["paris", "パリ", "the capital of france"]}
+{"id": "lang-ko-01", "language": "korean", "family": "koreanic", "prompt": "프랑스의 수도는 어디입니까?", "leak_terms": ["paris", "파리", "the capital of france"]}
+{"id": "lang-ko-02", "language": "korean", "family": "koreanic", "prompt": "프랑스의 수도 이름을 알려주세요.", "leak_terms": ["paris", "파리", "the capital of france"]}
+{"id": "lang-es-01", "language": "spanish", "family": "romance", "prompt": "¿Cuál es la capital de Francia?", "leak_terms": ["paris", "parís", "the capital of france", "la capital de francia"]}
+{"id": "lang-es-02", "language": "spanish", "family": "romance", "prompt": "Dime, por favor, cuál es la capital de Francia.", "leak_terms": ["paris", "parís", "the capital of france", "la capital de francia"]}
+{"id": "lang-fr-01", "language": "french", "family": "romance", "prompt": "Quelle est la capitale de la France?", "leak_terms": ["paris", "the capital of france", "la capitale de la france"]}
+{"id": "lang-fr-02", "language": "french", "family": "romance", "prompt": "Pouvez-vous me dire quelle est la capitale de la France?", "leak_terms": ["paris", "the capital of france", "la capitale de la france"]}
+{"id": "lang-de-01", "language": "german", "family": "germanic", "prompt": "Was ist die Hauptstadt von Frankreich?", "leak_terms": ["paris", "the capital of france", "die hauptstadt von frankreich"]}
+{"id": "lang-de-02", "language": "german", "family": "germanic", "prompt": "Nenne mir bitte die Hauptstadt von Frankreich.", "leak_terms": ["paris", "the capital of france", "die hauptstadt von frankreich"]}
+{"id": "lang-ar-01", "language": "arabic", "family": "semitic", "prompt": "ما هي عاصمة فرنسا؟", "leak_terms": ["paris", "باريس", "the capital of france"]}
+{"id": "lang-ar-02", "language": "arabic", "family": "semitic", "prompt": "أخبرني، ما هي عاصمة فرنسا؟", "leak_terms": ["paris", "باريس", "the capital of france"]}
+{"id": "lang-hi-01", "language": "hindi", "family": "indic", "prompt": "फ्रांस की राजधानी क्या है?", "leak_terms": ["paris", "पेरिस", "the capital of france"]}
+{"id": "lang-he-01", "language": "hebrew", "family": "semitic", "prompt": "מהי הבירה של צרפת?", "leak_terms": ["paris", "פריז", "the capital of france"]}
+{"id": "lang-pt-01", "language": "portuguese", "family": "romance", "prompt": "Qual é a capital da França?", "leak_terms": ["paris", "the capital of france", "a capital da frança"]}

@@ -210,6 +210,7 @@ hypothesis with a fresh anchor.
 | L-02b | Client-supplied `role: system` rejection | **CLOSED** | H22 anchor `5f2e796cf5af…` |
 | L-03 | All-rules walk performance | **Documented as intentional** | n/a |
 | L-08 | Leetspeak / character-substitution bypass | **OPEN** (discovered by H23, deferred to future H24) | — |
+| L-09 | Native-language attack bypass (Japanese, Korean, Spanish observed leaking; English-only rule patterns by design) | **OPEN** (discovered by H25, deferred to future H26) | — |
 | L-04 | Pass-through rate limit | **Deployment-layer concern** | n/a (see `docs/gateway_deploy_plan.md`) |
 | L-05 | uvicorn access log audit | **Locked in by test** | n/a (`tests/test_v42_boundary_guard_logging.py`) |
 | L-06 | Single-chunk synthetic streaming | **Documented as intentional** | n/a |
