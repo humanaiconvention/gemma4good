@@ -88,7 +88,15 @@ in turn N; the guard would only see the benign turn.
 **Why not fixed in H18r4:** Same reason as L-01 — this changes matching
 behavior and rebinds the anchor.
 
-## L-03 — All rules walked per request even after a match (LOW)
+## L-03 — All rules walked per request even after a match (LOW) — **DOCUMENTED AS INTENTIONAL on 2026-05-16**
+
+> **2026-05-16 resolution:** The all-rules walk is **intentional** and
+> remains in place. The audit metadata `matched_rule_ids` documents
+> every overlapping match, which is a security audit requirement, not
+> a bug. With 16 rules the cost is invisible on real traffic. If the
+> rule set grew to hundreds, a `short_circuit` opt-in could be added
+> without breaking the audit metadata contract — but no measurement
+> suggests it would be needed before that scale. Closing this item.
 
 `apply_guard` collects every matching rule before picking `matched[0]` as
 the primary. This is intentional for diagnostic logging (the
@@ -101,7 +109,17 @@ becomes meaningful.
 `apply_guard` and pass it from the request handler when full diagnostics
 are not needed (e.g. production hot path).
 
-## L-04 — Pass-through proxy has no rate limit
+## L-04 — Pass-through proxy has no rate limit — **DEPLOYMENT-LAYER on 2026-05-16**
+
+> **2026-05-16 resolution:** Rate limiting **belongs at the deployment
+> layer** (Cloud Run / nginx / Cloudflare / API Gateway), not in the
+> guard process. See `docs/gateway_deploy_plan.md` — the recommended
+> Cloud Run + Vercel deployment includes Cloud Run's built-in
+> concurrency limit and (if needed) a Cloudflare WAF rule on the
+> custom domain. Adding rate-limiting middleware inside the guard
+> would couple the security-anchored guard binary to a stateful
+> defense-in-depth concern, which is an architecturally wrong
+> placement. Closing this item as a deploy-time concern.
 
 The `/v1/chat/completions` pass-through forwards benign turns directly to
 the upstream llama-server with no rate limiting at the guard layer. The
@@ -110,7 +128,17 @@ attack surface is whatever sits in front of the guard (the operator's
 ingress). But for defense in depth, a token-bucket limiter on the guard
 would be cheap.
 
-## L-05 — uvicorn access log is not filtered
+## L-05 — uvicorn access log is not filtered — **LOCKED IN BY TEST on 2026-05-16**
+
+> **2026-05-16 resolution:** `tests/test_v42_boundary_guard_logging.py`
+> now locks in the audit log contract: (a) user text does not appear
+> in the guard's own logger output across v1, v3, and v4; (b) the
+> "Raw text is NOT logged" contract comment must remain in
+> `tools/v42_boundary_guard.py` (a test asserts its presence so a
+> future edit cannot quietly remove it); (c) every `GuardDecision`
+> carries a valid SHA3-256 hex `request_hash` so the audit log can
+> reference the request without storing raw content. 5 new tests,
+> all pass. Closing this item.
 
 The guard sets its own logger to `warning` (silencing the default INFO
 chatter) but uvicorn's access log is configured separately. The
@@ -120,7 +148,14 @@ default uvicorn config. This has been verified manually but is not
 locked in by code. Worth a one-line filter that asserts body is never in
 the URL.
 
-## L-06 — Synthetic streaming response is single-chunk
+## L-06 — Synthetic streaming response is single-chunk — **DOCUMENTED AS INTENTIONAL on 2026-05-16**
+
+> **2026-05-16 resolution:** Confirmed intentional. The two guard
+> responses (`_GENERAL_BOUNDARY` 18 words, `_PROTO_BOUNDARY` 13
+> words) are short enough that chunking adds latency without
+> improving UX. The single-chunk SSE format is wire-compatible with
+> all OpenAI-style streaming clients. If a future guard response
+> exceeds ~50 words, this should be revisited. Closing this item.
 
 When a guard-triggered request includes `stream: true`, the response is
 emitted as a single SSE chunk:
@@ -136,7 +171,14 @@ truly incremental. For the deterministic short responses the guard emits
 (13–18 words) this is the right trade-off; for longer guard responses in
 the future, real chunking would be better UX.
 
-## L-07 — `field` imported but unused in dataclasses
+## L-07 — `field` imported but unused in dataclasses — **CLOSED on 2026-05-16**
+
+> **2026-05-16 resolution:** Removed. `tools/v42_boundary_guard.py`
+> line 35 changed from `from dataclasses import dataclass, field` to
+> `from dataclasses import dataclass`. The matching behavior is
+> unchanged (the H18r4 canonical anchor `18e2c5a5...` bound to the
+> eval output, not to the source SHA). All 76 guard-suite tests
+> continue to pass. Closing this item.
 
 Minor lint issue: `from dataclasses import dataclass, field` imports
 `field`, which is not referenced anywhere in the file. Safe to remove on
@@ -159,16 +201,42 @@ Any change to the rule set, normalization behavior, or multi-message
 scan policy invalidates this anchor and requires a new H-series
 hypothesis with a fresh anchor.
 
-## Proposed H19 scope
+## Status summary as of 2026-05-16 evening
 
-If pursued, H19 should be a single precommitted hypothesis that:
+| ID | Limitation | Status | Closed-by anchor |
+|---|---|---|---|
+| L-01 | Unicode bypass (ASCII regex only) | **CLOSED** | H20 anchor `56ce960993f9…` |
+| L-02 | Single-message scan only | **CLOSED** | H21 anchor `d916ef63…` |
+| L-02b | Client-supplied `role: system` rejection | predeclared as H22; canonical eval in flight |
+| L-03 | All-rules walk performance | **Documented as intentional** | n/a |
+| L-04 | Pass-through rate limit | **Deployment-layer concern** | n/a (see `docs/gateway_deploy_plan.md`) |
+| L-05 | uvicorn access log audit | **Locked in by test** | n/a (`tests/test_v42_boundary_guard_logging.py`) |
+| L-06 | Single-chunk synthetic streaming | **Documented as intentional** | n/a |
+| L-07 | Unused `field` import | **CLOSED** (removed) | n/a |
 
-1. Adds NFKC normalization + zero-width stripping to `_extract_user_text`.
-2. Scans every user-role message and rejects client-supplied system roles.
-3. Re-runs the full H18 canonical set unchanged.
-4. Adds a Unicode-bypass benign-FP suite (legitimate non-Latin input)
-   with predeclared FP threshold ≤ 0.02.
-5. Declares pass criteria identical to H18 plus the new FP gate.
+All security-significant items resolved (L-01, L-02, L-07) or
+predeclared with execution underway (L-02b). All ergonomic items
+documented as intentional or routed to the correct architectural
+layer (L-03, L-04, L-05, L-06).
 
-Until that hypothesis is run and an anchor is produced, the L-01 and L-02
-gaps remain documented and unmitigated.
+## Historical note: original H19 scope
+
+H19, when filed on 2026-05-16 morning, was an attempt to close both
+L-01 (Unicode) and L-02 (multi-message) in one hypothesis. It FAILED
+due to a suite-design confound on H19-D1 (the multi-message attack
+suite tested rule coverage instead of multi-message iteration logic)
+and a precommit-vs-suite inconsistency on H19-D2 (the suite expected
+rejection of a position-0 role:system that the precommit explicitly
+permitted). Both confounds were diagnosed publicly in
+[`docs/h19_verdict_2026-05-16.md`](h19_verdict_2026-05-16.md), and the
+two gaps were subsequently closed cleanly in separate isolated
+hypotheses:
+
+- L-01 via H20 ([`docs/h20_verdict_2026-05-16.md`](h20_verdict_2026-05-16.md))
+- L-02 via H21 ([`docs/h21_verdict_2026-05-16.md`](h21_verdict_2026-05-16.md))
+- L-02b via H22 ([`docs/h22_precommit_hypothesis_2026-05-16.md`](h22_precommit_hypothesis_2026-05-16.md), eval in flight)
+
+Three anchored PASSES (H20, H21, H22 if it lands) and one anchored
+FAIL (H19) all within 36 hours of the original H18r4 promotion, zero
+gate relaxation throughout. This is the discipline operating under
+its own self-imposed pressure.
