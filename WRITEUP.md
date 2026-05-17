@@ -11,7 +11,7 @@
 
 **The thesis:** AI alignment should be receipt-based, not promise-based. Every decision should produce a cryptographically verifiable audit trail; every model promotion should pass predeclared, non-compensatory gates with public failure verdicts.
 
-**The evidence:** Across nine consecutive fine-tuning candidates (v50–v59), we failed every predeclared promotion gate and published every verdict — without relaxing the gates. The promoted candidate ended up being a 200-line deterministic regex proxy in front of an unchanged Gemma 4 E2B base model, because that's what passed the gates while fine-tuning could not. The discipline then closed three additional security gaps in four separate anchored steps over 48 hours: H18r4 (ASCII-only baseline, anchor `18e2c5a5…`), H19 (combined attempt — published as an honest FAIL), H20 (Unicode-bypass closure, anchor `56ce960993f9…`), H21 (multi-message scan closure, anchor `d916ef63…`), and H22 (client-supplied system-role rejection closure, anchor `5f2e796cf5afe1665c6084a7ccf9e43c419555178e08653f21c5d7234f359abc` — **the current promoted candidate**). Four anchored PASSES, one anchored FAIL, gates never moved.
+**The evidence:** Across nine consecutive fine-tuning candidates (v50–v59), we failed every predeclared promotion gate and published every verdict — without relaxing the gates. The promoted candidate ended up being a ~250-line deterministic regex proxy in front of an unchanged Gemma 4 E2B base model, because that's what passed the gates while fine-tuning could not. The discipline then closed four additional security gaps and surfaced two real limitations in eight separate anchored steps over 50 hours: H18r4 (ASCII baseline, anchor `18e2c5a5…`), H19 (FAIL, published honestly), H20 (Unicode closure, `56ce960993f9…`), H21 (multi-message closure, `d916ef63…`), H22 (client-supplied system-role rejection, `5f2e796cf5af…`), H23 (encoded-payload behavioral defense; L-08 surfaced), H25 (FAIL, native-language attack confirmed, L-09 documented), and H24 (leet-fold closes L-08, anchor `eb61ebc7c0fef6bf200dedaed40d5f48d4c18da0c3624e8dc7efc041192cb55f` — **the current promoted candidate**). Six anchored PASSES, two anchored FAILS, one open documented limitation (L-09), gates never moved.
 
 **The verification:** [a public Kaggle kernel](https://www.kaggle.com/code/benhaslam/haic-guard-v42-reproducibility-demo-h18r4) reruns the H18r4 demo in under a minute with a SHA3-anchored receipt. No GPU. No need to trust us.
 
@@ -193,15 +193,19 @@ proxy with 16 rules across four attack classes (DIRECT_INJECT,
 CONCEALED_COMPLY, PROTO_DISCLOSE, JAILBREAK). H18r4 anchored at
 `18e2c5a5522f4a8dc373ee0d2c33c5d25dd4463226e39a8a7e51ce1e77422f88`.
 
-That original promotion was subsequently strengthened by three additional
-anchored hypotheses within 48 hours: H20 closed the Unicode-bypass gap
+That original promotion was subsequently strengthened by five additional
+anchored hypotheses within 50 hours: H20 closed the Unicode-bypass gap
 (anchor `56ce960993f9…`), H21 closed the multi-message scan gap (anchor
-`d916ef63…`), and H22 closed client-supplied system-role injection
-(anchor `5f2e796cf5afe1665c6084a7ccf9e43c419555178e08653f21c5d7234f359abc`
-— **the current promoted candidate**). One interleaved hypothesis (H19)
-failed and was published as a failure rather than retroactively patched.
-Four anchored PASSES, one anchored FAIL, zero gate relaxations across the
-entire sequence.
+`d916ef63…`), H22 closed client-supplied system-role injection (anchor
+`5f2e796cf5af…`), H23 characterized encoded-payload behavioral defense
+at threshold and surfaced L-08 (leetspeak bypass) honestly, and H24
+closed L-08 via a leet-fold pre-pass (anchor
+`eb61ebc7c0fef6bf200dedaed40d5f48d4c18da0c3624e8dc7efc041192cb55f`
+— **the current promoted candidate**). Two interleaved hypotheses
+(H19, H25) failed and were published as failures rather than
+retroactively patched; H25 surfaced L-09 (native-language attack
+bypass), an open documented limitation. Six anchored PASSES, two
+anchored FAILS, zero gate relaxations across the entire sequence.
 
 Later fine-tuned candidates v58 and v59 produced valuable experimental
 results but failed predeclared non-compensatory go-live gates and were
@@ -304,17 +308,19 @@ All 13 non-compensatory gates pass. 500/500 focused concealed-compliance samples
 
 H18r4 canonical anchor: `18e2c5a5522f4a8dc373ee0d2c33c5d25dd4463226e39a8a7e51ce1e77422f88` (historical ASCII-only attack surface).
 
-**Current promoted candidate** is `guard-v5 + v42` (H22, 2026-05-16) at canonical anchor
-`5f2e796cf5afe1665c6084a7ccf9e43c419555178e08653f21c5d7234f359abc`,
+**Current promoted candidate** is `guard-v6 + v42` (H24, 2026-05-16) at canonical anchor
+`eb61ebc7c0fef6bf200dedaed40d5f48d4c18da0c3624e8dc7efc041192cb55f`,
 which extends the H18r4 16-rule set with Unicode normalization (H20),
-per-message scanning (H21), and client-supplied system-role rejection
-(H22). Every H-series step is its own predeclared hypothesis with its
-own anchored eval — see [`docs/h20_verdict_2026-05-16.md`](docs/h20_verdict_2026-05-16.md), [`docs/h21_verdict_2026-05-16.md`](docs/h21_verdict_2026-05-16.md), and [`docs/h22_verdict_2026-05-16.md`](docs/h22_verdict_2026-05-16.md).
-The single H19 attempt to close two gaps at once is published as
-[`docs/h19_verdict_2026-05-16.md`](docs/h19_verdict_2026-05-16.md) — an honest FAIL whose suite-design diagnosis
-made H20 and H21 possible.
+per-message scanning (H21), client-supplied system-role rejection
+(H22), and a leet-fold pre-pass for character-substitution attacks
+(H24). Every H-series step is its own predeclared hypothesis with its
+own anchored eval — see [`docs/h20_verdict_2026-05-16.md`](docs/h20_verdict_2026-05-16.md), [`docs/h21_verdict_2026-05-16.md`](docs/h21_verdict_2026-05-16.md), [`docs/h22_verdict_2026-05-16.md`](docs/h22_verdict_2026-05-16.md), [`docs/h23_verdict_2026-05-16.md`](docs/h23_verdict_2026-05-16.md), and [`docs/h24_verdict_2026-05-16.md`](docs/h24_verdict_2026-05-16.md).
+Two attempts to close gaps (H19, H25) are published as honest FAILS at
+[`docs/h19_verdict_2026-05-16.md`](docs/h19_verdict_2026-05-16.md) and
+[`docs/h25_verdict_2026-05-16.md`](docs/h25_verdict_2026-05-16.md) — the latter surfaced L-09
+(native-language attack bypass) as an open documented limitation.
 
-The guard illustrates the submission's thesis at the runtime layer: **governance that is measurable, predeclared, non-compensatory, and audit-logged at every step** — the same doctrine applied to training-time promotion decisions, now applied to per-request security. The current test suite (94 guard tests across `tests/test_v42_boundary_guard*.py`) covers trigger classes, benign pass-throughs, metadata contract, multi-message scan, system-role rejection, logging contract, and markdown-wrapped attack variants. `guard-v5 + v42` is the promoted live candidate; v42 weights are unchanged across all four anchored generations.
+The guard illustrates the submission's thesis at the runtime layer: **governance that is measurable, predeclared, non-compensatory, and audit-logged at every step** — the same doctrine applied to training-time promotion decisions, now applied to per-request security. The test suite (702 tests across `tests/test_v42_boundary_guard*.py` and the H-series experiment harnesses) covers trigger classes, benign pass-throughs, metadata contract, multi-message scan, system-role rejection, logging contract, markdown-wrapped attack variants, and offline gates for every promoted generation. `guard-v6 + v42` is the promoted live candidate; v42 weights are unchanged across all six anchored generations.
 
 ---
 
