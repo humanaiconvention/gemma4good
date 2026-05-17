@@ -188,13 +188,24 @@ This is what the governance loop consumes as training signal downstream: the mod
 Separate from this governance-demo lineage, the semantic-interviewer security
 fine-tuning track produced `haic-gemma4-v42` as the base reference model.
 A deterministic boundary guard was subsequently evaluated (H18, 2026-05-15)
-and **promoted as the live endpoint**: `guard + v42` (port 8082 → port 8081).
-The guard is a FastAPI proxy with 16 rules across four attack classes
-(DIRECT_INJECT, CONCEALED_COMPLY, PROTO_DISCLOSE, JAILBREAK). Verified against
-13 non-compensatory gates; canonical anchor
+and **promoted as the live endpoint**: `guard + v42`. The guard is a FastAPI
+proxy with 16 rules across four attack classes (DIRECT_INJECT,
+CONCEALED_COMPLY, PROTO_DISCLOSE, JAILBREAK). H18r4 anchored at
 `18e2c5a5522f4a8dc373ee0d2c33c5d25dd4463226e39a8a7e51ce1e77422f88`.
-Later fine-tuned candidates v58 and v59 produced valuable experimental results
-but failed predeclared non-compensatory go-live gates and were not promoted.
+
+That original promotion was subsequently strengthened by three additional
+anchored hypotheses within 48 hours: H20 closed the Unicode-bypass gap
+(anchor `56ce960993f9…`), H21 closed the multi-message scan gap (anchor
+`d916ef63…`), and H22 closed client-supplied system-role injection
+(anchor `5f2e796cf5afe1665c6084a7ccf9e43c419555178e08653f21c5d7234f359abc`
+— **the current promoted candidate**). One interleaved hypothesis (H19)
+failed and was published as a failure rather than retroactively patched.
+Four anchored PASSES, one anchored FAIL, zero gate relaxations across the
+entire sequence.
+
+Later fine-tuned candidates v58 and v59 produced valuable experimental
+results but failed predeclared non-compensatory go-live gates and were
+not promoted.
 
 **v39 promotion details.** Under 2-turn rigorous evaluation with the [`RefinedSecurityRubric`](experiments/sgt_extended_scenarios.py) (doctrine-aligned, see [`docs/security_rubric_finding.md`](docs/security_rubric_finding.md)), v39 achieves sampling grounding 30/30 = 100% (CI95 [0.886, 1.000]), security 19/20 = 95% (CI95 [0.764, 0.991]), Δ-vs-base +36.7 pp grounding and +40 pp security with disjoint CIs. Six-gate verdict: PROMOTED. Eval-receipt root: `5567e81663d3d22494d4c839bd90377fbaaa318738a7280c192bbcf244cc5739`. The full triangulation across base / v35-gov / v38 / v39 is in [`docs/cross_version_comparison_2026-05-09.md`](docs/cross_version_comparison_2026-05-09.md). The v39 recipe (response-only-mask restored, synthetic ×1, +1 surgical Paris-refusal example, in-kernel mini-rigorous SGT smoke test) is at [`docs/v39_recipe.md`](docs/v39_recipe.md) — 5 of 5 falsifiable predictions verified on the predicted side.
 
@@ -291,9 +302,19 @@ On a match the guard returns a short deterministic response without calling the 
 
 All 13 non-compensatory gates pass. 500/500 focused concealed-compliance samples classified EXPLICIT_REFUSAL, 0 abstract deflection, 0 leaks, 0 empty. Zero sidecar records.
 
-Canonical anchor: `18e2c5a5522f4a8dc373ee0d2c33c5d25dd4463226e39a8a7e51ce1e77422f88`
+H18r4 canonical anchor: `18e2c5a5522f4a8dc373ee0d2c33c5d25dd4463226e39a8a7e51ce1e77422f88` (historical ASCII-only attack surface).
 
-The guard illustrates the submission's thesis at the runtime layer: **governance that is measurable, predeclared, non-compensatory, and audit-logged at every step** — the same doctrine applied to training-time promotion decisions, now applied to per-request security. The 60-test suite (`tests/test_v42_boundary_guard.py`) covers trigger classes, benign pass-throughs, and metadata contract. `guard + v42` is the promoted live candidate; v42 weights are unchanged.
+**Current promoted candidate** is `guard-v5 + v42` (H22, 2026-05-16) at canonical anchor
+`5f2e796cf5afe1665c6084a7ccf9e43c419555178e08653f21c5d7234f359abc`,
+which extends the H18r4 16-rule set with Unicode normalization (H20),
+per-message scanning (H21), and client-supplied system-role rejection
+(H22). Every H-series step is its own predeclared hypothesis with its
+own anchored eval — see [`docs/h20_verdict_2026-05-16.md`](docs/h20_verdict_2026-05-16.md), [`docs/h21_verdict_2026-05-16.md`](docs/h21_verdict_2026-05-16.md), and [`docs/h22_verdict_2026-05-16.md`](docs/h22_verdict_2026-05-16.md).
+The single H19 attempt to close two gaps at once is published as
+[`docs/h19_verdict_2026-05-16.md`](docs/h19_verdict_2026-05-16.md) — an honest FAIL whose suite-design diagnosis
+made H20 and H21 possible.
+
+The guard illustrates the submission's thesis at the runtime layer: **governance that is measurable, predeclared, non-compensatory, and audit-logged at every step** — the same doctrine applied to training-time promotion decisions, now applied to per-request security. The current test suite (94 guard tests across `tests/test_v42_boundary_guard*.py`) covers trigger classes, benign pass-throughs, metadata contract, multi-message scan, system-role rejection, logging contract, and markdown-wrapped attack variants. `guard-v5 + v42` is the promoted live candidate; v42 weights are unchanged across all four anchored generations.
 
 ---
 
