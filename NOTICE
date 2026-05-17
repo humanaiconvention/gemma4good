@@ -1,0 +1,19 @@
+HumanAI Convention — gemma4good
+Copyright 2026 HumanAI Convention
+
+This product includes software developed by HumanAI Convention
+(https://humanaiconvention.com) and contributors.
+
+This software is licensed under the Apache License, Version 2.0
+(see LICENSE for the full text and SPDX-License-Identifier: Apache-2.0).
+
+Upstream dependencies retain their own licenses:
+
+  - Gemma 4 (Google DeepMind) — Apache License, Version 2.0
+  - FastAPI, httpx, uvicorn, pytest — see each project's LICENSE
+  - llama.cpp (model serving runtime) — MIT License
+
+Submissions in this repository prior to 2026-05-16 were published
+under Creative Commons Zero (CC0 1.0 Universal). The transition to
+Apache 2.0 on 2026-05-16 aligns this repository with the Gemma 4
+Good Hackathon submission framework and Gemma 4's own license.

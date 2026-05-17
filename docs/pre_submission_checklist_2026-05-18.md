@@ -31,32 +31,21 @@ option in the submission UI.
 
 **Final decision:** _______________________________________
 
-### 2. License confirmation
+### 2. License confirmation — DONE (2026-05-16)
 
-Current repo license: **CC0-1.0** (`LICENSE` file).
+Current repo license: **Apache-2.0** (`LICENSE` + `NOTICE` files at
+repo root, SPDX-License-Identifier: Apache-2.0).
 
-Gemma 4 itself is Apache 2.0. The hackathon rules likely require
-submissions be open-source but may or may not specifically require
-Apache 2.0.
+Switched from CC0-1.0 on 2026-05-16 after the rules re-read confirmed
+multiple secondary sources describe submissions as released under
+Apache 2.0 (matching Gemma 4's own license). CC0 was strictly more
+permissive than Apache 2.0, so the transition narrows the license but
+adds patent grants and attribution — both desirable.
 
-**Action:** open the official rules page at
-https://www.kaggle.com/competitions/gemma-4-good-hackathon/rules
-and verify:
-
-- [ ] Does it accept CC0 as-is (CC0 is more permissive than Apache 2.0)?
-- [ ] Does it specifically require Apache 2.0?
-
-If the latter, run this one command and commit:
-
-```bash
-cd D:/gemma4good && \
-  curl -sL https://www.apache.org/licenses/LICENSE-2.0.txt > LICENSE && \
-  git add LICENSE && \
-  git commit -m "license: switch to Apache 2.0 per Gemma 4 Good Hackathon requirement" && \
-  git push
-```
-
-Then update the SPDX header in any file that referenced CC0-1.0.
+- [x] LICENSE replaced with canonical Apache 2.0 text
+- [x] NOTICE file added with copyright + transition note
+- [x] SPDX header updated to Apache-2.0
+- [x] WRITEUP / submission-verification docs updated to reference Apache 2.0
 
 ### 3. Video upload + URL ready
 

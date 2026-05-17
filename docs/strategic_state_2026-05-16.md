@@ -33,8 +33,9 @@ features.
     notebooks ✓, reproducibility kernel ✓.
   - **Missing:** project video (in progress with Claude Design),
     media gallery cover image, primary track selection (recommend
-    Safety), license verification (CC0-1.0 currently; rules may
-    require Apache 2.0).
+    Safety & Trust), Kaggle identity-verification badge confirmation.
+  - **License:** switched CC0-1.0 → Apache 2.0 on 2026-05-16 for
+    hackathon alignment (LICENSE + NOTICE both updated).
   - Owner: operator. Cannot complete without operator action.
 
 - **PR #110 on humanai-convention.** Interviewer helper banner.
@@ -90,7 +91,7 @@ zero conversations.
 ### What's already on the public web
 
 - [github.com/humanaiconvention/gemma4good](https://github.com/humanaiconvention/gemma4good) —
-  full source, 679 tests, dated verdict docs, CC0.
+  full source, 702 tests, dated verdict docs, Apache 2.0.
 - Three public Kaggle notebooks under `benhaslam` (governance agent,
   Tier 3 live validation, reproducibility demo).
 - [humanaiconvention.com](https://humanaiconvention.com) — the public

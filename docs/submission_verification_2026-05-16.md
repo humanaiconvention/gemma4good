@@ -56,7 +56,7 @@ or removed.
 | Local branch | `main` |
 | Local clean | working tree carries video/preflight in-progress (unrelated to submission) |
 | Origin | `origin/main` up-to-date through `57b2b8f H24 PASS`, including precommit `31fd4ef` and all H-series verdicts |
-| License | `LICENSE` present at repo root, SPDX-License-Identifier: CC0-1.0 |
+| License | `LICENSE` + `NOTICE` present at repo root, SPDX-License-Identifier: **Apache-2.0** (switched from CC0-1.0 on 2026-05-16 for hackathon alignment) |
 
 ### 2. Kaggle notebooks (public-visibility re-check)
 
@@ -115,7 +115,7 @@ candidate-state paragraph all reference the H24 anchor consistently.
 | Item | Status | Notes |
 |---|---|---|
 | Repo on GitHub | ✓ | https://github.com/humanaiconvention/gemma4good |
-| License file present | ✓ | CC0-1.0 at repo root |
+| License file present | ✓ | Apache-2.0 at repo root + NOTICE file |
 | WRITEUP up to date | ✓ | H24 anchor + full chain |
 | Test suite green | ✓ | 702/702 |
 | Promoted candidate documented | ✓ | H24 verdict at `docs/h24_verdict_2026-05-16.md` |
