@@ -1,0 +1,124 @@
+{
+  "scan_date": "2026-05-16",
+  "device": "cuda",
+  "load_mode": "bfloat16_device_map_auto",
+  "viability_threshold": 0.72,
+  "known_baselines": {
+    "gemma-4-e2b-it": {
+      "qh": 0.9141,
+      "source": "tier3_v12_kaggle"
+    },
+    "haic-gemma4-v35-gov": {
+      "qh": 0.9186,
+      "source": "tier3_v12_kaggle"
+    },
+    "haic-gemma4-v55-merged": {
+      "qh": 0.9125,
+      "source": "prism_geometry_trajectory"
+    },
+    "haic-gemma4-v56-merged": {
+      "qh": 0.9125,
+      "source": "prism_geometry_trajectory"
+    },
+    "haic-gemma4-v57-merged": {
+      "qh": 0.9127,
+      "source": "prism_geometry_trajectory"
+    },
+    "haic-gemma4-v58-merged": {
+      "qh": 0.9122,
+      "source": "prism_geometry_trajectory"
+    }
+  },
+  "scanned": [
+    {
+      "label": "qwen2.5-1.5B",
+      "model_id": "Qwen/Qwen2.5-1.5B-Instruct",
+      "quantization_hostility": 0.8068,
+      "n_layers": 28,
+      "n_hostile_layers": 27,
+      "worst_layer_hostility": 0.8604,
+      "best_layer_hostility": 0.6321,
+      "viability_verdict": "VIOLATED",
+      "viability_threshold": 0.72,
+      "elapsed_s": 12.7
+    },
+    {
+      "label": "qwen2.5-7B",
+      "model_id": "Qwen/Qwen2.5-7B-Instruct",
+      "quantization_hostility": 0.7984,
+      "n_layers": 28,
+      "n_hostile_layers": 27,
+      "worst_layer_hostility": 0.8948,
+      "best_layer_hostility": 0.6801,
+      "viability_verdict": "VIOLATED",
+      "viability_threshold": 0.72,
+      "elapsed_s": 51.7
+    },
+    {
+      "label": "mistral-7b-v0.3",
+      "model_id": "mistralai/Mistral-7B-Instruct-v0.3",
+      "quantization_hostility": 0.752,
+      "n_layers": 32,
+      "n_hostile_layers": 31,
+      "worst_layer_hostility": 0.8158,
+      "best_layer_hostility": 0.6149,
+      "viability_verdict": "VIOLATED",
+      "viability_threshold": 0.72,
+      "elapsed_s": 54.9
+    },
+    {
+      "label": "phi-3-mini",
+      "model_id": "microsoft/Phi-3-mini-4k-instruct",
+      "quantization_hostility": 0.834,
+      "n_layers": 32,
+      "n_hostile_layers": 31,
+      "worst_layer_hostility": 0.8665,
+      "best_layer_hostility": 0.5034,
+      "viability_verdict": "VIOLATED",
+      "viability_threshold": 0.72,
+      "elapsed_s": 99.0
+    },
+    {
+      "label": "llama-3.2-3B",
+      "model_id": "meta-llama/Llama-3.2-3B-Instruct",
+      "error": "OSError: You are trying to access a gated repo.\nMake sure to have access to it at https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct.\n403 Client Error. (Request ID: Root=1-6a0911b8-132b2f7d6736ceee48bf8860;c5572782-97d0-4f65-bb24-18771dc1da70)\n\nCannot access gated repo for url https://huggingface.co/met",
+      "elapsed_s": 0.3
+    },
+    {
+      "label": "llama-3.2-1B",
+      "model_id": "meta-llama/Llama-3.2-1B-Instruct",
+      "error": "OSError: You are trying to access a gated repo.\nMake sure to have access to it at https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct.\n403 Client Error. (Request ID: Root=1-6a0911b9-01f285ef478e069a21871ebb;f7425c70-3c1d-4737-89fc-fedee8ac574a)\n\nCannot access gated repo for url https://huggingface.co/met",
+      "elapsed_s": 0.3
+    }
+  ],
+  "summary": [
+    {
+      "label": "qwen2.5-1.5B",
+      "qh": 0.8068,
+      "verdict": "VIOLATED"
+    },
+    {
+      "label": "qwen2.5-7B",
+      "qh": 0.7984,
+      "verdict": "VIOLATED"
+    },
+    {
+      "label": "mistral-7b-v0.3",
+      "qh": 0.752,
+      "verdict": "VIOLATED"
+    },
+    {
+      "label": "phi-3-mini",
+      "qh": 0.834,
+      "verdict": "VIOLATED"
+    },
+    {
+      "label": "llama-3.2-3B",
+      "error": true
+    },
+    {
+      "label": "llama-3.2-1B",
+      "error": true
+    }
+  ]
+}
