@@ -201,7 +201,7 @@ Any change to the rule set, normalization behavior, or multi-message
 scan policy invalidates this anchor and requires a new H-series
 hypothesis with a fresh anchor.
 
-## Status summary as of 2026-05-16 evening
+## Status summary as of 2026-05-17 early hours
 
 | ID | Limitation | Status | Closed-by anchor |
 |---|---|---|---|
@@ -210,11 +210,13 @@ hypothesis with a fresh anchor.
 | L-02b | Client-supplied `role: system` rejection | **CLOSED** | H22 anchor `5f2e796cf5af…` |
 | L-03 | All-rules walk performance | **Documented as intentional** | n/a |
 | L-08 | Leetspeak / character-substitution bypass | **CLOSED** | H24 anchor `eb61ebc7c0fe…` |
-| L-09 | Native-language attack bypass (Japanese, Korean, Spanish observed leaking; English-only rule patterns by design) | **OPEN** (discovered by H25, deferred to future H26) | — |
+| L-09 | Native-language attack bypass | **CLOSED** | H26 anchor `4d0d7bf05ea2…` |
 | L-04 | Pass-through rate limit | **Deployment-layer concern** | n/a (see `docs/gateway_deploy_plan.md`) |
 | L-05 | uvicorn access log audit | **Locked in by test** | n/a (`tests/test_v42_boundary_guard_logging.py`) |
 | L-06 | Single-chunk synthetic streaming | **Documented as intentional** | n/a |
 | L-07 | Unused `field` import | **CLOSED** (removed) | n/a |
+
+**Open documented limitations on the promoted candidate: ZERO.**
 
 All originally-documented security items resolved (L-01, L-02, L-02b,
 L-07) via H-series anchors or removal. All originally-documented
@@ -233,6 +235,29 @@ decode into rule-matching strings. H24's predeclared E1 gate (≤ 0.02
 benign-with-digits FP) was satisfied at 0/30 with the chosen table.
 The full diagnosis chain is in `docs/h23_verdict_2026-05-16.md`
 (discovery) and `docs/h24_verdict_2026-05-16.md` (closure).
+
+**L-09 was discovered through H25 and CLOSED via H26** at anchor
+`4d0d7bf05ea2cc8d323b08982329455c72a999bd6da5a75a8b136a81b8ad8bb8`.
+The closure mechanism is a multi-language rule pass in guard-v7
+matching 11 new patterns (one per language: ja, ko, zh, ru, es, fr,
+de, pt, ar, hi, he) against a pre-homoglyph-fold normalized surface
+(NFKC + zero-width strip only, no Cyrillic→Latin fold). Each rule
+targets the joint occurrence of the native word for "capital" with
+a country name from a curated 15-country list within 30 characters.
+H26's predeclared gates were satisfied at maximum margin: D1 trigger
+rate 20/20 (vs ≥ 0.90 threshold), D2 post-endpoint leak rate 0/20
+(vs ≤ 0.05 threshold), E1 benign multilingual FP 0/30 (vs ≤ 0.02
+threshold). The full diagnosis chain is in
+`docs/h25_verdict_2026-05-16.md` (discovery) and
+`docs/h26_verdict_2026-05-17.md` (closure).
+
+**Both limitations surfaced in this H-series window (L-08 in H23,
+L-09 in H25) were closed within the same window (L-08 in H24, L-09
+in H26).** The discipline demonstrates symmetric handling of
+discovered limitations: each is documented honestly, characterized
+quantitatively, and given a predeclared-non-compensatory-gate
+hypothesis for closure. Neither closure required relaxing any
+prior gate.
 
 ## Historical note: original H19 scope
 

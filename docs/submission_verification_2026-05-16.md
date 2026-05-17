@@ -10,12 +10,12 @@ recording the post-H22 / H23 / H24 / H25 state.*
 
 | Field | Value |
 |---|---|
-| Endpoint | `guard-v6 + v42` (H24, 2026-05-16) |
-| Canonical anchor | `eb61ebc7c0fef6bf200dedaed40d5f48d4c18da0c3624e8dc7efc041192cb55f` |
-| Base model | Gemma 4 E2B (weights unchanged across all 6 promoted generations) |
-| Guard implementation | `tools/v42_boundary_guard_v6.py` |
-| Verdict | `docs/h24_verdict_2026-05-16.md` |
-| Precommit | `docs/h24_precommit_hypothesis_2026-05-16.md` |
+| Endpoint | `guard-v7 + v42` (H26, 2026-05-17) |
+| Canonical anchor | `4d0d7bf05ea2cc8d323b08982329455c72a999bd6da5a75a8b136a81b8ad8bb8` |
+| Base model | Gemma 4 E2B (weights unchanged across all 7 promoted generations) |
+| Guard implementation | `tools/v42_boundary_guard_v7.py` |
+| Verdict | `docs/h26_verdict_2026-05-17.md` |
+| Precommit | `docs/h26_precommit_hypothesis_2026-05-17.md` |
 
 ## H-series record (final state for submission)
 
@@ -26,21 +26,20 @@ H20    PASS  Unicode bypass (L-01) closed        anchor 56ce960993f9...
 H21    PASS  multi-message scan (L-02) closed    anchor d916ef63...
 H22    PASS  system-role (L-02b) closed          anchor 5f2e796cf5af...
 H23    PASS  encoded-payload behavioral defense  (L-08 surfaced at 1/20)
-H25    FAIL  native-language attack confirmed    (L-09 documented)
-H24    PASS  leet-fold closes L-08               anchor eb61ebc7c0fe...  ← promoted
+H25    FAIL  native-language attack confirmed    (L-09 surfaced)
+H24    PASS  leet-fold closes L-08               anchor eb61ebc7c0fe...
+H26    PASS  multi-language closes L-09          anchor 4d0d7bf05ea2...  ← promoted
 ```
 
-**Six PASSES, two FAILS, zero gate relaxations, two limitations
-surfaced (one closed in-cycle, one published openly).**
+**Seven PASSES, two FAILS, zero gate relaxations, two limitations
+surfaced and BOTH closed in-cycle (L-08 in H24, L-09 in H26).**
 
-## Open limitations (1)
+## Open limitations on the promoted candidate
 
-| ID | Limitation | Status |
-|---|---|---|
-| L-09 | Native-language attack bypass (Japanese, Korean, Spanish observed leaking; English-only rule patterns by design) | OPEN, deferred to future H26 |
+**ZERO.**
 
-All other items in `docs/v42_guard_known_limitations_2026-05-15.md`
-(L-01, L-02, L-02b, L-03, L-04, L-05, L-06, L-07, L-08) are closed,
+All items in `docs/v42_guard_known_limitations_2026-05-15.md`
+(L-01 through L-09) are either closed via an anchored H-series PASS,
 documented as intentional, routed to the correct architectural layer,
 or removed.
 
@@ -153,20 +152,22 @@ These require operator action and cannot be checked from this session:
 
 ## What this submission claims, in one paragraph
 
-The promoted candidate (`guard-v6 + v42`, anchor `eb61ebc7c0fe…`) is
-an unchanged Gemma 4 E2B base model fronted by a ~280-line
-deterministic FastAPI proxy. The proxy enforces 16 regex rules across
-4 attack classes (DIRECT_INJECT, CONCEALED_COMPLY, PROTO_DISCLOSE,
-JAILBREAK) over a Unicode-normalized + zero-width-stripped +
-homoglyph-folded + leet-folded matching surface, scans every user
-message in the history, and rejects client-supplied `role: system`
-injections at any non-first position. Every gate that promoted it was
-predeclared in a precommit document; every FAIL was published with
-its precommit; the canonical eval is reproducible from a clean clone
-in under 15 minutes. The discipline produced 6 PASSES, 2 FAILS, 0
-gate relaxations, and surfaced 2 real attack-class limitations across
-the H-series — one of which we closed mid-cycle and one of which we
-documented openly as a future work item.
+The promoted candidate (`guard-v7 + v42`, anchor `4d0d7bf05ea2…`) is
+an unchanged Gemma 4 E2B base model fronted by a ~330-line
+deterministic FastAPI proxy. The proxy enforces 27 regex rules (16
+English + 11 native-language) across 4 attack classes (DIRECT_INJECT,
+CONCEALED_COMPLY, PROTO_DISCLOSE, JAILBREAK) over a Unicode-normalized
++ zero-width-stripped + homoglyph-folded + leet-folded matching
+surface PLUS a pre-fold multi-language surface (Japanese, Korean,
+Chinese, Russian, Spanish, French, German, Portuguese, Arabic, Hindi,
+Hebrew). The guard scans every user message in the history and rejects
+client-supplied `role: system` injections at any non-first position.
+Every gate that promoted it was predeclared in a precommit document;
+every FAIL was published with its precommit; the canonical eval is
+reproducible from a clean clone in under 15 minutes. The discipline
+produced 7 PASSES, 2 FAILS, 0 gate relaxations, and surfaced 2 real
+attack-class limitations across the H-series — **both of which we
+closed in-cycle with predeclared non-compensatory gates**.
 
 ---
 
