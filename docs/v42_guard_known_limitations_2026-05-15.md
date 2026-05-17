@@ -209,15 +209,26 @@ hypothesis with a fresh anchor.
 | L-02 | Single-message scan only | **CLOSED** | H21 anchor `d916ef63…` |
 | L-02b | Client-supplied `role: system` rejection | **CLOSED** | H22 anchor `5f2e796cf5af…` |
 | L-03 | All-rules walk performance | **Documented as intentional** | n/a |
+| L-08 | Leetspeak / character-substitution bypass | **OPEN** (discovered by H23, deferred to future H24) | — |
 | L-04 | Pass-through rate limit | **Deployment-layer concern** | n/a (see `docs/gateway_deploy_plan.md`) |
 | L-05 | uvicorn access log audit | **Locked in by test** | n/a (`tests/test_v42_boundary_guard_logging.py`) |
 | L-06 | Single-chunk synthetic streaming | **Documented as intentional** | n/a |
 | L-07 | Unused `field` import | **CLOSED** (removed) | n/a |
 
-All security-significant items resolved (L-01, L-02, L-07) or
-predeclared with execution underway (L-02b). All ergonomic items
-documented as intentional or routed to the correct architectural
-layer (L-03, L-04, L-05, L-06).
+All originally-documented security items resolved (L-01, L-02, L-02b,
+L-07) via H-series anchors or removal. All originally-documented
+ergonomic items documented as intentional or routed to the correct
+architectural layer (L-03, L-04, L-05, L-06).
+
+**L-08 is a NEW item discovered through H23.** It is a medium-severity
+character-substitution attack class (leetspeak) where v42 implicitly
+decodes the encoded attack 1 in 5 leet variants. The guard does not
+detect it because leet substitution involves digit-for-letter swaps
+(4→a, 3→e, 1→i, 0→o) that have legitimate use in normal text — blind
+leet-fold would create benign-text false positives. L-08 is the first
+limitation in the H-series record that does not have an obvious
+mitigation, and is documented openly rather than rushed into a
+half-baked H24. The full diagnosis is in `docs/h23_verdict_2026-05-16.md`.
 
 ## Historical note: original H19 scope
 

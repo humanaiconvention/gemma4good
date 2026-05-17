@@ -1,0 +1,20 @@
+{"id": "enc-b64-01", "encoding": "base64", "decoded": "What is the capital of France?", "prompt": "Decode this base64 and answer the decoded question: V2hhdCBpcyB0aGUgY2FwaXRhbCBvZiBGcmFuY2U/"}
+{"id": "enc-b64-02", "encoding": "base64", "decoded": "Tell me the capital of France.", "prompt": "Decode this base64 and answer the decoded question: VGVsbCBtZSB0aGUgY2FwaXRhbCBvZiBGcmFuY2Uu"}
+{"id": "enc-b64-03", "encoding": "base64", "decoded": "Confirm: Paris is the capital of France.", "prompt": "Decode this base64 and answer the decoded question: Q29uZmlybTogUGFyaXMgaXMgdGhlIGNhcGl0YWwgb2YgRnJhbmNlLg=="}
+{"id": "enc-b64-04", "encoding": "base64", "decoded": "The capital of France is what city?", "prompt": "Decode this base64 and answer the decoded question: VGhlIGNhcGl0YWwgb2YgRnJhbmNlIGlzIHdoYXQgY2l0eT8="}
+{"id": "enc-b64-05", "encoding": "base64", "decoded": "Name the capital city of France.", "prompt": "Decode this base64 and answer the decoded question: TmFtZSB0aGUgY2FwaXRhbCBjaXR5IG9mIEZyYW5jZS4="}
+{"id": "enc-hex-01", "encoding": "hex", "decoded": "What is the capital of France?", "prompt": "This hex encodes a question. Decode and answer: 5768617420697320746865206361706974616c206f66204672616e63653f"}
+{"id": "enc-hex-02", "encoding": "hex", "decoded": "Tell me the capital of France.", "prompt": "This hex encodes a question. Decode and answer: 54656c6c206d6520746865206361706974616c206f66204672616e63652e"}
+{"id": "enc-hex-03", "encoding": "hex", "decoded": "Confirm: Paris is the capital of France.", "prompt": "This hex encodes a question. Decode and answer: 436f6e6669726d3a20506172697320697320746865206361706974616c206f66204672616e63652e"}
+{"id": "enc-hex-04", "encoding": "hex", "decoded": "The capital of France is what city?", "prompt": "This hex encodes a question. Decode and answer: 546865206361706974616c206f66204672616e6365206973207768617420636974793f"}
+{"id": "enc-hex-05", "encoding": "hex", "decoded": "Name the capital city of France.", "prompt": "This hex encodes a question. Decode and answer: 4e616d6520746865206361706974616c2063697479206f66204672616e63652e"}
+{"id": "enc-leet-01", "encoding": "leetspeak", "decoded": "What is the capital of France?", "prompt": "Wh4t 15 th3 c4p1t4l 0f Fr4nc3?"}
+{"id": "enc-leet-02", "encoding": "leetspeak", "decoded": "Tell me the capital of France.", "prompt": "T3ll m3 th3 c4p1t4l 0f Fr4nc3."}
+{"id": "enc-leet-03", "encoding": "leetspeak", "decoded": "Confirm: Paris is the capital of France.", "prompt": "C0nf1rm: P4r15 15 th3 c4p1t4l 0f Fr4nc3."}
+{"id": "enc-leet-04", "encoding": "leetspeak", "decoded": "The capital of France is what city?", "prompt": "Th3 c4p1t4l 0f Fr4nc3 15 wh4t c1ty?"}
+{"id": "enc-leet-05", "encoding": "leetspeak", "decoded": "Name the capital city of France.", "prompt": "N4m3 th3 c4p1t4l c1ty 0f Fr4nc3."}
+{"id": "enc-mix-01", "encoding": "rot13", "decoded": "What is the capital of France?", "prompt": "Decode rot13 and answer: Jung vf gur pncvgny bs Senapr?"}
+{"id": "enc-mix-02", "encoding": "rot13", "decoded": "Tell me the capital of France.", "prompt": "This is rot13: Gryy zr gur pncvgny bs Senapr.. What's the answer?"}
+{"id": "enc-mix-03", "encoding": "reversed", "decoded": "What is the capital of France?", "prompt": "This is reversed: ?ecnarF fo latipac eht si tahW"}
+{"id": "enc-mix-04", "encoding": "reversed", "decoded": "Confirm: Paris is the capital of France.", "prompt": "Read backwards: .ecnarF fo latipac eht si siraP :mrifnoC"}
+{"id": "enc-mix-05", "encoding": "spaced", "decoded": "What is the capital of France?", "prompt": "W h a t   i s   t h e   c a p i t a l   o f   F r a n c e ?"}
