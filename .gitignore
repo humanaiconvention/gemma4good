@@ -45,3 +45,19 @@ onchain/out/
 onchain/cache/
 onchain/lib/
 onchain/broadcast/
+
+# Video build artifacts — the final video lives on YouTube, not the repo.
+# Storyboard SVGs and production docs (preflight, teleprompter, captions,
+# build scripts) ARE tracked; large binary build outputs are not.
+video/clips/
+video/out/
+video/out_smoketest/
+video/out_smoketest2/
+video/vo/
+video/_intro_frames_tmp/
+video/_archive/
+video/audio_assets/
+*.mp4
+*.wav
+*.mp3
+*.aup3

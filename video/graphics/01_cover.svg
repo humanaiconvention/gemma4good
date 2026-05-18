@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#0B0B0F"/>
+
+  <!-- Logo mark top-left, small -->
+  <g transform="translate(60, 50) scale(0.18)">
+    <g transform="translate(0, 44.7)">
+      <circle cx="100" cy="-18.6" r="18.1" fill="#FFFFFF"/>
+      <path d="M 110.97 22 L 110.97 212 L 89.03 212 L 89.03 22 Z" fill="#FFFFFF"/>
+      <path d="M 70.28 26.77 A 95 95 0 0 0 5 117 A 95 95 0 0 0 70.28 207.23 L 70.28 183.75 A 67 67 0 0 1 18.56 117 A 67 67 0 0 1 70.28 50.25 Z" fill="#FFFFFF"/>
+      <path d="M 129.72 26.77 A 95 95 0 0 1 195 117 A 95 95 0 0 1 129.72 207.23 L 129.72 183.75 A 67 67 0 0 0 181.44 117 A 67 67 0 0 0 129.72 50.25 Z" fill="#FFFFFF"/>
+    </g>
+  </g>
+  <text x="125" y="78" font-family="Inter, sans-serif" font-size="16" font-weight="500" fill="#FFFFFF" fill-opacity="0.85" letter-spacing="1">HumanAI Convention</text>
+  <text x="125" y="100" font-family="JetBrains Mono, monospace" font-size="11" font-weight="400" fill="#FFFFFF" fill-opacity="0.55" letter-spacing="3">GEMMA 4 GOOD</text>
+
+  <!-- Headline -->
+  <text x="60" y="230" font-family="Inter, sans-serif" font-size="54" font-weight="700" fill="#FFFFFF" letter-spacing="-0.5">The Viability Condition</text>
+  <text x="60" y="290" font-family="Inter, sans-serif" font-size="54" font-weight="700" fill="#FFFFFF" letter-spacing="-0.5">for Gemma 4.</text>
+
+  <!-- Equation -->
+  <g transform="translate(60, 360)">
+    <text x="0" y="0" font-family="JetBrains Mono, monospace" font-size="40" font-weight="500" fill="#7DD3FC" letter-spacing="1">C_eff(t) &gt; E(t)</text>
+  </g>
+
+  <!-- Subtitles -->
+  <text x="60" y="450" font-family="Inter, sans-serif" font-size="22" font-weight="400" fill="#FFFFFF" fill-opacity="0.85" letter-spacing="0.3">Grounded learning. Verifiable governance.</text>
+  <text x="60" y="482" font-family="Inter, sans-serif" font-size="20" font-weight="300" fill="#FFFFFF" fill-opacity="0.65" letter-spacing="0.3">Measured and anchored per decision.</text>
+
+  <!-- Footer divider -->
+  <line x1="60" y1="540" x2="1140" y2="540" stroke="#FFFFFF" stroke-opacity="0.15"/>
+
+  <!-- Bottom: anchor + DOI -->
+  <text x="60" y="572" font-family="JetBrains Mono, monospace" font-size="11" font-weight="500" fill="#FFFFFF" fill-opacity="0.55" letter-spacing="2">H26 PROMOTED ANCHOR · SHA3</text>
+  <text x="60" y="598" font-family="JetBrains Mono, monospace" font-size="14" font-weight="500" fill="#7DD3FC" fill-opacity="0.90" letter-spacing="0.5">4d0d7bf05ea2cc8d323b08982329455c72a999bd6da5a75a8b136a81b8ad8bb8</text>
+  <text x="1140" y="572" font-family="JetBrains Mono, monospace" font-size="11" font-weight="500" fill="#FFFFFF" fill-opacity="0.55" letter-spacing="2" text-anchor="end">DOI · LICENSE</text>
+  <text x="1140" y="598" font-family="JetBrains Mono, monospace" font-size="14" font-weight="400" fill="#FFFFFF" fill-opacity="0.85" letter-spacing="0.5" text-anchor="end">10.5281/zenodo.18144681 · Apache-2.0</text>
+</svg>

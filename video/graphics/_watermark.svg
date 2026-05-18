@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 272.71" width="200" height="272.71" shape-rendering="geometricPrecision">
+  <g transform="translate(0, 44.713)" opacity="0.55">
+    <circle cx="100" cy="-18.57" r="18.14" fill="#FFFFFF"/>
+    <path d="M 110.97 22 L 110.97 212 L 89.03 212 L 89.03 22 Z" fill="#FFFFFF"/>
+    <path d="M 70.28 26.77 A 95 95 0 0 0 5 117 A 95 95 0 0 0 70.28 207.23 L 70.28 183.75 A 67 67 0 0 1 18.56 117 A 67 67 0 0 1 70.28 50.25 Z" fill="#FFFFFF"/>
+    <path d="M 129.72 26.77 A 95 95 0 0 1 195 117 A 95 95 0 0 1 129.72 207.23 L 129.72 183.75 A 67 67 0 0 0 181.44 117 A 67 67 0 0 0 129.72 50.25 Z" fill="#FFFFFF"/>
+  </g>
+</svg>

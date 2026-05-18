@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <rect width="1920" height="1080" fill="#0B0B0F"/>
+
+  <!-- Browser chrome -->
+  <g transform="translate(160, 120)">
+    <rect x="0" y="0" width="1600" height="840" fill="#0F0F14" stroke="#FFFFFF" stroke-opacity="0.18"/>
+    <!-- Title bar -->
+    <rect x="0" y="0" width="1600" height="56" fill="#FFFFFF" fill-opacity="0.04"/>
+    <circle cx="28" cy="28" r="7" fill="#FF5F57" fill-opacity="0.70"/>
+    <circle cx="54" cy="28" r="7" fill="#FFBD2E" fill-opacity="0.70"/>
+    <circle cx="80" cy="28" r="7" fill="#28C940" fill-opacity="0.70"/>
+    <!-- URL bar -->
+    <rect x="120" y="14" width="1380" height="28" fill="#FFFFFF" fill-opacity="0.06" stroke="#FFFFFF" stroke-opacity="0.10"/>
+    <text x="140" y="34" font-family="JetBrains Mono, monospace" font-size="14" font-weight="400" fill="#FFFFFF" fill-opacity="0.55" letter-spacing="0.3">🔒 </text>
+    <text x="168" y="34" font-family="JetBrains Mono, monospace" font-size="14" font-weight="500" fill="#FFFFFF" letter-spacing="0.3">https://github.com/GMaN1911</text>
+
+    <!-- Page body -->
+    <!-- Avatar placeholder -->
+    <circle cx="160" cy="240" r="100" fill="#FFFFFF" fill-opacity="0.06" stroke="#FFFFFF" stroke-opacity="0.20"/>
+    <text x="160" y="252" font-family="Inter, sans-serif" font-size="56" font-weight="600" fill="#FFFFFF" fill-opacity="0.60" text-anchor="middle">G</text>
+
+    <!-- Handle / name area -->
+    <text x="290" y="200" font-family="Inter, sans-serif" font-size="42" font-weight="600" fill="#FFFFFF" letter-spacing="-0.2">GMaN1911</text>
+    <text x="290" y="240" font-family="Inter, sans-serif" font-size="20" font-weight="300" fill="#FFFFFF" fill-opacity="0.65" letter-spacing="0.3">Collaborator · HumanAI Convention</text>
+    <text x="290" y="276" font-family="Inter, sans-serif" font-size="16" font-weight="300" fill="#FFFFFF" fill-opacity="0.45" letter-spacing="0.3">github.com/GMaN1911</text>
+
+    <!-- Divider -->
+    <line x1="40" y1="380" x2="1560" y2="380" stroke="#FFFFFF" stroke-opacity="0.10"/>
+
+    <!-- Pinned repos / activity headers -->
+    <text x="40" y="430" font-family="JetBrains Mono, monospace" font-size="12" font-weight="500" fill="#FFFFFF" fill-opacity="0.55" letter-spacing="3">PINNED</text>
+
+    <!-- Repo card 1 -->
+    <g transform="translate(40, 450)">
+      <rect x="0" y="0" width="480" height="120" fill="#FFFFFF" fill-opacity="0.04" stroke="#FFFFFF" stroke-opacity="0.15"/>
+      <text x="20" y="36" font-family="JetBrains Mono, monospace" font-size="18" font-weight="500" fill="#7DD3FC" letter-spacing="0.3">PRISM</text>
+      <text x="20" y="64" font-family="Inter, sans-serif" font-size="14" font-weight="300" fill="#FFFFFF" fill-opacity="0.70" letter-spacing="0.2">Hidden-state geometry analysis library</text>
+      <text x="20" y="98" font-family="JetBrains Mono, monospace" font-size="12" font-weight="400" fill="#FFFFFF" fill-opacity="0.45" letter-spacing="1">● Python · MIT</text>
+    </g>
+
+    <!-- Repo card 2 -->
+    <g transform="translate(540, 450)">
+      <rect x="0" y="0" width="480" height="120" fill="#FFFFFF" fill-opacity="0.04" stroke="#FFFFFF" stroke-opacity="0.15"/>
+      <text x="20" y="36" font-family="JetBrains Mono, monospace" font-size="18" font-weight="500" fill="#7DD3FC" letter-spacing="0.3">NLA</text>
+      <text x="20" y="64" font-family="Inter, sans-serif" font-size="14" font-weight="300" fill="#FFFFFF" fill-opacity="0.70" letter-spacing="0.2">Natural-language autoencoder for activations</text>
+      <text x="20" y="98" font-family="JetBrains Mono, monospace" font-size="12" font-weight="400" fill="#FFFFFF" fill-opacity="0.45" letter-spacing="1">● Python · MIT</text>
+    </g>
+
+    <!-- Repo card 3 -->
+    <g transform="translate(1040, 450)">
+      <rect x="0" y="0" width="480" height="120" fill="#FFFFFF" fill-opacity="0.04" stroke="#FFFFFF" stroke-opacity="0.15"/>
+      <text x="20" y="36" font-family="JetBrains Mono, monospace" font-size="18" font-weight="500" fill="#7DD3FC" letter-spacing="0.3">gemma4good</text>
+      <text x="20" y="64" font-family="Inter, sans-serif" font-size="14" font-weight="300" fill="#FFFFFF" fill-opacity="0.70" letter-spacing="0.2">Viability Condition runtime · Kaggle submission</text>
+      <text x="20" y="98" font-family="JetBrains Mono, monospace" font-size="12" font-weight="400" fill="#FFFFFF" fill-opacity="0.45" letter-spacing="1">● Python · Apache-2.0</text>
+    </g>
+
+    <!-- Footer attribution band -->
+    <line x1="40" y1="640" x2="1560" y2="640" stroke="#FFFFFF" stroke-opacity="0.10"/>
+    <text x="40" y="690" font-family="JetBrains Mono, monospace" font-size="13" font-weight="500" fill="#FFFFFF" fill-opacity="0.55" letter-spacing="3">COLLABORATOR ON THE HUMANAI CONVENTION SUBMISSION</text>
+    <text x="40" y="734" font-family="Inter, sans-serif" font-size="24" font-weight="400" fill="#FFFFFF" fill-opacity="0.85" letter-spacing="0.2">PRISM · NLA · multi-language guard rules</text>
+    <text x="40" y="770" font-family="Inter, sans-serif" font-size="18" font-weight="300" fill="#FFFFFF" fill-opacity="0.60" letter-spacing="0.3">contributions in the public repo and the WRITEUP</text>
+  </g>
+
+  <!-- Caption strip outside the browser frame -->
+  <text x="960" y="1020" font-family="JetBrains Mono, monospace" font-size="14" font-weight="500" fill="#FFFFFF" fill-opacity="0.55" text-anchor="middle" letter-spacing="3">SUBMITTED BY · THE HUMANAI CONVENTION</text>
+</svg>

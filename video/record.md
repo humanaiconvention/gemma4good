@@ -1,73 +1,93 @@
 # Recording cheat sheet — read on second screen while recording
 
-Six segments. Two takes each, minimum. Save as `seg_01_t1.wav`, `seg_01_t2.wav`, …
-Drop in `D:\gemma4good\video\vo\` (or `D:\gemma4good\video\vo_phone\` if recording on the phone).
+**Structure: three acts + closer.** Target ~2:30. Read calmly. The substance is the weight — let the visuals carry the proof, let the equation land, do not sell anything.
+
+Save takes as `seg_01_t1.wav`, `seg_01_t2.wav`, … in `D:\gemma4good\video\vo\`.
+
+**Before the first take — 60 seconds of setup:**
+- Close every app that pings. Phone on Do Not Disturb.
+- Drink water. Hum a low note for 5 s to settle the voice.
+- Mic 8–10 inches from your mouth, 45° off-axis so plosives miss it. Lean back and STAY there.
+- Teleprompter in a browser window next to this one. Scroll with arrow keys, not the trackpad.
+- 30-second test recording first. Play back. Fix any fan / click / chair creak at the source — don't try to denoise after.
 
 **Pronunciation reminders:**
-- **PRISM** → one word, "PRIZ-um"
-- **NLA** → letters, "N - L - A"
-- **SHA3** → letters, "S - H - A - three"
-- **Kaggle** → "KAG-uhl"
-- **Merkle** → "MUR-kuhl"
-- **interviewer** → "in-ter-VYOO-er"
-- **GPT** → letters, "G - P - T"
+- **autophagy** = "aw-TOFF-uh-jee"
+- **C-eff** = "C-eff" (one word; the of-t pronounced as one syllable "of T")
+- **PRISM** = one word, "PRIZ-um"
+- **NLA** = letters, "N - L - A"
+- **SHA3** = letters, "S - H - A - three"
+- **Merkle** = "MUR-kuhl"
+- **H26** = "H twenty-six"
+- **leetspeak** = "LEET-speek"
 
 **Tone reminders:**
-- Read like the third presenter in a board meeting where the previous two were also competent.
+- Read like a research lecturer who knows the answer, not a marketer.
 - No upward inflection at line ends. Every sentence is a statement.
-- Two beats of lift: "All passed. Anchored. Reproducible." and "first deployment partner." Everything else is even.
-- The numbers are doing the work. Don't sell them.
+- Three small lifts only: "Informational autophagy" · "Every step is hashed into a Merkle receipt" · "The discipline holds." Everything else even.
+- Slow on the equation. M-of-t. Equals. C-eff-of-t. Minus. E-of-t.
 
 ---
 
-## Segment 1 · 11 s · Cold open
+## Segment 1 · Act 1 · Intro + the problem · ~60 s
 
-> AI systems trained on synthetic data lose their grounding in human experience. *(breath)* The current alignment landscape treats this as something to promise. *(breath)* We treat it as something to **prove**.
+*On-screen: logo intro animation 0:00–0:10.5 (mark fades in 0:00–0:02, wordmark fades in equally-weighted 0:02.5–0:04, full lockup holds 0:04–0:10.5). Garrett's repo screen-grab 0:10.5–0:14 — lands on the name "Sutherland" and holds through the breath. Then equation M(t) = C_eff(t) − E(t) on black at 0:14, "Informational autophagy" reveals below in red after the named line, variable-definitions list types in beneath the equation.*
 
-Emphasis: "prove."
+> This is the HumanAI Convention submission for Gemma 4 Good. *(beat)*
+> This work was built in collaboration with Garrett Sutherland. *(breath)*
+> Our submission rests on a principle. *(beat)*
+> AI systems trained on synthetic text drift when internally-generated error outpaces externally-verified human correction. *(breath)*
+> The model consumes its own outputs as if they were ground truth, and loses coherence with the world. *(beat)*
+> We call this phenomenon '**Informational autophagy**'. *(hard pause)*
+> The condition is measurable. M of t equals C-efficiency of t minus E of t. *(breath)*
+> Where M is the model's viability, t is time, C-efficiency is verified human corrections per day, and E is the rate the model drifts.
 
-## Segment 2 · 28 s · What it is
+No names spoken on screen — the submission is by the HumanAI Convention. Slight beat before the principle. Lift on "Informational autophagy" — small, dropped tone, declarative. Slow noticeably on the equation read. The four variable-definition clauses are a list — beat between each.
 
-> The HumanAI Convention is a governance layer for AI decisions. *(breath)* Gemma 4 receives a scenario, calls five governance tools — wellbeing, consent, PRISM, NLA, and a Merkle receipt — and produces a cryptographically anchored audit trail. *(hard pause)* We demonstrate it on three real cases. *(beat)* A rural health clinic. *(beat)* A classroom with intermittent connectivity. *(beat)* A deforestation enforcement system. *(beat)* Every decision is hash-anchored. Every receipt is independently verifiable.
+Pronunciation: C-efficiency = "C ef-FI-shen-see" (each phrase separately). M of t = "M of T."
 
-List the three scenarios — beat between each, do not run them together.
+## Segment 2 · Act 2 · The architecture · ~70 s
 
-## Segment 3 · 33 s · The honest result — the proof beat
+*On-screen: full architecture diagram. Top arc lights up green at "grounded learning," bottom arc lights up red at "verifiable governance," the four governance elements highlight as named.*
 
-> On the security path, our framework promoted a two-hundred-line deterministic guard sitting in front of Gemma 4. *(breath)* Thirteen predeclared, non-compensatory gates. *(beat)* All passed. *(beat)* Anchored. *(beat)* Reproducible.
->
-> *(hard pause — two beats of silence)*
->
-> **Ten** consecutive fine-tuning candidates failed those same gates. *(breath)* We did not relax the gates. *(breath)* We published the negative verdicts. *(breath)* The framework correctly rejected its own model. *(hard pause)* That is the contribution — **discipline** that holds under its own pressure.
+> We built the architecture that measures and enforces the Viability Condition. *(breath)*
+> On the input side, human signal flows in through consent-gated interviews — a wellbeing question on a specific domain, four-layer consent recording what the human will share, train on, and retain. *(breath)* That's grounded learning. That's where C-eff comes from. *(hard pause)*
+> On the model side, drift is measured at the activation level. PRISM returns hidden-state geometry. NLA returns a natural-language description of those same states. *(breath)* That's how we quantify E. *(hard pause)*
+> Between them sits the boundary guard — sixteen deterministic rules, plus eleven multi-language rules added in the last cycle. Every decision passes through. *(beat)*
+> Every step is hashed into a **Merkle receipt** that anyone can verify.
 
-This is the segment to slow down on. Two lifts: "All passed." and "discipline." Everything else flat and final.
+Two main lift moments: after the C-eff sentence, after the E sentence. Both should land flat-and-final. The last sentence ("Every step is hashed…") gets the most weight in this segment.
 
-## Segment 4 · 22 s · Reproducibility
+## Segment 3 · Act 3 · The evidence · ~35 s
 
-> You can **verify** all of this in under a minute. *(breath)* Fork this public Kaggle kernel and run it. *(breath)* It clones the repo at the anchored commit, replays the guard rules against the canonical attack set, and emits a SHA3 receipt. *(beat)* We **do not** ask you to trust us.
+*On-screen: H-series record table. Rows reveal in sequence H18 → H26 as numbers are spoken. Settle on H26 PROMOTED row, anchor visible.*
 
-Emphasis: "verify," "do not."
+> The safety mechanism has an anchored record. *(breath)*
+> **Nine** hypotheses. *(beat)* **Seven** anchored passes. *(beat)* **Two** honest FAILs published. *(beat)* **Zero** gate relaxations across fifty-two hours. *(hard pause)*
+> Both limitations that surfaced under stress — leetspeak in H24, native-language attacks in H26 — were closed in the same cycle. *(breath)*
+> Every promotion is anchored. Every rejected verdict is published. *(beat)*
+> The discipline holds.
 
-## Segment 5 · 30 s · Frontier-Integration pitch
+Read the four counts (nine / seven / two / zero) as a staccato list. Beat between each. Slow on "zero gate relaxations" — that is the load-bearing claim. Final line ("The discipline holds.") is the only lift of the segment.
 
-> What we have shipped is the runtime layer. *(breath)* The grounding interviewer behind it is designed to be invoked as a **function-calling tool** from inside any frontier chat — Claude, Gemini, or GPT. *(hard pause)* Three modes. *(beat)* On user request. *(beat)* On automatic high-stakes trigger. *(beat)* Or on opt-in random sampling. *(breath)* Every invocation produces a **verifiable receipt**. *(breath)* The integration spec is public. *(beat)* We are looking for the **first deployment partner**.
+## Segment 4 · Closer · ~13 s
 
-This is the longest unbroken read. Treat the three modes as a list — beat between each. Conviction lifts: "function-calling tool," "verifiable receipt," "first deployment partner."
+*On-screen: black. Headline "The Viability Condition for Gemma 4." appears. Below it, mono: "C_eff(t) > E(t). Measured. Anchored. Published." Hold 3 s. URLs fade in: humanaiconvention.com · github.com/humanaiconvention/gemma4good · DOI 10.5281/zenodo.18144681 · Apache-2.0.*
 
-## Segment 6 · 4 s · Tag
+> The Viability Condition for Gemma 4. *(beat)*
+> C-eff greater than E. **Measured. Anchored. Published.** *(hard pause)*
+> humanaiconvention.com. The Convention is open.
 
-> humanaiconvention.com. Gemma 4 Good. The Convention is open.
-
-Slow, flat, final. Let "The Convention is open." land.
+Three-beat staccato on Measured / Anchored / Published. Final line slow and flat. Let "The Convention is open." land.
 
 ---
 
 ## Between takes
 
 - Drink water. Hum a low note to reset.
-- If a take had one bad word, do a punch-in just for that sentence — note the segment + take + sentence and re-record at the end of the session.
-- Two acceptable takes per segment is the goal. Better to have two-okay than chase one perfect.
+- If a take had one bad word, do a punch-in for that sentence at the end of the session — note segment + take + sentence.
+- Two acceptable takes per segment is the goal.
 
 ## When done
 
-Open `D:\gemma4good\video\vo\` and confirm 12 files at minimum (6 segments × 2 takes). Tell me you are done. I will assemble.
+Open `D:\gemma4good\video\vo\` and confirm 8 files minimum (4 segments × 2 takes). Tell me you are done. I will assemble.

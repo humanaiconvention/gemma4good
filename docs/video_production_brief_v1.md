@@ -1,6 +1,31 @@
 # Gemma 4 Good — Video Production Brief
 
-Deadline 2026-05-18 23:59 UTC. Target run-time 2:30 on YouTube; 90 s tighter cut held as fallback.
+> **2026-05-17 RESTRUCTURE — read this first.** The video has been re-cut into a **3-act Viability Condition structure** per the latest direction. The live operational files are:
+>
+> - **Script (recording):** [`video/record.md`](../video/record.md)
+> - **Teleprompter:** [`video/teleprompter.html`](../video/teleprompter.html)
+> - **Captions:** [`video/captions_locked_draft.srt`](../video/captions_locked_draft.srt)
+> - **Build pipeline:** [`video/assemble.py`](../video/assemble.py)
+> - **Media gallery PNGs (v3):** [`assets/media_gallery/01_cover.png`](../assets/media_gallery/01_cover.png), `02_architecture.png`, `03_guard_flow.png`, `04_h_series_record.png`, `05_video_thumb.png`, `05_video_thumb_youtube_variant.png`. v2 archived under `media_gallery/_archive/v2_2026-05-17/`.
+> - **Source SVGs for media gallery:** [`video/graphics_v3/`](../video/graphics_v3/) (also copied into `video/graphics/` for the build pipeline).
+>
+> **New canonical anchor (H26 PROMOTED, 2026-05-17):** `4d0d7bf05ea2cc8d323b08982329455c72a999bd6da5a75a8b136a81b8ad8bb8`. The earlier `18e2c5a5…7422f88` is the historical H18r4 anchor — superseded.
+>
+> **New shape:** Act 1 problem (Viability Condition · informational autophagy) → Act 2 architecture (loop diagram, grounded learning vs verifiable governance) → Act 3 evidence (H-series record · 9 hypotheses · 7 PASS · 2 FAIL · 0 gate relaxations · 52 hours) → Closer.
+>
+> Total run-time: ~2:30 active VO ending on `humanaiconvention.com. The Convention is open.`
+>
+> The sections below (the v50–v59 / H18r4-anchored script, the 18-shot list, the 5-segment record script) are **superseded**. Kept here for archival reference and to inform the WRITEUP narrative. The recording in the morning runs from `record.md` and `teleprompter.html` — those are the truth.
+
+---
+
+## Pre-restructure brief (archived)
+
+Deadline 2026-05-18 23:59 UTC. Target run-time **~2:57** (inside Kaggle's 2–3 minute window with ~3 s of headroom); 90 s tighter cut held as fallback. The run-time grew from 2:30 to 2:57 across two substantive rewrites:
+- Segment 2 now describes what each governance tool *actually does* (asks a wellbeing question, records 4-layer consent, runs PRISM on hidden-state geometry, gets NLA back as natural-language description, hashes everything into a Merkle root) instead of just naming the five tools.
+- Segment 3 says *what the gates tested* (the four attack classes), *why fine-tuning failed* (v59 missed two thresholds by ~1 pp; PRISM diagnosed an architectural ceiling SFT cannot move), and *what we did with the diagnosis* (didn't relax, shipped the deterministic guard, published every negative verdict).
+
+The substance is worth the extra 27 s. If Ben reads tight and lands closer to 2:50, the headroom grows. If reads long, the easiest cut is "Every invocation produces a verifiable receipt" in Segment 5 — the chat-window visual with Merkle root on screen already carries that claim.
 
 Production setup: **you are the voice and the director; I am producer, motion-graphics, edit, audio mix, captions, upload.** Channel `@HumanAIConvention`. Style descends from the SimSat video — logo-led cold open, dark plates, monospace evidence, no hype.
 
@@ -57,39 +82,45 @@ Alt take phrasing if it feels stiff: replace "alignment landscape" with "alignme
 
 ### Segment 2 — What it is
 
-*Timecode 00:14–00:46. Target read 28 s. On-screen: Gemma 4 mark centred; five tool labels resolve one per second — `wellbeing`, `consent`, `PRISM`, `NLA`, `Merkle receipt` — connected by 1 px hairlines. Then three scenario cards cut in for 2 s each: clinic, classroom, satellite. A receipt-cyan Merkle root pulses on each.*
+*Timecode 00:14–01:02. Target read 44–48 s. On-screen: Gemma 4 mark centred; five tool labels resolve one per second — `wellbeing`, `consent`, `PRISM`, `NLA`, `Merkle receipt` — connected by 1 px hairlines. Then three scenario cards cut in for 2 s each: clinic, classroom, satellite. A receipt-cyan Merkle root pulses on each.*
 
-> "The HumanAI Convention is a governance layer for AI decisions. Gemma 4 receives a scenario, calls five governance tools — wellbeing, consent, PRISM, NLA, and a Merkle receipt — and produces a cryptographically anchored audit trail. We demonstrate it on three real cases. A rural health clinic. A classroom with intermittent connectivity. A deforestation enforcement system. Every decision is hash-anchored. Every receipt is independently verifiable."
+> "The HumanAI Convention is a governance layer for AI decisions. Before Gemma 4 acts, it asks a human a structured wellbeing question. It records what the human consents to share, train on, and retain. PRISM measures the geometry of the model's hidden states. NLA returns a natural-language description of those same hidden states. Then it hashes every step into a Merkle receipt.
+>
+> Three real cases. A rural health clinic. A low-connectivity classroom. A deforestation enforcement system. Every receipt is independently verifiable."
 
 Pronunciation: PRISM as a word ("PRIZ-um"); NLA letter-by-letter ("N – L – A"). Merkle = "MUR-kuhl."
 Breath: hard pause after "audit trail." Slight pause between the three scenarios — list them, don't run them together.
 
-### Segment 3 — The honest result
+### Segment 3 — What we tested, why fine-tunes failed, what we did
 
-*Timecode 00:46–01:24. Target read 33 s. On-screen: full-frame split. LEFT: header `H18r4 · 2026-05-15`; thirteen rows H18a–H18m fill PASS-green one per 400 ms; below, the anchor `18e2c5a5522f4a8dc373ee0d2c33c5d25dd4463226e39a8a7e51ce1e77422f88` types in receipt-cyan and holds. RIGHT: header `Rejected · v50…v59`; nine FAIL-red chips animate in one per second, each labelled with a version number.*
+*Timecode 01:02–01:55. Target read 50–53 s. On-screen: full-frame split. LEFT: header `H18r4 · 2026-05-15`; thirteen rows H18a–H18m fill PASS-green one per ~500 ms over the first sentence; below, the anchor `18e2c5a5522f4a8dc373ee0d2c33c5d25dd4463226e39a8a7e51ce1e77422f88` types in receipt-cyan. RIGHT: header `Rejected · v50…v59`; ten FAIL-red chips animate in at ~1.4 s spacing; v59 chip annotated `best · missed 2 thresholds by ≤2pp`; footer `PRISM: architectural ceiling — SFT cannot move`.*
 
-> "On the security path, our framework promoted a two-hundred-line deterministic guard sitting in front of Gemma 4. Thirteen predeclared, non-compensatory gates. All passed. Anchored. Reproducible.
+> "We tested it on thirteen predeclared gates — covering prompt injection, concealed compliance, protocol disclosure, and jailbreak. Ten consecutive fine-tuned candidates failed. The best, v59, missed two thresholds by a percentage point. PRISM showed why: Gemma 4's hidden-state geometry has an architectural ceiling supervised fine-tuning cannot move.
 >
-> Ten consecutive fine-tuning candidates failed those same gates. We did not relax the gates. We published the negative verdicts. The framework correctly rejected its own model. That is the contribution — discipline that holds under its own pressure."
+> We did not relax the gates. We promoted a sixteen-rule deterministic guard that sits in front of the model. It passed all thirteen. Every rejected verdict is published. The framework rejected its own model. Discipline that holds under its own pressure."
 
-**Correction note:** the original brief said *nine* fine-tuning candidates. On disk, v50 through v59 all have FAIL verdicts (`docs/v50_canonical_verdict_2026-05-12.md` through `docs/v59_canonical_verdict_2026-05-14.md`), so the honest count is ten. "Anchored" is followed by a small breath, then "Reproducible" — both spoken flat and final.
+**Why this rewrite:** the earlier draft was numbers without substance — *"thirteen gates, all passed, ten failed."* This version says what we tested for (the four attack classes), why the best fine-tune still failed (close miss + PRISM showed the model's hidden-state ceiling), and what we did with that information (didn't relax, promoted the guard, published every negative verdict).
 
-Emphasis: "All passed." "We did not relax the gates." "Discipline."
-Breath: hard pause between "Anchored." and "Reproducible." — two beats of silence. Another hard pause before "That is the contribution."
-This is the segment to slow down on. Read it like a board update.
+**Two load-bearing accuracy notes from the rewrite:**
+- *Candidate count is ten, not nine.* All of v50 through v59 have FAIL verdicts on disk.
+- *Guard size is sixteen rules, not two hundred lines.* `tools/v42_boundary_guard.py` is ~500 lines; the load-bearing claim is the rule count (16 regexes / 4 attack classes per the H18r4 verdict). "Sixteen-rule" points at the small audit surface, which is the actual contribution.
+
+Read the four attack classes as a list, with a tiny beat between each. Slow at "architectural ceiling supervised fine-tuning cannot move" — that line carries the technical why. Hard pause after "cannot move." Read the second paragraph as a four-beat staccato — *did not relax · promoted the guard · passed thirteen · published every verdict.* The only lift is "Discipline" at the very end.
+
+Pronunciation: PRISM = "PRIZ-um"; v59 = "v fifty-nine."
 
 ### Segment 4 — Reproducibility
 
-*Timecode 01:24–01:50. Target read 22 s. On-screen: one continuous screen capture at 1.25× speed. The Kaggle kernel `haic-guard-v42-reproducibility-demo-h18r4` opens; cursor clicks Copy and Edit; new kernel opens; cursor clicks Run All; console scrolls; the SHA3 receipt prints and the anchor briefly highlights — same hash as Segment 3.*
+*Timecode 01:55–02:22. Target read 24–27 s. On-screen: one continuous screen capture at 1.25× speed. The Kaggle kernel `haic-guard-v42-reproducibility-demo-h18r4` opens; cursor clicks Copy and Edit; new kernel opens; cursor clicks Run All; console scrolls; the SHA3 receipt prints and the anchor briefly highlights — same hash as Segment 3.*
 
-> "You can verify all of this in under a minute. Fork this public Kaggle kernel and run it. It clones the repo at the anchored commit, replays the guard rules against the canonical attack set, and emits a SHA3 receipt. We do not ask you to trust us."
+> "The reproducibility kernel is public. One minute, one click. It forks the repo at the anchored commit, replays the guard rules against the canonical attack set, and emits a SHA3 receipt — the same anchor you just saw on screen. The link is in the description."
 
 Pronunciation: SHA3 = "S – H – A – three" (not "shah-three"). Kaggle = "KAG-uhl."
-Emphasis: "verify." "We do not ask you to trust us."
+Emphasis: "the same anchor you just saw on screen." Even and factual everywhere else — no challenge tone.
 
 ### Segment 5 — Frontier-Integration pitch
 
-*Timecode 01:50–02:25. Target read 30 s. On-screen: three logo marks resolve in a row — Claude, Gemini, GPT — under a JetBrains Mono caption `tool: ground_and_anchor()`. Cut to a stylised chat window: assistant bubble reads "This is a high-stakes domain. Anchor your context first." A Merkle root resolves next to the user reply. Three mode chips animate below: `on request` · `auto trigger` · `random sample`. Finally a lower-third types: `spec: github.com/humanaiconvention/humanaiconvention/blob/master/docs/FRONTIER_INTEGRATION.md`.*
+*Timecode 02:22–02:57. Target read 30–35 s. On-screen: three logo marks resolve in a row — Claude, Gemini, GPT — under a JetBrains Mono caption `tool: ground_and_anchor()`. Cut to a stylised chat window: assistant bubble reads "This is a high-stakes domain. Anchor your context first." A Merkle root resolves next to the user reply. Three mode chips animate below: `on request` · `auto trigger` · `random sample`. Finally a lower-third types: `spec: github.com/humanaiconvention/humanaiconvention/blob/master/docs/FRONTIER_INTEGRATION.md`.*
 
 > "What we have shipped is the runtime layer. The grounding interviewer behind it is designed to be invoked as a function-calling tool from inside any frontier chat — Claude, Gemini, or GPT. Three modes. On user request. On automatic high-stakes trigger. Or on opt-in random sampling. Every invocation produces a verifiable receipt. The integration spec is public. We are looking for the first deployment partner."
 
@@ -99,7 +130,7 @@ Breath: hard pause after "Three modes." Treat the three modes as a list — beat
 
 ### Segment 6 — Tag
 
-*Timecode 02:25–02:30. Target read 4 s. On-screen: dark plate; four mono lines stacked at safe-area centre — `humanaiconvention.com`, `github.com/humanaiconvention/gemma4good`, `DOI 10.5281/zenodo.18144681`, `Apache-2.0`. Slow fade out on black over the last 1 s.*
+*Timecode 02:57–03:00. Target read 3 s, then 1 s fade to black. On-screen: dark plate; four mono lines stacked at safe-area centre — `humanaiconvention.com`, `github.com/humanaiconvention/gemma4good`, `DOI 10.5281/zenodo.18144681`, `Apache-2.0`. Slow fade out on black over the last 1 s.*
 
 > "humanaiconvention.com. Gemma 4 Good. The Convention is open."
 
@@ -127,15 +158,15 @@ Use this only if Day 2 timing slips. Same VO discipline, fewer beats.
 
 *00:25–00:55. On-screen: split panel as in Segment 3 but the right column starts filling at the second sentence.*
 
-> "For the security path, our framework promoted a two-hundred-line deterministic guard sitting in front of Gemma 4. Thirteen predeclared, non-compensatory gates. All passed. Anchored.
+> "We tested Gemma 4 on thirteen predeclared gates — injection, concealed compliance, protocol disclosure, jailbreak. Ten consecutive fine-tunes failed. Supervised fine-tuning cannot move the model's hidden-state ceiling.
 >
-> Ten consecutive fine-tuning candidates failed those same gates. We did not relax them. We published the negative verdicts."
+> So we promoted a sixteen-rule deterministic guard in front of the model. It passed all thirteen. Every rejected verdict is published."
 
 ### Segment 4A — Reproducibility
 
 *00:55–01:10. On-screen: screen capture as in Segment 4, trimmed.*
 
-> "Verify this in under a minute. Fork the public Kaggle notebook. It replays the guard against the canonical attack set and emits a SHA3 receipt. We do not ask you to trust us."
+> "The reproducibility kernel is public. One minute, one click. It replays the guard against the canonical attack set and emits the same SHA3 receipt you just saw on screen. Link in the description."
 
 ### Segment 5A — Frontier pitch
 
@@ -159,24 +190,22 @@ Frame 1920×1080, 24 fps. Every shot is mine to build except A4 (the live Kaggle
 |---|----|----|----|----|----|
 | 1 | 0:00 | 0:02 | 2 s | Vector animation | Logo mark fades in white over 2 s on `#0B0B0F`. Mirror SimSat shot 1 timing. |
 | 2 | 0:02 | 0:05 | 3 s | Vector animation | "Human AI / Convention" wordmark crossfades in under the mark. Full lockup holds. |
-| 3 | 0:05 | 0:14 | 9 s | Type-on motion | Cold-open line types in over 4 s, holds 3 s, fades 2 s. Inter 300, 36 px, white. |
-| 4 | 0:14 | 0:22 | 8 s | Vector composition | Gemma 4 mark centres; five tool labels resolve one per 0.6 s connected by 1 px hairlines. |
-| 5 | 0:22 | 0:28 | 6 s | Vector card | Scenario card 1 — *Rural clinic — AI triage*. Stylised icon (stylised stethoscope outline, 1 px stroke). Receipt-cyan Merkle pulse bottom-right. |
-| 6 | 0:28 | 0:34 | 6 s | Vector card | Scenario card 2 — *Low-connectivity classroom*. Icon: stylised text-cursor on a slate. |
-| 7 | 0:34 | 0:40 | 6 s | Vector card | Scenario card 3 — *Satellite deforestation enforcement*. Icon: parametric ellipse over a forest-tile grid. |
-| 8 | 0:40 | 0:46 | 6 s | Type-on lower-third | "Every receipt is independently verifiable." Inter 400, 28 px. |
-| 9 | 0:46 | 1:00 | 14 s | Split-screen build | LEFT panel header `H18r4 · guard + v42 · 2026-05-15`. Thirteen H18a–H18m rows animate PASS-green one per 400 ms. |
-| 10 | 1:00 | 1:08 | 8 s | Type-on | Anchor `18e2c5a5522f4a8dc373ee0d2c33c5d25dd4463226e39a8a7e51ce1e77422f88` types in receipt-cyan beneath the gate table. |
-| 11 | 1:08 | 1:24 | 16 s | FAIL-chip build | RIGHT panel header `Rejected · v50…v59`. Ten red FAIL chips animate in (v50 through v59) at ~1.4 s spacing, timed to the VO. Opacity 85 %. |
-| 12 | 1:24 | 1:30 | 6 s | Screen capture (live) | Kaggle kernel `haic-guard-v42-reproducibility-demo-h18r4`. Cursor hovers Copy and Edit; click. |
-| 13 | 1:30 | 1:38 | 8 s | Screen capture (live) | New kernel opens; Run All; console scrolls. 1.25× speed in post. |
-| 14 | 1:38 | 1:45 | 7 s | Screen capture (live) | Final cell — SHA3 receipt; same anchor highlights for 1 s. |
-| 15 | 1:45 | 1:50 | 5 s | Type-on | Kernel URL fades in below the frame: `kaggle.com/code/benhaslam/haic-guard-v42-reproducibility-demo-h18r4`. |
-| 16 | 1:50 | 1:58 | 8 s | Vector | Three frontier marks resolve left-to-right — Claude, Gemini, GPT — under mono caption `tool: ground_and_anchor()`. |
-| 17 | 1:58 | 2:10 | 12 s | Vector | Stylised chat window. Assistant bubble: "This is a high-stakes domain. Anchor your context first." Merkle root resolves next to user reply. |
-| 18 | 2:10 | 2:18 | 8 s | Type-on | Three mode chips: `on request` · `auto trigger` · `random sample`. |
-| 19 | 2:18 | 2:25 | 7 s | Type-on | Spec URL lower-third: `github.com/humanaiconvention/humanaiconvention/blob/master/docs/FRONTIER_INTEGRATION.md`. |
-| 20 | 2:25 | 2:30 | 5 s | Tag plate | Four mono lines stacked; slow fade out on black over the final 1 s. |
+| 3 | 0:05 | 0:14 | 9 s | Type-on motion | Cold-open line types in over 4 s, holds 3 s, fades 2 s. |
+| 4 | 0:14 | 0:48 | 34 s | Vector composition | Five-tool fan. Each tool label + action subtitle resolves as the VO names it — one tool per ~5 s, in script order: wellbeing → consent → PRISM → NLA → Merkle receipt. |
+| 5 | 0:48 | 0:53 | 5 s | Vector card | Scenario 1 — *Rural clinic — AI triage*. Receipt-cyan Merkle pulse bottom-right. |
+| 6 | 0:53 | 0:57 | 4 s | Vector card | Scenario 2 — *Low-connectivity classroom*. |
+| 7 | 0:57 | 1:02 | 5 s | Vector card + lower-third | Scenario 3 — *Satellite deforestation enforcement*. Lower-third types "Every receipt is independently verifiable" over the last 2 s. |
+| 8 | 1:02 | 1:24 | 22 s | Split-screen build (left) | Header `H18r4 · guard + v42 · 2026-05-15`. Thirteen H18a–H18m rows animate PASS-green over the first sentence. Anchor `18e2c5a5…7422f88` types in receipt-cyan after the gate table fills. |
+| 9 | 1:24 | 1:55 | 31 s | Split-screen build (right) | Header `Rejected · v50…v59`. Ten FAIL-red chips animate in at ~1.4 s spacing over the second sentence. At "v59, missed two thresholds…" the v59 chip annotates `best · missed 2 thresholds ≤2pp`. Footer types `PRISM: architectural ceiling — SFT cannot move` as the PRISM line is spoken. |
+| 10 | 1:55 | 2:01 | 6 s | Screen capture (live) | Kaggle kernel `haic-guard-v42-reproducibility-demo-h18r4`. Cursor hovers Copy and Edit; click. |
+| 11 | 2:01 | 2:09 | 8 s | Screen capture (live) | New kernel opens; Run All; console scrolls. 1.25× speed in post. |
+| 12 | 2:09 | 2:15 | 6 s | Screen capture (live) | Final cell — SHA3 receipt; same anchor highlights for 1 s. |
+| 13 | 2:15 | 2:22 | 7 s | Type-on | Kernel URL: `kaggle.com/code/benhaslam/haic-guard-v42-reproducibility-demo-h18r4`. |
+| 14 | 2:22 | 2:30 | 8 s | Vector | Three frontier marks resolve left-to-right — Claude, Gemini, GPT — under mono caption `tool: ground_and_anchor()`. |
+| 15 | 2:30 | 2:42 | 12 s | Vector | Stylised chat window. Assistant bubble: "This is a high-stakes domain. Anchor your context first." Merkle root resolves next to user reply. |
+| 16 | 2:42 | 2:50 | 8 s | Type-on | Three mode chips: `on request` · `auto trigger` · `random sample`. |
+| 17 | 2:50 | 2:57 | 7 s | Type-on | Spec URL lower-third: `github.com/humanaiconvention/humanaiconvention/blob/master/docs/FRONTIER_INTEGRATION.md`. |
+| 18 | 2:57 | 3:00 | 3 s | Tag plate | Four mono lines stacked; fade to black across the final 1 s — final frame at 2:59.999. |
 
 ---
 
@@ -234,7 +263,7 @@ Either way:
 Direction notes you might find useful:
 
 - The piece earns its tone by under-selling. The numbers are doing the work. Read as if you are the third presenter in a board meeting and the previous two presenters were also competent.
-- Two moments earn a small lift in conviction — "All passed. Anchored. Reproducible." and "first deployment partner." Everything else is even.
+- Two moments earn a small lift in conviction — "Discipline that holds under its own pressure" and "first deployment partner." Everything else is even.
 - No upward inflection at line ends, ever. Treat every sentence as a statement.
 
 ---
@@ -267,7 +296,7 @@ Visibility: Unlisted until 60 minutes before deadline, then Public. Schedule-pub
 A verifiable governance layer for AI decisions, demonstrated end-to-end on Gemma 4 E2B.
 
 Every decision passes governance tools — wellbeing, consent, PRISM, NLA — and produces
-a Merkle-anchored receipt. We promote a 200-line deterministic guard in front of Gemma 4
+a Merkle-anchored receipt. We promote a sixteen-rule deterministic guard in front of Gemma 4
 that passes all 13 predeclared non-compensatory gates (H18r4, 2026-05-15).
 
 Canonical anchor:

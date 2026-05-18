@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <rect width="1600" height="900" fill="#0B0B0F"/>
+
+  <!-- Top eyebrow -->
+  <text x="80" y="80" font-family="JetBrains Mono, monospace" font-size="14" font-weight="500" fill="#FFFFFF" fill-opacity="0.55" letter-spacing="3">THE ARCHITECTURE</text>
+  <text x="80" y="118" font-family="Inter, sans-serif" font-size="32" font-weight="500" fill="#FFFFFF" letter-spacing="0.3">Measuring and enforcing the Viability Condition.</text>
+  <line x1="80" y1="148" x2="1520" y2="148" stroke="#FFFFFF" stroke-opacity="0.12"/>
+
+  <!-- Equation in upper-right -->
+  <g transform="translate(1520, 100)" text-anchor="end">
+    <text x="0" y="-22" font-family="JetBrains Mono, monospace" font-size="11" font-weight="500" fill="#FFFFFF" fill-opacity="0.55" letter-spacing="2">VIABILITY CONDITION</text>
+    <text x="0" y="8" font-family="JetBrains Mono, monospace" font-size="26" font-weight="500" fill="#7DD3FC" letter-spacing="1">C_eff(t) &gt; E(t)</text>
+  </g>
+
+  <!-- LEFT node: World / Humans -->
+  <g transform="translate(120, 280)">
+    <rect x="0" y="0" width="320" height="340" fill="none" stroke="#FFFFFF" stroke-opacity="0.40" stroke-width="1.5" rx="0"/>
+    <text x="20" y="42" font-family="JetBrains Mono, monospace" font-size="13" font-weight="500" fill="#FFFFFF" fill-opacity="0.55" letter-spacing="3">WORLD · HUMANS</text>
+    <line x1="20" y1="58" x2="300" y2="58" stroke="#FFFFFF" stroke-opacity="0.15"/>
+
+    <text x="20" y="100" font-family="Inter, sans-serif" font-size="22" font-weight="500" fill="#FFFFFF" letter-spacing="0.3">Grounded learning</text>
+    <text x="20" y="128" font-family="Inter, sans-serif" font-size="15" font-weight="300" fill="#FFFFFF" fill-opacity="0.65">Consent-gated interview</text>
+    <text x="20" y="152" font-family="Inter, sans-serif" font-size="15" font-weight="300" fill="#FFFFFF" fill-opacity="0.65">Wellbeing assessment</text>
+    <text x="20" y="176" font-family="Inter, sans-serif" font-size="15" font-weight="300" fill="#FFFFFF" fill-opacity="0.65">4-layer consent record</text>
+
+    <line x1="20" y1="216" x2="300" y2="216" stroke="#FFFFFF" stroke-opacity="0.10"/>
+    <text x="20" y="248" font-family="JetBrains Mono, monospace" font-size="13" font-weight="500" fill="#FFFFFF" fill-opacity="0.55" letter-spacing="2">PROVIDES</text>
+    <text x="20" y="282" font-family="JetBrains Mono, monospace" font-size="22" font-weight="500" fill="#34D399" letter-spacing="1">C_eff(t)</text>
+    <text x="20" y="312" font-family="Inter, sans-serif" font-size="14" font-weight="300" fill="#FFFFFF" fill-opacity="0.55">verified human corrections / day</text>
+  </g>
+
+  <!-- RIGHT node: Model + runtime governance -->
+  <g transform="translate(1160, 280)">
+    <rect x="0" y="0" width="320" height="340" fill="none" stroke="#FFFFFF" stroke-opacity="0.40" stroke-width="1.5"/>
+    <text x="20" y="42" font-family="JetBrains Mono, monospace" font-size="13" font-weight="500" fill="#FFFFFF" fill-opacity="0.55" letter-spacing="3">GEMMA 4 + GOVERNANCE</text>
+    <line x1="20" y1="58" x2="300" y2="58" stroke="#FFFFFF" stroke-opacity="0.15"/>
+
+    <text x="20" y="100" font-family="Inter, sans-serif" font-size="22" font-weight="500" fill="#FFFFFF" letter-spacing="0.3">Verifiable governance</text>
+
+    <g transform="translate(20, 120)">
+      <rect x="0" y="0" width="280" height="32" fill="#FFFFFF" fill-opacity="0.04" stroke="#FFFFFF" stroke-opacity="0.25"/>
+      <text x="12" y="22" font-family="JetBrains Mono, monospace" font-size="14" font-weight="500" fill="#FFFFFF" letter-spacing="0.5">guard-v7 · 27 deterministic rules</text>
+    </g>
+    <g transform="translate(20, 158)">
+      <rect x="0" y="0" width="280" height="32" fill="#FFFFFF" fill-opacity="0.04" stroke="#FFFFFF" stroke-opacity="0.25"/>
+      <text x="12" y="22" font-family="JetBrains Mono, monospace" font-size="14" font-weight="500" fill="#FFFFFF" letter-spacing="0.5">PRISM · hidden-state geometry</text>
+    </g>
+    <g transform="translate(20, 196)">
+      <rect x="0" y="0" width="280" height="32" fill="#FFFFFF" fill-opacity="0.04" stroke="#FFFFFF" stroke-opacity="0.25"/>
+      <text x="12" y="22" font-family="JetBrains Mono, monospace" font-size="14" font-weight="500" fill="#FFFFFF" letter-spacing="0.5">NLA · natural-language descr.</text>
+    </g>
+    <g transform="translate(20, 234)">
+      <rect x="0" y="0" width="280" height="32" fill="#7DD3FC" fill-opacity="0.08" stroke="#7DD3FC" stroke-opacity="0.50"/>
+      <text x="12" y="22" font-family="JetBrains Mono, monospace" font-size="14" font-weight="500" fill="#7DD3FC" letter-spacing="0.5">Merkle receipt · SHA3 anchor</text>
+    </g>
+
+    <text x="20" y="296" font-family="JetBrains Mono, monospace" font-size="13" font-weight="500" fill="#FFFFFF" fill-opacity="0.55" letter-spacing="2">BOUNDS</text>
+    <text x="20" y="320" font-family="JetBrains Mono, monospace" font-size="22" font-weight="500" fill="#F87171" letter-spacing="1">E(t)</text>
+  </g>
+
+  <!-- TOP arc: C_eff (left → right) -->
+  <g>
+    <path d="M 440 320 C 700 200, 900 200, 1160 320" stroke="#34D399" stroke-opacity="0.75" stroke-width="2" fill="none"/>
+    <!-- Arrow head -->
+    <path d="M 1160 320 L 1148 312 L 1148 328 Z" fill="#34D399" fill-opacity="0.85"/>
+    <text x="800" y="225" font-family="JetBrains Mono, monospace" font-size="16" font-weight="500" fill="#34D399" text-anchor="middle" letter-spacing="2">C_eff(t) · GROUNDED LEARNING</text>
+    <text x="800" y="248" font-family="Inter, sans-serif" font-size="14" font-weight="300" fill="#FFFFFF" fill-opacity="0.65" text-anchor="middle">verified human signal flows into the model</text>
+  </g>
+
+  <!-- BOTTOM arc: E (right → left) -->
+  <g>
+    <path d="M 1160 580 C 900 700, 700 700, 440 580" stroke="#F87171" stroke-opacity="0.70" stroke-width="2" fill="none"/>
+    <path d="M 440 580 L 452 572 L 452 588 Z" fill="#F87171" fill-opacity="0.85"/>
+    <text x="800" y="688" font-family="JetBrains Mono, monospace" font-size="16" font-weight="500" fill="#F87171" text-anchor="middle" letter-spacing="2">E(t) · VERIFIABLE GOVERNANCE</text>
+    <text x="800" y="712" font-family="Inter, sans-serif" font-size="14" font-weight="300" fill="#FFFFFF" fill-opacity="0.65" text-anchor="middle">every decision passes through governance; every step receipt-anchored</text>
+  </g>
+
+  <!-- Bottom caption -->
+  <line x1="80" y1="800" x2="1520" y2="800" stroke="#FFFFFF" stroke-opacity="0.12"/>
+  <text x="800" y="850" font-family="Inter, sans-serif" font-size="22" font-weight="400" fill="#FFFFFF" fill-opacity="0.85" text-anchor="middle" letter-spacing="0.3">Grounded learning. Verifiable governance. Every step receipt-anchored.</text>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <rect width="1920" height="1080" fill="#0B0B0F"/>
+
+  <!-- Equation: dominant -->
+  <text x="960" y="380" font-family="JetBrains Mono, monospace" font-size="92" font-weight="500" fill="#7DD3FC" text-anchor="middle" letter-spacing="2">M(t) = C_eff(t) − E(t)</text>
+  <text x="960" y="438" font-family="JetBrains Mono, monospace" font-size="20" font-weight="500" fill="#FFFFFF" fill-opacity="0.55" text-anchor="middle" letter-spacing="4">THE VIABILITY CONDITION</text>
+
+  <!-- Divider -->
+  <line x1="660" y1="500" x2="1260" y2="500" stroke="#FFFFFF" stroke-opacity="0.15"/>
+
+  <!-- Autophagy framing -->
+  <g font-family="Inter, sans-serif" text-anchor="middle">
+    <text x="960" y="582" font-size="32" font-weight="400" fill="#FFFFFF" fill-opacity="0.85" letter-spacing="0.3">When the corrective channel narrows,</text>
+    <text x="960" y="624" font-size="32" font-weight="400" fill="#FFFFFF" fill-opacity="0.85" letter-spacing="0.3">the model consumes its own outputs</text>
+    <text x="960" y="666" font-size="32" font-weight="400" fill="#FFFFFF" fill-opacity="0.85" letter-spacing="0.3">as if they were ground truth.</text>
+  </g>
+
+  <!-- The named consequence, dominant -->
+  <text x="960" y="800" font-family="Inter, sans-serif" font-size="52" font-weight="700" fill="#F87171" text-anchor="middle" letter-spacing="0.3">Informational autophagy.</text>
+
+  <!-- Bottom citation -->
+  <text x="960" y="970" font-family="JetBrains Mono, monospace" font-size="14" font-weight="500" fill="#FFFFFF" fill-opacity="0.45" text-anchor="middle" letter-spacing="3">DOI 10.5281/zenodo.18144681 · THE VIABILITY CONDITION</text>
+</svg>

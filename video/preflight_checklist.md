@@ -1,87 +1,68 @@
-# Preflight — verify before recording starts (Day 1) and before upload (Day 2)
+# Preflight — submission day 2026-05-18
 
-Every load-bearing claim in the video must be true on the day of upload. This is the script you walk through twice — once before recording, once before the upload goes Public.
+3-act Viability Condition cut. Run-time ~2:30. Deadline 23:59 UTC.
 
-## Day 1 — 09:00 — Before recording
+## Before recording (now)
 
-### Numbers and strings
-- [ ] **Canonical anchor matches the repo exactly.**
-      Open `D:\gemma4good\docs\v42_guard_h18r4_verdict_2026-05-15.md`. Confirm the anchor is `18e2c5a5522f4a8dc373ee0d2c33c5d25dd4463226e39a8a7e51ce1e77422f88`. Compare character-by-character to:
-      - `graphics\shot_09_split_proof.svg`
-      - `graphics\thumbnail_1280x720.svg`
-      - `record.md` (no anchor; just the line that mentions it)
-      - any other surface
-- [ ] **Gate count = 13.** Verdict doc shows H18a through H18m. Confirm.
-- [ ] **Failed candidate count = 10.** Verdict files v50…v59 all on disk in `docs\`. Confirm.
-- [ ] **Guard line count ≈ 200.** Open `D:\gemma4good\tools\v42_boundary_guard.py`. If it has drifted significantly, update the script wording or the code.
-- [ ] **Guard rule count = 16, attack class count = 4.** Verdict doc H18r4 §Evaluation Artifact line: "16 rules, 4 classes." Confirm.
-- [ ] **Repo test count = 679.** Run `pytest --collect-only -q` and count. Update WRITEUP and YouTube description if different.
+### Numbers and strings — verify against repo
+- [ ] **Promoted candidate is H26.** `docs/h26_verdict_2026-05-17.md` header reads "H26 PASSES all four predeclared non-compensatory gates with maximum margin" and "guard-v7 + v42 becomes the new promoted live candidate."
+- [ ] **Canonical anchor.** Verdict doc line: `4d0d7bf05ea2cc8d323b08982329455c72a999bd6da5a75a8b136a81b8ad8bb8`. Compare character-by-character to:
+      - `assets/media_gallery/01_cover.png`
+      - `assets/media_gallery/04_h_series_record.png`
+      - `assets/media_gallery/05_video_thumb.png`
+- [ ] **H-series counts.** v50 → v59 verdicts NOT referenced in this cut. H18 → H26 = 9 hypotheses. PASS: H18, H20, H21, H22, H23, H24, H26 = 7. FAIL: H19, H25 = 2.
+- [ ] **52-hour window.** First verdict H18 at 2026-05-15 11:25, last verdict H26 at 2026-05-17 early hours. Inside the 52-hour claim.
+- [ ] **Guard rule count.** 16 deterministic + 11 multi-language = 27 rules in `tools/v42_boundary_guard_v7.py`. The script says "sixteen deterministic rules, plus eleven multi-language rules added in the last cycle." Confirm both subcounts are accurate.
+- [ ] **Limitations closed.** L-08 leetspeak (H24), L-09 native-language (H26). Both must be referenced as closed.
 
-### URLs resolve
-Open each in an Incognito window. Each must return a non-error page.
+### URLs resolve (Incognito window)
 - [ ] https://github.com/humanaiconvention/gemma4good
 - [ ] https://www.kaggle.com/code/benhaslam/haic-gemma4-governance-agent
 - [ ] https://www.kaggle.com/code/benhaslam/haic-governance-framework-tier-3-live-validation
-- [ ] https://www.kaggle.com/code/benhaslam/haic-guard-v42-reproducibility-demo-h18r4
-- [ ] https://github.com/humanaiconvention/humanaiconvention/blob/master/docs/FRONTIER_INTEGRATION.md
+- [ ] https://www.kaggle.com/code/benhaslam/haic-guard-v42-reproducibility-demo-h18r4 (or whatever the current reproducibility kernel URL is — confirm)
 - [ ] https://humanaiconvention.com
 - [ ] https://doi.org/10.5281/zenodo.18144681
 
-### Reproducibility kernel is current
-- [ ] Open the reproducibility kernel. The `Run All` cells complete cleanly. The final SHA3 receipt printed matches the anchor in the verdict doc.
-- [ ] If it doesn't, fix the kernel BEFORE recording the screen-capture (A4).
+### Recording rig
+- [ ] Mic 8–10 inches off-axis. Closet / duvet. Computer fan off.
+- [ ] 30 s test recording done. No fan whine, no clicks.
+- [ ] `record.md` open. `teleprompter.html` open in adjacent window. Arrow keys to scroll.
 
 ### Files staged
-- [ ] `D:\gemma4good\video\graphics\` contains 9 SVG files plus `preview.html`.
 - [ ] `D:\gemma4good\video\vo\` exists and is empty.
-- [ ] `D:\gemma4good\video\teleprompter.html` opens in your browser and scrolls.
-- [ ] `D:\gemma4good\video\record.md` is open on a second screen or in another window.
-
-### Recording rig
-- [ ] Webcam or phone mic positioned 8–10 inches from your mouth, slightly off-axis (45°).
-- [ ] Closet / duvet / room treatment in place.
-- [ ] Computer fan is off or quiet. Notifications muted. Phone on Do Not Disturb.
-- [ ] 30 s test recording done — listen back, confirm no ticks, no fan whine, no clipping.
+- [ ] `assets/media_gallery/` has six v3 PNGs at 1200×630, 1600×900, 1200×900, 1200×900, 1280×720, 1280×720.
+- [ ] v2 archived at `assets/media_gallery/_archive/v2_2026-05-17/`.
 
 ---
 
-## Day 2 — Before upload goes Public
+## After recording, before publish
 
-### The video itself
-- [ ] Run-time is 2:30 ± 3 s.
-- [ ] Audio at -16 LUFS integrated, peaks ≤ -1 dBTP. Check in Resolve / Audacity / Loudness Penalty.
-- [ ] No audio glitch / pop / breath spike visible in the waveform.
-- [ ] Watch end-to-end at 1×. Then at 1.5×. Both reads pass.
-- [ ] The SHA3 anchor on screen matches the repo character-by-character (re-check now, even if you did Day 1).
-- [ ] The PASS panel reads `13 / 13`. The FAIL panel reads ten chips v50–v59.
-- [ ] No spelling mistake in any URL on screen.
-- [ ] No spelling mistake in any name (HumanAI Convention, Gemma 4, PRISM, NLA, Merkle, SHA3, Claude, Gemini, GPT).
+### The video
+- [ ] Run-time 2:30 ± 5 s.
+- [ ] VO: ~ -16 LUFS integrated, true peak ≤ -1 dBTP.
+- [ ] H26 anchor on screen matches `4d0d7bf05ea2cc8d323b08982329455c72a999bd6da5a75a8b136a81b8ad8bb8` character-by-character.
+- [ ] H-series table reads H18 → H26, nine rows, seven green PASS, two red FAIL, H26 row highlighted PROMOTED.
+- [ ] No spelling error in any URL or named term (autophagy, PRISM, NLA, Merkle, SHA3, Gemma 4, HumanAI Convention).
+- [ ] Captions (SRT) match the actual VO timing.
 
-### YouTube upload — `@HumanAIConvention`
-- [ ] Title set exactly: `HumanAI Convention — Verifiable AI Governance, Demonstrated on Gemma 4 (Gemma 4 Good)`.
-- [ ] Description pasted (see `docs/video_production_brief_v1.md` §8). All URLs resolve.
-- [ ] Captions (SRT) uploaded — `captions_locked_draft.srt` re-timed to the actual recording.
-- [ ] Tags set.
-- [ ] Category: Science & Technology. Language: English.
-- [ ] Thumbnail uploaded (1280×720 PNG export of `thumbnail_1280x720.svg`).
-- [ ] End-screen elements added: subscribe (`@HumanAIConvention`), repo card, WRITEUP card.
-- [ ] Set Unlisted. Confirm playback works.
-- [ ] At T-60 minutes: switch to Public. Or use Schedule Publish set to 2026-05-18 22:00 UTC.
+### YouTube upload (`@HumanAIConvention`)
+- [ ] Title: `HumanAI Convention — The Viability Condition for Gemma 4 (Gemma 4 Good)`
+- [ ] Description pasted (see brief §8 — update H26 anchor before pasting).
+- [ ] Captions SRT uploaded.
+- [ ] Thumbnail uploaded: `assets/media_gallery/05_video_thumb.png` (or YouTube variant).
+- [ ] End-screen: subscribe (`@HumanAIConvention`), repo card, WRITEUP card.
+- [ ] Set Unlisted. Watch end-to-end at 1×.
+- [ ] T-60 min: switch to Public. Or use Schedule Publish 22:00 UTC.
 
 ### Kaggle submission
 - [ ] Submission form references the YouTube URL (Public).
-- [ ] Submission form references the WRITEUP.
-- [ ] Final submit hit before 2026-05-18 23:59 UTC.
-- [ ] Receipt of submission emailed to you.
+- [ ] WRITEUP referenced. WRITEUP references the same H26 anchor.
+- [ ] Final submit before 2026-05-18 23:59 UTC.
 
 ---
 
-## What "abort and ship the 90 s cut" looks like
+## Abort triggers and fallbacks
 
-Trigger the fallback if any of these hits 2026-05-18 12:00 UTC:
-- [ ] Picture not locked
-- [ ] VO segments missing
-- [ ] Captions not started
-- [ ] Audio mix not done
-
-The 90 s cut uses Segments 1A–6A (same VO discipline, shorter takes). `assemble.py` will need shorter shot durations — open the SHOTS list and trim, then rerun.
+- If `assemble.py` fails: render each shot SVG to PNG manually via `cairosvg`, build a slideshow in any video editor with the chosen-take WAVs over the top.
+- If a critical claim turns out wrong on review: trim the segment that contains it rather than re-recording. Better short than wrong.
+- If H26 anchor on disk has changed (another verdict landed overnight): update every surface that shows it. The cover, the H-series record, the thumbnail, the YouTube description, the WRITEUP.

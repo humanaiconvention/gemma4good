@@ -1,10 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
   <rect width="1920" height="1080" fill="#0B0B0F"/>
   <g font-family="Inter, system-ui, sans-serif" fill="#FFFFFF" text-anchor="middle">
-    <text x="960" y="470" font-size="38" font-weight="300" letter-spacing="0.6">AI systems trained on synthetic data lose their</text>
-    <text x="960" y="520" font-size="38" font-weight="300" letter-spacing="0.6">grounding in human experience.</text>
-    <text x="960" y="600" font-size="38" font-weight="300" letter-spacing="0.6" opacity="0.85">The current alignment landscape treats this</text>
-    <text x="960" y="650" font-size="38" font-weight="300" letter-spacing="0.6" opacity="0.85">as something to promise.</text>
-    <text x="960" y="730" font-size="44" font-weight="400" letter-spacing="0.8">We treat it as something to <tspan font-weight="600">prove</tspan>.</text>
+    <text x="960" y="360" font-size="34" font-weight="300" fill-opacity="0.55" letter-spacing="0.5">AI systems trained on synthetic data lose their</text>
+    <text x="960" y="408" font-size="34" font-weight="300" fill-opacity="0.55" letter-spacing="0.5">grounding in human experience.</text>
+    <text x="960" y="498" font-size="34" font-weight="300" fill-opacity="0.55" letter-spacing="0.5">The current alignment landscape</text>
+    <text x="960" y="546" font-size="34" font-weight="300" fill-opacity="0.55" letter-spacing="0.5">treats this as something to promise.</text>
+    <text x="960" y="700" font-size="64" font-weight="400" letter-spacing="0.5"><tspan>We treat it as something to </tspan><tspan font-weight="700" letter-spacing="1">prove</tspan><tspan>.</tspan></text>
   </g>
+  <line x1="780" y1="630" x2="1140" y2="630" stroke="#FFFFFF" stroke-opacity="0.15" stroke-width="1"/>
 </svg>

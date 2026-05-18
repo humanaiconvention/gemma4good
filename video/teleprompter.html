@@ -2,16 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<title>Teleprompter · HAIC Gemma 4 Good</title>
+<title>Teleprompter · Viability Condition for Gemma 4</title>
 <style>
   :root {
-    --bg: #0B0B0F;
-    --fg: #FFFFFF;
-    --muted: rgba(255,255,255,0.55);
-    --line: rgba(255,255,255,0.20);
-    --accent: #7DD3FC;
-    --green: #34D399;
-    --red: #F87171;
+    --bg: #0B0B0F; --fg: #FFFFFF; --muted: rgba(255,255,255,0.55); --line: rgba(255,255,255,0.20);
+    --accent: #7DD3FC; --green: #34D399; --red: #F87171;
   }
   * { box-sizing:border-box; }
   html, body { margin:0; height:100%; background:var(--bg); color:var(--fg); font-family:'Inter',system-ui,sans-serif; }
@@ -26,97 +21,76 @@
   .script b { font-weight:600; }
   .script .green { color:var(--green); font-weight:600; }
   .script .accent { color:var(--accent); font-weight:500; }
-  .pron { font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--muted); margin-top:24px; letter-spacing:1px; }
+  .script .red { color:var(--red); font-weight:600; }
+  .script .mono { font-family:'JetBrains Mono',monospace; color:var(--accent); font-weight:500; }
+  .pron { font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--muted); margin-top:24px; letter-spacing:1px; max-width:1100px; }
   .controls { position:fixed; bottom:0; left:0; right:0; padding:20px 64px; background:linear-gradient(to top, rgba(11,11,15,1) 60%, rgba(11,11,15,0)); display:flex; gap:24px; align-items:center; font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--muted); letter-spacing:1px; }
   .controls button { background:rgba(255,255,255,0.05); color:var(--fg); border:1px solid var(--line); padding:10px 18px; font-family:inherit; font-size:13px; letter-spacing:1.5px; cursor:pointer; }
   .controls button:hover { background:rgba(255,255,255,0.10); }
-  .controls .size { display:flex; gap:8px; align-items:center; }
   .controls input[type=range] { width:160px; }
   .clock { color:var(--fg); font-size:18px; }
   .target { color:var(--accent); }
-  @media (max-width: 1100px) { body { padding:48px 32px 360px; } .script { font-size:32px; } }
 </style>
 </head>
 <body>
-  <div class="meta">HAIC GEMMA 4 GOOD · TELEPROMPTER · 2:30</div>
-  <h1>Record one segment at a time. Two takes per segment.</h1>
-  <div class="timing">target 120 wpm · save as seg_NN_tN.wav</div>
+  <div class="meta">VIABILITY CONDITION FOR GEMMA 4 · TELEPROMPTER · 2:30</div>
+  <h1>Three acts + closer. Read like a research lecturer.</h1>
+  <div class="timing">target ~115 wpm · save as seg_NN_tN.wav</div>
 
-  <div class="seg" data-seconds="11">
-    <div class="meta">SEGMENT 1 · 0:00 → 0:14 · COLD OPEN · ~11 s</div>
+  <div class="seg">
+    <div class="meta">SEGMENT 1 · ACT 1 · INTRO + THE PROBLEM · ~60 s · visuals: logo 0–10.5 · garrett repo 10.5–14 · then equation</div>
     <div class="script">
-      AI systems trained on synthetic data lose their grounding in human experience. <em>(breath)</em>
-      The current alignment landscape treats this as something to promise. <em>(breath)</em>
-      We treat it as something to <b>prove</b>.
+      This is the HumanAI Convention submission for Gemma 4 Good. <em>(beat)</em>
+      This work was built in collaboration with Garrett Sutherland. <em>(breath)</em>
+      Our submission rests on a principle. <em>(beat)</em>
+      AI systems trained on synthetic text drift when internally-generated error outpaces externally-verified human correction. <em>(breath)</em>
+      The model consumes its own outputs as if they were ground truth, and loses coherence with the world. <em>(beat)</em>
+      We call this phenomenon <span class="red">'Informational autophagy'</span>. <em>(hard pause)</em>
+      The condition is measurable. <span class="mono">M of t equals C-efficiency of t minus E of t.</span> <em>(breath)</em>
+      Where <span class="mono">M</span> is the model's viability, <span class="mono">t</span> is time, <span class="mono">C-efficiency</span> is verified human corrections per day, and <span class="mono">E</span> is the rate the model drifts.
     </div>
-    <div class="pron">EMPHASIS: prove · TONE: even, no upward inflection at line ends</div>
+    <div class="pron">no names on screen — submission is by the HumanAI Convention · slight beat before "Our submission rests on a principle" · autophagy = "aw-TOFF-uh-jee" · C-efficiency = "C ef-FI-shen-see" · only lift is "Informational autophagy" · the four variable-definitions are a list, beat between each</div>
   </div>
 
-  <div class="seg" data-seconds="28">
-    <div class="meta">SEGMENT 2 · 0:14 → 0:46 · WHAT IT IS · ~28 s</div>
+  <div class="seg">
+    <div class="meta">SEGMENT 2 · ACT 2 · THE ARCHITECTURE · ~70 s</div>
     <div class="script">
-      The HumanAI Convention is a governance layer for AI decisions. <em>(breath)</em>
-      Gemma 4 receives a scenario, calls five governance tools — <span class="accent">wellbeing, consent, PRISM, NLA, and a Merkle receipt</span> — and produces a cryptographically anchored audit trail. <em>(hard pause)</em>
-      We demonstrate it on three real cases. <em>(beat)</em> A rural health clinic. <em>(beat)</em> A classroom with intermittent connectivity. <em>(beat)</em> A deforestation enforcement system. <em>(beat)</em>
-      Every decision is hash-anchored. Every receipt is independently verifiable.
+      We built the architecture that measures and enforces the Viability Condition. <em>(breath)</em>
+      On the input side, human signal flows in through consent-gated interviews — a wellbeing question on a specific domain, four-layer consent recording what the human will share, train on, and retain. <em>(breath)</em>
+      That's <span class="green">grounded learning</span>. That's where <span class="mono">C-eff</span> comes from. <em>(hard pause)</em>
+      On the model side, drift is measured at the activation level. <span class="accent">PRISM</span> returns hidden-state geometry. <span class="accent">NLA</span> returns a natural-language description of those same states. <em>(breath)</em>
+      That's how we quantify <span class="mono">E</span>. <em>(hard pause)</em>
+      Between them sits the boundary guard — sixteen deterministic rules, plus eleven multi-language rules added in the last cycle. Every decision passes through. <em>(beat)</em>
+      Every step is hashed into a <b>Merkle receipt</b> that anyone can verify.
     </div>
-    <div class="pron">PRISM = "PRIZ-um" · NLA letters = "N - L - A" · Merkle = "MUR-kuhl" · beat between each scenario</div>
+    <div class="pron">PRISM = "PRIZ-um" · NLA letters = "N - L - A" · Merkle = "MUR-kuhl" · hard pause after each of the two definition beats · last line gets the segment's weight</div>
   </div>
 
-  <div class="seg" data-seconds="33">
-    <div class="meta">SEGMENT 3 · 0:46 → 1:24 · THE PROOF BEAT · ~33 s · slow it down</div>
+  <div class="seg">
+    <div class="meta">SEGMENT 3 · ACT 3 · THE EVIDENCE · ~35 s</div>
     <div class="script">
-      On the security path, our framework promoted a two-hundred-line deterministic guard sitting in front of Gemma 4. <em>(breath)</em>
-      Thirteen predeclared, non-compensatory gates. <em>(beat)</em>
-      <span class="green">All passed.</span> <em>(beat)</em> Anchored. <em>(beat)</em> Reproducible.
-      <br/><em>(hard pause — two beats of silence)</em><br/>
-      <span class="red">Ten</span> consecutive fine-tuning candidates failed those same gates. <em>(breath)</em>
-      We did not relax the gates. <em>(breath)</em>
-      We published the negative verdicts. <em>(breath)</em>
-      The framework correctly rejected its own model. <em>(hard pause)</em>
-      That is the contribution — <b>discipline</b> that holds under its own pressure.
+      The safety mechanism has an anchored record. <em>(breath)</em>
+      <b>Nine</b> hypotheses. <em>(beat)</em> <b>Seven</b> anchored passes. <em>(beat)</em> <b>Two</b> honest FAILs published. <em>(beat)</em> <b>Zero</b> gate relaxations across fifty-two hours. <em>(hard pause)</em>
+      Both limitations that surfaced under stress — leetspeak in H24, native-language attacks in H26 — were closed in the same cycle. <em>(breath)</em>
+      Every promotion is anchored. Every rejected verdict is published. <em>(beat)</em>
+      <b>The discipline holds.</b>
     </div>
-    <div class="pron">LIFTS: "All passed." and "discipline." · everything else flat and final · this is the segment to slow down on</div>
+    <div class="pron">H26 = "H twenty-six" · leetspeak = "LEET-speek" · staccato on nine / seven / two / zero · slow on "zero gate relaxations" · final line is the only lift</div>
   </div>
 
-  <div class="seg" data-seconds="22">
-    <div class="meta">SEGMENT 4 · 1:24 → 1:50 · REPRODUCIBILITY · ~22 s</div>
+  <div class="seg">
+    <div class="meta">SEGMENT 4 · CLOSER · ~13 s</div>
     <div class="script">
-      You can <b>verify</b> all of this in under a minute. <em>(breath)</em>
-      Fork this public Kaggle kernel and run it. <em>(breath)</em>
-      It clones the repo at the anchored commit, replays the guard rules against the canonical attack set, and emits a <span class="accent">SHA3 receipt</span>. <em>(beat)</em>
-      We <b>do not</b> ask you to trust us.
+      The Viability Condition for Gemma 4. <em>(beat)</em>
+      <span class="mono">C-eff greater than E.</span> <b>Measured. Anchored. Published.</b> <em>(hard pause)</em>
+      humanaiconvention.com. The Convention is open.
     </div>
-    <div class="pron">Kaggle = "KAG-uhl" · SHA3 letters = "S - H - A - three"</div>
-  </div>
-
-  <div class="seg" data-seconds="30">
-    <div class="meta">SEGMENT 5 · 1:50 → 2:25 · FRONTIER PITCH · ~30 s · longest segment</div>
-    <div class="script">
-      What we have shipped is the runtime layer. <em>(breath)</em>
-      The grounding interviewer behind it is designed to be invoked as a <b>function-calling tool</b> from inside any frontier chat — <span class="accent">Claude, Gemini, or GPT</span>. <em>(hard pause)</em>
-      Three modes. <em>(beat)</em> On user request. <em>(beat)</em> On automatic high-stakes trigger. <em>(beat)</em> Or on opt-in random sampling. <em>(breath)</em>
-      Every invocation produces a <b>verifiable receipt</b>. <em>(breath)</em>
-      The integration spec is public. <em>(beat)</em>
-      We are looking for the <b>first deployment partner</b>.
-    </div>
-    <div class="pron">interviewer = "in-ter-VYOO-er" · GPT letters = "G - P - T" · beat between each mode · lifts on "function-calling tool", "verifiable receipt", "first deployment partner"</div>
-  </div>
-
-  <div class="seg" data-seconds="4">
-    <div class="meta">SEGMENT 6 · 2:25 → 2:30 · TAG · ~4 s</div>
-    <div class="script">
-      humanaiconvention.com. Gemma 4 Good. The Convention is open.
-    </div>
-    <div class="pron">SLOW · FLAT · FINAL · let "The Convention is open." land</div>
+    <div class="pron">three-beat staccato on Measured / Anchored / Published · final line slow and flat · let "The Convention is open." land</div>
   </div>
 
   <div class="controls">
     <button id="scroll-toggle">⏵ AUTO-SCROLL</button>
-    <div class="size">
-      <span>SIZE</span>
-      <input id="size" type="range" min="22" max="64" value="44"/>
-    </div>
+    <span>SIZE</span><input id="size" type="range" min="22" max="64" value="44"/>
     <div class="clock"><span class="target">target 2:30</span> · elapsed <span id="clock">0:00</span></div>
   </div>
 
@@ -125,14 +99,10 @@
   sizeInput.addEventListener('input', e => {
     document.querySelectorAll('.script').forEach(s => s.style.fontSize = e.target.value + 'px');
   });
-
   const btn = document.getElementById('scroll-toggle');
   const clockEl = document.getElementById('clock');
-  let scrolling = false;
-  let startTime = 0;
-  let pxPerSecond = 30; // gentle scroll; tune to comfort
-  let raf = null;
-
+  let scrolling = false, startTime = 0, raf = null;
+  const pxPerSecond = 30;
   function tick() {
     if (!scrolling) return;
     const elapsed = (performance.now() - startTime) / 1000;
@@ -142,11 +112,10 @@
     window.scrollBy(0, pxPerSecond / 60);
     raf = requestAnimationFrame(tick);
   }
-
   btn.addEventListener('click', () => {
     scrolling = !scrolling;
     if (scrolling) {
-      startTime = performance.now() - (parseFloat(clockEl.textContent.split(':')[0])*60 + parseFloat(clockEl.textContent.split(':')[1])) * 1000;
+      startTime = performance.now();
       btn.textContent = '⏸ PAUSE';
       raf = requestAnimationFrame(tick);
     } else {

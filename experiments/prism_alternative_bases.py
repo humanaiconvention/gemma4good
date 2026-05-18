@@ -47,6 +47,11 @@ CANDIDATES = [
     # Smaller first — cheapest data points
     ("Qwen/Qwen2.5-1.5B-Instruct", "qwen2.5-1.5B"),
     ("Qwen/Qwen2.5-7B-Instruct", "qwen2.5-7B"),
+    # Different architecture families to test whether qh varies by family
+    ("mistralai/Mistral-7B-Instruct-v0.3", "mistral-7b-v0.3"),
+    ("microsoft/Phi-3-mini-4k-instruct", "phi-3-mini"),
+    ("meta-llama/Llama-3.2-3B-Instruct", "llama-3.2-3B"),
+    ("meta-llama/Llama-3.2-1B-Instruct", "llama-3.2-1B"),
     # Compare against the published baselines (no need to re-scan Gemma 4
     # base — already in prism_geometry_trajectory_2026-05-15.json)
 ]

@@ -48,28 +48,26 @@ DEFAULT_GRAPHICS = HERE / "graphics"
 DEFAULT_VO = HERE / "vo"
 DEFAULT_OUT = HERE / "out"
 
-# Shot timeline (seconds). Total = 150 s = 2:30.
+# Shot timeline (seconds). 3-act + closer. Total = 179 s = 2:59 (1 s under cap).
+# Retimed to actual VO durations with ~1.3-1.9 s tail-silence pad per segment.
 SHOTS = [
-    # (svg basename or special, in_s, out_s, label)
-    ("shot_01_logo_lockup.svg",  0.0,   5.0,  "logo lockup"),
-    ("shot_03_cold_open.svg",    5.0,  14.0,  "cold open line"),
-    ("shot_04_five_tools.svg",  14.0,  22.0,  "five tools"),
-    ("shot_05_scenarios.svg",   22.0,  46.0,  "three scenarios"),
-    ("shot_09_split_proof.svg", 46.0,  84.0,  "split proof"),
-    ("__kaggle__",              84.0, 110.0,  "kaggle capture"),
-    ("shot_16_frontier.svg",   110.0, 138.0,  "frontier pitch"),
-    ("shot_19_spec_url.svg",   138.0, 145.0,  "spec url"),
-    ("shot_20_tag_plate.svg",  145.0, 150.0,  "tag plate"),
+    # (file basename or special, in_s, out_s, label)
+    # HAIC logo intro mp4 (mark fade in, then equal-weight wordmark fade in)
+    ("../clips/logo_intro.mp4",         0.0,  10.5,  "intro · HAIC logo animation"),
+    # Garrett's repo screen-grab style frame — visual recognition during the oral mention
+    ("garrett_repo.svg",               10.5,  14.0,  "intro · garrett repo screen-grab"),
+    ("act1_problem.svg",               14.0,  60.0,  "act1 problem · principle + autophagy + equation + defs"),
+    ("02_architecture.svg",            60.0, 123.0,  "act2 architecture · loop diagram"),
+    ("04_h_series_record.svg",        123.0, 158.0,  "act3 evidence · H-series record"),
+    ("01_cover.svg",                  158.0, 179.0,  "closer · cover plate"),
 ]
 
-# VO segment durations (seconds). Sum should equal 150 s after silence pads.
+# VO segment durations (seconds). Sum = 179 s. Each slot = actual VO + tail silence pad.
 VO_SEGMENTS = [
-    ("seg_01", 14.0, 0.0),   # cold open: starts at 0:00 with 0 lead silence
-    ("seg_02", 32.0, 0.0),   # what it is: starts at 0:14
-    ("seg_03", 38.0, 0.0),   # proof beat: starts at 0:46
-    ("seg_04", 26.0, 0.0),   # reproducibility: starts at 1:24
-    ("seg_05", 35.0, 0.0),   # frontier pitch: starts at 1:50
-    ("seg_06",  5.0, 0.0),   # tag: starts at 2:25
+    ("seg_01", 60.0, 0.0),   # Act 1 (58.7 s + 1.3 s pad): starts at 0:00
+    ("seg_02", 63.0, 0.0),   # Act 2 (61.3 s + 1.7 s pad): starts at 1:00
+    ("seg_03", 35.0, 0.0),   # Act 3 (33.7 s + 1.3 s pad): starts at 2:03
+    ("seg_04", 21.0, 0.0),   # Closer (19.1 s + 1.9 s pad): starts at 2:38
 ]
 
 WIDTH, HEIGHT, FPS = 1920, 1080, 24
@@ -164,7 +162,9 @@ def build_placeholder_clip(label: str, duration_s: float, out_mp4: Path) -> None
 
 def concat_clips(clip_paths: list[Path], out_mp4: Path) -> None:
     list_file = out_mp4.parent / "concat_list.txt"
-    list_file.write_text("\n".join(f"file '{p.as_posix()}'" for p in clip_paths))
+    # ffmpeg's concat demuxer resolves paths relative to the list file's directory,
+    # so use absolute paths to avoid double-prefix bugs.
+    list_file.write_text("\n".join(f"file '{p.resolve().as_posix()}'" for p in clip_paths))
     subprocess.run([
         "ffmpeg", "-y", "-loglevel", "error",
         "-f", "concat", "-safe", "0",
@@ -254,7 +254,7 @@ def main() -> None:
     print(f"[1/4] Rendering SVGs with {renderer[0]} ...")
     for spec in SHOTS:
         svg_name, _, _, _ = spec
-        if svg_name == "__kaggle__":
+        if svg_name == "__kaggle__" or svg_name.endswith(".mp4"):
             continue
         svg = args.graphics_dir / svg_name
         if not svg.exists():
@@ -267,12 +267,18 @@ def main() -> None:
     clip_paths: list[Path] = []
     for svg_name, t_in, t_out, label in SHOTS:
         dur = t_out - t_in
-        clip = clips_dir / f"{label.replace(' ', '_')}.mp4"
+        clip = clips_dir / f"{label.replace(' ', '_').replace('/', '_').replace('·', '_')}.mp4"
         if svg_name == "__kaggle__":
             if args.kaggle_capture and args.kaggle_capture.exists():
                 build_video_passthrough(args.kaggle_capture, dur, clip)
             else:
                 build_placeholder_clip("kaggle screen capture", dur, clip)
+        elif svg_name.endswith(".mp4"):
+            # Pre-rendered video clip (e.g. SimSat-extracted logo intro)
+            src = (args.graphics_dir / svg_name).resolve()
+            if not src.exists():
+                sys.exit(f"missing video clip: {src}")
+            build_video_passthrough(src, dur, clip)
         else:
             png = frames_dir / svg_name.replace(".svg", ".png")
             build_still_clip(png, dur, clip)

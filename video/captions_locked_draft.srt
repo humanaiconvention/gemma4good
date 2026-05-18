@@ -1,125 +1,144 @@
 1
-00:00:05,000 --> 00:00:09,500
-AI systems trained on synthetic data
-lose their grounding in human experience.
+00:00:01,500 --> 00:00:07,500
+This is the HumanAI Convention submission
+for Gemma 4 Good.
 
 2
-00:00:09,500 --> 00:00:12,500
-The current alignment landscape
-treats this as something to promise.
+00:00:07,500 --> 00:00:14,000
+This work was built in collaboration
+with Garrett Sutherland.
 
 3
-00:00:12,500 --> 00:00:15,000
-We treat it as something to prove.
+00:00:14,500 --> 00:00:18,000
+Our submission rests on a principle.
 
 4
-00:00:15,500 --> 00:00:21,500
-The HumanAI Convention is a governance
-layer for AI decisions.
+00:00:18,000 --> 00:00:27,000
+AI systems trained on synthetic text drift when
+internally-generated error outpaces externally-verified human correction.
 
 5
-00:00:21,500 --> 00:00:29,000
-Gemma 4 receives a scenario and calls
-five governance tools —
+00:00:27,000 --> 00:00:34,000
+The model consumes its own outputs as if they were
+ground truth, and loses coherence with the world.
 
 6
-00:00:29,000 --> 00:00:34,000
-wellbeing, consent, PRISM, NLA,
-and a Merkle receipt.
+00:00:35,000 --> 00:00:41,000
+We call this phenomenon
+'Informational autophagy'.
 
 7
-00:00:34,000 --> 00:00:38,500
-It produces a cryptographically
-anchored audit trail.
+00:00:42,000 --> 00:00:46,000
+The condition is measurable.
 
 8
-00:00:38,500 --> 00:00:42,000
-We demonstrate it on three real cases.
+00:00:46,000 --> 00:00:52,000
+M(t) = C_eff(t) − E(t).
 
 9
-00:00:42,000 --> 00:00:46,000
-A rural clinic. A classroom.
-A deforestation enforcement system.
+00:00:52,000 --> 00:01:00,000
+Where M is the model's viability, t is time,
+C-efficiency is verified human corrections per day,
+and E is the rate the model drifts.
 
 10
-00:00:47,000 --> 00:00:54,500
-Our framework promoted a 200-line
-deterministic guard in front of Gemma 4.
+00:01:00,500 --> 00:01:06,000
+We built the architecture that measures
+and enforces the Viability Condition.
 
 11
-00:00:54,500 --> 00:01:01,000
-Thirteen predeclared, non-compensatory gates.
-All passed. Anchored.
+00:01:06,000 --> 00:01:16,000
+On the input side, human signal flows in through
+consent-gated interviews — a wellbeing question on a specific domain,
 
 12
-00:01:01,500 --> 00:01:08,000
-Ten consecutive fine-tuning candidates
-failed those same gates.
+00:01:16,000 --> 00:01:23,000
+four-layer consent recording what the human
+will share, train on, and retain.
 
 13
-00:01:08,000 --> 00:01:14,000
-We did not relax the gates.
-We published the negative verdicts.
+00:01:23,000 --> 00:01:29,000
+That's grounded learning.
+That's where C_eff comes from.
 
 14
-00:01:14,000 --> 00:01:20,000
-The framework correctly rejected
-its own model.
+00:01:29,500 --> 00:01:35,500
+On the model side, drift is measured
+at the activation level.
 
 15
-00:01:20,000 --> 00:01:24,500
-Discipline that holds under its own pressure.
+00:01:35,500 --> 00:01:41,000
+PRISM returns hidden-state geometry.
 
 16
-00:01:25,500 --> 00:01:31,000
-You can verify all of this in under a minute.
+00:01:41,000 --> 00:01:47,000
+NLA returns a natural-language description
+of those same states.
 
 17
-00:01:31,000 --> 00:01:37,000
-Fork this public Kaggle kernel and run it.
+00:01:47,000 --> 00:01:52,000
+That's how we quantify E.
 
 18
-00:01:37,000 --> 00:01:44,000
-It replays the guard against the canonical
-attack set and emits a SHA3 receipt.
+00:01:52,500 --> 00:02:02,000
+Between them sits the boundary guard —
+sixteen deterministic rules, plus eleven multi-language.
 
 19
-00:01:44,000 --> 00:01:49,500
-We do not ask you to trust us.
+00:02:02,000 --> 00:02:06,000
+Every decision passes through.
 
 20
-00:01:50,500 --> 00:01:56,000
-What we have shipped is the runtime layer.
+00:02:06,000 --> 00:02:12,000
+Every step is hashed into a Merkle receipt
+anyone can verify.
 
 21
-00:01:56,000 --> 00:02:03,000
-The grounding interviewer is designed to be
-invoked as a function-calling tool
+00:02:12,500 --> 00:02:16,500
+The safety mechanism has an anchored record.
 
 22
-00:02:03,000 --> 00:02:08,000
-from inside any frontier chat —
-Claude, Gemini, or GPT.
+00:02:16,500 --> 00:02:19,500
+Nine hypotheses.
 
 23
-00:02:08,000 --> 00:02:14,000
-Three modes. On user request.
-On automatic high-stakes trigger.
+00:02:19,500 --> 00:02:22,500
+Seven anchored passes.
 
 24
-00:02:14,000 --> 00:02:18,000
-Or on opt-in random sampling.
+00:02:22,500 --> 00:02:25,500
+Two honest FAILs published.
 
 25
-00:02:18,000 --> 00:02:22,000
-Every invocation produces a verifiable receipt.
+00:02:25,500 --> 00:02:30,500
+Zero gate relaxations across fifty-two hours.
 
 26
-00:02:22,000 --> 00:02:25,500
-The integration spec is public. We are
-looking for the first deployment partner.
+00:02:30,500 --> 00:02:38,000
+Both limitations that surfaced under stress —
+leetspeak in H24, native-language attacks in H26 —
 
 27
-00:02:25,500 --> 00:02:30,000
-humanaiconvention.com.
-The Convention is open.
+00:02:38,000 --> 00:02:41,000
+were closed in the same cycle.
+
+28
+00:02:41,000 --> 00:02:46,000
+Every promotion is anchored.
+Every rejected verdict is published.
+
+29
+00:02:46,000 --> 00:02:49,000
+The discipline holds.
+
+30
+00:02:49,500 --> 00:02:53,000
+The Viability Condition for Gemma 4.
+
+31
+00:02:53,000 --> 00:02:58,000
+C_eff(t) > E(t). Measured. Anchored. Published.
+
+32
+00:02:58,000 --> 00:03:00,000
+humanaiconvention.com. The Convention is open.

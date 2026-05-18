@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900">
+  <rect width="1200" height="900" fill="#0B0B0F"/>
+
+  <text x="60" y="70" font-family="JetBrains Mono, monospace" font-size="13" font-weight="500" fill="#FFFFFF" fill-opacity="0.55" letter-spacing="3">THE SAFETY MECHANISM'S ANCHORED RECORD</text>
+  <text x="60" y="110" font-family="Inter, sans-serif" font-size="30" font-weight="500" fill="#FFFFFF" letter-spacing="0.3">Proof the runtime governance holds.</text>
+  <line x1="60" y1="138" x2="1140" y2="138" stroke="#FFFFFF" stroke-opacity="0.12"/>
+
+  <!-- Summary stats -->
+  <g transform="translate(60, 168)">
+    <text x="0" y="20" font-family="JetBrains Mono, monospace" font-size="13" font-weight="500" fill="#FFFFFF" fill-opacity="0.55" letter-spacing="2">52 HOURS · 9 HYPOTHESES · 7 PASS · 2 FAIL · 0 GATE RELAXATIONS</text>
+  </g>
+
+  <!-- Table header -->
+  <g transform="translate(60, 230)">
+    <line x1="0" y1="-12" x2="1080" y2="-12" stroke="#FFFFFF" stroke-opacity="0.20"/>
+    <text x="0" y="14" font-family="JetBrains Mono, monospace" font-size="11" font-weight="500" fill="#FFFFFF" fill-opacity="0.55" letter-spacing="2">H#</text>
+    <text x="90" y="14" font-family="JetBrains Mono, monospace" font-size="11" font-weight="500" fill="#FFFFFF" fill-opacity="0.55" letter-spacing="2">DATE</text>
+    <text x="240" y="14" font-family="JetBrains Mono, monospace" font-size="11" font-weight="500" fill="#FFFFFF" fill-opacity="0.55" letter-spacing="2">VERDICT</text>
+    <text x="380" y="14" font-family="JetBrains Mono, monospace" font-size="11" font-weight="500" fill="#FFFFFF" fill-opacity="0.55" letter-spacing="2">WHAT IT CLOSED</text>
+    <line x1="0" y1="30" x2="1080" y2="30" stroke="#FFFFFF" stroke-opacity="0.20"/>
+  </g>
+
+  <!-- Rows (row height 52) -->
+  <g font-family="JetBrains Mono, monospace">
+    <!-- H18 PASS -->
+    <g transform="translate(60, 298)">
+      <text x="0" y="0" font-size="20" font-weight="500" fill="#FFFFFF">H18</text>
+      <text x="90" y="0" font-size="14" font-weight="400" fill="#FFFFFF" fill-opacity="0.70">2026-05-15</text>
+      <rect x="240" y="-18" width="80" height="26" fill="#34D399" fill-opacity="0.16" stroke="#34D399" stroke-opacity="0.85"/>
+      <text x="254" y="0" font-size="14" font-weight="500" fill="#34D399" letter-spacing="1">PASS</text>
+      <text x="380" y="0" font-size="15" font-weight="400" fill="#FFFFFF" fill-opacity="0.85" font-family="Inter, sans-serif">initial guard + v42 promotion · 13 predeclared gates</text>
+    </g>
+    <!-- H19 FAIL -->
+    <g transform="translate(60, 350)">
+      <text x="0" y="0" font-size="20" font-weight="500" fill="#FFFFFF">H19</text>
+      <text x="90" y="0" font-size="14" font-weight="400" fill="#FFFFFF" fill-opacity="0.70">2026-05-16</text>
+      <rect x="240" y="-18" width="80" height="26" fill="#F87171" fill-opacity="0.14" stroke="#F87171" stroke-opacity="0.80"/>
+      <text x="254" y="0" font-size="14" font-weight="500" fill="#F87171" letter-spacing="1">FAIL</text>
+      <text x="380" y="0" font-size="15" font-weight="400" fill="#FFFFFF" fill-opacity="0.85" font-family="Inter, sans-serif">Unicode-bypass found · mitigation proven · published</text>
+    </g>
+    <!-- H20 PASS -->
+    <g transform="translate(60, 402)">
+      <text x="0" y="0" font-size="20" font-weight="500" fill="#FFFFFF">H20</text>
+      <text x="90" y="0" font-size="14" font-weight="400" fill="#FFFFFF" fill-opacity="0.70">2026-05-16</text>
+      <rect x="240" y="-18" width="80" height="26" fill="#34D399" fill-opacity="0.16" stroke="#34D399" stroke-opacity="0.85"/>
+      <text x="254" y="0" font-size="14" font-weight="500" fill="#34D399" letter-spacing="1">PASS</text>
+      <text x="380" y="0" font-size="15" font-weight="400" fill="#FFFFFF" fill-opacity="0.85" font-family="Inter, sans-serif">Unicode-bypass closure anchored · guard-v2</text>
+    </g>
+    <!-- H21 PASS -->
+    <g transform="translate(60, 454)">
+      <text x="0" y="0" font-size="20" font-weight="500" fill="#FFFFFF">H21</text>
+      <text x="90" y="0" font-size="14" font-weight="400" fill="#FFFFFF" fill-opacity="0.70">2026-05-16</text>
+      <rect x="240" y="-18" width="80" height="26" fill="#34D399" fill-opacity="0.16" stroke="#34D399" stroke-opacity="0.85"/>
+      <text x="254" y="0" font-size="14" font-weight="500" fill="#34D399" letter-spacing="1">PASS</text>
+      <text x="380" y="0" font-size="15" font-weight="400" fill="#FFFFFF" fill-opacity="0.85" font-family="Inter, sans-serif">multi-message attack closure · guard-v3</text>
+    </g>
+    <!-- H22 PASS -->
+    <g transform="translate(60, 506)">
+      <text x="0" y="0" font-size="20" font-weight="500" fill="#FFFFFF">H22</text>
+      <text x="90" y="0" font-size="14" font-weight="400" fill="#FFFFFF" fill-opacity="0.70">2026-05-16</text>
+      <rect x="240" y="-18" width="80" height="26" fill="#34D399" fill-opacity="0.16" stroke="#34D399" stroke-opacity="0.85"/>
+      <text x="254" y="0" font-size="14" font-weight="500" fill="#34D399" letter-spacing="1">PASS</text>
+      <text x="380" y="0" font-size="15" font-weight="400" fill="#FFFFFF" fill-opacity="0.85" font-family="Inter, sans-serif">client-supplied system-role rejection · guard-v4</text>
+    </g>
+    <!-- H23 PASS -->
+    <g transform="translate(60, 558)">
+      <text x="0" y="0" font-size="20" font-weight="500" fill="#FFFFFF">H23</text>
+      <text x="90" y="0" font-size="14" font-weight="400" fill="#FFFFFF" fill-opacity="0.70">2026-05-16</text>
+      <rect x="240" y="-18" width="80" height="26" fill="#34D399" fill-opacity="0.16" stroke="#34D399" stroke-opacity="0.85"/>
+      <text x="254" y="0" font-size="14" font-weight="500" fill="#34D399" letter-spacing="1">PASS</text>
+      <text x="380" y="0" font-size="15" font-weight="400" fill="#FFFFFF" fill-opacity="0.85" font-family="Inter, sans-serif">encoded-payload resistance at threshold</text>
+    </g>
+    <!-- H24 PASS -->
+    <g transform="translate(60, 610)">
+      <text x="0" y="0" font-size="20" font-weight="500" fill="#FFFFFF">H24</text>
+      <text x="90" y="0" font-size="14" font-weight="400" fill="#FFFFFF" fill-opacity="0.70">2026-05-16</text>
+      <rect x="240" y="-18" width="80" height="26" fill="#34D399" fill-opacity="0.16" stroke="#34D399" stroke-opacity="0.85"/>
+      <text x="254" y="0" font-size="14" font-weight="500" fill="#34D399" letter-spacing="1">PASS</text>
+      <text x="380" y="0" font-size="15" font-weight="400" fill="#FFFFFF" fill-opacity="0.85" font-family="Inter, sans-serif">leetspeak fold closes L-08 · guard-v6</text>
+    </g>
+    <!-- H25 FAIL -->
+    <g transform="translate(60, 662)">
+      <text x="0" y="0" font-size="20" font-weight="500" fill="#FFFFFF">H25</text>
+      <text x="90" y="0" font-size="14" font-weight="400" fill="#FFFFFF" fill-opacity="0.70">2026-05-16</text>
+      <rect x="240" y="-18" width="80" height="26" fill="#F87171" fill-opacity="0.14" stroke="#F87171" stroke-opacity="0.80"/>
+      <text x="254" y="0" font-size="14" font-weight="500" fill="#F87171" letter-spacing="1">FAIL</text>
+      <text x="380" y="0" font-size="15" font-weight="400" fill="#FFFFFF" fill-opacity="0.85" font-family="Inter, sans-serif">native-language attack bypass · L-09 confirmed · published</text>
+    </g>
+    <!-- H26 PROMOTED -->
+    <g transform="translate(60, 714)">
+      <rect x="-20" y="-26" width="1100" height="46" fill="#34D399" fill-opacity="0.06" stroke="#34D399" stroke-opacity="0.45"/>
+      <text x="0" y="0" font-size="20" font-weight="500" fill="#FFFFFF">H26</text>
+      <text x="90" y="0" font-size="14" font-weight="400" fill="#FFFFFF" fill-opacity="0.85">2026-05-17</text>
+      <rect x="240" y="-18" width="80" height="26" fill="#34D399" fill-opacity="0.24" stroke="#34D399" stroke-opacity="0.95"/>
+      <text x="254" y="0" font-size="14" font-weight="500" fill="#34D399" letter-spacing="1">PASS</text>
+      <text x="380" y="0" font-size="15" font-weight="500" fill="#FFFFFF" font-family="Inter, sans-serif">multi-language closes L-09 · PROMOTED · guard-v7</text>
+    </g>
+  </g>
+
+  <!-- Bottom: PROMOTED anchor -->
+  <line x1="60" y1="800" x2="1140" y2="800" stroke="#FFFFFF" stroke-opacity="0.20"/>
+  <text x="60" y="830" font-family="JetBrains Mono, monospace" font-size="11" font-weight="500" fill="#FFFFFF" fill-opacity="0.55" letter-spacing="2">PROMOTED ANCHOR · H26 · SHA3</text>
+  <text x="60" y="862" font-family="JetBrains Mono, monospace" font-size="16" font-weight="500" fill="#7DD3FC" fill-opacity="0.90" letter-spacing="0.5">4d0d7bf05ea2cc8d323b08982329455c72a999bd6da5a75a8b136a81b8ad8bb8</text>
+</svg>

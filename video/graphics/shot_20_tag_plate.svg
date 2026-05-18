@@ -1,13 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
   <rect width="1920" height="1080" fill="#0B0B0F"/>
-  <g transform="translate(960, 380)" font-family="'JetBrains Mono', monospace" text-anchor="middle">
-    <text x="0" y="0" font-size="40" font-weight="500" fill="#FFFFFF" letter-spacing="1">humanaiconvention.com</text>
-    <text x="0" y="80" font-size="28" font-weight="400" fill="#FFFFFF" fill-opacity="0.85" letter-spacing="0.5">github.com/humanaiconvention/gemma4good</text>
-    <text x="0" y="140" font-size="24" font-weight="400" fill="#FFFFFF" fill-opacity="0.70" letter-spacing="0.5">DOI 10.5281/zenodo.18144681</text>
-    <text x="0" y="190" font-size="20" font-weight="400" fill="#FFFFFF" fill-opacity="0.55" letter-spacing="2">APACHE-2.0</text>
-  </g>
-  <g transform="translate(960, 720)" text-anchor="middle">
-    <line x1="-240" y1="0" x2="240" y2="0" stroke="#FFFFFF" stroke-opacity="0.20"/>
-    <text x="0" y="60" font-family="Inter, system-ui, sans-serif" font-size="34" font-weight="400" fill="#FFFFFF" letter-spacing="0.5">Gemma 4 Good. The Convention is open.</text>
+  <text x="960" y="380" font-family="'JetBrains Mono', monospace" font-size="52" font-weight="500" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">humanaiconvention.com</text>
+  <text x="960" y="450" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="300" fill="#FFFFFF" fill-opacity="0.75" text-anchor="middle" letter-spacing="0.5">Gemma 4 Good · The Convention is open</text>
+  <line x1="720" y1="540" x2="1200" y2="540" stroke="#FFFFFF" stroke-opacity="0.20"/>
+  <g font-family="'JetBrains Mono', monospace" text-anchor="middle">
+    <text x="960" y="608" font-size="22" font-weight="400" fill="#FFFFFF" fill-opacity="0.70" letter-spacing="1">github.com/humanaiconvention/gemma4good</text>
+    <text x="960" y="654" font-size="20" font-weight="400" fill="#FFFFFF" fill-opacity="0.60" letter-spacing="1">DOI 10.5281/zenodo.18144681</text>
+    <text x="960" y="694" font-size="16" font-weight="400" fill="#FFFFFF" fill-opacity="0.45" letter-spacing="3">APACHE-2.0 · 679 TESTS</text>
   </g>
 </svg>
