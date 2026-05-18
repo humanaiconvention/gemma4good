@@ -47,15 +47,12 @@ adds patent grants and attribution — both desirable.
 - [x] SPDX header updated to Apache-2.0
 - [x] WRITEUP / submission-verification docs updated to reference Apache 2.0
 
-### 3. Video upload + URL ready
+### 3. Video upload + URL ready — DONE (2026-05-18)
 
-- [ ] Video rendered (target: 2:30, under 3 min hard cap)
-- [ ] Uploaded to YouTube as **unlisted or public** (NOT private)
-- [ ] YouTube URL copied: _______________________________________
-- [ ] Backup: also uploaded to Loom or Google Drive as a fallback
-- [ ] Thumbnail set
-- [ ] Video title matches: `HumanAI Convention — Gemma 4 Good Hackathon Submission`
-- [ ] Video description contains repo URL, Kaggle notebook URLs, DOI
+- [x] Video rendered (Claude Design)
+- [x] Uploaded to YouTube (HTTP 200 unauthenticated, confirmed 2026-05-18)
+- [x] **YouTube URL: https://youtu.be/p5ZprNkIAEM**
+      (canonical: https://www.youtube.com/watch?v=p5ZprNkIAEM)
 
 ### 4. Cover image + media gallery assets ready
 

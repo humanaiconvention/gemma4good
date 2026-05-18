@@ -16,6 +16,8 @@ Verifiable, Consent-Gated AI Alignment
 > candidate is **`guard-v7 + v42`** at anchor
 > `4d0d7bf05ea2cc8d323b08982329455c72a999bd6da5a75a8b136a81b8ad8bb8`
 > ([H26 verdict](docs/h26_verdict_2026-05-17.md)).
+>
+> **Video:** https://youtu.be/p5ZprNkIAEM
 
 ---
 

@@ -4,6 +4,8 @@
 **Authors:** Benjamin Haslam (Bazzer) and Garrett Sutherland — collaborative entry; with research collaborator Guilherme Ferrari Brescia
 
 **DOI:** [10.5281/zenodo.18144681](https://doi.org/10.5281/zenodo.18144681)
+**Video:** https://youtu.be/p5ZprNkIAEM
+**Repository:** https://github.com/humanaiconvention/gemma4good
 
 ---
 
