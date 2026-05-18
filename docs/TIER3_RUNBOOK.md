@@ -46,16 +46,17 @@ MAESTRO_GATEWAY_BASE=https://<your-app>.up.railway.app \
 
 ### 1c. Fly.io
 
-`fly.toml` lives at the **repo root** (not under `maestro_gateway/`) because the
-Dockerfile copies both `utils/` and `maestro_gateway/`, so the build context
-must be the repo root.
+`fly.toml` lives under `deploy/` (moved from repo root in the 2026-05-18
+cleanup pass). The Dockerfile copies both `utils/` and `maestro_gateway/`,
+so the build context must still be the repo root — pass `--config` and
+`--dockerfile-context` accordingly.
 
 ```bash
-cd D:/gemma4good          # repo root, where fly.toml lives
-flyctl launch --no-deploy --copy-config
-flyctl secrets set MAESTRO_DEV_TOKEN=$(openssl rand -hex 16)
-flyctl deploy
-flyctl status
+cd D:/gemma4good          # repo root (build context)
+flyctl launch --no-deploy --copy-config --config deploy/fly.toml
+flyctl secrets set MAESTRO_DEV_TOKEN=$(openssl rand -hex 16) --config deploy/fly.toml
+flyctl deploy --config deploy/fly.toml
+flyctl status --config deploy/fly.toml
 ```
 
 ### 1d. Wiring the gateway into the notebook / CLI
