@@ -85,6 +85,17 @@ Side annotation, top-right:
 - "Every decision: hash-anchored, independently verifiable"
 - "Every promotion: 13 non-compensatory gates, predeclared"
 
+Bottom-center caption (centered under the diagram, mid-weight Inter,
+white 0.92, monochrome — no teal accent — slightly larger than the
+box labels):
+
+> **Weights for behavior. Rules for refusal. Hashes for trust.**
+
+This caption maps one-to-one onto the boxes: the model's weights handle
+nuance and conversation, the guard's rules handle attack refusal, the
+Merkle receipt's hashes handle trust and verification. It's not a
+slogan — it's a single-line summary of the architecture above it.
+
 (The current promoted candidate is `guard-v7 + v42` at H26 anchor
 `4d0d7bf05ea2…`. Earlier versions of this diagram showed 16 rules
 matching H18r4; the diagram should now show 27 rules to reflect
