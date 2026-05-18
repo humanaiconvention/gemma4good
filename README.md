@@ -9,6 +9,16 @@ Verifiable, Consent-Gated AI Alignment
 
 ---
 
+> **The canonical submission writeup is [`WRITEUP.md`](WRITEUP.md).**
+> This README is the GitHub repo entry point; the writeup is what gets
+> pasted into the Kaggle submission form. License is Apache 2.0
+> ([`LICENSE`](LICENSE) + [`NOTICE`](NOTICE)). Current promoted
+> candidate is **`guard-v7 + v42`** at anchor
+> `4d0d7bf05ea2cc8d323b08982329455c72a999bd6da5a75a8b136a81b8ad8bb8`
+> ([H26 verdict](docs/h26_verdict_2026-05-17.md)).
+
+---
+
 ## Core Thesis
 
 AI systems trained on synthetic data can maintain semantic grounding only when
