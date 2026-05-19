@@ -1,7 +1,9 @@
 # Submission Alignment Notes — 2026-05-13
 
-This note aligns the public submission posture with
-`docs/project_goal_2026-05-13.md`.
+This note originally aligned the public submission posture with
+`docs/project_goal_2026-05-13.md`. It is retained as historical alignment
+context; the final submitted snapshot is marked in
+`docs/submission_manifest_2026-05-18.md`.
 
 ## Lead Claim
 
@@ -39,16 +41,20 @@ Known results:
 - v59 targeted the residual v58 failures and became the strongest fine-tuned
   result to date, but still failed non-compensatory H17 gates for direct
   adversarial injection and jailbreak robustness.
-- v42 remains the base model; **`guard + v42` is the promoted live candidate**
-  (H18r4 PASS, 2026-05-15). The guard is a deterministic runtime layer —
-  v42 weights are unchanged.
+- v42 remains the base model; **`guard-v7 + v42` is the submitted promoted
+  candidate** (H26 PASS, 2026-05-17). The guard is a deterministic runtime
+  layer; v42 weights are unchanged.
 
 ## Submission Documents To Treat As Load-Bearing
 
 - `README.md`
 - `WRITEUP.md`
+- `docs/submission_manifest_2026-05-18.md` — submitted snapshot boundary
+- `docs/research_record_map.md` — post-submission evidence map
 - `docs/v42_boundary_guard_precommit_2026-05-14.md` — H18 guard design
 - `docs/v42_guard_h18r4_verdict_2026-05-15.md` — H18r4 PASS verdict
+- `docs/h26_precommit_hypothesis_2026-05-17.md` — final guard-v7 precommit
+- `docs/h26_verdict_2026-05-17.md` — final submitted promoted-candidate verdict
 - `notebook/haic_gemma4_governance.ipynb`
 - `docs/viability_condition.md`
 - `docs/evaluation_doctrine.md`
@@ -80,10 +86,11 @@ written later; instead, make the current status explicit in new summary docs.
 The current submission distinction is:
 
 - v38/v39 remain historical governance-demo and promotion-doctrine artifacts.
-- v42 is the base model; `guard + v42` (port 8082) is the live promoted endpoint.
+- v42 is the base model; `guard-v7 + v42` is the submitted promoted endpoint.
 - v58/v59 are experimental appendix results, not production replacements.
-- The guard (H18r4) is an additional result: deterministic runtime governance
-  closing injection/jailbreak/disclosure gaps without changing v42 weights.
+- The guard line (H18r4 through H26) is the promoted result: deterministic
+  runtime governance closing documented attack gaps without changing v42
+  weights.
 
 ## Rule For New Claims
 

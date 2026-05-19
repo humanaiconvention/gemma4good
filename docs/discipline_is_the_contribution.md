@@ -252,7 +252,7 @@ is what makes it count.
 
 ## Where to find the receipts
 
-- **Repository:** [github.com/humanaiconvention/gemma4good](https://github.com/humanaiconvention/gemma4good) — full source, 679 tests, dated verdict docs for every H-series hypothesis.
+- **Repository:** [github.com/humanaiconvention/gemma4good](https://github.com/humanaiconvention/gemma4good) — full source, 797 tests, dated verdict docs for every H-series hypothesis.
 - **H18r4 verdict** (the promoted result): [`docs/v42_guard_h18r4_verdict_2026-05-15.md`](https://github.com/humanaiconvention/gemma4good/blob/main/docs/v42_guard_h18r4_verdict_2026-05-15.md)
 - **H19 failure verdict** (an honest failed candidate): [`docs/h19_verdict_2026-05-16.md`](https://github.com/humanaiconvention/gemma4good/blob/main/docs/h19_verdict_2026-05-16.md)
 - **Independent reproduction:** [`benhaslam/haic-guard-v42-reproducibility-demo-h18r4`](https://www.kaggle.com/code/benhaslam/haic-guard-v42-reproducibility-demo-h18r4) — runs in under a minute, no GPU, emits a SHA3 receipt.

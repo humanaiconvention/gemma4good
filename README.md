@@ -17,6 +17,13 @@ Verifiable, Consent-Gated AI Alignment
 > `4d0d7bf05ea2cc8d323b08982329455c72a999bd6da5a75a8b136a81b8ad8bb8`
 > ([H26 verdict](docs/h26_verdict_2026-05-17.md)).
 >
+> **Submitted snapshot:** Kaggle submission filed 2026-05-18 from
+> commit `ec7db2e`; see
+> [`docs/submission_manifest_2026-05-18.md`](docs/submission_manifest_2026-05-18.md)
+> for the frozen submission set and
+> [`docs/research_record_map.md`](docs/research_record_map.md) for the
+> post-submission reader map.
+>
 > **Video:** https://youtu.be/p5ZprNkIAEM
 
 ---
@@ -83,7 +90,7 @@ produces a Merkle-anchored JSON receipt for one synthetic federation round.
 
 **Test it:**
 ```bash
-python -m pytest tests/                                   # 679 tests
+python -m pytest tests/                                   # 797 tests
 python experiments/runtime_loop_stress_test.py            # 7 streams
 bash scripts/verify_all.sh                                # all of the above + receipts
 ```
@@ -122,11 +129,11 @@ gemma4good/
 │   ├── runtime_loop_stress_report.json     ← receipt-anchored stress test result
 │   ├── prism_geometry_trajectory.py        ← v55–v58 PRISM qh scan
 │   ├── h19_*.jsonl                         ← H19 predeclared Unicode/multi-msg suites
-│   ├── h19_offline_eval.py                 ← H19 offline gate runner (B/C/D)
-│   ├── v42_guard_h18r4_canonical.json      ← H18r4 PROMOTED anchor 18e2c5a5…
+│   ├── h26_*.jsonl / h26_*.py              ← final H26 multi-language gate suite
+│   ├── v42_guard_v7_h26_canonical.json     ← submitted H26 anchor 4d0d7bf…
 │   └── archive/                            ← v43–v59 notebook builders, legacy evals
 ├── tests/
-│   └── test_*.py                           ← 679 unit tests covering eval + four layers
+│   └── test_*.py                           ← 797 unit tests covering eval + four layers
 ├── prism_integration/                      ← Prism geometry wrappers (E(t) source)
 ├── maestro_integration/                    ← Maestro gateway client
 ├── viability/
@@ -236,6 +243,10 @@ jupyter notebook notebook/haic_gemma4_governance.ipynb
 
 - `docs/project_goal_2026-05-13.md` — current scientific charter for the
   submission: governance proof first, fine-tuning as falsifiable appendix
+- `docs/submission_manifest_2026-05-18.md` — exact submitted snapshot and
+  load-bearing file set
+- `docs/research_record_map.md` — post-submission map of governance,
+  fine-tuning, guard, and reproducibility tracks
 - `docs/submission_alignment_2026-05-13.md` — current submission posture,
   load-bearing documents, and claim discipline
 - `docs/v57_production_candidate_plan_2026-05-14.md` — precommitted path for
@@ -308,9 +319,15 @@ jupyter notebook notebook/haic_gemma4_governance.ipynb
   predicate for legitimate operator pos-0 system prompts (the fix for
   the H19-D2 precommit-vs-suite confound).
 - `docs/h22_verdict_2026-05-16.md` — **H22 PASS** (all 16 gates);
-  `guard-v5 + v42` is the **current promoted live candidate**; anchor
-  `5f2e796cf5af…`; closes L-02b. All eight known limitations from the
-  H18r4 known-limitations doc are now resolved.
+  `guard-v5 + v42` superseded H21; anchor `5f2e796cf5af…`; closes L-02b.
+- `docs/h23_verdict_2026-05-16.md` — H23 PASS at threshold; encoded-payload
+  behavioral defense held and surfaced L-08.
+- `docs/h24_verdict_2026-05-16.md` — H24 PASS; leet-fold closes L-08 and
+  promotes `guard-v6 + v42`.
+- `docs/h25_verdict_2026-05-16.md` — **H25 FAIL**; native-language attack
+  bypass confirmed and documented as L-09.
+- `docs/h26_verdict_2026-05-17.md` — **H26 PASS**; multi-language rules close
+  L-09 and promote `guard-v7 + v42`, the submitted candidate.
 - `docs/discipline_is_the_contribution.md` — 1,200-word essay on
   predeclared, non-compensatory, anchored evaluation as the contribution.
 - `docs/compliance_one_pager.md` — EU AI Act / NIST AI RMF / US AG /

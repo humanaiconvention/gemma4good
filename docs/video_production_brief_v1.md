@@ -305,7 +305,7 @@ Canonical anchor:
 Reproduce in under a minute (public Kaggle kernel):
 https://www.kaggle.com/code/benhaslam/haic-guard-v42-reproducibility-demo-h18r4
 
-Repository (679 tests, Apache-2.0):
+Repository (797 tests, Apache-2.0):
 https://github.com/humanaiconvention/gemma4good
 
 Main governance notebook:

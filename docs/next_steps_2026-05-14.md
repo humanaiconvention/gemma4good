@@ -1,25 +1,31 @@
 # Gemma4Good Next Steps — 2026-05-14
 
-## Current Decision (updated 2026-05-16)
+> **Post-submission note (2026-05-18):** this file is a historical worklog.
+> For the submitted snapshot and current reader path, use
+> `docs/submission_manifest_2026-05-18.md` and
+> `docs/research_record_map.md`.
 
-**`guard-v5 + v42` (H22) is the current promoted live candidate** as of
-2026-05-16 late evening. All 16 non-compensatory predeclared gates
-passed: H21's multi-message closure + Unicode normalization carried
-forward, plus client-supplied `role: system` rejection (15/15 reject
-at non-first positions, 10/10 legitimate pos-0 system prompts forwarded
-correctly, 0/20 benign multi-turn FP across 13 languages). v42 weights
-unchanged. Guard-v5 is `tools/v42_boundary_guard_v5.py` serving on port
-8086. Anchor:
-`5f2e796cf5afe1665c6084a7ccf9e43c419555178e08653f21c5d7234f359abc`.
+## Current Decision (updated 2026-05-18)
 
-Discipline trail (48 hours, four anchored PASSES + one anchored FAIL, no gate relaxation):
+**`guard-v7 + v42` (H26) is the submitted promoted candidate** as of
+2026-05-18. H26 passed all four predeclared non-compensatory gates:
+canonical replay, native-language attack trigger rate, post-endpoint leak
+rate, and multilingual benign false-positive rate. v42 weights are unchanged.
+Guard-v7 is `tools/v42_boundary_guard_v7.py`. Anchor:
+`4d0d7bf05ea2cc8d323b08982329455c72a999bd6da5a75a8b136a81b8ad8bb8`.
+
+Discipline trail (50+ hours, seven anchored PASSES + two anchored FAILS, no gate relaxation):
 - **H18r4** PASS (2026-05-15) anchored `18e2c5a5…` — original guard, ASCII attacks only.
 - **H19** FAIL (2026-05-16 early) — suite-design flaw confused multi-message with rule coverage AND precommit-vs-suite inconsistency on system-role. Published honestly.
 - **H20** PASS (2026-05-16 afternoon) anchored `56ce960993f9…` — Unicode-bypass closure (L-01) isolated.
 - **H21** PASS (2026-05-16 evening) anchored `d916ef63…` — multi-message attack closure (L-02) isolated.
-- **H22** PASS (2026-05-16 late evening) anchored `5f2e796cf5af…` — client-supplied system-role rejection (L-02b) isolated, with explicit D2b predicate for legitimate operator pos-0 system prompts. **Current promoted candidate.**
+- **H22** PASS (2026-05-16 late evening) anchored `5f2e796cf5af…` — client-supplied system-role rejection (L-02b) isolated, with explicit D2b predicate for legitimate operator pos-0 system prompts.
+- **H23** PASS (2026-05-16) — encoded-payload behavioral defense held and surfaced L-08.
+- **H25** FAIL (2026-05-16) — native-language attack bypass confirmed and documented as L-09.
+- **H24** PASS (2026-05-16) anchored `eb61ebc7c0fe…` — leet-fold closes L-08.
+- **H26** PASS (2026-05-17) anchored `4d0d7bf05ea2…` — multi-language closes L-09. **Submitted promoted candidate.**
 
-**All eight documented limitations from `docs/v42_guard_known_limitations_2026-05-15.md` are now resolved.**
+**All documented limitations from `docs/v42_guard_known_limitations_2026-05-15.md` are now closed, routed to another layer, or intentionally out of scope.**
 
 Per-item:
 - L-01, L-02, L-02b, L-07: CLOSED via H-series anchors (L-01 H20, L-02 H21, L-02b H22) or removal (L-07).
@@ -34,7 +40,7 @@ Per-item:
 The honest submission story:
 
 - The governance loop is the primary contribution.
-- v42 is the base model; guard + v42 is the promoted security endpoint.
+- v42 is the base model; guard-v7 + v42 is the submitted promoted security endpoint.
 - v58/v59 are valuable experimental appendix results (best model-only
   explicit refusal), but neither cleared promotion gates without the guard.
 - The guard demonstrates that deterministic runtime governance can close
@@ -73,19 +79,21 @@ The honest submission story:
    - The canonical JSON remains the promotion artifact; the sidecar is the
      required diagnostic artifact for failed candidates.
 
-6. Deterministic boundary guard — **H18 PASSED 2026-05-15**:
-   - Guard: `tools/v42_boundary_guard.py` (port 8082, 16 rules, 60 tests).
-   - H18r4 verdict: `docs/v42_guard_h18r4_verdict_2026-05-15.md`.
-   - Anchor: `18e2c5a5522f4a8dc373ee0d2c33c5d25dd4463226e39a8a7e51ce1e77422f88`.
-   - All 13 gates PASS. `guard + v42` is now the promoted candidate.
-   - The canonical submission endpoint is port 8082 (guard) → 8081 (v42).
+6. Deterministic boundary guard — **H26 PASSED 2026-05-17**:
+   - Guard: `tools/v42_boundary_guard_v7.py`.
+   - H26 verdict: `docs/h26_verdict_2026-05-17.md`.
+   - Anchor: `4d0d7bf05ea2cc8d323b08982329455c72a999bd6da5a75a8b136a81b8ad8bb8`.
+   - All H26 gates PASS. `guard-v7 + v42` is the submitted promoted
+     candidate.
+   - H18r4 remains the historical ASCII-only anchor, not the final submitted
+     candidate.
 
 ## Verification Performed
 
 Current pass on 2026-05-14:
 
-- `python -m pytest tests/` passed: 679 passed (60 guard tests after DI-06
-  addition + 2 new DI-06 trigger tests), 1 dependency deprecation warning.
+- `python -m pytest tests/` passed in the final submission state: 797 passed,
+  1 dependency deprecation warning.
 - `python experiments/runtime_loop_stress_test.py` passed: 7 streams passed,
   0 failed.
 - Runtime stress receipt:

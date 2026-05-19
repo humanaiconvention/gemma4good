@@ -6,6 +6,22 @@ Per submission discipline, every model claim has a precommitted hypothesis,
 a canonical eval, a self-anchor, and a verdict doc. This file is a high-
 level rollup; the dated docs in `docs/` are the load-bearing record.
 
+## [Submitted Snapshot] — 2026-05-18
+
+### Added
+- `docs/submission_manifest_2026-05-18.md` — exact Kaggle submission
+  boundary at commit `ec7db2e`.
+- `docs/research_record_map.md` — post-submission evidence map for cold
+  readers and future agents.
+- Final media gallery assets, video URL, and Kaggle card preview.
+
+### Changed
+- Submitted promoted candidate is `guard-v7 + v42` (H26), anchor
+  `4d0d7bf05ea2cc8d323b08982329455c72a999bd6da5a75a8b136a81b8ad8bb8`.
+- Test count reached 797 passing in the submitted state.
+- H19 and H25 remain published FAIL verdicts; H20/H21/H22/H24/H26 are the
+  passing closures that preserve the non-compensatory gate discipline.
+
 ## [Unreleased] — 2026-05-16
 
 ### Added — H19 verdict (FAIL — discipline held)

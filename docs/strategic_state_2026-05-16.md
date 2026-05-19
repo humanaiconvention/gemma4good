@@ -4,7 +4,7 @@
 who picks this up — including the operator three months from now —
 would need to start.*
 
-**Status:** 2026-05-16. Living document. Update when state changes,
+**Status:** 2026-05-18 post-submission. Living document. Update when state changes,
 not on a schedule.
 
 ---
@@ -12,15 +12,15 @@ not on a schedule.
 ## One-paragraph summary
 
 The Convention's runtime and evaluation infrastructure is technically
-complete and publicly anchored. The Gemma 4 Good Kaggle submission is
-filed (or about to be — deadline May 18 2026 23:59 UTC) with a
-promoted candidate, dated verdicts for nine failed alternatives, three
-public Kaggle notebooks, and a 1,200-word doctrine essay. The remaining
-work is **adoption**: getting the Frontier-Integration spec, the
-discipline essay, and the compliance one-pager in front of named
+complete, publicly anchored, and submitted to the Kaggle Gemma 4 Good
+Hackathon. The submitted snapshot is commit `ec7db2e`, indexed in
+`docs/submission_manifest_2026-05-18.md`. The promoted candidate is
+`guard-v7 + v42` at H26 anchor
+`4d0d7bf05ea2cc8d323b08982329455c72a999bd6da5a75a8b136a81b8ad8bb8`.
+The remaining work is **adoption**: getting the Frontier-Integration spec,
+the discipline essay, and the compliance one-pager in front of named
 individuals at frontier labs, regulators, researchers, and journalists.
-Adoption is currently bottlenecked on outreach motion — not on more
-features.
+Adoption is currently bottlenecked on outreach motion, not on more features.
 
 ---
 
@@ -28,15 +28,11 @@ features.
 
 ### Active
 
-- **Kaggle Gemma 4 Good submission.** Two days from deadline.
-  - Submission package: WRITEUP.md ✓, repo ✓, three public Kaggle
-    notebooks ✓, reproducibility kernel ✓.
-  - **Missing:** project video (in progress with Claude Design),
-    media gallery cover image, primary track selection (recommend
-    Safety & Trust), Kaggle identity-verification badge confirmation.
-  - **License:** switched CC0-1.0 → Apache 2.0 on 2026-05-16 for
-    hackathon alignment (LICENSE + NOTICE both updated).
-  - Owner: operator. Cannot complete without operator action.
+- **Post-submission aftercare.**
+  - Preserve the submitted snapshot boundary (`docs/submission_manifest_2026-05-18.md`).
+  - Keep active reader-entry docs aligned with H26.
+  - Leave dated verdicts historical rather than rewriting them.
+  - Owner: repo operator + any assisting agent.
 
 - **PR #110 on humanai-convention.** Interviewer helper banner.
   Open, build verified, waiting on operator review/merge.
@@ -47,15 +43,10 @@ features.
 
 ### Predeclared but not executed
 
-- **H20** — Unicode-bypass closure as a clean re-test of the H19
-  failure. Precommit and gates in
-  `docs/h20_precommit_hypothesis_2026-05-16.md`. One weekend of work.
-  Run after the Kaggle deadline.
-
 - **H-passing-1** — "framework correctly passes" demonstration on a
   base model with `qh ≤ 0.72`. Precommit and gates in
   `docs/passing_model_demo_plan.md`. Primary candidate Qwen 2.5 7B
-  Instruct. One weekend of work. Run after H20.
+  Instruct. One weekend of work.
 
 ### Decided but not implemented
 
@@ -91,7 +82,7 @@ zero conversations.
 ### What's already on the public web
 
 - [github.com/humanaiconvention/gemma4good](https://github.com/humanaiconvention/gemma4good) —
-  full source, 702 tests, dated verdict docs, Apache 2.0.
+  full source, 797 tests, dated verdict docs, Apache 2.0.
 - Three public Kaggle notebooks under `benhaslam` (governance agent,
   Tier 3 live validation, reproducibility demo).
 - [humanaiconvention.com](https://humanaiconvention.com) — the public
@@ -101,6 +92,7 @@ zero conversations.
   hover fix.
 - [DOI 10.5281/zenodo.18144681](https://doi.org/10.5281/zenodo.18144681) —
   Viability Condition paper.
+- [YouTube video](https://youtu.be/p5ZprNkIAEM) — submission video.
 
 ### What's notably absent from the public web
 

@@ -1,5 +1,10 @@
 # Pre-submission checklist — Gemma 4 Good Hackathon
 
+> **Post-submission note:** the project was submitted on 2026-05-18. This
+> checklist is retained as the operator checklist used at the deadline. The
+> frozen submission set is now indexed in
+> `docs/submission_manifest_2026-05-18.md`.
+
 **Deadline:** 2026-05-18 23:59 UTC
 **Target submission window:** at least 4 hours before deadline (i.e. by 19:59 UTC on May 18) to allow buffer for upload retries, mis-fields, last-minute fixes.
 
@@ -84,7 +89,7 @@ git status                                        # → nothing to commit
 git log --oneline -1 origin/main..HEAD            # → empty (no unpushed commits)
 
 # 3. Tests pass
-python -m pytest tests/ -q                        # → 679+ passed
+python -m pytest tests/ -q                        # → 797 passed
 
 # 4. Submission notebook still runs (smoke check)
 python -c "import json; nb = json.load(open('notebook/haic_gemma4_governance.ipynb')); print(f'cells: {len(nb[\"cells\"])}')"
@@ -98,7 +103,7 @@ head -25 WRITEUP.md
 
 - [ ] Working tree clean
 - [ ] No unpushed commits
-- [ ] Tests pass (679+)
+- [ ] Tests pass (797)
 - [ ] Notebook still parses
 - [ ] LICENSE file present
 - [ ] WRITEUP has 30-second-version above the fold

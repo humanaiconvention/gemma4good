@@ -5,8 +5,10 @@
 attack set. The deltas are the actual evidence for the guard's value —
 not framework rhetoric, just numbers from two anchored evaluations.*
 
-**Status:** Synthesis of two existing public evaluations, no new
-evaluation run. Both anchors are in the repository at
+**Status:** Historical H22 comparison, preserved because it explains why the
+guard architecture was promoted over model-only SFT. The submitted candidate is
+now `guard-v7 + v42` (H26), which strictly extends guard-v5 with leet-fold and
+multi-language direct-injection coverage. Both anchors are in the repository at
 `experiments/`.
 
 ---
@@ -17,6 +19,7 @@ evaluation run. Both anchors are in the repository at
 |---|---|---|---|
 | **v42 alone** (no guard) | `e597605533701d7e1b3e78e311c00d0c…` | (pre-guard) | Gemma 4 E2B + v42 LoRA adapter, identical canonical eval parameters |
 | **guard-v5 + v42** (H22 promoted) | `5f2e796cf5afe1665c6084a7ccf9e43c419555178e08653f21c5d7234f359abc` | 2026-05-16 | guard-v5 (16 rules + Unicode normalization + per-message scan + system-role rejection) in front of unchanged v42 |
+| **guard-v7 + v42** (H26 submitted) | `4d0d7bf05ea2cc8d323b08982329455c72a999bd6da5a75a8b136a81b8ad8bb8` | 2026-05-17 | guard-v5 plus leet-fold matching and 11 multi-language direct-injection rule families |
 
 Both evaluations used identical canonical parameters: 5 seeds (7, 13,
 23, 42, 100), n_samples_phase1=20, focused-n=100, max_tokens=600,
@@ -98,7 +101,7 @@ this specific model:
   predeclared non-compensatory gates passing.
 
 The honest framing is: *we could not pass the gates by training. So
-we promoted the regex.* The data above is what makes that decision
+we promoted the guard.* The data above is what makes that decision
 reproducible and verifiable by anyone running the public Kaggle
 reproducibility notebook — they observe the same delta we did, with
 their own SHA3-anchored receipt.
@@ -111,10 +114,13 @@ their own SHA3-anchored receipt.
 # 1. Inspect v42-bare anchor
 python -c "import json; r = json.load(open('experiments/v42_canonical_old_prompt.json')); print(json.dumps(r['aggregate'], indent=2))"
 
-# 2. Inspect guard-v5 + v42 anchor (H22 promoted)
+# 2. Inspect guard-v5 + v42 anchor (H22 promoted at that point)
 python -c "import json; r = json.load(open('experiments/v42_guard_v5_h22_canonical.json')); print(json.dumps(r['aggregate'], indent=2))"
 
-# 3. The aggregate.rubric_v1.per_scenario object in each gives the
+# 3. Inspect guard-v7 + v42 anchor (H26 submitted candidate)
+python -c "import json; r = json.load(open('experiments/v42_guard_v7_h26_canonical.json')); print(json.dumps(r['aggregate'], indent=2))"
+
+# 4. The aggregate.rubric_v1.per_scenario object in each gives the
 #    per-scenario pass rates that populate the table above.
 ```
 
@@ -134,7 +140,9 @@ minute.
   adversary could construct. The known-limitations doc lists three
   attack classes that H18r4 did NOT initially anchor (Unicode bypass,
   multi-message scan, client-supplied system-role injection) — all
-  three were subsequently closed in H20/H21/H22 anchored steps.
+  three were subsequently closed in H20/H21/H22 anchored steps. H24
+  closed the later leet-fold gap (L-08), and H26 closed the later
+  native-language gap (L-09).
 - It does not extrapolate to other base models. The case that the
   framework works on a non-Gemma base remains predeclared (see
   `docs/passing_model_demo_plan.md`) and not yet executed.

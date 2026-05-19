@@ -13,11 +13,13 @@ For the submission story aimed at judges, start with `WRITEUP.md` instead.
 | What | Where |
 |---|---|
 | Submission entry point | `notebook/haic_gemma4_governance.ipynb` (Kaggle: `benhaslam/haic-gemma4-governance-agent`) |
-| Promoted live candidate | `tools/v42_boundary_guard.py` + `D:/kaggle/results/v42-gguf/haic-gemma4-v42-Q5_K_M.gguf` |
-| Canonical anchor | `18e2c5a5522f4a8dc373ee0d2c33c5d25dd4463226e39a8a7e51ce1e77422f88` |
-| Verdict | `docs/v42_guard_h18r4_verdict_2026-05-15.md` |
-| Known gaps | `docs/v42_guard_known_limitations_2026-05-15.md` |
-| Test surface | `python -m pytest tests/` → 679 passing |
+| Submitted snapshot | `docs/submission_manifest_2026-05-18.md` (`ec7db2e`) |
+| Research map | `docs/research_record_map.md` |
+| Promoted live candidate | `tools/v42_boundary_guard_v7.py` + `D:/kaggle/results/v42-gguf/haic-gemma4-v42-Q5_K_M.gguf` |
+| Canonical anchor | `4d0d7bf05ea2cc8d323b08982329455c72a999bd6da5a75a8b136a81b8ad8bb8` |
+| Verdict | `docs/h26_verdict_2026-05-17.md` |
+| Limitations ledger | `docs/v42_guard_known_limitations_2026-05-15.md` (L-01 through L-09 closed/routed/out-of-scope as of H26) |
+| Test surface | `python -m pytest tests/` → 797 passing |
 
 ---
 
@@ -32,12 +34,12 @@ A governance framework for grounded AI built on Gemma 4 E2B that:
    `Ceff(t) > E(t)` is **violated** for Gemma 4 E2B (`Ceff/E = 0.879`). The
    framework's job is to flag this, not mask it.
 3. **Closes security gaps with deterministic runtime governance.** The
-   `guard + v42` promoted candidate uses 16 regex rules across 4 attack classes
-   to block injection / jailbreak / disclosure attempts before they reach v42,
-   passing all 13 H18 non-compensatory gates.
-4. **Documents acknowledged limitations honestly.** Unicode normalization and
-   multi-message scanning are documented as known gaps with a predeclared H19
-   hypothesis to close them.
+   submitted `guard-v7 + v42` candidate preserves the original 16 English guard
+   rules and adds Unicode normalization, per-message scanning, system-role
+   rejection, leet-fold matching, and 11 multi-language direct-injection rules.
+4. **Documents acknowledged limitations honestly.** H19 and H25 failed in
+   public; H20, H21, H22, H24, and H26 closed the resulting documented gaps
+   through separate predeclared hypotheses.
 
 ## What this project is NOT
 
@@ -59,8 +61,8 @@ A governance framework for grounded AI built on Gemma 4 E2B that:
 gemma4good/
 ├── notebook/haic_gemma4_governance.ipynb       Kaggle submission notebook
 ├── tools/
-│   ├── v42_boundary_guard.py                   PROMOTED guard (H18r4)
-│   ├── v42_boundary_guard_v2.py                H19 candidate (Unicode + multi-msg)
+│   ├── v42_boundary_guard.py                   historical H18r4 guard
+│   ├── v42_boundary_guard_v7.py                PROMOTED guard (H26)
 │   ├── haic_tools.py                           5 governance function-call tools
 │   ├── check_promotion.py                      6-gate decision CLI (v38–v40 era)
 │   └── …
@@ -72,11 +74,11 @@ gemma4good/
 ├── experiments/
 │   ├── canonical_eval.py                       Post-v42 canonical evaluator
 │   ├── rubrics.py                              Stable rubric API (strict + v1)
-│   ├── h19_*.jsonl                             Predeclared H19 test suites
-│   ├── v42_guard_h18r4_canonical.json          H18r4 anchored eval result
+│   ├── h19_*.jsonl / h26_*.py                  H-series test suites and runners
+│   ├── v42_guard_v7_h26_canonical.json         H26 anchored eval result
 │   ├── prism_geometry_trajectory.py            PRISM qh scan across v55–v58
 │   └── archive/                                v43–v59 notebook builders, legacy evals
-├── tests/                                      679 pytest tests
+├── tests/                                      797 pytest tests
 ├── docs/                                       81 dated docs (hypotheses, verdicts, plans)
 └── _local_*/                                   gitignored local-only state
 ```
@@ -87,7 +89,7 @@ gemma4good/
 
 ```bash
 python -m pytest tests/ -q
-# Expected: 679 passed, 1 dependency deprecation warning, ~30s
+# Expected: 797 passed, 1 dependency deprecation warning
 ```
 
 ## Run the promoted candidate locally
@@ -102,27 +104,27 @@ D:/llama.cpp/build/bin/llama-server.exe \
     -m D:/kaggle/results/v42-gguf/haic-gemma4-v42-Q5_K_M.gguf \
     --port 8081 -c 2048
 
-# Terminal 2: start the guard on 8082
-python -m tools.v42_boundary_guard --upstream http://127.0.0.1:8081 --port 8082
+# Terminal 2: start the submitted guard-v7 endpoint
+python -m tools.v42_boundary_guard_v7 --upstream http://127.0.0.1:8081 --port 8088
 
-# Now point any OpenAI-compatible client at http://127.0.0.1:8082.
+# Now point any OpenAI-compatible client at http://127.0.0.1:8088.
 # Canonical attacks return a deterministic refusal; benign turns flow to v42.
 ```
 
-## Reproduce the H18r4 anchor
+## Reproduce the H26 anchor
 
 ```bash
 python experiments/canonical_eval.py \
-    --model-id haic-gemma4-v42-guard \
-    --server-url http://127.0.0.1:8082 \
+    --model-id haic-gemma4-v42-guard-v7 \
+    --server-url http://127.0.0.1:8088 \
     --scenarios experiments/sgt_scenarios_v2.jsonl \
     --system-prompt-variant old \
     --seeds 7 13 23 42 100 \
     --n-samples 20 \
     --focused-n 100 \
-    --out experiments/v42_guard_repro.json \
-    --failure-sidecar experiments/v42_guard_repro_failures.jsonl
-# Expected: anchor 18e2c5a5… and zero failure sidecar records
+    --out experiments/v42_guard_v7_repro.json \
+    --failure-sidecar experiments/v42_guard_v7_repro_failures.jsonl
+# Expected: anchor 4d0d7bf05ea2... within the H26 evaluation conditions.
 ```
 
 ---
@@ -140,8 +142,9 @@ These are not suggestions. Violating them invalidates the promotion decision.
    `(artifact path, eval command, seeds, sample counts, JSON self-anchor,
    predeclared predicate, honest verdict)`. No artifact = no verdict.
 4. **The guard matching surface is anchored.** Any change to rule patterns,
-   normalization, or message iteration in `tools/v42_boundary_guard.py`
-   invalidates the H18r4 anchor and requires a new H-series hypothesis.
+   normalization, message iteration, system-role rejection, leet-folding, or
+   multi-language matching in `tools/v42_boundary_guard_v7.py` invalidates the
+   H26 anchor and requires a new H-series hypothesis.
 5. **Don't relaunch fine-tuning by momentum.** v60+ is not warranted without a
    new precommitted hypothesis backed by the geometry trajectory evidence
    in `experiments/prism_geometry_trajectory_2026-05-15.json`.
@@ -215,10 +218,11 @@ imports it (`grep -rn "import <module>" --include="*.py"`). Update the
 For continuity questions, the prior session's handoff is in `docs/next_steps_2026-05-14.md`.
 
 If you're an LLM agent picking up an autonomous session, read in order:
-1. `WRITEUP.md` (5 min — the public claim)
-2. `docs/v42_guard_h18r4_verdict_2026-05-15.md` (10 min — current state)
-3. `docs/evaluation_doctrine.md` (5 min — the discipline)
-4. `docs/v42_guard_known_limitations_2026-05-15.md` (5 min — what's open)
-5. This file (5 min — operational notes)
+1. `docs/submission_manifest_2026-05-18.md` (5 min — submitted snapshot)
+2. `docs/research_record_map.md` (5 min — where the evidence lives)
+3. `WRITEUP.md` (5 min — the public claim)
+4. `docs/h26_verdict_2026-05-17.md` (10 min — current promoted candidate)
+5. `docs/evaluation_doctrine.md` (5 min — the discipline)
+6. This file (5 min — operational notes)
 
 That's 30 minutes to be productive.
